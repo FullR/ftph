@@ -1,0 +1,15 @@
+{
+  "name": "flashcards",
+  "version": "0.0.1",
+  "devDependencies": {
+    "express": "^4.9.7",
+    "gulp-concat": "^2.4.1",
+    "gulp-react": "^1.0.2",
+    "jshint-stylish": "^1.0.0"
+  },
+  "dependencies": {
+    "backbone": "^1.1.2",
+    "lodash": "^2.4.1",
+    "store.js": "^1.0.4"
+  }
+}
