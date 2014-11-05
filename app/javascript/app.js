@@ -1,14 +1,26 @@
 "use strict";
 
 var $ = require("jquery"),
-	bb = require("backbone"),
-	Deck = require("./models/deck"),
-	decks = [
+	Backbone = require("backbone"),
+	model,
+	Application;
 
-	];
-window.router = require("./router");
+Backbone.$ = $;
+window.$ = $;
+window._ = require("underscore");
+window.Backbone = Backbone;
+window.React = require("react");
+window.component = require("omniscient");
+window.noop = function() {};
 
-bb.$ = $;
+window.maybeInit = function(instance, Clas) {
+	return instance instanceof Clas ? instance : new Clas(instance);
+};
 
+function mountComponent(component) {
+	React.render(component(), $(".outlet").get(0));
+}
+model = require("./storage");
+Application = require("./components/application.jsx");
 
-router("decks", decks);
+mountComponent(Application);

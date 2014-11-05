@@ -1,12 +1,13 @@
 var gulp = require("gulp"),
 	plumber = require("gulp-plumber"),
 	sass = require("gulp-sass"),
-	browserify = require("gulp-browserify"),
+	browserify = require("browserify"),
 	concat = require("gulp-concat"),
 	jshint = require("gulp-jshint"),
-	react = require("gulp-react"),
+	reactify = require("reactify"),
+	source = require("vinyl-source-stream"),
 	stylish = require("jshint-stylish"),
-	port = 4200;
+	port = 4210;
 
 var globalFiles = [
 	"bower_components/store.js/store+json2.min.js"
@@ -19,12 +20,13 @@ gulp.task("lint", function() {
 		.pipe(jshint.reporter(stylish));
 });
 
-gulp.task("javascript", ["lint"], function() {
-	return gulp.src("app/javascript/app.js")
-		.pipe(plumber())
-		.pipe(react())
-		.pipe(browserify({debug: true}))
-		.pipe(gulp.dest("dist/assets"));
+gulp.task("javascript", function() {
+	var b = browserify();
+	b.transform(reactify);
+	b.add("./app/javascript/app.js");
+	return b.bundle()
+	    .pipe(source("app.js"))
+	    .pipe(gulp.dest("./dist/assets"));
 });
 
 gulp.task("global-js", function() {
@@ -57,7 +59,7 @@ gulp.task("serve", function() {
 gulp.task("build", ["javascript", "global-js", "styles", "html"]);
 
 gulp.task("watch", ["build"], function() {
-	gulp.watch("app/javascript/**/*.js", ["javascript"]);
+	gulp.watch(["app/javascript/**/*.js", "app/javascript/**/*.jsx"], ["javascript"]);
 	gulp.watch("app/styles/**/*.scss", ["styles"]);
 	gulp.watch("app/index.html", ["html"]);
 });

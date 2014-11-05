@@ -1,29 +1,27 @@
 "use strict";
 
-var $ = require("jquery"),
-	$outlet = $(".outlet"),
-	Decks = require("./views/decks"),
-	Flashcards = require("./views/flashcards"),
-	NewDeck = require("./views/new-deck");
+var slice = [].slice,
+	Splash = require("./components/levels/splash.jsx"),
+	Menu = require("./components/levels/menu.jsx"),
+	outlet = $(".outlet").get(0);
 
-var routes = {
-	"decks": Decks,
-	"flashcards": Flashcards,
-	"new-deck": NewDeck
-};
-
-var slice = [].slice;
-
-function router(name) {
-	var args = slice.call(arguments, 1),
-		route = routes[name];
-	args.unshift($outlet);
-	if(route) {
-		$outlet.html(route.apply(null, args).render());
-	}
-	else {
-		throw {error: "Undefined route " + name};
-	}
+function mountComponent(component) {
+	return function() {
+		React.renderComponent(component.apply(null, arguments), outlet);
+	};
 }
 
+var router = new (Backbone.Router.extend({
+	routes: {
+		"splash": "splash",
+		"menu": "menu"
+	},
+
+	splash: mountComponent(Splash),
+	menu:   mountComponent(Menu)
+}));
+
+window.navigate = router.navigate.bind(router);
+
+Backbone.history.start();
 module.exports = router;
