@@ -1,5 +1,5 @@
 {
-	"predef": ["console", "router", "store"],
+	"predef": ["console"],
 	"browserify": true,
 	"newcap": false
 }

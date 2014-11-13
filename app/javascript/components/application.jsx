@@ -1,95 +1,70 @@
-"use strict";
+'use strict';
 
-var load = require("../utility/load"),
-	Route    = require("./route.jsx"),
-	Link     = require("./utility/link.jsx"),
-	Q = require("q");
+var _ = require("lodash"),
+	React 	 = require('react'),
+	Route    = require('./route.jsx'),
+	Link     = require('./utility/link.jsx'),
+	Q 		 = require('q');
 
-function wait(ms) {
-	return Q.promise(function(resolve) {
-		setTimeout(resolve, ms);
-	});
-}
+var Splash = require('./screens/splash.jsx'),
+	Login  = require('./screens/login.jsx'),
+	Menu   = require("./screens/menu.jsx");
 
-var Time = React.createClass({
-	getDefaultProps: function() {
-		return {
-			hours: 0,
-			minutes: 0,
-			seconds: 0,
-			mode: "24h"
-		};
-	},
-
-	pad: function(n) {
-		return (n+"").length < 2 ? "0"+n : n;
-	},
-
-	render: function() {
-		var mode = this.props.mode,
-			pm,
-			timeString;
-
-		if(mode === "24h") {
-			timeString = this.pad(this.props.hours) + ":" + this.pad(this.props.minutes) + ":" + this.pad(this.props.seconds);
-		}
-		else {
-			pm = this.props.hours > 12;
-			timeString = this.pad(this.props.hours%12) + ":" + this.pad(this.props.minutes) + ":" + this.pad(this.props.seconds) + " " + (pm ? "PM" : "AM");
-		}
-		return <span className='time'>{timeString}</span>
-	}
-});
-
-var Clock = React.createClass({
-	getInitialState: function() {
-		return {date: new Date};
-	},
-
-	render: function() {
-		var date = this.state.date;
-
-		setTimeout(function() {
-			this.setState({date: new Date});
-		}.bind(this), 500);
-
-		return (
-			<div className='clock'>
-				<Time hours={date.getHours()} minutes={date.getMinutes()} seconds={date.getSeconds()} mode={this.props.mode}/>
-			</div>
-		);
-	}
-});
-
-
+var Activity1to3  = require("./screens/activities/activity-1-3.jsx"),
+	Activity4to6  = require("./screens/activities/activity-4-6.jsx"),
+	Activity7to8  = require("./screens/activities/activity-7-8.jsx"),
+	Activity9to10 = require("./screens/activities/activity-9-10.jsx");
 
 var Application = React.createClass({
 	render: function() {
-
-		var barNumberHandler = function(num) {
-			return wait(3000).then(function() {
-				return <div>this is some async data {num*43}</div>
-			});
-		}.bind(this);
+		var model = this.props.model,
+			activities = model.activities;
 
 		return (
-			<div className="app">
-				<Route>Index route</Route>
-
-				<Route path="time">
-					<Clock />
+			<div className='app'>
+				<Route>
+					<Menu />
 				</Route>
 
-				<Route path="bar(/*rest)">
-					bar route
-					<Route path="bar/:num" handler={barNumberHandler}>
-						bar/:num route
-					</Route>
+				<Route path='activity/1'>
+					<Activity1to3 id={0} type='prefix' activity={activities[0]} />
+				</Route>
+				<Route path='activity/2'>
+					<Activity1to3 id={1} type='root' activity={activities[1]} />
+				</Route>
+				<Route path='activity/3'>
+					<Activity1to3 id={2} type='suffix' activity={activities[2]} />
 				</Route>
 
-				<Link to="time"><button>time</button></Link>
-				<Link to="bar"><button>bar</button></Link>
-				<Link to="bar/23"><button>bar/23</button></Link>
+
+
+				<Route path='activity/4'>
+					<Activity4to6 id={3} type='prefix' activity={activities[3]} />
+				</Route>
+				<Route path='activity/5'>
+					<Activity4to6 id={4} type='root' activity={activities[4]} />
+				</Route>
+				<Route path='activity/6'>
+					<Activity4to6 id={5} type='suffix' activity={activities[5]} />
+				</Route>
+
+
+
+				<Route path='activity/7'>
+					<Activity7to8 id={6} type='word' count={3} activity={activities[6]} />
+				</Route>
+				<Route path='activity/8'>
+					<Activity7to8 id={7} type='word' count={4} activity={activities[7]} />
+				</Route>
+
+
+
+				<Route path='activity/9'>
+					<Activity9to10 id={8} type='word' count={3} activity={activities[8]} />
+				</Route>
+				<Route path='activity/10'>
+					<Activity9to10 id={9} type='word' count={4} activity={activities[9]} />
+				</Route>
 			</div>
 		);
 	}

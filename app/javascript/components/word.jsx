@@ -1,6 +1,7 @@
 "use strict";
 
-var WordPart = require("./word-part.jsx");
+var React = require("react"),
+	WordPart = require("./word-part.jsx");
 
 var Word = React.createClass({
 	render: function() {

@@ -1,10 +1,15 @@
 "use strict";
 
-var WordPart = Backbone.Model.extend({
-	initialize: function() {
-		this.set({
-			key: this.get("type")+"-"+this.get("id")
-		});
+var _ = require("lodash");
+
+function WordPart(options) {
+	_.extend(this, options);
+	this.key = this.type + "-" + this.id;
+}
+
+_.extend(WordPart.prototype, {
+	serialize: function() {
+		return this.key;
 	}
 });
 

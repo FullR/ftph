@@ -1,54 +1,72 @@
-var	WordCollection     = require("../collections/word-collection"),
-	WordPartCollection = require("../collections/word-part-collection"),
-	wordParts          = new WordPartCollection(require("./word-parts")),
-	words              = new WordCollection(require("./words")),
-	prefixes           = new WordPartCollection(wordParts.filter(byType("prefix"))),
-	roots              = new WordPartCollection(wordParts.filter(byType("root"))),
-	suffixes           = new WordPartCollection(wordParts.filter(byType("suffix")));
+"use strict";
+
+var	_ = require("lodash"),
+	wordParts          = require("./word-parts"),
+	words              = require("./words"),
+	prefixes           = wordParts.filter(byType("prefix")),
+	roots              = wordParts.filter(byType("root")),
+	suffixes           = wordParts.filter(byType("suffix")),
+	index 			   = {},
+	idIndex			   = {},
+	all                = [],
+	pluck 			   = _.pluck;
 
 function byType(type) {
 	return function(part) {
-		return part.get("type") === type;
+		return part.type === type;
 	};
 }
 
-var keyIndex = {};
+function indexWord(word) {
+	word.key = word.type + "-" + word.id;
+	index[word.key] = word;
+	idIndex[word.id] = word;
+	all.push(word);
+}
 
-wordParts.forEach(function(wordPart) {
-	keyIndex[wordPart.get("key")] = wordPart;
-});
+function resolveParts(parts) {
+	return parts.map(function(part) {
+		return idIndex[part];
+	});
+}
+
+words.forEach(indexWord);
+wordParts.forEach(indexWord);
 
 words.forEach(function(word) {
-	keyIndex[word.get("key")] = word;
+	word.prefixes = resolveParts(word.prefixes);
+	word.roots = resolveParts(word.roots);
+	word.suffixes = resolveParts(word.suffixes);
+	word.choosableParts = resolveParts(word.choosableParts);
 });
 
 module.exports = {
-	parts: wordParts,
-	words: words,
+	parts:    wordParts,
+	words:    words,
+
 	prefixes: prefixes,
-	roots: roots,
+	roots:    roots,
 	suffixes: suffixes,
+
 	byType: function(type) {
 		switch(type) {
 			case "word":   return words;
 			case "prefix": return prefixes;
 			case "root":   return roots;
 			case "suffix": return suffixes;
-			default: throw "Type not found in dictionary " + type;
+			default: 	   throw "Type not found in dictionary " + type;
 		}
+	},
+
+	byPartCount: function(count) {
+		return words.filter(function(word) {
+			return (word.prefixes.length + 
+					word.roots.length + 
+					word.suffixes.length) === count;
+		});
 	},
 
 	deserialize: function(key) {
-		var part = keyIndex[key];
-
-		if(!part) {
-			throw "Failed to deserialized: " + key
-		}
-
-		return part;
-	},
-
-	serialize: function(part) {
-		return part.get("key");
+		return index[key];
 	}
 };

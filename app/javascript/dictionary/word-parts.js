@@ -1,3 +1,5 @@
+"use strict";
+
 var WordPart = require("../models/word-part");
 
 module.exports = [
@@ -11,7 +13,7 @@ module.exports = [
 		{id: "di",      definition: "apart, away; not",                                                          type: "prefix"},
 		{id: "dis",     definition: "apart, opposite of",                                                        type: "prefix"},
 		{id: "e",       definition: "out, away, from",                                                           type: "prefix"},
-		{id: "ex",      definition: "out, away, from ",                                                          type: "prefix"},
+		{id: "ex",      definition: "out, away, from",                                                           type: "prefix"},
 		{id: "im",      definition: "in, into; not",                                                             type: "prefix"},
 		{id: "in",      definition: "in, into; not",                                                             type: "prefix"},
 		{id: "inter",   definition: "between, among",                                                            type: "prefix"},
@@ -31,7 +33,7 @@ module.exports = [
 		{id: "acro",    definition: "height, top",                                                               type: "root"},
 		{id: "act",     definition: "to do, to drive",                                                           type: "root"},
 		{id: "agree",   definition: "to be in accord; to consent",                                               type: "root"},
-		{id: "appear",  definition: "to show; become visible to ",                                               type: "root"},
+		{id: "appear",  definition: "to show; become visible to",                                                type: "root"},
 		{id: "astro",   definition: "star, heavens",                                                             type: "root", html: "astr<span class='joiner'>o</span>"},
 		{id: "audi",    definition: "hear",                                                                      type: "root"},
 		{id: "bat",     definition: "to walk, to go, to step",                                                   type: "root"},
@@ -49,7 +51,7 @@ module.exports = [
 		{id: "geo",     definition: "Earth, ground",                                                             type: "root"},
 		{id: "grad",    definition: "step",                                                                      type: "root"},
 		{id: "graphy",  definition: "write",                                                                     type: "root", html: "graph<span class='joiner'>y</span>"},
-		{id: "happy",   definition: "joyful, content ",                                                          type: "root"},
+		{id: "happy",   definition: "joyful, content",                                                           type: "root"},
 		{id: "hydro",   definition: "water",                                                                     type: "root", html: "hydr<span class='joiner'>o</span>"},
 		{id: "loc",     definition: "place",                                                                     type: "root"},
 		{id: "lock",    definition: "to fasten something securely",                                              type: "root"},

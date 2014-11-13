@@ -1,13 +1,15 @@
 "use strict";
 
+var React = require("react");
+
 var WordPart = React.createClass({
 	render: function() {
 		var props = this.props,
 			part = props.part,
-			type = part.get("type"),
-			id = part.get("id"),
-			html = part.get("html"),
-			key = part.get("key"),
+			type = part.type,
+			id = part.id,
+			html = part.html,
+			key = part.key,
 			classNames = ["word-part", type, key].join(" ");
 
 		return (

@@ -1,5 +1,7 @@
 "use strict";
 
+var React = require("react");
+
 var Card = React.createClass({
 	render: function() {
 		var props = this.props;

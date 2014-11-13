@@ -1,11 +1,15 @@
 "use strict";
 
-var _ 		          = require("underscore"),
+var React 			  = require("react"),
+	_ 		          = require("underscore"),
+	$				  = require("jquery"),
 	Backbone          = require("backbone"),
 	history           = Backbone.history,
 	routeToRegExp     = Backbone.Router.prototype._routeToRegExp,
 	extractParameters = Backbone.Router.prototype._extractParameters,
 	Async 		  	  = require("./async.jsx");
+
+Backbone.$ = $;
 
 var router = new (Backbone.Router.extend({
 	routes: {"*actions": "change"},
@@ -61,6 +65,7 @@ var Route = React.createClass({
 			}
 			return (
 				<div className='route'>
+					{model}
 					{this.props.children}
 				</div>
 			);
