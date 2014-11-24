@@ -56,12 +56,18 @@ gulp.task("serve", function() {
 	app.listen(port);
 });
 
-gulp.task("build", ["javascript", "global-js", "styles", "html"]);
+gulp.task("statics", function() {
+	return gulp.src("statics/**/*")
+		.pipe(gulp.dest("dist"));
+});
+
+gulp.task("build", ["javascript", "global-js", "styles", "html", "statics"]);
 
 gulp.task("watch", ["build"], function() {
 	gulp.watch(["app/javascript/**/*.js", "app/javascript/**/*.jsx"], ["javascript"]);
 	gulp.watch("app/styles/**/*.scss", ["styles"]);
 	gulp.watch("app/index.html", ["html"]);
+	gulp.watch("statics/**/*", ["statics"]);
 });
 
 gulp.task("default", ["watch", "serve"]);

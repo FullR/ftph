@@ -1,7 +1,5 @@
 "use strict";
 
-var Word = require("../models/word");
-
 module.exports = [
 		{id: "abrupt",         definition: "broken away or from something without warning",                                                                                        prefixes: ["ab"],      roots: ["rupt"],           suffixes: [],             choosableParts: ["at","plet","therm","ify"]},
 		{id: "acrobat",        definition: "person who entertains with stunts, like walking on a high wire",                                                                       prefixes: [],          roots: ["acro","bat"],     suffixes: [],             choosableParts: ["tri","medi","corn","tory"]},
@@ -139,6 +137,4 @@ module.exports = [
 		{id: "vivacious",      definition: "having the quality of being lively (active, cheerful)",                                                                                prefixes: [],          roots: ["viv"],            suffixes: ["acious"],     choosableParts: ["inter","appear","scribe","uate"]},
 		{id: "vivid",          definition: "related to lively and colorful images",                                                                                                prefixes: [],          roots: ["viv"],            suffixes: ["id"],         choosableParts: ["in","plet","tract","um"]},
 		{id: "vividness",      definition: "state of being lively or vigorous ",                                                                                                   prefixes: [],          roots: ["viv"],            suffixes: ["id","ness"],  choosableParts: ["con","plete","therm","uation"]},
-].map(function(word) {
-	return new Word(word);
-});
+];

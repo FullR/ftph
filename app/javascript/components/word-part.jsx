@@ -1,19 +1,19 @@
 "use strict";
 
-var React = require("react");
+var React = require("react"),
+	dictionary = require("../dictionary/dictionary");
 
 var WordPart = React.createClass({
 	render: function() {
-		var props = this.props,
-			part = props.part,
-			type = part.type,
-			id = part.id,
-			html = part.html,
-			key = part.key,
-			classNames = ["word-part", type, key].join(" ");
+		var part = this.props.part,
+			classNames = ["word-part", part.type, part.key].join(" ");
 
 		return (
-			<span onClick={props.onClick} className={classNames} dangerouslySetInnerHTML={{__html: html || id}} />
+			<span 
+				key={this.props.key} 
+				onClick={this.props.onClick} 
+				className={classNames} 
+				dangerouslySetInnerHTML={{__html: part.html || part.id}} />
 		);
 	}
 });

@@ -1,0 +1,12 @@
+.word {
+	.word-part {
+		display: inline;
+	}
+}
+
+.word.w-percapita {
+	word-spacing: 1rem;
+	.capita {
+		margin-left: 1rem;
+	}
+}

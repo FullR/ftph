@@ -1,0 +1,21 @@
+.word-part {
+	.joiner {
+		color: $joiner-color;
+	}
+}
+
+.word-part.definition {
+	color: #000;
+}
+
+.prefix {
+	color: $prefix-color;
+}
+
+.root {
+	color: $root-color;
+}
+
+.suffix {
+	color: $suffix-color;
+}

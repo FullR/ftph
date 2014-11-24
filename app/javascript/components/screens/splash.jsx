@@ -5,13 +5,19 @@ var React = require("react"),
 
 var Splash = React.createClass({
 	nextScreen: function() {
-		Link.to("login");
+		if(this.props.user && this.props.user !== "") {
+			console.log("user is defined", this.props.user);
+			Link.to("menu");
+		}
+		else {
+			Link.to("login");
+		}
 	},
 
 	render: function() {
+		var user = this.props.user;
 		return (
 			<div className='splash'>
-				splash.jsx
 				<button onClick={this.nextScreen}>Continue</button>
 			</div>
 		);

@@ -1,38 +1,59 @@
 "use strict";
 
-var React = require("react");
+var React = require("react"),
+	attemptHelpers = require("../helpers/attempt");
 
 var Score = React.createClass({
+	mixins: [attemptHelpers.mixin],
+
 	render: function() {
-		var attempt = this.props.attempt;
+		var attempt = this.props.attempt,
+			score   = this.getScore(),
+			percent = this.getScorePercent(),
+			count   = this.getCount();
 
 		return (
-			<div key={attempt.id} className='score'>
-				<div className='score-text'>{attempt.review ? "Game Score" : "Replay Incorrect Score"}</div>
-				<div className='score-amount'>{attempt.getScore() + "/" + attempt.getCount()}</div>
-				<div className='score-percent'>{attempt.getScorePercent()}%</div>
+			<div key={attempt} className='score-list-score'>
+				<div className='score-list-score-text'>{this.props.children}</div>
+				<div className='score-list-score-amount'>{score + "/" + count}</div>
+				<div className='score-list-score-percent'>{percent}%</div>
 			</div>
 		);
 	}
 });
 
-var ScoreList = React.createClass({
-	render: function() {
-		var activity = this.props.activity,
-			attempts = activity.attempts,
-			bestAttempt = activity.getBestAttempt();
 
-		var scores = attempts.map(function(attempt) {
-			return <Score attempt={attempt} />
+// Array.prototype.reduce alters the array (we don't want this)
+function reverse(arr) {
+	return arr.reduceRight(function(reversed, v) {
+		reversed.push(v);
+
+		return reversed;
+	}, []);
+}
+
+var ScoreList = React.createClass({
+	getBestAttempt: function() {
+		return this.props.attempts.reduce(function(best, current) {
+			return attemptHelpers.getScore(current) > attemptHelpers.getScore(best) ? current : best;
+		});
+	},
+
+	render: function() {
+		var attempts    = this.props.attempts,
+			bestAttempt = this.getBestAttempt();
+
+		var scores = reverse(attempts).map(function(attempt) {
+			return <Score attempt={attempt}>{attempt.review ? "Replay Incorrect Score" : "Game Score"}</Score>
 		});
 
 		return (
 			<div className='score-list'>
-				<div className='scores'>
+				<div className='score-list-scores'>
 					{scores}
 				</div>
-				<div className='highscore'>
-					<Score attempt={bestAttempt} />
+				<div className='score-list-highscore'>
+					<Score attempt={bestAttempt}>High Score</Score>
 				</div>
 			</div>
 		);

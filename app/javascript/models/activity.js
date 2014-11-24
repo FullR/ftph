@@ -1,40 +1,33 @@
 "use strict";
 
-var id = require("../utility/id"),
-	_ = require("lodash"),
+var _       = require("lodash"),
+	Model   = require("backbone").Model,
 	Attempt = require("./attempt");
 
-function Activity(options) {
-	_.extend(this, options);
-	this.id = id();
-}
+var Activity = Model.extend({ 
+	initialize: function(data, options) {
+		this.data = data;
 
-Activity.deserialize = function(serialized, AttemptClass) {
-	return new Activity({
-		attempts: serialized.attempts.map(AttemptClass.deserialize)
-	});
-};
-
-_.extend(Activity.prototype, {
-	serialize: function() {
-		return {
-			attempts: _.invoke(this.attempts, "serialize")
-		};
+		_.extend(this, options || {});
+		this.attempts = data.attempts.map(function(activityData) {
+			return new Attempt(activityData);
+		});
+		
+		_.invoke(this.attempts, "on", "change", function() {
+			this.emit("change");
+		}.bind(this));
 	},
 
 	getCurrentAttempt: function() {
-		return this.attempts[this.attempts.length-1];
+		return this.attempts[0];
 	},
 
-	// returns attempt with the highest score that isn't a review
 	getBestAttempt: function() {
-		return this.attempts.reduce(function(best, attempt) {
-			// Reviews don't count
-			if(attempt.review) {
-				return best;
+		return this.attempts.reduce(function(best, current) {
+			if(!current.isReview() && current.getScore() > best.getScore()) {
+				return current;
 			}
-
-			return attempt.getScore() > best.getScore() ? attempt : best;
+			return best;
 		});
 	}
 });

@@ -1,17 +1,20 @@
 "use strict";
 
-var React       = require("react"),
-	Application = require("./components/application.jsx"),
-	dispatcher  = require("./dispatcher"),
-	store       = require("./store");
+var ready = require("./polyfills/cordova/device-ready");
 
-function mountComponent(component) {
-	var model = store.getModel();
-	React.render(component({model: model}), document.getElementById("outlet"));
-}
+require("backbone").$ = require("jquery");
 
-dispatcher.listen(function() {
-	mountComponent(Application);
-});
+ready.then(function afterReady() {
+	try {
+		//Function.prototype.bind polyfill for cordova
+		require("./polyfills/function-prototype-bind")();
 
-mountComponent(Application);
+		// Cordova media polyfill
+		require("./polyfills/cordova/cordova-media-plugin")();
+
+		// start the router
+		require("./router").start();
+	} catch(e) {
+		return require("q").reject(e); // Q keeps errors from being thrown within promise callbacks
+	}
+}).done();

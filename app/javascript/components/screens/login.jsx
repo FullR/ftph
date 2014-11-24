@@ -1,6 +1,7 @@
 "use strict";
 
 var React       = require("react"),
+	dispatcher  = require("../../dispatcher"),
 	Link        = require("../utility/link.jsx");
 
 var Login = React.createClass({
@@ -15,12 +16,12 @@ var Login = React.createClass({
 		this.setState({
 			name: event.target.value
 		});
-		Link.to("menu");
 	},
 
 	submit: function(event) {
 		event.preventDefault();
-		userActions.createUser(this.state.name);
+		dispatcher.send("setUser", this.state.name);
+		Link.to("menu");
 	},
 
 	render: function() {

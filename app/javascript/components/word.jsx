@@ -1,22 +1,28 @@
 "use strict";
 
-var React = require("react"),
-	WordPart = require("./word-part.jsx");
+var _ 		   = require("lodash"),
+	React      = require("react"),
+	WordPart   = require("./word-part.jsx"),
+	dictionary = require("../dictionary/dictionary");
 
 var Word = React.createClass({
+	getParts: function() {
+		return dictionary.getParts(this.props.word);
+	},
+
 	render: function() {
 		var props = this.props,
-			word = props.word,
-			parts = word.get("parts"),
-			id = word.get("id"),
-			html = word.get("html"),
-			key = word.get("key"),
-			classNames = ["word", key].join(" ");
+			word = dictionary.get(this.props.word),
+			parts = this.getParts(),
+			classNames = ["word", word.key].join(" ");
 
 		return (
-			<span className={classNames}>
+			<span key={this.props.key} className={classNames}>
 				{parts.map(function(part) {
-					return <WordPart onClick={props.onClick} key={part.get("key")} part={part}/>
+					return <WordPart 
+								onClick={props.onClick} 
+								key={dictionary.get(part).key} 
+								part={part} />
 				})}
 			</span>
 		);

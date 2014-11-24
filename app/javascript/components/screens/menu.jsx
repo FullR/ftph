@@ -14,9 +14,11 @@ var Menu = React.createClass({
 			);
 		});
 
+		var user = this.props.user;
+
 		return (
 			<div className='menu'>
-				menu.jsx
+				<p>{user}</p>
 				{activityButtons}
 			</div>
 		);

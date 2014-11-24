@@ -1,9 +1,9 @@
 "use strict";
 
-var Store       = require("putainde-localstorage"),
+var _			= require("lodash"),
+	Store       = require("putainde-localstorage"),
 	namespace   = require("../project").namespace,
 	ls          = Store.create({namespace: namespace}),
-	initialData = require("./initial-data"),
 	Application = require("./models/application");
 
 var modelData = ls.get("application"),
@@ -12,18 +12,15 @@ var modelData = ls.get("application"),
 if(!modelData) {
 	reset();
 }
-else {
-	modelInstance = Application.deserialize(modelData);
-}
 
 function save() {
-	ls.set("application", modelInstance.serialize());
+	ls.set("application", modelData);
 }
 
 function reset() {
-	modelData = initialData;
-	modelInstance = Application.deserialize(modelData);
-
+	modelData = _.clone(require("./initial-data"));
+	//console.log(Application);
+	modelInstance = new Application(modelData);
 	save();
 }
 

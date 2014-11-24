@@ -1,7 +1,5 @@
 "use strict";
 
-var WordPart = require("../models/word-part");
-
 module.exports = [
 		{id: "ab",      definition: "away, from",                                                                type: "prefix"},
 		{id: "at",      definition: "to, toward",                                                                type: "prefix"},
@@ -130,6 +128,4 @@ module.exports = [
 		{id: "um",      definition: "of or belonging to",                                                        type: "suffix"},
 		{id: "ure",     definition: "state, quality, act; that which; process, condition",                       type: "suffix"},
 		{id: "ty",      definition: "state of",                                                                  type: "suffix", html: "<span class='joiner'>t</span>y"}
-].map(function(wordPart) {
-	return new WordPart(wordPart);
-});
+];
