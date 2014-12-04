@@ -27,6 +27,12 @@ function byType(type) {
 	};
 }
 
+function dot(key) {
+	return function(obj) {
+		return obj[key];
+	};
+}
+
 function indexWord(word) {
 	word.key = (word.type||"word") + "-" + word.id;
 	index[word.key] = word;
@@ -82,6 +88,12 @@ function loadSounds(wordKey) {
 
 words.forEach(indexWord);
 wordParts.forEach(indexWord);
+
+wordParts
+	.filter(dot("blacklist"))
+	.forEach(function(wordPart) {
+		wordPart.blacklist = resolveParts(wordPart.blacklist);
+	});
 
 words.forEach(function(word) {
 	word.type 			= "word";

@@ -15,10 +15,12 @@ ready.then(function afterReady() {
 		require("./polyfills/cordova/cordova-media-plugin")();
 
 		if(window.__platform.name === "web") {
+			// hover seems to be broken on android
 			$("body").addClass("hover-enabled");
+			// set title
+			$("title").html(project.title);
 		}
 
-		$("title").html(project.title);
 		// start the router
 		require("./router").start();
 	} catch(e) {

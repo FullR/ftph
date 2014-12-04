@@ -7,8 +7,12 @@ var _         = require("lodash"),
 
 var controllers = require("./controllers");
 
+/*
+	Listens for and reacts to actions emitted with `#send` and `#sendMultiple`
+*/
 var dispatcher = {
-	// dispatch an action
+	// Takes an action id and any arguments
+	// passes the arguments to the action's callback
 	send: function(actionId /*, ...args*/) {
 		var args = slice.call(arguments, 1),
 			action = this.actions[actionId];
@@ -21,6 +25,8 @@ var dispatcher = {
 		this.notify();
 	},
 
+	// accepts a hash of actions using the format actionId: [args...]
+	// After all actions have been handled, listeners are notified
 	sendMultiple: function(actions) {
 		_.each(actions, function(args, actionId) {
 			var action = this.actions[actionId];

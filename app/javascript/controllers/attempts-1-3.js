@@ -94,11 +94,13 @@ var controller1to3 = {
 		});
 	},
 
+	// Returns an array of parts that could be used as incorrect words for the current correct word
 	getAvailableIncorrect: function(attempt) {
 		var correct = dictionary.get(attempt.unused[0]);
 		
 		return dictionary.byType(attempt.wordType).filter(function(word) {
-			return word !== correct && 
+			return word !== correct &&
+				   correct.blacklist.indexOf(word) === -1 &&
 				   word.definition !== correct.definition;
 		});
 	},

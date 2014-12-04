@@ -17,9 +17,7 @@ var Splash = React.createClass({
 	render: function() {
 		var user = this.props.user;
 		return (
-			<div className='splash'>
-				<button onClick={this.nextScreen}>Continue</button>
-			</div>
+			<img className='splash' onClick={this.nextScreen} src='assets/images/splash.png'/>
 		);
 	}
 });
