@@ -1,0 +1,47 @@
+.choice {
+	background-color: $card-bg;
+	border: 0.3rem solid $card-border-color;
+	border-radius: 1rem;
+	cursor: pointer;
+	
+
+	@include active {
+		border-color: black;
+	}
+
+	&.choice-selected {
+		border-color: black;
+	}
+
+	.definition {
+		font-weight: bold;
+	}
+}
+
+.choice-correct-icon {
+	background: url('images/stars.png') no-repeat;
+	background-size: 100% 100%;
+}
+
+.choice-incorrect-icon {
+	background: url('images/x.png') no-repeat;
+	background-size: 100% 100%;
+	opacity: 0.5;
+}
+
+.attempt-waiting .choice {
+	border-color: black;
+	cursor: default;
+}
+
+.attempt-waiting .choice-audio-button {
+	cursor: pointer;
+	@include active {
+		background-color: $reference-hover-bg;
+	}
+
+	&.playing {
+		background-color: $reference-hover-bg;
+	}
+}
+

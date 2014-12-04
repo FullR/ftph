@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then
+	echo "No merge directory passed"
+else
+	if [ -d ./merges/$1 ]; then
+		echo "Merging $1"
+		cp -R ./merges/$1/* .
+	else
+		echo "$1 isn't a valid merge directory"
+	fi
+fi

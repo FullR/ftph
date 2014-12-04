@@ -5,8 +5,8 @@ var React = require("react"),
 
 var WordPart = React.createClass({
 	render: function() {
-		var part = this.props.part,
-			classNames = ["word-part", part.type, part.key].join(" ");
+		var part = dictionary.get(this.props.part),
+			classNames = ["word-part", part.type, part.key, this.props.marked ? "word-part-marked" : ""].join(" ");
 
 		return (
 			<span 

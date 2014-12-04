@@ -1,0 +1,28 @@
+.feedback .score-list {
+	border: 1px solid black;
+	background-color: white;
+}
+
+.feedback {
+	@include size(100%, 100%);
+	background-color: $feedback-bg;
+}
+
+.score-list .score-list-highscore {
+	background-color: $highscore-bg;
+	border-top: 1px solid black;
+}
+
+.feedback-buttons > button {
+	color: white;
+	background-color: $feedback-button-bg;
+	border: 1px solid black;
+	border-radius: 0.5rem;
+	padding: 1.2rem 2rem 1.2rem 2rem;
+	font-size: 2.4rem;
+	cursor: pointer;
+
+	@include active {
+		background-color: $feedback-button-hover;
+	}
+}

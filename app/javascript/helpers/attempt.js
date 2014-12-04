@@ -41,7 +41,7 @@ function getScorePercent(attempt) {
 	return Math.floor((getScore(attempt) / getCount(attempt))*100);
 }
 
-function stopAudio(attempt) {
+function stopAudio() {
 	return require("../sound/sound-manager").stop();
 }
 
@@ -53,7 +53,8 @@ var attemptHelpers = {
 	getCount: getCount,
 	getIndexString: getIndexString,
 	getScore: getScore,
-	getScorePercent: getScorePercent
+	getScorePercent: getScorePercent,
+	stopAudio: stopAudio
 };
 
 // Wrap each of the helper functions so it can be accessed as a mixin function
@@ -102,7 +103,7 @@ _.extend(attemptHelpers.mixin, {
 			this.setState({
 				playingDefinition: true
 			});
-			return dictionary.playWord(current, delay).then(function() {
+			return dictionary.playDefinition(current, delay).then(function() {
 				this.setState({
 					playingDefinition: false
 				});

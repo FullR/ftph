@@ -10,7 +10,7 @@ var sounds = [],
 function get(path) {
 	var sound;
 	if(soundIndex[path]) { return soundIndex[path]; }
-	console.log(path);
+
 	sound = new Sound({path: path});
 
 	sounds.push(sound);

@@ -1,15 +1,37 @@
 .choices {
-	position: absolute;
-	left: 0;
-	bottom: 15%;
-	height: 15rem;
-	width: 100%;
+	@include pos(15%, 0, bottom);
+	@include size(100%, 15rem);
 	text-align: center;
+	font-size: 3.2rem;
 }
 
 .choice {
+	position: relative;
 	display: inline-block;
-	height: 100%;
-	width: 25rem;
+	@include size(25rem, 100%);
 	margin: 0 4px 0 4px;
+	padding: 0;
+
+	.definition {
+		position: absolute;
+		width: 80%;
+		left: 10%;
+		font-size: 2.2rem;
+		text-align: center;
+	}
+
+	.word, .word-part {
+		font-size: 3.2rem;
+		font-weight: bold;
+	}
+}
+
+.choice-correct-icon {
+	@include size(15rem, 3rem);
+	@include pos(-3.6rem, 5rem, bottom, left);
+}
+
+.choice-incorrect-icon {
+	@include size(15rem, 14.4rem);
+	@include pos(0, 5rem);
 }

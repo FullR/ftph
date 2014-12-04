@@ -13,7 +13,7 @@ var Score = React.createClass({
 			count   = this.getCount();
 
 		return (
-			<div key={attempt} className='score-list-score'>
+			<div key={this.props.key} className='score-list-score'>
 				<div className='score-list-score-text'>{this.props.children}</div>
 				<div className='score-list-score-amount'>{score + "/" + count}</div>
 				<div className='score-list-score-percent'>{percent}%</div>
@@ -27,7 +27,6 @@ var Score = React.createClass({
 function reverse(arr) {
 	return arr.reduceRight(function(reversed, v) {
 		reversed.push(v);
-
 		return reversed;
 	}, []);
 }
@@ -43,9 +42,11 @@ var ScoreList = React.createClass({
 		var attempts    = this.props.attempts,
 			bestAttempt = this.getBestAttempt();
 
-		var scores = reverse(attempts).map(function(attempt) {
-			return <Score attempt={attempt}>{attempt.review ? "Replay Incorrect Score" : "Game Score"}</Score>
+		var scores = reverse(attempts).map(function(attempt, i) {
+			return <Score key={i} attempt={attempt}>{attempt.review ? "Replay Incorrect Score" : "Game Score"}</Score>
 		});
+
+		console.log(scores);
 
 		return (
 			<div className='score-list'>
@@ -55,6 +56,7 @@ var ScoreList = React.createClass({
 				<div className='score-list-highscore'>
 					<Score attempt={bestAttempt}>High Score</Score>
 				</div>
+				{this.props.children}
 			</div>
 		);
 	}

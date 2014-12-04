@@ -1,0 +1,20 @@
+.info-screen-footer {
+	background-color: $info-footer-bg;
+}
+
+.info-screen .info-back-button {
+	color: white;
+	font-weight: bold;
+	border: 1px solid black;
+	border-radius: 0.5rem;
+	background-color: #f25c32;
+	cursor: pointer;
+
+	@include active {
+		background-color: #f04714;
+	}
+}
+
+.product-title {
+	font-style: italic;
+}

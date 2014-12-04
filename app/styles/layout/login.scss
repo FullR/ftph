@@ -1,0 +1,35 @@
+.login {
+	@include size(100%, 100%);
+	background-color: #FCFAAA;
+}
+
+.login h1 {
+	@include pos(25%, 0);
+	width: 100%;
+	text-align: center;
+	font-size: 3rem;
+}
+
+.login input {
+	@include size(60%, 45px);
+	display: inline-block;
+}
+
+.login button {
+	display: inline-block;
+	width: 10%;
+	margin-left: 16px;
+	font-size: 3.2rem;
+	border-radius: 3px;
+	border: 1px solid black;
+	color: white;
+	cursor: pointer;
+	background-color: #f25c32;
+}
+
+.login form {
+	@include pos(40%);
+	width: 100%;
+	text-align: center;
+	font-size: 3.2rem;
+}

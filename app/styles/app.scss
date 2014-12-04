@@ -1,82 +1,32 @@
-@mixin bp($size, $dim: width) {
-	@if $size == tiny {
-		@media screen and (max-#{$dim}: 480px) { @content; }
-	}
-	@else if $size == small {
-		@media screen and (max-#{$dim}: 600px) { @content; }
-	}
-	@else if $size == medium {
-		@media screen and (max-#{$dim}: 1281px) { @content; }
-	}
-	@else if $size == large {
-		@media screen and (max-#{$dim}: 1600px) { @content; }
-	}
-}
-
-@mixin active() {
-	.hover-enabled &:hover, &:active {
-		@content;
-	}
-}
-
+@import 'mixins';
+@import 'pres/variables';
+@import 'layout/variables';
 
 @import 'reset';
-@import 'variables';
+@import 'normalize';
 
-@import 'word-part';
-@import 'word';
+@import 'common';
 
-@import 'layout/choices';
+// Layout
+@import 'layout/menu';
+@import 'layout/attempt';
+@import 'layout/modal';
+@import 'layout/change-user-modal';
+@import 'layout/feedback';
+@import 'layout/info-screen';
+@import 'layout/about';
+@import 'layout/license';
+@import 'layout/other-products';
+@import 'layout/login';
 
-.home-button {
-	position: absolute;
-	cursor: pointer;
-	width: 9.2rem;
-	height: 9.5rem;
-	left: 1.6rem;
-	bottom: 1.6rem;
-	z-index: 2;
-	background: url('common/home-button.png') no-repeat;
-	background-size: 100% 100%;
-
-	@include active {
-		background-image: url('common/home-button_hover.png');
-	}
-}
-
-* {
-	-webkit-tap-highlight-color: rgba(0,0,0,0);
-	-webkit-tap-highlight-color: transparent;
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	box-sizing: border-box;
-	input, textarea {
-		-webkit-touch-callout: auto;
-		-webkit-user-select: auto;
-	}
-}
-
-html {
-	// http://gregrickaby.com/using-the-golden-ratio-and-rems/
-	font-size: 62.5%;
-	font-family: Arial;
-	background-color: $bg-color;
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
-	@include bp(medium) {
-		font-size: 46.875%;
-	}
-
-	@include bp(small) {
-		font-size: 38.25%;
-	}
-
-	@include bp(tiny) {
-		font-size: 20%;
-	}
-}
-
-body {
-	z-index: 0;
-}
+// Presentation
+@import 'pres/word-part';
+@import 'pres/word';
+@import 'pres/menu';
+@import 'pres/attempt';
+@import 'pres/feedback';
+@import 'pres/info-screen';
+@import 'pres/about';
+@import 'pres/license';
+@import 'pres/other-products';
+@import 'pres/login';

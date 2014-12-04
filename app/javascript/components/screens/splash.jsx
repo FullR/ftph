@@ -1,7 +1,7 @@
 "use strict";
 
 var React = require("react"),
-	Link  = require("../utility/link.jsx");
+	Link  = require("components/utility/link.jsx");
 
 var Splash = React.createClass({
 	nextScreen: function() {

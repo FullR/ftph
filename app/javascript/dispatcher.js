@@ -21,6 +21,19 @@ var dispatcher = {
 		this.notify();
 	},
 
+	sendMultiple: function(actions) {
+		_.each(actions, function(args, actionId) {
+			var action = this.actions[actionId];
+
+			if(!action) {
+				throw "Action not found " + actionId;
+			}
+
+			action.apply(this, args);
+		}.bind(this));
+		this.notify();
+	},
+
 	// callback gets called after any action is dispatched
 	listen: function(callback) {
 		listeners.push(callback);
@@ -80,7 +93,7 @@ var dispatcher = {
 		},
 
 		setUser: function(name) {
-			store.getModel().setUser(name);
+			store.getModel().user = name;
 		},
 
 		clearData: function() {

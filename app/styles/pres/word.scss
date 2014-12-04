@@ -1,0 +1,18 @@
+.word {
+	.word-part {
+		display: inline;
+	}
+}
+
+.word.word-percapita {
+	word-spacing: 1rem;
+	.prefix-capita {
+		margin-left: 1rem;
+	}
+}
+
+.attempt-blanks-word-percapita {
+	.attempt-blank {
+		margin: 0 1rem 0 1rem;
+	}
+}

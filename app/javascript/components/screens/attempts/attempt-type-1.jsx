@@ -8,7 +8,10 @@ var _            = require("lodash"),
 	Word         = require("../../word.jsx"),
 	Choice 		 = require("../../choice.jsx"),
 	helper 		 = require("../../../helpers/attempt"),
+	VCenter		 = require("../../utility/v-center.jsx"),
 	AttemptMixin = helper.mixin;
+
+var PromiseButton = require("../../promise-button.jsx");
 
 var AttemptType1 = React.createClass({
 	mixins: [AttemptMixin],
@@ -17,19 +20,27 @@ var AttemptType1 = React.createClass({
 		return this.getSelected().length > 0;
 	},
 
+	getInstructions: function() {
+		return (<span>Touch the definition of this <span className={this.props.attempt.wordType}>{this.props.attempt.wordType}</span>:</span>);
+	},
+
+	getClassNames: function() {
+		return this.classNames(
+			"attempt", 
+			"attempt-type-1", 
+			this.isWaiting() ? "attempt-waiting" : null
+		);
+	},
+
 	render: function() {
 		var attempt 	= this.props.attempt,
 			correctPart = this.getCorrectWord(),
 			example     = this.props.attempt.exampleWord,
 			choices     = this.getChoices(),
-			waiting     = this.isWaiting(),
-			classNames  = this.classNames(
-				"attempt", 
-				"attempt-type-1", 
-				waiting ? "attempt-waiting" : null
-			);
+			waiting     = this.isWaiting();
 
 		var continueAttempt = function() {
+			//this.stopAudio()
 			this.continueAttempt();
 			this.playCorrectWord(250);
 		}.bind(this);
@@ -40,28 +51,34 @@ var AttemptType1 = React.createClass({
 			this.playCorrectDefinition();
 		}
 
-		var choiceButtons = (
-			<div className="choices">
-				{choices.map(function(choice) {
-					return (
-						<Choice key={choice.word} onClick={waiting ? null : select.bind(this, choice)} choice={choice}>
-							<Definition word={choice.word} />
-						</Choice>
-					);
-				}.bind(this))}
-			</div>
-		);
+		var choiceButtons = choices.map(function(choice) {
+			return (
+				<Choice key={choice.word} onClick={waiting ? null : select.bind(this, choice)} choice={choice}>
+					<VCenter className='definition'>
+						<Definition word={choice.word} />
+					</VCenter>
+				</Choice>
+			);
+		}.bind(this));
 
 		var continueButton = waiting ? 
-							<button onClick={continueAttempt}>Continue</button> : 
+							<div onClick={continueAttempt} className='attempt-continue-button'></div> : 
 							null;
 
 		return (
-			<div className={classNames}>
-				<p>Part: <WordPart part={correctPart} /></p>
-				<p>Example: <Word word={example} /></p>
-				{choiceButtons}
-				<br />
+			<div className={this.getClassNames()}>
+				<div className='attempt-current-info'>
+					<p className='attempt-instructions'>{this.getInstructions()}</p>
+					<PromiseButton className='attempt-reference-word' promiseFn={this.playCorrectWord}>
+						<WordPart part={correctPart} />
+					</PromiseButton>
+					<p className='attempt-example-word'><Word word={example} marked={correctPart} />: <Definition word={example}/></p>
+				</div>
+				
+				<div className='choices'>
+					{choiceButtons}
+				</div>
+
 				{continueButton}
 			</div>
 		);

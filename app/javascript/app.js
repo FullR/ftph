@@ -1,8 +1,10 @@
 "use strict";
 
-var ready = require("./polyfills/cordova/device-ready");
+var $ = require("jquery"),
+	ready = require("./polyfills/cordova/device-ready"),
+	project = require("../project");
 
-require("backbone").$ = require("jquery");
+require("backbone").$ = $;
 
 ready.then(function afterReady() {
 	try {
@@ -12,6 +14,11 @@ ready.then(function afterReady() {
 		// Cordova media polyfill
 		require("./polyfills/cordova/cordova-media-plugin")();
 
+		if(window.__platform.name === "web") {
+			$("body").addClass("hover-enabled");
+		}
+
+		$("title").html(project.title);
 		// start the router
 		require("./router").start();
 	} catch(e) {

@@ -1,0 +1,30 @@
+@import 'choices';
+
+.attempt-home-button {
+	@include image-button('images/home-button.png', 'images/home-button_hover.png');
+}
+
+.attempt-continue-button {
+	@include image-button('images/continue-button.png', 'images/continue-button_hover.png');
+}
+
+.attempt-reference-word, .attempt .attempt-reference-definition {
+	background-color: $reference-bg;
+}
+
+.attempt-waiting .attempt-instructions {
+	opacity: 0;
+	transition: opacity 0.25s;
+}
+
+.attempt-reference-word {
+	cursor: pointer;
+
+	@include active {
+		background-color: $reference-hover-bg;
+	}
+
+	&.playing {
+		background-color: $reference-hover-bg;	
+	}
+}

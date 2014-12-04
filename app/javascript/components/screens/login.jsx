@@ -1,8 +1,8 @@
 "use strict";
 
 var React       = require("react"),
-	dispatcher  = require("../../dispatcher"),
-	Link        = require("../utility/link.jsx");
+	dispatcher  = require("dispatcher"),
+	Link        = require("components/utility/link.jsx");
 
 var Login = React.createClass({
 
@@ -29,8 +29,9 @@ var Login = React.createClass({
 
 		return (
 			<div className='login'>
+				<h1>Enter a name to begin.</h1>
 				<form onSubmit={this.submit}>
-					<input value={name} onChange={this.updateName} />
+					<input value={name} onChange={this.updateName} placeholder="New User Name" />
 					<button>Create</button>
 				</form>
 			</div>

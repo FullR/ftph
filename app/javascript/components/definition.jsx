@@ -5,7 +5,7 @@ var React = require("react"),
 
 var Definition = React.createClass({
 	render: function() {
-		return (<span className='definition'>{dictionary.get(this.props.word).definition}</span>);
+		return (<span>{dictionary.get(this.props.word).definition}</span>);
 	}
 });
 

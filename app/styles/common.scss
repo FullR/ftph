@@ -1,0 +1,6 @@
+.tctc-logo {
+	@include size(20.5rem, 13.25rem);
+	background: url('images/tctc-logo.png') no-repeat;
+	background-size: 100% 100%;
+	z-index: 2;
+}

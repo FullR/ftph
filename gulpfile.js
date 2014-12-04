@@ -21,7 +21,9 @@ gulp.task("lint", function() {
 });
 
 gulp.task("javascript", function() {
-	var b = browserify();
+	var b = browserify({
+		paths: ["./node_modules", "./app/javascript"]
+	});
 	b.transform(reactify);
 	b.add("./app/javascript/app.js");
 	return b.bundle()
@@ -54,6 +56,7 @@ gulp.task("serve", function() {
 
 	app.use(express.static(__dirname + "/dist"));
 	app.listen(port);
+	console.log("Listening on port " + port);
 });
 
 gulp.task("statics", function() {

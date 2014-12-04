@@ -1,0 +1,121 @@
+.menu {
+	background-color: $menu-bg-color;
+	@include size(100%, 100%);
+
+	.tctc-logo {
+		@include pos(3.2rem, 3.2rem);
+	}
+}
+
+// username
+.menu-username {
+	@include pos(3.2rem, 3.2rem, top, right);
+	font-size: 2rem;
+}
+
+
+// top header
+.menu-header {
+	@include size(100%);
+	@include pos(1.5rem);
+
+	& > h1 {
+		@include size(100%);
+		text-align: center;
+		font-size: 3rem;
+	}
+
+	& > h2 {
+		@include size(100%);
+		text-align: center;
+		font-size: 2rem;
+	}
+}
+
+
+// Main secion
+.menu-button-box {
+	@include pos(12%, 0);
+	@include size(100%, 50%);
+}
+
+div.menu-button-row {
+	@include size(100%, 25%);
+	margin: 1% 0 1% 0;
+	text-align: center;
+
+	& > .menu-button {
+		position: relative;
+		display: inline-block;
+		@include size(20%, 100%);
+		margin: 0 2% 0 2%;
+	}
+
+	// third and fourth rows have wider buttons
+	&.menu-button-row-3, &.menu-button-row-4 {
+		& > .menu-button {
+			width: 25%;
+		}
+	}
+}
+
+.menu-button {
+	position: relative;
+	.menu-button-title {
+		text-align: left;
+		@include pos(0, 4.5rem);
+		font-size: 2rem;
+	}
+
+	.menu-button-index {
+		@include size(3rem, 3rem);
+		@include pos(0, 0);
+		font-size: 2.25rem;
+	}
+
+	.menu-button-info {
+		@include pos(3%, 0, bottom);
+		font-size: 2.25rem;
+		width: 100%;
+		text-align: center;
+	}
+}
+
+.menu-button-row-header {
+	width: 100%;
+	text-align: center;
+	font-size: 2rem;
+}
+
+div.menu-second-header {
+	margin-top: 5rem;
+}
+
+div.menu-close-button, div.menu-user-button {
+	padding: 0.8rem;
+	z-index: 2;
+	font-size: 3rem;
+}
+
+
+// corner buttons
+div.menu-close-button {
+	@include pos(3.2rem, 3.2rem, bottom, right);
+}
+
+div.menu-user-button {
+	@include pos(3.2rem, 3.2rem, bottom, left);
+}
+
+// bottom links
+.menu-bottom-buttons {
+	@include pos(6%, 0, bottom);
+	width: 100%;
+	text-align: center;
+	font-size: 2.5rem;
+
+	& > a {
+		margin: 0 1.6rem 0 1.6rem;
+	}
+}
+

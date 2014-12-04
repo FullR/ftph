@@ -2,16 +2,20 @@
 
 var Backbone   = require("backbone"),
 	React      = require("react"),
-	dispatcher = require("./dispatcher"),
-	store      = require("./store"),
+	dispatcher = require("dispatcher"),
+	store      = require("store"),
+	project	   = require("../project"),
 	Router     = Backbone.Router,
 	outlet     = document.getElementById("outlet");
 
 var screens = {
-	splash: require("./components/screens/splash.jsx"),
-	login: require("./components/screens/login.jsx"),
-	menu: require("./components/screens/menu.jsx"),
-	activity: require("./components/screens/activity.jsx")
+	splash:        require("components/screens/splash.jsx"),
+	login:         require("components/screens/login.jsx"),
+	menu:          require("components/screens/menu.jsx"),
+	activity:      require("components/screens/activity.jsx"),
+	about:         require("components/screens/about.jsx"),
+	license:       require("components/screens/license.jsx"),
+	otherProducts: require("components/screens/other-products.jsx")
 };
 
 var currentScreen = screens.menu,
@@ -23,7 +27,8 @@ function setCurrentScreen(screen, params) {
 }
 
 function render() {
-	React.render(React.createElement(currentScreen, screenParams || {}), outlet);
+	var params = typeof screenParams === "function" ? screenParams() : (screenParams || {});
+	React.render(React.createElement(currentScreen, params), outlet);
 }
 
 var router = new (Router.extend({
@@ -31,12 +36,15 @@ var router = new (Router.extend({
 		"menu": "menu",
 		"login": "login",
 		"activity/:id": "activity",
+		"about": "about",
+		"license": "license",
+		"other-products": "otherProducts",
 		"*actions": "splash"
 	},
 
 	splash: function() {
 		setCurrentScreen(screens.splash, {
-			user: store.getModel().getUser()
+			user: store.getModel().user
 		});
 
 		render();
@@ -44,22 +52,31 @@ var router = new (Router.extend({
 
 	login: function() {
 		setCurrentScreen(screens.login, {
-			user: store.getModel().getUser()
+			user: store.getModel().user
 		});
 
 		render();
 	},
 
 	menu: function() {
-		setCurrentScreen(screens.menu, store.getModel());
+		setCurrentScreen(screens.menu, function() {
+			return store.getModel();
+		});
 
 		render();
 	},
 
 	activity: function(id) {
-		var activity = store.getModel().getActivity(id),
+		var model = store.getModel(),
+			index = (+id)-1,
+			activity = model.activities[index],
 			attempt = activity.attempts[activity.attempts.length - 1];
 
+
+		model.previousActivityIndex = index;
+		activity.started = true;
+		
+		store.save();
 		require("./controllers")[attempt.attemptType].onShow(attempt);
 
 		setCurrentScreen(screens.activity, {
@@ -67,6 +84,21 @@ var router = new (Router.extend({
 			activity: activity
 		});
 
+		render();
+	},
+
+	about: function() {
+		setCurrentScreen(screens.about, project);
+		render();
+	},
+
+	license: function() {
+		setCurrentScreen(screens.license);
+		render();
+	},
+
+	otherProducts: function() {
+		setCurrentScreen(screens.otherProducts);
 		render();
 	}
 }));
