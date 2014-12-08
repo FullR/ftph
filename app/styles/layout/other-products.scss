@@ -33,12 +33,13 @@
 
 .other-product {
 	position: relative;
-	height: 152px;
+	min-height: 152px;
 }
 
 .other-product-thumbnail {
 	@include pos(0, 0);
 	@include size(202px, 152px);
+	margin: 0;
 
 	& > img {
 		@include size(100%, 100%);

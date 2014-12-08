@@ -51,7 +51,7 @@ _.extend(Sound.prototype, {
 
 	play: function(delay) {
 		this.playing = true;
-
+		//console.log("Playing " + this.getNormalizedPath());
 		return this.stop().then(function() {
 			var deferred = Q.defer();
 

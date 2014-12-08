@@ -21,7 +21,7 @@ ready.then(function afterReady() {
 			$("title").html(project.title);
 		}
 
-		// start the router
+		// start the router and render current route
 		require("./router").start();
 	} catch(e) {
 		return require("q").reject(e); // Q keeps errors from being thrown within promise callbacks

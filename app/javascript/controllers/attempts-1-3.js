@@ -100,7 +100,7 @@ var controller1to3 = {
 		
 		return dictionary.byType(attempt.wordType).filter(function(word) {
 			return word !== correct &&
-				   correct.blacklist.indexOf(word) === -1 &&
+				   (correct.blacklist||[]).indexOf(word) === -1 &&
 				   word.definition !== correct.definition;
 		});
 	},

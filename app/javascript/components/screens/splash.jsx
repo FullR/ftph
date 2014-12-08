@@ -6,7 +6,6 @@ var React = require("react"),
 var Splash = React.createClass({
 	nextScreen: function() {
 		if(this.props.user && this.props.user !== "") {
-			console.log("user is defined", this.props.user);
 			Link.to("menu");
 		}
 		else {

@@ -1,7 +1,7 @@
 "use strict";
 
 function path(filepath) {
-	if(window.__platform.name === "Android") {
+	if(window.__platform.name === "android") {
 		return "/android_asset/www/"+filepath;
 	}
 
@@ -13,8 +13,8 @@ var audioExtention,
 
 switch(window.__platform.name) {
 	case "web": audioExtention = "ogg"; break;
-	case "Android": audioExtention = "ogg"; break;
-	case "iOS": audioExtention = "mp3"; break;
+	case "android": audioExtention = "ogg"; break;
+	case "ios": audioExtention = "mp3"; break;
 }
 
 module.exports = {

@@ -110,8 +110,8 @@ var Menu = React.createClass({
 			}
 
 			return 	(
-				<div className={classNames} onClick={showActivity(index+1)}>
-					<div className='menu-button-title' dangerouslySetInnerHTML={{__html: title}} />
+				<div className={classNames} onClick={showActivity(index+1)}> 
+					<div className='menu-button-title'>{title}</div>
 					<div className='menu-button-index'>{index+1}</div>
 					<div className='menu-button-info'>{infoText}</div>
 				</div>
@@ -134,26 +134,26 @@ var Menu = React.createClass({
 				<div className='menu-button-box'>
 					<div className='menu-button-row-header'>Study Games</div>
 					<div className='menu-button-row'>
-						{menuButton(0, "prefix", "Identify Prefix<br/>Definition")}
-						{menuButton(1, "root",   "Identify Root<br/>Definition")}
-						{menuButton(2, "suffix", "Identify Suffix<br/>Definition")}
+						{menuButton(0, "prefix", <span>Identify Prefix<br/>Definition</span>)}
+						{menuButton(1, "root",   <span>Identify Root<br/>Definition</span>)}
+						{menuButton(2, "suffix", <span>Identify Suffix<br/>Definition</span>)}
 					</div>
 
 					<div className='menu-button-row'>
-						{menuButton(3, "prefix", "Identify Prefix<br/>From Definition")}
-						{menuButton(4, "root",   "Identify Root<br/>From Definition")}
-						{menuButton(5, "suffix", "Identify Suffix<br/>From Definition")}
+						{menuButton(3, "prefix", <span>Identify Prefix<br/>From Definition</span>)}
+						{menuButton(4, "root",   <span>Identify Root<br/>From Definition</span>)}
+						{menuButton(5, "suffix", <span>Identify Suffix<br/>From Definition</span>)}
 					</div>
 
 					<div className='menu-button-row-header menu-second-header'>Practice Games</div>
 					<div className='menu-button-row menu-button-row-3'>
-						{menuButton(6, "word",   "Identify Two Word Parts From the Word&#39;s Definition")}
-						{menuButton(7, "word",   "Identify Three Word Parts From the Word&#39;s Definition")}
+						{menuButton(6, "word",   <span>Identify Two Word Parts<br/>From the Word&#39;s Definition</span>)}
+						{menuButton(7, "word",   <span>Identify Three Word Parts<br/>From the Word&#39;s Definition</span>)}
 					</div>
 
 					<div className='menu-button-row menu-button-row-4'>
-						{menuButton(8, "word",   "Identify Two Word Parts That Form a Word")}
-						{menuButton(9, "word",   "Identify Three Word Parts That Form a Word")}
+						{menuButton(8, "word",   <span>Identify Two Word Parts<br/>That Form a Word</span>)}
+						{menuButton(9, "word",   <span>Identify Three Word Parts<br/>That Form a Word</span>)}
 					</div>
 				</div>
 

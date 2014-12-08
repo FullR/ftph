@@ -2,6 +2,7 @@
 	"use strict";
 
 	window.__platform = {
-		name: "ios"
+		name: "ios",
+		cordova: true
 	};
 }());

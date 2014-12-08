@@ -4,3 +4,6 @@ node_modules
 *.tmp
 *~
 cordova
+.node-webkit-cache
+node-webkit
+android-apks

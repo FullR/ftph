@@ -7,6 +7,7 @@
     "gulp-concat": "^2.4.1",
     "gulp-react": "^1.0.2",
     "jshint-stylish": "^1.0.0",
+    "node-webkit-builder": "^0.3.2",
     "reactify": "^0.15.2",
     "rimraf": "^2.2.8",
     "vinyl-source-stream": "^1.0.0"
