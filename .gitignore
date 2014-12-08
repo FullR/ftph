@@ -7,3 +7,4 @@ cordova
 .node-webkit-cache
 node-webkit
 android-apks
+statics/assets/audio/*

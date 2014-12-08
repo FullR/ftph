@@ -5,6 +5,7 @@ if [ -z "$1" ]; then
 else
 	if [ -d ./merges/$1 ]; then
 		echo "Merging $1"
+		rm -rf ./statics/assets/audio/* # Remove old audio to avoid having unused sound files
 		cp -R ./merges/$1/* .
 	else
 		echo "$1 isn't a valid merge directory"
