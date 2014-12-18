@@ -1,10 +1,12 @@
 "use strict";
 
-var $ = require("jquery"),
-	ready = require("./polyfills/cordova/device-ready"),
-	project = require("../project");
+var React	 = require("react"),
+	ready    = require("./polyfills/cordova/device-ready"),
+	project  = require("../project"),
+	Backbone = require("backbone"),
+	$        = require("jquery");
 
-require("backbone").$ = $;
+Backbone.$ = $;
 
 ready.then(function afterReady() {
 	try {
@@ -21,8 +23,7 @@ ready.then(function afterReady() {
 			$("title").html(project.title);
 		}
 
-		// start the router and render current route
-		require("./router").start();
+		require("router/router");
 	} catch(e) {
 		return require("q").reject(e); // Q keeps errors from being thrown within promise callbacks
 	}

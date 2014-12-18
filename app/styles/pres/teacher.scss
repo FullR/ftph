@@ -1,0 +1,39 @@
+@mixin teacher-state($name, $image, $width, $height) {
+	&.teacher-#{$name} .teacher-image {
+		@include size($width, $height);
+		background: url($image) no-repeat;
+		background-size: 100% 100%;
+	}
+
+	&.teacher-#{$name}.teacher-centered {
+		@include pos(50%, 50%);
+		margin-top: -(($height*1.5)/2);
+		margin-left: -(($width*1.5)/2);
+		
+		.teacher-image {
+			@include size($width*1.5, $height*1.5);
+		}
+	}
+}
+
+.teacher {
+	@include pos(16px, 16px, top, right);
+	@include teacher-state("sitting", 'images/teacher/sitting.png', 200px, 200px);
+	@include teacher-state("speaking", 'images/teacher/speaking.gif', 200px, 378px);
+	@include teacher-state("speaking-closed", 'images/teacher/speaking-closed.png', 200px, 378px);
+}
+
+.teacher-hidden {
+	display: none;
+}
+
+.teacher-content {
+	visibility: hidden;
+	width: 100%;
+	text-align: center;
+	font-size: 12px;
+}
+
+.teacher-sitting .teacher-content {
+	visibility: visible;
+}

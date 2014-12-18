@@ -14,7 +14,6 @@ function applyMediaPolyfill() {
 	}
 
 	if(!window.Media) {
-		console.log("Applying media polyfill");
 		Howl = require("howler").Howl;
 
 		MediaPollyfill.prototype = {

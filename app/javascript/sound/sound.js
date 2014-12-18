@@ -4,6 +4,7 @@ var Q = require("q"),
 
 function Sound(options) {
 	_.extend(this, options);
+	_.bindAll(this);
 }
 
 _.extend(Sound.prototype, {
@@ -51,7 +52,7 @@ _.extend(Sound.prototype, {
 
 	play: function(delay) {
 		this.playing = true;
-		//console.log("Playing " + this.getNormalizedPath());
+
 		return this.stop().then(function() {
 			var deferred = Q.defer();
 

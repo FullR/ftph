@@ -1,0 +1,14 @@
+#!/bin/bash
+
+function build {
+	echo "Building $1"
+	./merge $1 &&
+	gulp build-android &&
+	gulp build-desktop
+}
+
+rm -rf builds/*
+build beginning
+build level-1
+build level-2
+build level-3

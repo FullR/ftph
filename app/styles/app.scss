@@ -1,3 +1,19 @@
+@import 'susy';
+
+/* Changing Susy default global settings */
+$susy: (
+	/* Tells Susy to use 12 columns */
+	columns: 12,
+	/* Tells Susy that the container has a max-width of 1920px */
+	container: 1920px,
+	/* Tells Susy to use border-box */
+	global-box-sizing: border-box 
+);
+
+body #outlet {
+	@include container;
+}
+
 @import 'mixins';
 @import 'pres/variables';
 @import 'layout/variables';
@@ -8,27 +24,12 @@
 @import 'common';
 
 // Layout
-@import 'layout/menu';
-@import 'layout/attempt';
-@import 'layout/modal';
-@import 'layout/change-user-modal';
-@import 'layout/feedback';
-@import 'layout/info-screen';
-@import 'layout/about';
-@import 'layout/license';
-@import 'layout/other-products';
-@import 'layout/login';
-@import 'layout/splash';
+@import 'layout/choice';
+@import 'layout/game-screen';
+@import 'layout/activity-feedback';
+@import 'layout/admin';
+@import 'layout/admin-button';
 
 // Presentation
-@import 'pres/word-part';
-@import 'pres/word';
-@import 'pres/menu';
-@import 'pres/attempt';
-@import 'pres/feedback';
-@import 'pres/info-screen';
-@import 'pres/about';
-@import 'pres/license';
-@import 'pres/other-products';
-@import 'pres/login';
-@import 'pres/splash';
+@import 'pres/teacher';
+@import 'pres/owl';

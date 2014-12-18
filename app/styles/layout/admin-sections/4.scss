@@ -1,0 +1,48 @@
+.admin-section-4 {
+	@include size(100%, 100%);
+}
+
+.admin-section-4 .sec-4-row {
+	@include size(65%, 22%);
+	margin-left: 10%;
+
+	&:not(:last-child) {
+		margin-bottom: 1%;
+	}
+}
+
+.admin-section-4 .sec-4-btn-long {
+	@include size(73%, 100%);
+	display: inline-block;
+	outline: 1px solid red;
+	position: relative;
+}
+
+.admin-section-4 .sec-4-btn-short {
+	@include size(25%, 100%);
+	display: inline-block;
+	outline: 1px solid blue;
+	margin-left: 2%;
+}
+
+.admin-section-4 .sec-4-side-btn {
+	@include size(10%, 44%);
+	@include pos(29%, 76.5%);
+	outline: 1px solid green;
+}
+
+.admin-section-4 .inner-btn-row {
+	@include size(65%, 80%);
+	@include pos(10%, 1%, top, right);
+}
+
+.admin-section-4 .inner-btn {
+	@include size(18%, 100%);
+	display: inline-block;
+
+	outline: 1px solid cyan;
+	&:not(:last-child) {
+		margin-right: 2%;
+	}
+}
+

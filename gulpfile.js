@@ -1,16 +1,20 @@
 "use strict";
 
-var gulp       = require("gulp"),
-	plumber    = require("gulp-plumber"),        // Handles gulp errors without stopping the watch task
-	sass       = require("gulp-sass"), 	         // Compiles scss/sass files into css
-	browserify = require("browserify"),	         // Allows `require` and `module.exports` to be used in browser javascript
-	jshint     = require("gulp-jshint"),         // Checks javascript files for issues
-	reactify   = require("reactify"),	         // Browserify plugin for compiling jsx files
-	source     = require("vinyl-source-stream"), // Allows the use of text streams with gulp (needed for browserify)
-	stylish    = require("jshint-stylish"),      // Prints a pretty report from the output of jshint
-	Builder    = require("node-webkit-builder"), // Builds Windows/Mac executables
-	cordovaUtil= require("./build-cordova"),     // Script for setting up cordova and building android apks
-	port       = 4210;
+var gulp        = require("gulp"),					 // Task runner
+	plumber     = require("gulp-plumber"),           // Handles gulp errors without stopping the watch task
+	sass        = require("gulp-ruby-sass"), 	     // Compiles scss/sass files into css
+	Browserify  = require("browserify"),	         // Allows `require` and `module.exports` to be used in browser javascript
+	jshint      = require("gulp-jshint"),            // Checks javascript files for issues
+	reactify    = require("reactify"),	             // Browserify plugin for compiling jsx files
+	source      = require("vinyl-source-stream"),    // Allows the use of text streams with gulp (needed for browserify)
+	stylish     = require("jshint-stylish"),         // Prints a pretty report from the output of jshint
+	Builder     = require("node-webkit-builder"),    // Builds Windows/Mac executables
+	cssMin		= require("gulp-minify-css"),	     // Minify CSS
+	uglify		= require("gulp-uglify"),			 // Minify Javascript
+	prefix		= require("gulp-autoprefixer"),		 // Autoprefix Vendor specific CSS properties
+	Filter      = require("gulp-filter"),            // Used to filter streams using globs
+	cordovaUtil = require("./cordova-utility"),      // Script for setting up cordova and building android apks
+	port        = 4210;								 // For test server
 
 // Check javascript files for issues
 gulp.task("lint", function() {
@@ -22,21 +26,26 @@ gulp.task("lint", function() {
 
 // Compile javascript and jsx files
 gulp.task("javascript", function() {
-	var b = browserify({
-		paths: ["./node_modules", "./app/javascript"]
-	});
-	b.transform(reactify);
-	b.add("./app/javascript/app.js");
-	return b.bundle()
+	return new Browserify({
+			paths: ["./node_modules", "./app/javascript"],
+			debug: true
+		})
+		.transform(reactify)
+		.add("./app/javascript/app.js")
+		.bundle()
 	    .pipe(source("app.js"))
 	    .pipe(gulp.dest("./dist/assets"));
 });
 
 // Compile scss files
 gulp.task("styles", function() {
+	var cssFilter = Filter("*.css");
 	return gulp.src("app/styles/app.scss")
 		.pipe(plumber())
-		.pipe(sass())
+		.pipe(sass({style: "compressed", require: ["susy"]}))
+		//.pipe(cssFilter)
+		//.pipe(prefix("last 2 versions"))
+		//.pipe(cssFilter.restore())
 		.pipe(gulp.dest("dist/assets"));
 });
 
@@ -67,7 +76,8 @@ gulp.task("build-desktop", ["build"], function(callback) {
 	var builder = new Builder({
 		files: ["./dist/**/!(*.mp3)"],
 		cacheDir: "./.node-webkit-cache",
-		buildDir: "./node-webkit"
+		buildDir: "./builds/desktop",
+		platforms: ["win"]
 	});
 
 	builder.on("log", console.log);
@@ -82,7 +92,7 @@ gulp.task("build-desktop", ["build"], function(callback) {
 });
 
 gulp.task("build-android", ["build"], function(callback) {
-	cordovaUtil.build("Beginning")
+	cordovaUtil.build()
 		.then(function() {
 			callback();
 		}, function(err) {
@@ -93,12 +103,14 @@ gulp.task("build-android", ["build"], function(callback) {
 // Build web version
 gulp.task("build", ["javascript", "styles", "html", "statics"]);
 
+gulp.task("distribute", ["build-desktop", "build-android"]);
+
 // Watch source files for changes. Rebuild necessary files when changes are made
 gulp.task("watch", ["build"], function() {
 	gulp.watch(["app/javascript/**/*.js", "app/javascript/**/*.jsx"], ["javascript"]);
 	gulp.watch("app/styles/**/*.scss", ["styles"]);
 	gulp.watch("app/index.html", ["html"]);
-	gulp.watch("statics/**/*", ["statics"]);
+	//gulp.watch("statics/**/*", ["statics"]);
 });
 
 gulp.task("default", ["watch", "serve"]);
