@@ -35,7 +35,7 @@ module.exports = {
 			}
 
 			if(selectedChoices.length === 2) {
-				store.submitAnswer(this.lessonId, this.id, this.isCorrect());
+				store.submitAnswer(this.lessonId, this.activityId, this.isCorrect());
 
 				this.mergeState({
 					showingFeedback: true

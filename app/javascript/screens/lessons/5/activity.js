@@ -11,7 +11,7 @@ module.exports = function(options) {
 			require("mixins/render/activity/basic"),
 			require("mixins/multi-choice")
 		],
-		initAnimation: options.initAnimation,
+		defaultAnimation: options.defaultAnimation,
 
 		getInitialState: function() {
 			return {
@@ -53,8 +53,7 @@ module.exports = function(options) {
 						then("wait", 250),
 						then("actorSay", "feedback.rhyme"),
 						then("wait", 250),
-						then("actorSay", selected[1]),
-						then("sit")
+						then("actorSay", selected[1])
 					];
 				}
 				else {
@@ -64,20 +63,10 @@ module.exports = function(options) {
 						then("actorSay", "feedback.does-not"),
 						then("wait", 250),
 						then("actorSay", selected[1]),
-						then("sit"),
 						then("showContinueButton")
 					];
 				}
 			}
-		},
-		
-		getCornerInfo: function() {
-			return (
-				<div className='corner-info'>
-					Lesson 5: Rhyme Time<br/>
-					Activity {options.id} of 19
-				</div>
-			);
 		}
 	});
 

@@ -1,7 +1,7 @@
 "use strict";
 
-var React = require("react"),
-	history = require("backbone").history,
+var React    = require("react"),
+	history  = require("router/actions").history,
 	navigate = history.navigate.bind(history);
 
 var Link = React.createClass({
@@ -13,7 +13,7 @@ var Link = React.createClass({
 			navigate(to, {trigger: true});
 		}
 
-		return (<a {...this.props}>{this.props.children}</a>);
+		return (<span {...this.props}>{this.props.children}</span>);
 	}
 });
 
@@ -21,11 +21,8 @@ Link.to = function(to) {
 	navigate(to, {trigger: true});
 };
 
-// Defers the transition until the next event loop
-Link.next = function(to) {
-	setTimeout(function() {
-		navigate(to, {trigger: true});
-	}, 0);
+Link.back = function() {
+	history.history.back();
 };
 
 module.exports = Link;

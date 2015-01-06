@@ -19,13 +19,12 @@ var Lesson1 = React.createClass({
 				"the-first-sound": this.sound("assets/audio/lessons/lesson-1/instructions/the-first-sound"),
 				"is":              this.sound("assets/audio/lessons/lesson-1/instructions/is"),
 				"say-the-words":   this.sound("assets/audio/lessons/lesson-1/instructions/say-the-words"),
-				"slowly":          this.sound("assets/audio/lessons/lesson-1/instructions/slowly"),
+				"slowly":          this.sound("assets/audio/common/slowly"),
 				"t":               this.sound("assets/audio/phonics/lesson-phonics/t"),
 				"touch-arrow": 	   this.sound("assets/audio/common/touch-arrow")
 			}
 		};
 	},
-
 
 	instructions: {
 		animation: function(then) {
@@ -49,6 +48,9 @@ var Lesson1 = React.createClass({
 				then("wait", 250),
 
 				this.actorSayChoices(),
+
+				then("actorSay", "instructions.slowly"),
+				then("wait", 100),
 
 				then("actorSay", "instructions.touch-arrow"),
 				then("sit")

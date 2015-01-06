@@ -1,0 +1,20 @@
+.activity .rhyme-word {
+	@include size(225px, 225px);
+	@include pos(10%, 50%);
+	margin-left: -112px;
+}
+
+/*
+.activity-choices-hidden .rhyme-word {
+	@include pos(60%, 32%);
+}
+
+.activity-choices-showing .rhyme-word {
+	@include pos(10%, 50%);
+	margin-left: -112px;
+}
+*/
+
+.Lesson-4-Activity .choices {
+	bottom: 20%;
+}

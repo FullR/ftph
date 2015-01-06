@@ -23,6 +23,7 @@ module.exports = {
 	selectChoice: function(choice) {
 		return function() {
 			choice.select();
+			store.submitAnswer(this.lessonId, this.activityId, this.isCorrect());
 			this.animate("feedback");
 		}.bind(this);
 	},

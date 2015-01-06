@@ -3,7 +3,7 @@
 var Q = require("q"),
 	_ = require("lodash"),
 	soundManager = require("sound/sound-manager"),
-	PromiseQueue = require("promise-queue"),
+	PromiseQueue = require("utility/promise-queue"),
 	slice = [].slice,
 	noop = _.noop;
 
@@ -23,6 +23,18 @@ function choiceInvoker(fnName) {
 }
 
 module.exports = require("./utility").extend({
+	"choices-only": {
+		animation: function(then) {
+			return [
+				then("hideChoices"),
+				then("setupActor"),
+				then("uncenterActor"),
+				this.actorSayChoices(),
+				then("sit")
+			];
+		}
+	},
+
 	then: function(fnName /*, ...args*/) {
 		var args = slice.call(arguments, 1);
 		return function() {
@@ -122,7 +134,7 @@ module.exports = require("./utility").extend({
 
 	detachChoices: choiceInvoker("detach"),
 	attachChoices: choiceInvoker("attach"),
-	hideChoices: choiceInvoker("hide"),
+	hideChoices:   choiceInvoker("hide"),
 	revealChoices: choiceInvoker("reveal"),
 
 	call: function(_key) {
@@ -191,7 +203,7 @@ module.exports = require("./utility").extend({
 	componentDidMount: function() {
 		Q.resolve()
 			.then(this.load)
-			.then(this.animate.bind(this, this.initAnimation || "instructions"));
+			.then(this.animate.bind(this, this.defaultAnimation || "instructions"));
 	},
 
 	componentWillUnmount: function() {

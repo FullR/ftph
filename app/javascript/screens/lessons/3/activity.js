@@ -10,13 +10,14 @@ module.exports = function(options) {
 			require("mixins/render/activity/basic"),
 			require("mixins/multi-choice")
 		],
-		initAnimation: options.initAnimation,
+		defaultAnimation: options.defaultAnimation,
 
 		getInitialState: function() {
 			return {
 				instructions: {
 					"begins":       this.sound("assets/audio/lessons/lesson-3/activities/instructions/begins"),
 					"ends":         this.sound("assets/audio/lessons/lesson-3/activities/instructions/ends"),
+					"now-listen": 	this.sound("assets/audio/lessons/lesson-3/activities/instructions/now-listen"), 
 					"phonic":       this.sound("assets/audio/phonics/activity-phonics/"+options.phonic)
 				},
 
@@ -33,13 +34,16 @@ module.exports = function(options) {
 
 		instructions: {
 			animation: function(then) {
+				var firstEnding = (options.id === "13");
 				return [
 					then("hideChoices"),
 					then("setupActor"),
+					firstEnding ? then("actorSay", "instructions.now-listen") : null,
+					firstEnding ? then("wait", 250) : null,
 					then("actorSay", "instructions."+(options.ends ? "ends" : "begins")),
 					then("wait", 250),
-					then("actorSay", "instructions.phonic"),
-					then("wait", 250),
+					//then("actorSay", "instructions.phonic"),
+					//then("wait", 250),
 					then("uncenterActor"),
 					this.actorSayChoices(),
 					then("sit")
@@ -59,8 +63,7 @@ module.exports = function(options) {
 						then("actorSay", "feedback.and"),
 						then("actorSay", selected[1]),
 						then("actorSay", ends ? "feedback.both-end" : "feedback.both-begin"),
-						then("actorSay", "instructions.phonic"),
-						then("sit")
+						then("actorSay", "instructions.phonic")
 					];
 				}
 				else {
@@ -69,20 +72,10 @@ module.exports = function(options) {
 						then("actorSay", "feedback.and"),
 						then("actorSay", selected[1]),
 						then("actorSay", ends ? "feedback.do-not-end" : "feedback.do-not-begin"),
-						then("sit"),
 						then("showContinueButton")
 					];
 				}
 			}
-		},
-		
-		getCornerInfo: function() {
-			return (
-				<div className='corner-info'>
-					Lesson 3: Beginning and Ending Sounds<br/>
-					Activity {options.id} of 24
-				</div>
-			);
 		}
 	});
 

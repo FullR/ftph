@@ -1,22 +1,38 @@
 "use strict";
 
-var React = require("react"),
-	Link  = require("components/utility/link");
+var React       = require("react"),
+	Link        = require("components/utility/link"),
+	WebLink		= require("components/utility/web-link"),
+	soundManger = require("sound/sound-manager");
 
 var Splash = React.createClass({
+	sound: soundManger.get("assets/audio/common/welcome"),
 	nextScreen: function() {
-		if(this.props.user && this.props.user !== "") {
-			Link.to("menu");
-		}
-		else {
-			Link.to("login");
-		}
+		Link.to("lesson/1");
+	},
+
+	componentDidMount: function() {
+		var sound = this.sound;
+		sound.load().then(function() {
+			sound.play();
+		});
+	},
+
+	componentWillUnmount: function() {
+		this.sound.stop();
 	},
 
 	render: function() {
 		var user = this.props.user;
 		return (
-			<img className='splash' onClick={this.nextScreen} src='assets/images/splash.png'/>
+			<div className='splash'>
+				<WebLink className='logo' href='http://criticalthinking.com/'>
+					<img src='assets/images/tctc-logo.png' />
+				</WebLink>
+				<div className='grades'>PreK - 2</div>
+				<img src='assets/images/splash.png'/>
+				<button onClick={this.nextScreen}></button>
+			</div>
 		);
 	}
 });

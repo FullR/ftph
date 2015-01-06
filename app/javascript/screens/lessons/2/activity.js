@@ -10,7 +10,8 @@ module.exports = function(options) {
 			require("mixins/render/activity/basic"),
 			require("mixins/single-choice")
 		],
-		initAnimation: options.initAnimation,
+		defaultAnimation: options.defaultAnimation,
+		submitLessonId: options.submitLessonId,
 
 		getInitialState: function() {
 			return {
@@ -55,19 +56,9 @@ module.exports = function(options) {
 					then("actorSay", selected.correct ? "feedback.ends-with" : "feedback.doesnt-end"),
 					then("wait", 250),
 					then("actorSay", "instructions.phonic"),
-					then("sit"),
 					selected.correct ? null : then("showContinueButton"),
 				];
 			}
-		},
-		
-		getCornerInfo: function() {
-			return (
-				<div className='corner-info'>
-					Lesson 2: Ending Sounds<br/>
-					Activity {options.id} of 15
-				</div>
-			);
 		}
 	});
 

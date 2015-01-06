@@ -23,6 +23,7 @@ var Lesson4 = React.createClass({
 				"words-like":      this.sound("assets/audio/lessons/lesson-4/instructions/words-like"),
 				"rhyme-because":   this.sound("assets/audio/lessons/lesson-4/instructions/rhyme-because"),
 				"rhyme-because-2": this.sound("assets/audio/lessons/lesson-4/instructions/rhyme-because-2"),
+				"slowly": 		   this.sound("assets/audio/common/slowly"),
 				"touch-arrow":     this.sound("assets/audio/common/touch-arrow")
 			}
 		};
@@ -48,6 +49,8 @@ var Lesson4 = React.createClass({
 				this.actorSayChoices([3, 4, 5]),
 				then("actorSay", "instructions.rhyme-because-2"),
 				this.actorSayChoices([3, 4, 5]),
+				then("actorSay", "instructions.slowly"),
+				then("wait", 100),
 				then("actorSay", "instructions.touch-arrow"),
 				then("sit")
 			];

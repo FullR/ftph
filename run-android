@@ -1,9 +1,0 @@
-#!/bin/bash
-
-node ./init-cordova.js beginning
-gulp build
-cd cordova
-cordova run android &&
-clear && 
-adb logcat -c &&
-adb logcat "Cordova:* DroidGap:* CordovaLog:* *:S" | sed "s|.* file:\/\/\/||"

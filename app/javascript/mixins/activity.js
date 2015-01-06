@@ -8,8 +8,8 @@ var React   = require("react"),
 	Arrow	= require("components/continue-arrow");
 
 module.exports = function(lessonId, activityId, nextRoute, returnRoute) {
-	var className = "Lesson-"+lessonId+"-Activity",
-		displayName = className+"-"+activityId;
+	var className = "Lesson-" + lessonId + "-Activity",
+		displayName = className + "-" + activityId;
 	
 	return {
 		lessonId: lessonId,
@@ -35,7 +35,10 @@ module.exports = function(lessonId, activityId, nextRoute, returnRoute) {
 		},
 
 		activityClassName: function() {
-			return ["activity", className, displayName].join(" ");
+			var showing = this.state.choices.some(function(choice) {
+				return !choice.hidden;
+			});
+			return ["activity", className, displayName, showing ? "activity-choices-showing" : "activity-choices-hidden"].join(" ");
 		},
 
 		feedbackClassName: function() {
@@ -50,7 +53,7 @@ module.exports = function(lessonId, activityId, nextRoute, returnRoute) {
 			var showingFeedback = this.shouldShowFeedback();
 			var teacher = (
 				<Teacher {...this.state.actor}>
-					{showingFeedback ? null : "Activity Instructions"}
+					{showingFeedback ? null : "Instructions"}
 				</Teacher>
 			);
 

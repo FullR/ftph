@@ -1,13 +1,12 @@
 "use strict";
 
-var _        = require("lodash"),
-	Bacon    = require("baconjs"),
-	Backbone = require("backbone"),
-	slice    = [].slice;
-
-Backbone.$ = require("jquery");
+var _      = require("lodash"),
+	Bacon  = require("baconjs"),
+	Router = require("ampersand-router"),
+	slice  = [].slice;
 
 function getRouteActions(routes) {
+	var router;
 	var options = _.transform(routes, function(options, actionName, slug) {
 		var action = (options.actions[actionName] = new Bacon.Bus());
 		options.routerOptions.routes[slug] = actionName;
@@ -22,9 +21,11 @@ function getRouteActions(routes) {
 		}
 	});
 
-	new (Backbone.Router.extend(options.routerOptions));
+	router = new (Router.extend(options.routerOptions));
+	options.actions.history = router.history;
+	options.actions.start = router.history.start.bind(router.history);
+
 	return options.actions;
 }
 
-Backbone.history.start();
 module.exports = getRouteActions(require("router/routes"));

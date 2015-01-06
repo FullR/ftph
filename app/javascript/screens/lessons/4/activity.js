@@ -7,11 +7,11 @@ module.exports = function(options) {
 	return React.createClass({
 		mixins: [
 			require("mixins/game-screen")("activity", options.choices),
-			require("mixins/activity")("3", options.id, options.nextRoute),
+			require("mixins/activity")("4", options.id, options.nextRoute),
 			require("mixins/render/activity/basic"),
 			require("mixins/single-choice")
 		],
-		initAnimation: options.initAnimation,
+		defaultAnimation: options.defaultAnimation,
 
 		getInitialState: function() {
 			return {
@@ -33,10 +33,11 @@ module.exports = function(options) {
 				return [
 					then("hideChoices"),
 					then("setupActor"),
+					then("uncenterActor"),
 					then("actorSay", "instructions.touch-the"),
 					then("wait", 200),
 					then("actorSay", "instructions.rhyme-word"),
-					then("uncenterActor"),
+					then("wait", 250),
 					this.actorSayChoices(),
 					then("sit")
 				];
@@ -55,8 +56,7 @@ module.exports = function(options) {
 						then("wait", 250),
 						then("actorSay", "feedback.rhyme"),
 						then("wait", 250),
-						then("actorSay", "instructions.rhyme-word"),
-						then("sit")
+						then("actorSay", "instructions.rhyme-word")
 					];
 				}
 				else {
@@ -66,8 +66,7 @@ module.exports = function(options) {
 						then("actorSay", "feedback.does-not"),
 						then("wait", 250),
 						then("actorSay", "instructions.rhyme-word"),
-						then("showContinueButton"),
-						then("sit")
+						then("showContinueButton")
 					];
 				}
 			}
@@ -75,17 +74,8 @@ module.exports = function(options) {
 
 		renderExtras: function() {
 			return (
-				<div className='rhyme-word' style={{width: 100, height: 100}}>
+				<div className='rhyme-word'>
 					<WordImage word={options.rhymeWord} />
-				</div>
-			);
-		},
-		
-		getCornerInfo: function() {
-			return (
-				<div className='corner-info'>
-					Lesson 4: Rhyme Match<br/>
-					Activity {options.id} of 20
 				</div>
 			);
 		}

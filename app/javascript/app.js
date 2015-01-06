@@ -1,12 +1,16 @@
 "use strict";
 
-var React	 = require("react"),
-	ready    = require("./polyfills/cordova/device-ready"),
-	project  = require("../project"),
-	Backbone = require("backbone"),
-	$        = require("jquery");
+var React	= require("react"),
+	ready   = require("./polyfills/cordova/device-ready"),
+	project = require("../project"),
+	$       = require("jquery"),
+	muted	= false;
 
-Backbone.$ = $;
+function preload() {
+	require("images").images.forEach(function(image) {
+		$("<img/>")[0].src = image;
+	});
+}
 
 ready.then(function afterReady() {
 	try {
@@ -21,8 +25,19 @@ ready.then(function afterReady() {
 			$("body").addClass("hover-enabled");
 			// set title
 			$("title").html(project.title);
-		}
 
+			if(muted) {
+				window.Media.mute();
+			}
+			// Toggle mute when 'm' key is pressed
+			$(document).on("keydown", function(e) {
+				if(e.which === 77) {
+					window.Media[muted ? "unmute" : "mute"]();
+					muted = !muted;
+				}
+			});
+		}
+		preload();
 		require("router/router");
 	} catch(e) {
 		return require("q").reject(e); // Q keeps errors from being thrown within promise callbacks

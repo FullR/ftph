@@ -1,6 +1,7 @@
 "use strict";
 
 var gulp        = require("gulp"),					 // Task runner
+	fs 			= require("fs"),
 	plumber     = require("gulp-plumber"),           // Handles gulp errors without stopping the watch task
 	sass        = require("gulp-ruby-sass"), 	     // Compiles scss/sass files into css
 	Browserify  = require("browserify"),	         // Allows `require` and `module.exports` to be used in browser javascript
@@ -13,8 +14,25 @@ var gulp        = require("gulp"),					 // Task runner
 	uglify		= require("gulp-uglify"),			 // Minify Javascript
 	prefix		= require("gulp-autoprefixer"),		 // Autoprefix Vendor specific CSS properties
 	Filter      = require("gulp-filter"),            // Used to filter streams using globs
+	imageMin	= require("gulp-imagemin"),			 // Optimizes images
+	glob 		= require("glob"),
 	cordovaUtil = require("./cordova-utility"),      // Script for setting up cordova and building android apks
+	buildAudio  = require("./build-audio"),			 // Converts .wav files to .ogg and .mp3
 	port        = 4210;								 // For test server
+
+// create a json file listing all images except the word images so the client can preload them
+gulp.task("map-images", function(callback) {
+	glob("assets/images/!(words)/*", {cwd: "statics"}, function(err, files) {
+		if(err) {
+			callback(err);
+		}
+		else {
+			fs.writeFile("app/javascript/images.json", JSON.stringify({images: files}, null, 4), function() {
+				callback();
+			});
+		}
+	});
+});
 
 // Check javascript files for issues
 gulp.task("lint", function() {
@@ -43,9 +61,6 @@ gulp.task("styles", function() {
 	return gulp.src("app/styles/app.scss")
 		.pipe(plumber())
 		.pipe(sass({style: "compressed", require: ["susy"]}))
-		//.pipe(cssFilter)
-		//.pipe(prefix("last 2 versions"))
-		//.pipe(cssFilter.restore())
 		.pipe(gulp.dest("dist/assets"));
 });
 
@@ -99,6 +114,18 @@ gulp.task("build-android", ["build"], function(callback) {
 			callback(err);
 		})
 });
+
+gulp.task("build-audio", function() {
+	return buildAudio();
+});
+
+gulp.task("build-images", function() {
+	return gulp.src("raw-assets/images/**/*")
+		.pipe(imageMin({ progressive: true }))
+		.pipe(gulp.dest("statics/assets/images"));
+});
+
+gulp.task("build-assets", ["build-audio", "build-images"]);
 
 // Build web version
 gulp.task("build", ["javascript", "styles", "html", "statics"]);

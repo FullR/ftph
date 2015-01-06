@@ -31,11 +31,22 @@ module.exports = function(type, choices) {
 		},
 
 		load: function() {
-			return Q.all(_.flatten([
-				_.invoke(this.state.instructions || [], "load"),
-				_.invoke(this.state.feedback     || [], "load"),
-				_.invoke(_.pluck(this.state.choices, "sound"), "load")
-			]));
+			function load(obj) {
+				return _(obj)
+						.values()
+						.flatten()
+						.invoke("load")
+						.value();
+			}
+
+			var sounds = [
+				this.state.instructions,
+				this.state.feedback,
+				_.pluck(this.state.choices, "sound")
+			],
+			promises = _.flatten(sounds.map(load));
+
+			return Q.all(promises).then(null, function() { return Q.resolve(); });
 		},
 
 		getStreams: function() {

@@ -1,7 +1,9 @@
 "use strict";
 
-var React = require("react"),
-	Link  = require("components/utility/link");
+var React   = require("react"),
+	Link    = require("components/utility/link"),
+	WebLink = require("components/utility/web-link"),
+	Store   = require("storage");
 
 function truthy(n) { return !!n; }
 
@@ -18,7 +20,7 @@ var SectionButton = React.createClass({
 		].filter(truthy).join(" ");
 
 		return (
-			<div key={this.props.id} className={classNames} onClick={this.show}>
+			<div key={this.props.key} className={classNames} onClick={this.show}>
 				<div className='section-button-title'>
 					{this.props.title}
 				</div>
@@ -49,16 +51,16 @@ var sectionComponents = {
 };
 
 var sections = [
-	{id: "1",  title: "Word Sounds",                 lessons: "1-7"},
-	{id: "2",  title: "Short Vowel Sounds",          lessons: "8-14"},
-	{id: "3",  title: "Short Vowels",                lessons: "15-20",   letters: "a-u"},
-	{id: "4",  title: "Consonant With Vowel",        lessons: "21-43",   letters: "b-f"},
-	{id: "5",  title: "Consonant With Vowel",        lessons: "44-63",   letters: "g-k"},
-	{id: "6",  title: "Consonant With Vowel",        lessons: "64-88",   letters: "l-p"},
-	{id: "7",  title: "Consonant With Vowel",        lessons: "89-108",  letters: "q-t"},
-	{id: "8",  title: "Consonant With Vowel",        lessons: "109-121", letters: "v-z"},
+	{id: "1",  title: "Word Sounds",                                lessons: "1-7"},
+	{id: "2",  title: "Short Vowel Sounds",                         lessons: "8-14"},
+	{id: "3",  title: "Short Vowels",                               lessons: "15-20",   letters: "a-u"},
+	{id: "4",  title: <span>Consonant<br/>With Vowel</span>,        lessons: "21-43",   letters: "b-f"},
+	{id: "5",  title: <span>Consonant<br/>With Vowel</span>,        lessons: "44-63",   letters: "g-k"},
+	{id: "6",  title: <span>Consonant<br/>With Vowel</span>,        lessons: "64-88",   letters: "l-p"},
+	{id: "7",  title: <span>Consonant<br/>With Vowel</span>,        lessons: "89-108",  letters: "q-t"},
+	{id: "8",  title: <span>Consonant<br/>With Vowel</span>,        lessons: "109-121", letters: "v-z"},
 	{id: "9",  title: <span>Building on<br/>Co-Articulation</span>, lessons: "122-124"},
-	{id: "10", title: "Reading Words",               lessons: "125-126"}
+	{id: "10", title: "Reading Words",                              lessons: "125-126"}
 ];
 
 var Admin = React.createClass({
@@ -70,7 +72,8 @@ var Admin = React.createClass({
 	renderNav: function() {
 		return sections.map(function(section) {
 			return (
-				<SectionButton 
+				<SectionButton
+					key={section.id}
 					id={section.id} 
 					title={section.title}
 					lessons={section.lessons}
@@ -80,16 +83,42 @@ var Admin = React.createClass({
 		}.bind(this));
 	},
 
+	back: function() {
+		var lastScreen = Store.get("lastScreen");
+
+		if(lastScreen) {
+			if(lastScreen.activity) {
+				Link.to("lesson/" + lastScreen.lesson + "/activity/" + lastScreen.activity);
+			}
+			else {
+				Link.to("lesson/" + lastScreen.lesson);
+			}
+		}
+		else {
+			Link.to("lesson/1");
+		}
+	},
+
 	render: function() {
 		return (
 			<div className='admin'>
 				<div className='admin-header'>
+					<ul>
+						<li>User</li>
+						<li>Restart</li>
+						<li>About</li>
+					</ul>
+					<h1>Fun-Time Phonics Admin/Score</h1>
+					<span className='admin-header-grades'>PreK - 2</span>
 				</div>
 				<div className='admin-nav'>
 					{this.renderNav()}
 				</div>
 				<div className='admin-current-section'>
 					{this.renderSection()}
+					<div className='admin-back-button' onClick={this.back}>
+						Back
+					</div>
 				</div>
 			</div>
 		);

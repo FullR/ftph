@@ -21,6 +21,12 @@ module.exports = function(options) {
 			};
 		},
 
+		// Hook decides whether or not the lesson should return to the last played activity rather than `options.nextRoute` 
+		shouldReturn: function(lastActivity) {
+			return  lastActivity &&
+					lastActivity.lesson === "1" && 
+					(options.activities || []).indexOf(lastActivity.activity) !== -1;
+		},
 
 		instructions: {
 			animation: function(then) {

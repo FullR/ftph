@@ -6,11 +6,12 @@ module.exports = function(options) {
 	return React.createClass({
 		mixins: [
 			require("mixins/game-screen")("activity", options.choices),
-			require("mixins/activity")("1", options.id, options.nextRoute, options.returnRoute),
+			require("mixins/activity")(options.lessonId || "1", options.id, options.nextRoute, options.returnRoute),
 			require("mixins/render/activity/basic"),
 			require("mixins/single-choice")
 		],
-		initAnimation: options.initAnimation,
+		defaultAnimation: options.defaultAnimation,
+		submitLessonId: options.submitLessonId,
 
 		getInitialState: function() {
 			return {
@@ -55,19 +56,9 @@ module.exports = function(options) {
 					then("actorSay", selected.correct ? "feedback.begins-with" : "feedback.doesnt-begin"),
 					then("wait", 250),
 					then("actorSay", "instructions.phonic"),
-					then("sit"),
 					selected.correct ? null : then("showContinueButton")
 				];
 			}
-		},
-		
-		getCornerInfo: function() {
-			return (
-				<div className='corner-info'>
-					Lesson 1: Beginning Sounds<br/>
-					Activity {options.id} of 15
-				</div>
-			);
 		}
 	});
 

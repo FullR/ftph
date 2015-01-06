@@ -9,7 +9,6 @@ module.exports = {
 			$this = $(this.getDOMNode()),
 			$parent = $this.parent();
 
-		console.log("Fitting");
 		$this[0].onload = function() {
 			var nWidth  = this.naturalWidth,
 				nHeight = this.naturalHeight,

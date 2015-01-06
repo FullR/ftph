@@ -4,6 +4,7 @@ var Q = require("q");
 
 function applyMediaPolyfill() {
 	var noop = function() {},
+		HowlerModule,
 		Howl;
 
 	function MediaPollyfill(url, onFinishPlaying, onErrorPlaying, onPlayingStatus) {
@@ -14,7 +15,10 @@ function applyMediaPolyfill() {
 	}
 
 	if(!window.Media) {
-		Howl = require("howler").Howl;
+		HowlerModule = require("howler");
+		Howl = HowlerModule.Howl;
+		Howler = HowlerModule.Howler;
+
 
 		MediaPollyfill.prototype = {
 			load: function() {
@@ -43,7 +47,14 @@ function applyMediaPolyfill() {
 			release: function() {
 				
 			}
+		};
 
+		MediaPollyfill.mute = function() {
+			Howler.mute();
+		};
+
+		MediaPollyfill.unmute = function() {
+			Howler.unmute();
 		};
 
 		window.Media = MediaPollyfill;

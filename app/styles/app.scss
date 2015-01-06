@@ -1,6 +1,6 @@
 @import 'susy';
 
-/* Changing Susy default global settings */
+/* Default grid settings */
 $susy: (
 	/* Tells Susy to use 12 columns */
 	columns: 12,
@@ -10,6 +10,8 @@ $susy: (
 	global-box-sizing: border-box 
 );
 
+@include border-box-sizing;
+
 body #outlet {
 	@include container;
 }
@@ -17,18 +19,22 @@ body #outlet {
 @import 'mixins';
 @import 'pres/variables';
 @import 'layout/variables';
-
 @import 'reset';
 @import 'normalize';
 
 @import 'common';
 
 // Layout
+@import 'layout/splash';
 @import 'layout/choice';
 @import 'layout/game-screen';
 @import 'layout/activity-feedback';
 @import 'layout/admin';
 @import 'layout/admin-button';
+@import 'layout/admin-check';
+@import 'layout/lesson-wrapper';
+@import 'layout/rhyme-word';
+@import 'layout/lesson-feedback';
 
 // Presentation
 @import 'pres/teacher';

@@ -8,7 +8,6 @@ module.exports = {
 		return (
 			<div>
 				{this.getChoices()}
-				{this.getCornerInfo()}
 				{this.renderExtras ? this.renderExtras() : null}
 			</div>
 		);
