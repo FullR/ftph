@@ -6,6 +6,7 @@ var gulp        = require("gulp"),					 // Task runner
 	sass        = require("gulp-ruby-sass"), 	     // Compiles scss/sass files into css
 	Browserify  = require("browserify"),	         // Allows `require` and `module.exports` to be used in browser javascript
 	jshint      = require("gulp-jshint"),            // Checks javascript files for issues
+	scsslint 	= require("gulp-scss-lint"),		 // Check scss files for issues
 	reactify    = require("reactify"),	             // Browserify plugin for compiling jsx files
 	source      = require("vinyl-source-stream"),    // Allows the use of text streams with gulp (needed for browserify)
 	stylish     = require("jshint-stylish"),         // Prints a pretty report from the output of jshint
@@ -53,6 +54,11 @@ gulp.task("javascript", function() {
 		.bundle()
 	    .pipe(source("app.js"))
 	    .pipe(gulp.dest("./dist/assets"));
+});
+
+gulp.task("lint-scss", function() {
+	return gulp.src("app/styles/**/*.scss")
+		.pipe(scsslint());
 });
 
 // Compile scss files

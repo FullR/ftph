@@ -3,6 +3,7 @@
 var React       = require("react"),
 	Link        = require("components/utility/link"),
 	WebLink		= require("components/utility/web-link"),
+	AdminButton = require("components/admin-button"),
 	soundManger = require("sound/sound-manager");
 
 var Splash = React.createClass({

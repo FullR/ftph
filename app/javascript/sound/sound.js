@@ -40,35 +40,25 @@ _.extend(Sound.prototype, {
 	_finishedPlaying: function(stopped) {
 		var deferred = this.deferred;
 		this.playing = false;
+		
 		if(deferred) {
-			deferred.resolve({stopped: stopped});
+			deferred.resolve();
 			this.deferred = null;
 			return deferred.promise;
 		}
-		else {
-			return Q.resolve({stopped: stopped});
-		}
+
+		return Q.resolve();
 	},
 
-	play: function(delay) {
+	play: function() {
 		this.playing = true;
 
 		return this.stop().then(function() {
 			var deferred = Q.defer();
 
 			this.deferred = deferred;
-
-			if(delay) {
-				this.timeoutId = setTimeout(function delayTimeout() {
-					this.timeoutId = null;
-					this.playing = true;
-					this.media.play();
-				}.bind(this), delay);
-			}
-			else {
-				this.playing = true;
-				this.media.play();
-			}
+			this.playing = true;
+			this.media.play();
 
 			return deferred.promise;
 		}.bind(this)).then(function() {
@@ -76,23 +66,10 @@ _.extend(Sound.prototype, {
 		}.bind(this));
 	},
 
-	stopAudio: function() {
-		this.media.stop();
-	},
-
-	stopDelay: function() {
-		var timeoutId = this.timeoutId;
-		if(timeoutId) {
-			clearTimeout(timeoutId);
-			this.timeoutId = null;
-		}
-	},
-
 	stop: function() {
 		if(this.deferred) {
-			this.stopDelay();
-			this.stopAudio();
-			return this._finishedPlaying(true).then(function() {});
+			this.media.stop();
+			return this._finishedPlaying();
 		}
 		return Q.resolve();
 	},
