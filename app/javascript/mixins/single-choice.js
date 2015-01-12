@@ -5,31 +5,23 @@ var React     = require("react"),
 	store     = require("storage");
 
 module.exports = {
-	getSelected: function() {
-		return this.state.choices.filter(function(choice) {
-			return choice.selected;
-		})[0];
-	},
-
-	isCorrect: function() {
-		var selected = this.getSelected();
-		return selected.correct;
-	},
-
 	shouldShowFeedback: function() {
-		return !!this.getSelected();
+		return this.getSelected().length > 0;
 	},
 
 	selectChoice: function(choice) {
 		return function() {
 			choice.select();
-			store.submitAnswer(this.lessonId, this.activityId, this.isCorrect());
+			store.submitAnswer(this.lessonId, this.activityId, {
+				correct: this.isCorrect(),
+				selected: this.getSelectedIndexes()
+			});
 			this.animate("feedback");
 		}.bind(this);
 	},
 
 	renderFeedback: function() {
-		var selected = this.getSelected(),
+		var selected = this.getSelected()[0],
 			correctStr = selected.correct ? "correct" : "incorrect";
 
 		return (

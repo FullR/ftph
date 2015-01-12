@@ -13,10 +13,11 @@ module.exports = function(options) {
 		getInitialState: function() {
 			return {
 				instructions: {
-					"listen-for": this.sound("assets/audio/lessons/lesson-2/sub-lessons/instructions/listen-for"),
-					"and":        this.sound("assets/audio/lessons/lesson-2/sub-lessons/instructions/and"),
-					"as-in":      this.sound("assets/audio/lessons/lesson-2/sub-lessons/instructions/as-in"),
-					"phonic":     this.sound("assets/audio/phonics/lesson-phonics/"+options.phonic)
+					"listen-for":  this.sound("assets/audio/lessons/lesson-2/sub-lessons/instructions/listen-for"),
+					"and":         this.sound("assets/audio/lessons/lesson-2/sub-lessons/instructions/and"),
+					"as-in":       this.sound("assets/audio/lessons/lesson-2/sub-lessons/instructions/as-in"),
+					"phonic":      this.sound("assets/audio/phonics/lesson-phonics/"+options.phonic),
+					"touch-arrow": this.sound("assets/audio/common/touch-arrow")
 				}
 			};
 		},
@@ -43,6 +44,8 @@ module.exports = function(options) {
 					this.actorSayChoice(0),
 					then("actorSay", "instructions.and"),
 					this.actorSayChoice(1),
+					then("wait", 250),
+					then("actorSay", "instructions.touch-arrow"),
 					then("sit")
 				];
 			}

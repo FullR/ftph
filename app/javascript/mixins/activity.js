@@ -1,6 +1,8 @@
 "use strict";
 
 var React   = require("react"),
+	Q		= require("q"),
+	store   = require("storage"),
 	Link    = require("components/utility/link"),
 	Teacher = require("components/teacher"),
 	Owl     = require("components/owl"),
@@ -32,6 +34,44 @@ module.exports = function(lessonId, activityId, nextRoute, returnRoute) {
 				}),
 				showingContinueButton: false
 			};
+		},
+
+		loadData: function() {
+			return store.getActivityData(lessonId, activityId);
+		},
+
+		componentDidMount: function() {
+			var animation;
+
+			if(this.shouldShowFeedback()) {
+				animation = "feedback";
+			}
+			else {
+				animation = this.defaultAnimation || "instructions";
+			}
+
+
+			Q.resolve()
+				.then(this.load)
+				.then(this.animate.bind(this, animation));
+		},
+
+		getSelected: function() {
+			return this.state.choices.filter(function(choice) { 
+				return choice.selected; 
+			});
+		},
+
+		isCorrect: function() {
+			return this.getSelected().every(function(choice) {
+				return choice.correct;
+			});
+		},
+
+		getSelectedIndexes: function() {
+			return this.getSelected().map(function(choice) {
+				return this.state.choices.indexOf(choice);
+			}.bind(this));
 		},
 
 		activityClassName: function() {

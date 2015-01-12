@@ -7,12 +7,12 @@ var React	= require("react"),
 	muted	= false;
 
 function preload() {
-	require("images").images.forEach(function(image) {
+	require("images").images.forEach((image) => {
 		$("<img/>")[0].src = image;
 	});
 }
 
-ready.then(function afterReady() {
+ready.then(function() {
 	try {
 		//Function.prototype.bind polyfill for cordova
 		require("./polyfills/function-prototype-bind")();
@@ -30,7 +30,7 @@ ready.then(function afterReady() {
 				window.Media.mute();
 			}
 			// Toggle mute when 'm' key is pressed
-			$(document).on("keydown", function(e) {
+			$(document).on("keydown", (e) => {
 				if(e.which === 77) {
 					window.Media[muted ? "unmute" : "mute"]();
 					muted = !muted;

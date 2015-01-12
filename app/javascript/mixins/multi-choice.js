@@ -5,18 +5,6 @@ var React     = require("react"),
 	store     = require("storage");
 
 module.exports = {
-	getSelected: function() {
-		return this.state.choices.filter(function(choice) { 
-			return choice.selected; 
-		});
-	},
-
-	isCorrect: function() {
-		return this.getSelected().every(function(choice) {
-			return choice.correct;
-		});
-	},
-
 	shouldShowFeedback: function() {
 		return this.getSelected().length >= 2;
 	},
@@ -35,7 +23,10 @@ module.exports = {
 			}
 
 			if(selectedChoices.length === 2) {
-				store.submitAnswer(this.lessonId, this.activityId, this.isCorrect());
+				store.submitAnswer(this.lessonId, this.activityId, {
+					correct: this.isCorrect(),
+					selectedIndexes: this.getSelectedIndexes()
+				});
 
 				this.mergeState({
 					showingFeedback: true

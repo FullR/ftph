@@ -12,11 +12,13 @@ var LessonButton = React.createClass({
 	},
 
 	render: function() {
-		var classNames = [
+		// the split is to handle sublessons as if they were their parent lesson
+		var lastLesson = ((store.get("lastScreen") || {}).lesson || "").split("-")[0],
+		classNames = [
 			this.props.className,
 			"lesson-button",
 			this.props.active ? "lesson-button-active" : null,
-			this.props.lesson === (store.get("lastScreen")||{}).lesson ? "lesson-button-prev" : null
+			this.props.lesson === lastLesson ? "lesson-button-prev" : null
 		].filter(truthy).join(" ");
 
 		return (

@@ -34,26 +34,41 @@ function reset() {
 	save();
 }
 
-function submitAnswer(lessonId, activityId, correct) {
+// Returns the activity array for a given lesson
+// Each activity is responsible for maintaining whatever data it needs to maintain in the namespace
+function getActivities(lessonId) {
 	var lessonData = getLessonData(lessonId);
-	lessonData[activityId] = !!correct;
+
+	return lessonData.activities || (lessonData.activities = []);
+}
+
+// Submit new data for an individual activity
+// The basic schema should be something like this:
+/*
+	correct: boolean
+	selected: [array of selected choice indexes]
+*/
+function submitAnswer(lessonId, activityId, data) {
+	getActivities(lessonId)[activityId] = data;
 	save();
 }
 
+// Returns the last submitted answer for the given activity
+function getActivityData(lessonId, activityId) {
+	return getActivities(lessonId)[activityId];
+}
+
+// Returns all data for a given lesson
 function getLessonData(id) {
 	return modelData.lessons[id] || (modelData.lessons[id] = {});
 }
 
 module.exports = {
-	getModel: function() {
+	getModel() {
 		return modelData;
 	},
-	save: save,
-	reset: reset,
-	submitAnswer: submitAnswer,
-	getLessonData: getLessonData,
 
-	set: function(key, value) {
+	set(key, value) {
 		if(typeof key === "object") {
 			_.extend(modelData, key);
 		}
@@ -63,7 +78,13 @@ module.exports = {
 		save();
 	},
 
-	get: function(key) {
+	get(key) {
 		return modelData[key];
-	}
+	},
+
+	save: save,
+	reset: reset,
+	submitAnswer: submitAnswer,
+	getLessonData: getLessonData,
+	getActivityData: getActivityData
 };

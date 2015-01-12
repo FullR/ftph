@@ -31,7 +31,8 @@ var Splash = React.createClass({
 					<img src='assets/images/tctc-logo.png' />
 				</WebLink>
 				<div className='grades'>PreK - 2</div>
-				<img src='assets/images/splash.png'/>
+				<AdminButton />
+				<img className='background' src='assets/images/splash.png'/>
 				<button onClick={this.nextScreen}></button>
 			</div>
 		);

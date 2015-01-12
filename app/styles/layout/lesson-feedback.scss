@@ -1,5 +1,6 @@
 .lesson-feedback {
 	@include fill;
+	@extend %star-wrapped;
 	overflow: auto;
 	text-align: center;
 	font-family: "Comic Sans MS"; 	

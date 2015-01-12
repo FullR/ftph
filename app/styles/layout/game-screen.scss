@@ -16,6 +16,14 @@
 	}
 }
 
+.continue-arrow-content {
+	position: relative;
+	top: 41%;
+	width: 100%;
+	text-align: center;
+	font-size: 22px;
+}
+
 .corner-info {
 	@include pos(16px, 16px, bottom, right);
 	text-align: center;

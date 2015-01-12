@@ -155,9 +155,11 @@ module.exports = require("./utility").extend({
 	},
 
 	animate: function(animationName) {
+		console.log("Playing",animationName);
 		var animation = this[animationName];
 		var _animate = function() {
 			this.animationQueue = PromiseQueue(animation.animation.call(this, this.then));
+			this.animating = true;
 
 			if(animation.preAnimation) {
 				animation.preAnimation.call(this);
@@ -166,6 +168,7 @@ module.exports = require("./utility").extend({
 			return this.animationQueue.start().then(function() {
 				soundManager.stop();
 				this.animationQueue = null;
+				this.animating = false;
 
 				if(animation.postAnimation) {
 					animation.postAnimation.call(this);
@@ -198,12 +201,6 @@ module.exports = require("./utility").extend({
 
 	sound: function(path) {
 		return soundManager.get(path);
-	},
-
-	componentDidMount: function() {
-		Q.resolve()
-			.then(this.load)
-			.then(this.animate.bind(this, this.defaultAnimation || "instructions"));
 	},
 
 	componentWillUnmount: function() {

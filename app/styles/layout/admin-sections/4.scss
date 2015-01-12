@@ -50,6 +50,33 @@
 	}
 }
 
+.admin .admin-sublesson-marker {
+	@include span(1 of 8);
+	left: span(2 of 8);
+	position: relative;
+	height: 80%;
+	top: 10%;
+	border: 1px solid black;
+	border-radius: 8px;
+	background: #FFF;
+	text-align: center;
+
+	&-content {
+		position: relative;
+		font-size: 22px;
+		top: 35%;
+	}
+
+	&-active {
+		border-color: red;
+	}
+
+	@include active {
+		border-color: #1285e7;
+	}
+
+}
+
 
 // Inside the buttons
 

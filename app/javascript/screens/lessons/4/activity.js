@@ -46,7 +46,7 @@ module.exports = function(options) {
 
 		feedback: {
 			animation: function(then) {
-				var selected = this.getSelected();
+				var selected = this.getSelected()[0];
 
 				if(this.isCorrect()) {
 					return [

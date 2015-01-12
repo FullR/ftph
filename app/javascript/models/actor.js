@@ -25,34 +25,34 @@ _.extend(Actor.prototype, {
 	then: require("utility/then"),
 	set: require("utility/set"),
 
-	hide: function() {
+	hide() {
 		this.set("hidden", true);
 	},
 
-	reveal: function() {
+	reveal() {
 		this.set("hidden", false);
 	},
 
-	center: function() {
+	center() {
 		this.set("centered", true);
 	},
 
-	uncenter: function() {
+	uncenter() {
 		this.set("centered", false);
 	},
 
-	setState: function(state) {
+	setState(state) {
 		this.set("state", state);
 	},
 
-	say: function(fn) {
+	say(fn) {
 		return Q.resolve()
 			.then(this.setState.bind(this, "speaking"))
 			.then(fn)
 			.then(this.setState.bind(this, "speaking-closed"));
 	},
 
-	update: function() {
+	update() {
 		this.stream.push(this);
 	}
 });

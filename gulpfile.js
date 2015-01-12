@@ -1,6 +1,7 @@
 "use strict";
 
 var gulp        = require("gulp"),					 // Task runner
+	_ 			= require("lodash"),
 	fs 			= require("fs"),
 	plumber     = require("gulp-plumber"),           // Handles gulp errors without stopping the watch task
 	sass        = require("gulp-ruby-sass"), 	     // Compiles scss/sass files into css
@@ -16,10 +17,18 @@ var gulp        = require("gulp"),					 // Task runner
 	prefix		= require("gulp-autoprefixer"),		 // Autoprefix Vendor specific CSS properties
 	Filter      = require("gulp-filter"),            // Used to filter streams using globs
 	imageMin	= require("gulp-imagemin"),			 // Optimizes images
-	glob 		= require("glob"),
+	glob 		= require("glob"),					 // For quering the filesystem for filenames
 	cordovaUtil = require("./cordova-utility"),      // Script for setting up cordova and building android apks
 	buildAudio  = require("./build-audio"),			 // Converts .wav files to .ogg and .mp3
 	port        = 4210;								 // For test server
+
+// Custom react transform forces es6 option
+var reactTransform = function(file) {
+	return reactify(file, {es6: true});
+};
+reactTransform.process = reactify.process;
+reactTransform.isJSXExtensionRe = reactify.isJSXExtensionRe;
+
 
 // create a json file listing all images except the word images so the client can preload them
 gulp.task("map-images", function(callback) {
@@ -49,7 +58,7 @@ gulp.task("javascript", function() {
 			paths: ["./node_modules", "./app/javascript"],
 			debug: true
 		})
-		.transform(reactify)
+		.transform(reactTransform)
 		.add("./app/javascript/app.js")
 		.bundle()
 	    .pipe(source("app.js"))
@@ -129,6 +138,23 @@ gulp.task("build-images", function() {
 	return gulp.src("raw-assets/images/**/*")
 		.pipe(imageMin({ progressive: true }))
 		.pipe(gulp.dest("statics/assets/images"));
+});
+
+gulp.task("upload", ["build"], function() {
+	var exec = require("child_process").exec,
+		Q = require("q"),
+		deferred = Q.defer();
+
+	exec('sshpass -p "ctADl0g1n" scp -r dist/* james@12.0.0.70:/home/james/server/apps/fun-time-phonics', function(err) {
+		if(err) {
+			deferred.reject(err);
+		}
+		else {
+			deferred.resolve();
+		}
+	});
+
+	return deferred.promise;
 });
 
 gulp.task("build-assets", ["build-audio", "build-images"]);

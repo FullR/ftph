@@ -12,7 +12,7 @@ var AdminButton = React.createClass({
 		return (
 			<div className='admin-button' onClick={this.routeToCheck}>
 				<img className='admin-button-icon' src='assets/images/lock-icon.png'/>
-				<span>Admin</span>
+				<span>Admin/Score</span>
 			</div>
 		);
 	}

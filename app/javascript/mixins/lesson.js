@@ -7,6 +7,10 @@ var React = require("react"),
 	store = require("storage"),
 	Arrow = require("components/continue-arrow");
 
+function last(arr) {
+	return arr[arr.length-1];
+}
+
 module.exports = function(lessonId, nextRoute) {
 	var displayName = "lesson-" + lessonId;
 	return {
@@ -32,6 +36,17 @@ module.exports = function(lessonId, nextRoute) {
 			].join(" ");
 		},
 
+		getNextActivity: function() {
+			var lastActivity = store.get("lastActivity") || {},
+				split;
+
+			if(lastActivity.lesson === (""+lessonId) || (this.shouldReturn && this.shouldReturn(lastActivity))) {
+				return lastActivity.activity;
+			}
+
+			return last(nextRoute.split("/"));
+		},
+
 		next: function() {
 			var lastActivity = store.get("lastActivity") || {};
 
@@ -45,9 +60,11 @@ module.exports = function(lessonId, nextRoute) {
 		render: function() {
 			return (
 				<div className={this.lessonClassName()}>
-					<Owl {...this.state.actor} />
+					<Owl {...this.state.actor}>
+						Lesson
+					</Owl>
 					{this.renderLesson()}
-					<Arrow to={this.next()}></Arrow>
+					<Arrow to={this.next()}>Activity {this.getNextActivity()}</Arrow>
 				</div>
 			);
 		}

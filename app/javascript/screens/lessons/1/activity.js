@@ -38,7 +38,7 @@ module.exports = function(options) {
 					then("actorSay", "instructions.phonic"),
 					then("wait", 250),
 					then("uncenterActor"),
-					this.actorSayChoices(0),
+					this.actorSayChoices(),
 					then("sit")
 				];
 			}
@@ -46,7 +46,7 @@ module.exports = function(options) {
 
 		feedback: {
 			animation: function(then) {
-				var selected = this.getSelected();
+				var selected = this.getSelected()[0];
 
 				return [
 					selected.correct ? then("showContinueButton") : null,

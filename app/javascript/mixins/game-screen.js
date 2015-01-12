@@ -17,11 +17,13 @@ module.exports = function(type, choices) {
 		],
 
 		getInitialState: function() {
-			return {
+			var state = {
 				choices: choices.map(function(choice) {
 					return new WordModel(choice.word, type, choice);
 				})
 			};
+
+			return state;
 		},
 
 		showContinueButton: function() {
@@ -55,7 +57,6 @@ module.exports = function(type, choices) {
 				this.state.actor.stream
 			];
 		},
-
 
 		getChoices: function() {
 			return (
