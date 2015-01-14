@@ -1,9 +1,10 @@
 "use strict";
 
 var React = require("react"),
-	Link = require("components/utility/link"),
-	Owl = require("components/owl"),
-	Actor   = require("models/actor"),
+	Q     = require("q"),
+	Link  = require("components/utility/link"),
+	Owl   = require("components/owl"),
+	Actor = require("models/actor"),
 	store = require("storage"),
 	Arrow = require("components/continue-arrow");
 
@@ -19,6 +20,7 @@ module.exports = function(lessonId, nextRoute) {
 
 		getInitialState: function() {
 			return {
+				// owl
 				actor: new Actor({
 					onClick: function() {
 						if(!this.isAnimating()) {
@@ -29,6 +31,14 @@ module.exports = function(lessonId, nextRoute) {
 			};
 		},
 
+		componentDidMount: function() {
+			// on show, load sounds then play instructions animation
+			Q.resolve()
+				.then(this.load)
+				.then(this.animate.bind(this, "instructions"));
+		},
+
+		// Get DOM class names
 		lessonClassName: function() {
 			return [
 				"lesson",
@@ -36,6 +46,7 @@ module.exports = function(lessonId, nextRoute) {
 			].join(" ");
 		},
 
+		// Returns the id of the next activity
 		getNextActivity: function() {
 			var lastActivity = store.get("lastActivity") || {},
 				split;
@@ -47,6 +58,7 @@ module.exports = function(lessonId, nextRoute) {
 			return last(nextRoute.split("/"));
 		},
 
+		// Returns the route to navigate to when the arrow is clicked
 		next: function() {
 			var lastActivity = store.get("lastActivity") || {};
 

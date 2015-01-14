@@ -6,7 +6,8 @@
 	left: 30%;
 }
 
-.admin-section-9 .sec-9-btn {
+.admin-section-9 .sec-9-btn,
+.admin-section-10 .sec-10-btn {
 	vertical-align: middle;
 	width: 100%;
 	height: 30%;
@@ -15,8 +16,9 @@
 	display: block;
 	position: relative;
 
-	& > .lesson-button-title {
+	.lesson-button-title {
 		font-size: 22px;
 		margin-top: 4px;
+		text-decoration: underline;
 	}
 }

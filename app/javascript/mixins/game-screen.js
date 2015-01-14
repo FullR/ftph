@@ -3,6 +3,7 @@
 var React	  = require("react"),
 	Q 		  = require("q"),
 	_		  = require("lodash"),
+	store	  = require("storage"),
 	WordModel = require("models/word"),
 	WordImage = require("components/word-image"),
 	Choice 	  = require("components/choice"),
@@ -17,21 +18,34 @@ module.exports = function(type, choices) {
 		],
 
 		getInitialState: function() {
+			var data;
 			var state = {
 				choices: choices.map(function(choice) {
 					return new WordModel(choice.word, type, choice);
 				})
 			};
 
+			// Select any previously selected choices
+			if(type === "activity") {
+				data = this.loadData();
+				if(data && data.selected) {
+					data.selected.forEach(function(choiceIndex) {
+						state.choices[choiceIndex].selected = true;
+					});
+				}
+			}
+
 			return state;
 		},
 
+		// Show continue button in feedback screens
 		showContinueButton: function() {
 			this.mergeState({
 				showingContinueButton: true
 			});
 		},
 
+		// Load all sounds
 		load: function() {
 			function load(obj) {
 				return _(obj)
@@ -51,6 +65,7 @@ module.exports = function(type, choices) {
 			return Q.all(promises).then(null, function() { return Q.resolve(); });
 		},
 
+		// Retrieves all event streams to watch for values
 		getStreams: function() {
 			return [
 				_.pluck(this.state.choices, "stream"), 
@@ -58,6 +73,7 @@ module.exports = function(type, choices) {
 			];
 		},
 
+		// Renders choices
 		getChoices: function() {
 			return (
 				<div className='choices'>

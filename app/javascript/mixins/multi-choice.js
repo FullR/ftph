@@ -5,10 +5,12 @@ var React     = require("react"),
 	store     = require("storage");
 
 module.exports = {
+	// Returns true if the feedback should be displayed
 	shouldShowFeedback: function() {
 		return this.getSelected().length >= 2;
 	},
 
+	// Select/deselect a choice
 	selectChoice: function(choice) {
 		return function() {
 			var selectedChoices = this.getSelected();

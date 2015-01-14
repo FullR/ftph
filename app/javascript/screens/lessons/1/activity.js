@@ -49,6 +49,8 @@ module.exports = function(options) {
 				var selected = this.getSelected()[0];
 
 				return [
+					then("stand"),
+					then("revealActor"),
 					selected.correct ? then("showContinueButton") : null,
 					selected.correct ? then("play", "feedback.applause") : null,
 					then("actorSay", selected),

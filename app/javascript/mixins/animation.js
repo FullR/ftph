@@ -70,6 +70,10 @@ module.exports = require("./utility").extend({
 		});
 	},
 
+	stand: function() {
+		this.state.actor.setState("speaking-closed");
+	},
+
 	sit: function() {
 		this.state.actor.setState("sitting");
 	},

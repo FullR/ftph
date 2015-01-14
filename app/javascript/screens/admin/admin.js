@@ -3,7 +3,7 @@
 var React   = require("react"),
 	Link    = require("components/utility/link"),
 	WebLink = require("components/utility/web-link"),
-	Store   = require("storage");
+	store   = require("storage");
 
 function truthy(n) { return !!n; }
 
@@ -64,9 +64,32 @@ var sections = [
 ];
 
 var Admin = React.createClass({
+	getInitialState: function() {
+		var lastLesson = (store.get("lastScreen") || {}).lesson;
+
+		if(lastLesson) {
+			return {
+				selectedLesson: lastLesson.split("-")[0]
+			};
+		}
+		return {
+			selectedLesson: "1"
+		};
+	},
+
+	selectLesson: function(lessonId) {
+		this.setState({
+			selectedLesson: lessonId
+		});
+	},
+
+	back: function() {
+		Link.to("lesson/"+this.state.selectedLesson);
+	},
+
 	renderSection: function() {
 		var Section = sectionComponents[this.props.sectionId || "1"];
-		return (<Section />);
+		return (<Section selectLesson={this.selectLesson} selectedLesson={this.state.selectedLesson}/>);
 	},
 
 	renderNav: function() {
@@ -81,22 +104,6 @@ var Admin = React.createClass({
 					active={section.id === this.props.sectionId}/>
 			);
 		}.bind(this));
-	},
-
-	back: function() {
-		var lastScreen = Store.get("lastScreen");
-
-		if(lastScreen) {
-			if(lastScreen.activity) {
-				Link.to("lesson/" + lastScreen.lesson + "/activity/" + lastScreen.activity);
-			}
-			else {
-				Link.to("lesson/" + lastScreen.lesson);
-			}
-		}
-		else {
-			Link.to("lesson/1");
-		}
 	},
 
 	render: function() {
@@ -122,7 +129,7 @@ var Admin = React.createClass({
 				</div>
 			</div>
 		);
-	}
+	},
 });
 
 module.exports = Admin;
