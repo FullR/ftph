@@ -1,54 +1,54 @@
 
 @mixin star-wrapped($large: false) {
-	@if $large == true {
-		border-width: 50px;
-		@include border-image(url('images/correct-border-large.png'), 50, 50, round);
-	}
-	@else {
-		border-width: 25px;
-		@include border-image(url('images/correct-border.png'), 25, 25, round);
-	}
+    @if $large == true {
+        border-width: 50px;
+        @include border-image(url('images/correct-border-large.png'), 50, 50, round);
+    }
+    @else {
+        border-width: 25px;
+        @include border-image(url('images/correct-border.png'), 25, 25, round);
+    }
 }
 
 %red-x {
-	background: url('images/incorrect-x.png') no-repeat;
-	background-size: 100% 100%;
+    background: url('images/incorrect-x.png') no-repeat;
+    background-size: 100% 100%;
 }
 
 .feedback-words .feedback-word {
-	@include size(350px, 250px);
-	display: inline-block;
-	text-align: center;
-	margin: 0 16px 0 16px;
-	position: relative;
-	vertical-align: middle;
-	& > img {
-		display: inline-block;
-	}
+    @include size(350px, 250px);
+    display: inline-block;
+    text-align: center;
+    margin: 0 16px 0 16px;
+    position: relative;
+    vertical-align: middle;
+    & > img {
+        display: inline-block;
+    }
 }
 
 .feedback-words {
-	display: inline-block;
+    display: inline-block;
 
 }
 
 .feedback-words-container {
-	@include pos(30%);
-	@include size(100%);
-	text-align: center;
+    @include pos(30%);
+    @include size(100%);
+    text-align: center;
 }
 
 .incorrect-feedback-icon {
-	@extend %red-x;
-	@include size(250px, 250px);
-	@include pos(0, 50px);
+    @extend %red-x;
+    @include size(250px, 250px);
+    @include pos(0, 50px);
 }
 
 .feedback-words-container.correct .feedback-words {
-	@include star-wrapped;
+    @include star-wrapped;
 }
 
 .lesson-feedback .admin-button {
-	left: 60px;
-	bottom: 60px;
+    left: 60px;
+    bottom: 60px;
 }

@@ -2,18 +2,18 @@
 
 /* Default grid settings */
 $susy: (
-	/* Tells Susy to use 12 columns */
-	columns: 12,
-	/* Tells Susy that the container has a max-width of 1920px */
-	container: 1920px,
-	/* Tells Susy to use border-box */
-	global-box-sizing: border-box 
+    /* Tells Susy to use 12 columns */
+    columns: 12,
+    /* Tells Susy that the container has a max-width of 1920px */
+    container: 1920px,
+    /* Tells Susy to use border-box */
+    global-box-sizing: border-box 
 );
 
 @include border-box-sizing;
 
 body #outlet {
-	@include container;
+    @include container;
 }
 
 @import 'mixins';

@@ -78,7 +78,13 @@ module.exports = function(lessonId, activityId, nextRoute, returnRoute) {
             var showing = this.state.choices.some(function(choice) {
                 return !choice.hidden;
             });
-            return ["activity", className, displayName, showing ? "activity-choices-showing" : "activity-choices-hidden"].join(" ");
+            return [
+                "activity", 
+                className, 
+                displayName, 
+                showing ? "activity-choices-showing" : "activity-choices-hidden",
+                this.state.animating ? "activity-animating" : "activity-not-animating"
+            ].join(" ");
         },
 
         feedbackClassName: function() {

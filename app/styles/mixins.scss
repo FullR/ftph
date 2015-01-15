@@ -1,59 +1,59 @@
 @mixin bp($size, $dim: width) {
-	@if $size == tiny {
-		@media screen and (max-#{$dim}: 480px) { @content; }
-	}
-	@else if $size == small {
-		@media screen and (max-#{$dim}: 600px) { @content; }
-	}
-	@else if $size == medium {
-		@media screen and (max-#{$dim}: 1281px) { @content; }
-	}
-	@else if $size == large {
-		@media screen and (max-#{$dim}: 1600px) { @content; }
-	}
+    @if $size == tiny {
+        @media screen and (max-#{$dim}: 480px) { @content; }
+    }
+    @else if $size == small {
+        @media screen and (max-#{$dim}: 600px) { @content; }
+    }
+    @else if $size == medium {
+        @media screen and (max-#{$dim}: 1281px) { @content; }
+    }
+    @else if $size == large {
+        @media screen and (max-#{$dim}: 1600px) { @content; }
+    }
 }
 
 @mixin fill {
-	width: 100%;
-	height: 100%;
+    width: 100%;
+    height: 100%;
 }
 
 @mixin active() {
-	.hover-enabled &:hover, &:active {
-		@content;
-	}
+    .hover-enabled &:hover, &:active {
+        @content;
+    }
 }
 
 @mixin pos($y: auto, $x: auto, $topBottom: top, $leftRight: left, $posType: absolute) {
-	position: $posType;
-	@if $topBottom == top {
-		top: $y;
-	}
-	@else {
-		bottom: $y;
-	}
+    position: $posType;
+    @if $topBottom == top {
+        top: $y;
+    }
+    @else {
+        bottom: $y;
+    }
 
-	@if $leftRight == left {
-		left: $x;
-	}
-	@else {
-		right: $x;
-	}
+    @if $leftRight == left {
+        left: $x;
+    }
+    @else {
+        right: $x;
+    }
 }
 
 @mixin size($width: auto, $height: auto) {
-	width: $width;
-	height: $height;
+    width: $width;
+    height: $height;
 }
 
 @mixin image-button($imgUrl, $hoverUrl) {
-	background: url($imgUrl) no-repeat;
-	background-size: 100% 100%;
-	cursor: pointer;
+    background: url($imgUrl) no-repeat;
+    background-size: 100% 100%;
+    cursor: pointer;
 
-	@include active {
-		background-image: url($hoverUrl)
-	}
+    @include active {
+        background-image: url($hoverUrl)
+    }
 }
 
 @mixin border-image($src, $width, $offset, $repeat) {
@@ -64,19 +64,19 @@
 }
 
 @mixin mark-last {
-	&:last-child { @include last; }
+    &:last-child { @include last; }
 }
 
 @mixin after($content: "") {
-	&::after {
-		content: $content;
-		@content;
-	}
+    &::after {
+        content: $content;
+        @content;
+    }
 }
 
 @mixin before($content: "") {
-	&::before {
-		content: $content;
-		@content;
-	}
+    &::before {
+        content: $content;
+        @content;
+    }
 }

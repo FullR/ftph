@@ -42,7 +42,8 @@ module.exports = function(lessonId, nextRoute) {
         lessonClassName: function() {
             return [
                 "lesson",
-                displayName
+                displayName,
+                this.state.animating ? "lesson-animating" : "lesson-not-animating"
             ].join(" ");
         },
 

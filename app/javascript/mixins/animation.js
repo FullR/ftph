@@ -22,6 +22,11 @@ function choiceInvoker(fnName) {
     };
 }
 
+function mergeState(component, toMerge) {
+    _.extend(component.state, toMerge);
+    component.setState(component.state);
+}
+
 module.exports = require("./utility").extend({
     "choices-only": {
         animation: function(then) {
@@ -33,6 +38,10 @@ module.exports = require("./utility").extend({
                 then("sit")
             ];
         }
+    },
+
+    getInitialState: function() {
+        return {animating: false};
     },
 
     then: function(fnName /*, ...args*/) {
@@ -159,11 +168,10 @@ module.exports = require("./utility").extend({
     },
 
     animate: function(animationName) {
-        console.log("Playing",animationName);
         var animation = this[animationName];
         var _animate = function() {
             this.animationQueue = PromiseQueue(animation.animation.call(this, this.then));
-            this.animating = true;
+            mergeState(this, {animating: true});
 
             if(animation.preAnimation) {
                 animation.preAnimation.call(this);
@@ -172,7 +180,7 @@ module.exports = require("./utility").extend({
             return this.animationQueue.start().then(function() {
                 soundManager.stop();
                 this.animationQueue = null;
-                this.animating = false;
+                mergeState(this, {animating: false});
 
                 if(animation.postAnimation) {
                     animation.postAnimation.call(this);
@@ -199,8 +207,8 @@ module.exports = require("./utility").extend({
     stop: function() {
         if(this.animationQueue) {
             this.animationQueue.stop();
+            this.animationQueue = null;
         }
-        this.animationQueue = null;
     },
 
     sound: function(path) {
