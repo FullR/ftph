@@ -1,6 +1,13 @@
-%star-wrapped {
-	border-width: 25px;
-	@include border-image(url('images/correct-border.png'), 25, 25, round);
+
+@mixin star-wrapped($large: false) {
+	@if $large == true {
+		border-width: 50px;
+		@include border-image(url('images/correct-border-large.png'), 50, 50, round);
+	}
+	@else {
+		border-width: 25px;
+		@include border-image(url('images/correct-border.png'), 25, 25, round);
+	}
 }
 
 %red-x {
@@ -38,5 +45,10 @@
 }
 
 .feedback-words-container.correct .feedback-words {
-	@extend %star-wrapped;
+	@include star-wrapped;
+}
+
+.lesson-feedback .admin-button {
+	left: 60px;
+	bottom: 60px;
 }

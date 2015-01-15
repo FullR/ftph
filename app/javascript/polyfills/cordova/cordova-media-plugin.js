@@ -3,63 +3,63 @@
 var Q = require("q");
 
 function applyMediaPolyfill() {
-	var noop = function() {},
-		HowlerModule,
-		Howl;
+    var noop = function() {},
+        HowlerModule,
+        Howl;
 
-	function MediaPollyfill(url, onFinishPlaying, onErrorPlaying, onPlayingStatus) {
-		this.url = url;
-		this.onFinishPlaying = onFinishPlaying || noop;
-		this.onErrorPlaying = onErrorPlaying || noop;
-		this.onPlayingStatus = onPlayingStatus || noop;
-	}
+    function MediaPollyfill(url, onFinishPlaying, onErrorPlaying, onPlayingStatus) {
+        this.url = url;
+        this.onFinishPlaying = onFinishPlaying || noop;
+        this.onErrorPlaying = onErrorPlaying || noop;
+        this.onPlayingStatus = onPlayingStatus || noop;
+    }
 
-	if(!window.Media) {
-		HowlerModule = require("howler");
-		Howl = HowlerModule.Howl;
-		Howler = HowlerModule.Howler;
+    if(!window.Media) {
+        HowlerModule = require("howler");
+        Howl = HowlerModule.Howl;
+        Howler = HowlerModule.Howler;
 
 
-		MediaPollyfill.prototype = {
-			load: function() {
-				var deferred = Q.defer();
+        MediaPollyfill.prototype = {
+            load: function() {
+                var deferred = Q.defer();
 
-				this.sound = new Howl({
-					urls: 		 [this.url],
-					autoplay: 	 false,
-					volume: 	 1,
-					onend: 		 this.onFinishPlaying,
-					onload: 	 deferred.resolve,
-					onloaderror: deferred.reject
-				});
+                this.sound = new Howl({
+                    urls:        [this.url],
+                    autoplay:    false,
+                    volume:      1,
+                    onend:       this.onFinishPlaying,
+                    onload:      deferred.resolve,
+                    onloaderror: deferred.reject
+                });
 
-				return deferred.promise;
-			},
+                return deferred.promise;
+            },
 
-			stop: function() {
-				this.sound.stop();
-			},
+            stop: function() {
+                this.sound.stop();
+            },
 
-			play: function() {
-				this.sound.play();
-			},
+            play: function() {
+                this.sound.play();
+            },
 
-			release: function() {
-				
-			}
-		};
+            release: function() {
+                
+            }
+        };
 
-		MediaPollyfill.mute = function() {
-			Howler.mute();
-		};
+        MediaPollyfill.mute = function() {
+            Howler.mute();
+        };
 
-		MediaPollyfill.unmute = function() {
-			Howler.unmute();
-		};
+        MediaPollyfill.unmute = function() {
+            Howler.unmute();
+        };
 
-		window.Media = MediaPollyfill;
-	}
-	return window.Media;
+        window.Media = MediaPollyfill;
+    }
+    return window.Media;
 }
 
 module.exports = applyMediaPolyfill;

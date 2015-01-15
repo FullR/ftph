@@ -3,28 +3,28 @@
 var React = require("react");
 
 var Teacher = React.createClass({
-	mixins: [require("mixins/utility")],
-	render: function() {
-		var className = this.className(
-			"teacher",
-			"teacher-"+this.props.state,
-			this.props.centered ? "teacher-centered" : null,
-			this.props.hidden ? "teacher-hidden" : null,
-			this.props.onClick ? "selectable" : null
-		);
+    mixins: [require("mixins/utility")],
+    render: function() {
+        var className = this.className(
+            "teacher",
+            "teacher-"+this.props.state,
+            this.props.centered ? "teacher-centered" : null,
+            this.props.hidden ? "teacher-hidden" : null,
+            this.props.onClick ? "selectable" : null
+        );
 
-		this.props.className = className;
+        this.props.className = className;
 
-		return (
-			<div {...this.props}>
-				<div className='teacher-image'/>
+        return (
+            <div {...this.props}>
+                <div className='teacher-image'/>
 
-				<div className='teacher-content'>
-					{this.props.children}
-				</div>
-			</div>
-		);
-	}
+                <div className='teacher-content'>
+                    {this.props.children}
+                </div>
+            </div>
+        );
+    }
 });
 
 module.exports = Teacher;

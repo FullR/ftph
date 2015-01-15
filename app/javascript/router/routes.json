@@ -1,8 +1,8 @@
 {
-	"": "index",
-	"lesson/:lesson_id": "lesson",
-	"lesson/:lesson_id/activity/:activity_id": "activity",
-	"lesson/:lesson_id/feedback": "lessonFeedback",
-	"admin/:section_id": "admin",
-	"admin-check": "adminCheck"
+    "": "index",
+    "lesson/:lesson_id": "lesson",
+    "lesson/:lesson_id/activity/:activity_id": "activity",
+    "lesson/:lesson_id/feedback": "lessonFeedback",
+    "admin/:section_id": "admin",
+    "admin-check": "adminCheck"
 }

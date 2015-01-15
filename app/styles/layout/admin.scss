@@ -179,10 +179,10 @@ $section-colors: (
 
 .admin-back-button {
 	@include pos(2%, 2%, bottom, right);
-	@include size(192px, 120px);
+	@include size(240px, 160px);
 	background: url('images/arrow.png');
 	background-size: 100% 100%;
-	line-height:  120px;
+	line-height:  160px;
 	text-align: center;
 	cursor: pointer;
 	color: #000;

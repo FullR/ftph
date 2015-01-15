@@ -1,5 +1,5 @@
 {
-	"predef": ["console"],
-	"browserify": true,
-	"newcap": false
+    "predef": ["console"],
+    "browserify": true,
+    "newcap": false
 }
