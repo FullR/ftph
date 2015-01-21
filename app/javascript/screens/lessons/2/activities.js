@@ -50,7 +50,8 @@ module.exports = {
         ],
         phonic: "d",
         returnRoute: "lesson/2-d",
-        nextRoute: "lesson/2/activity/5"
+        nextRoute: "lesson/2/activity/5",
+        lessonWords: ["kid", "bed"]
     }),
 
     "5": Activity({
@@ -63,7 +64,8 @@ module.exports = {
         phonic: "d",
         returnRoute: "lesson/2-d",
         defaultAnimation: "choices-only",
-        nextRoute: "lesson/2-p"
+        nextRoute: "lesson/2-p",
+        lessonWords: ["kid", "bed"]
     }),
 
     "6": Activity({
@@ -75,7 +77,8 @@ module.exports = {
         ],
         phonic: "p",
         returnRoute: "lesson/2-p",
-        nextRoute: "lesson/2/activity/7"
+        nextRoute: "lesson/2/activity/7",
+        lessonWords: ["hop", "cap"]
     }),
 
     "7": Activity({
@@ -88,7 +91,8 @@ module.exports = {
         phonic: "p",
         returnRoute: "lesson/2-p",
         defaultAnimation: "choices-only",
-        nextRoute: "lesson/2-k"
+        nextRoute: "lesson/2-k",
+        lessonWords: ["hop", "cap"]
     }),
 
     "8": Activity({
@@ -100,7 +104,8 @@ module.exports = {
         ],
         phonic: "kh",
         returnRoute: "lesson/2-k",
-        nextRoute: "lesson/2/activity/9"
+        nextRoute: "lesson/2/activity/9",
+        lessonWords: ["duck", "lake"]
     }),
 
     "9": Activity({
@@ -113,7 +118,8 @@ module.exports = {
         phonic: "kh",
         returnRoute: "lesson/2-k",
         defaultAnimation: "choices-only",
-        nextRoute: "lesson/2-f"
+        nextRoute: "lesson/2-f",
+        lessonWords: ["duck", "lake"]
     }),
 
     "10": Activity({
@@ -125,7 +131,8 @@ module.exports = {
         ],
         phonic: "f",
         returnRoute: "lesson/2-f",
-        nextRoute: "lesson/2/activity/11"
+        nextRoute: "lesson/2/activity/11",
+        lessonWords: ["off", "roof"]
     }),
 
     "11": Activity({
@@ -138,7 +145,8 @@ module.exports = {
         phonic: "f",
         returnRoute: "lesson/2-f",
         defaultAnimation: "choices-only",
-        nextRoute: "lesson/2-m"
+        nextRoute: "lesson/2-m",
+        lessonWords: ["off", "roof"]
     }),
 
     "12": Activity({
@@ -150,7 +158,8 @@ module.exports = {
         ],
         phonic: "m",
         returnRoute: "lesson/2-m",
-        nextRoute: "lesson/2/activity/13"
+        nextRoute: "lesson/2/activity/13",
+        lessonWords: ["ham", "gum"]
     }),
 
     "13": Activity({
@@ -163,7 +172,8 @@ module.exports = {
         phonic: "m",
         returnRoute: "lesson/2-m",
         defaultAnimation: "choices-only",
-        nextRoute: "lesson/2-b"
+        nextRoute: "lesson/2-b",
+        lessonWords: ["ham", "gum"]
     }),
 
     "14": Activity({
@@ -175,7 +185,8 @@ module.exports = {
         ],
         phonic: "b",
         returnRoute: "lesson/2-b",
-        nextRoute: "lesson/2/activity/15"
+        nextRoute: "lesson/2/activity/15",
+        lessonWords: ["tub", "web"]
     }),
 
     "15": Activity({
@@ -188,6 +199,7 @@ module.exports = {
         phonic: "b",
         returnRoute: "lesson/2-b",
         defaultAnimation: "choices-only",
-        nextRoute: "lesson/2/feedback"
+        nextRoute: "lesson/2/feedback",
+        lessonWords: ["tub", "web"]
     })
 };

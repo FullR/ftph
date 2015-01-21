@@ -24,8 +24,9 @@ module.exports = function(options) {
         
         // Whether or not the lesson should return to the last played activity rather than `options.nextRoute` 
         shouldReturn: function(lastActivity) {
-            return lastActivity.lesson === "1" && 
-                    (options.activities || []).indexOf(lastActivity.activity) !== -1;
+            return lastActivity &&
+                lastActivity.lesson === "2" && 
+                (options.activities || []).indexOf(lastActivity.activity) !== -1;
         },
 
         instructions: {

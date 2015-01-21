@@ -4,7 +4,7 @@ var _           = require("lodash"),
     Store       = require("putainde-localstorage"),
     namespace   = require("../project").namespace,
     ls          = Store.create({namespace: namespace}),
-    version     = "1.0.2";
+    version     = "1.0.3";
 
 
 var modelData = ls.get("application");

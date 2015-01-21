@@ -50,7 +50,8 @@ module.exports = {
         ],
         returnRoute: "lesson/1-m",
         nextRoute: "lesson/1/activity/5",
-        phonic: "mmh" 
+        phonic: "mmh",
+        lessonWords: ["mom", "monkey"]
     }),
 
     "5": Activity({
@@ -63,7 +64,8 @@ module.exports = {
         returnRoute: "lesson/1-m",
         nextRoute: "lesson/1-l",
         defaultAnimation: "choices-only",
-        phonic: "mmh" 
+        phonic: "mmh",
+        lessonWords: ["mom", "monkey"]
     }),
 
     "6": Activity({
@@ -75,7 +77,8 @@ module.exports = {
         ],
         returnRoute: "lesson/1-l",
         nextRoute: "lesson/1/activity/7",
-        phonic: "llh" 
+        phonic: "llh",
+        lessonWords: ["lock", "lion"]
     }),
 
     "7": Activity({
@@ -88,7 +91,8 @@ module.exports = {
         returnRoute: "lesson/1-l",
         nextRoute: "lesson/1-n",
         defaultAnimation: "choices-only",
-        phonic: "llh" 
+        phonic: "llh",
+        lessonWords: ["lock", "lion"]
     }),
 
     "8": Activity({
@@ -100,7 +104,8 @@ module.exports = {
         ],
         returnRoute: "lesson/1-n",
         nextRoute: "lesson/1/activity/9",
-        phonic: "nnh" 
+        phonic: "nnh",
+        lessonWords: ["nap", "neck"]
     }),
 
     "9": Activity({
@@ -113,7 +118,8 @@ module.exports = {
         returnRoute: "lesson/1-n",
         nextRoute: "lesson/1-r",
         defaultAnimation: "choices-only",
-        phonic: "nnh" 
+        phonic: "nnh",
+        lessonWords: ["nap", "neck"]
     }),
 
     "10": Activity({
@@ -125,7 +131,8 @@ module.exports = {
         ],
         returnRoute: "lesson/1-r",
         nextRoute: "lesson/1/activity/11",
-        phonic: "rrh" 
+        phonic: "rrh",
+        lessonWords: ["rat", "rain"]
     }),
 
     "11": Activity({
@@ -138,7 +145,8 @@ module.exports = {
         returnRoute: "lesson/1-r",
         nextRoute: "lesson/1-g",
         defaultAnimation: "choices-only",
-        phonic: "rrh" 
+        phonic: "rrh",
+        lessonWords: ["rat", "rain"]
     }),
 
     "12": Activity({
@@ -150,7 +158,8 @@ module.exports = {
         ],
         returnRoute: "lesson/1-g",
         nextRoute: "lesson/1/activity/13",
-        phonic: "gh" 
+        phonic: "gh",
+        lessonWords: ["gate", "giggle"]
     }),
 
     "13": Activity({
@@ -163,7 +172,8 @@ module.exports = {
         returnRoute: "lesson/1-g",
         nextRoute: "lesson/1-s",
         defaultAnimation: "choices-only",
-        phonic: "gh" 
+        phonic: "gh",
+        lessonWords: ["gate", "giggle"]
     }),
 
     "14": Activity({
@@ -175,7 +185,8 @@ module.exports = {
         ],
         returnRoute: "lesson/1-s",
         nextRoute: "lesson/1/activity/15",
-        phonic: "ss" 
+        phonic: "ss",
+        lessonWords: ["sit", "sister"]
     }),
 
     "15": Activity({
@@ -188,6 +199,7 @@ module.exports = {
         returnRoute: "lesson/1-s",
         nextRoute: "lesson/1/feedback",
         defaultAnimation: "choices-only",
-        phonic: "ss" 
+        phonic: "ss",
+        lessonWords: ["sit", "sister"]
     })
 };
