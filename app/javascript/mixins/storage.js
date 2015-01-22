@@ -1,18 +1,22 @@
 "use strict";
 
-var _ = require("lodash"),
-    store = require("storage");
+var store = require("storage");
 
-module.exports = function(namespace) {
-    return {
-        // Returns the current data in the store (defaults to an empty object)
-        getStore: function() {
-            return store.get(namespace) || {};
-        },
+var storageMixin = {
+    load: function(key, defaultValue) {
+        var data = store.get(key);
 
-        // merges an object over the current store
-        mergeStore: function(source) {
-            store.set(namespace, _.extend(this.getStore(), source));
+        if(!data && defaultValue) {
+            data = defaultValue;
+            store.set(key, data);
         }
-    };
+
+        return data;
+    },
+
+    save: function(key, value) {
+        store.set(key, value);
+    }
 };
+
+module.exports = storageMixin;

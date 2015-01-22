@@ -3,24 +3,19 @@
 var React       = require("react"),
     Link        = require("components/utility/link"),
     WebLink     = require("components/utility/web-link"),
-    AdminButton = require("components/admin-button"),
-    soundManger = require("sound/sound-manager");
+    AdminButton = require("components/admin-button");
 
 var Splash = React.createClass({
-    sound: soundManger.get("assets/audio/common/welcome"),
+    mixins: [require("mixins/sound-container")],
+    autoplaySound: "welcome",
+    getSounds: function() {
+        return {
+            "welcome": "assets/audio/common/welcome"
+        };
+    },
+
     nextScreen: function() {
         Link.to("lesson/1");
-    },
-
-    componentDidMount: function() {
-        var sound = this.sound;
-        sound.load().then(function() {
-            sound.play();
-        });
-    },
-
-    componentWillUnmount: function() {
-        this.sound.stop();
     },
 
     render: function() {

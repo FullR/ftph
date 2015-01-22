@@ -1,40 +1,48 @@
-var Q = require("q"),
-    _ = require("lodash"),
-    normalize = require("../polyfills/cordova/normalize-sound-ext");
+"use strict";
+
+var Q         = require("q"),
+    _         = require("lodash"),
+    emitter   = require("mixins/emitter"),
+    normalize = require("polyfills/cordova/normalize-sound-ext");
 
 function Sound(options) {
     _.extend(this, options);
     _.bindAll(this);
 }
 
-_.extend(Sound.prototype, {
+_.extend(Sound.prototype, emitter, {
+    // Get the full sound path with the correct extention for the current platform
     getNormalizedPath: function() {
         return normalize.path(this.path) + "." + normalize.audioExtention;
     },
 
     load: function() {
-        var media = new window.Media(this.getNormalizedPath(), 
-                                     this._finishedPlaying.bind(this), 
-                                     this._finishedPlaying.bind(this)),
+        var media,
             loadPromise;
         
-        this.media = media;
-        this.loading = true;
+        if(!this._loadPromise) {
+            this.media = media = new window.Media(this.getNormalizedPath(), 
+                                     this._finishedPlaying.bind(this), 
+                                     this._finishedPlaying.bind(this));
+            this.loading = true;
 
-        if(media.load) {
-            loadPromise = media.load().then(function() {
+            if(media.load) {
+                loadPromise = media.load().then(function() {
+                    return this;
+                }.bind(this));
+            }
+            else {
+                loadPromise = Q.resolve(this);
+            }
+
+            this._loadPromise = loadPromise.then(function() {
+                this.loading = false;
+                this.loaded = true;
                 return this;
             }.bind(this));
         }
-        else {
-            loadPromise = Q.resolve(this);
-        }
 
-        return loadPromise.then(function() {
-            this.loading = false;
-            this.loaded = true;
-            return this;
-        }.bind(this));
+        return this._loadPromise;
     },
 
     _finishedPlaying: function(stopped) {
@@ -51,19 +59,24 @@ _.extend(Sound.prototype, {
     },
 
     play: function() {
-        this.playing = true;
+        return this.stop()
+            .then(function() {
+                var deferred = Q.defer();
+                this.deferred = deferred;
+                this.playing = true;
+                this.media.play();
 
-        return this.stop().then(function() {
-            var deferred = Q.defer();
+                this.fire("play");
+                return deferred.promise;
+            }.bind(this))
+            .then(function() {
+                this.playing = false;
+                this.fire("end");
+            }.bind(this));
+    },
 
-            this.deferred = deferred;
-            this.playing = true;
-            this.media.play();
-
-            return deferred.promise;
-        }.bind(this)).then(function() {
-            this.playing = false;
-        }.bind(this));
+    isPlaying: function() {
+        return this.playing;
     },
 
     stop: function() {
@@ -77,6 +90,7 @@ _.extend(Sound.prototype, {
     release: function() {
         if(this.media) {
             this.media.release();
+            this._loadPromise = null;
         }
     }
 });

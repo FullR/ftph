@@ -9,12 +9,7 @@ var LessonWrapper = React.createClass({
         var Lesson = LessonIndex[this.props.lessonId];
         return (
             <div className='lesson-wrapper'>
-                <div className='top-info'>
-                    <h1>{this.props.title}</h1>
-                    <h2>{this.props.subtitle || ("Lesson " + this.props.lessonId)}</h2>
-                </div>
                 <Lesson />
-                <AdminButton />
             </div>
         );
     }
