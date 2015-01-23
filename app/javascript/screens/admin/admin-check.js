@@ -4,17 +4,14 @@ var React          = require("react"),
     Link           = require("components/utility/link"),
     store          = require("storage"),
     Timer          = require("components/timer"),
-    resolveSection = require("utility/section-resolver");
+    resolveSection = require("utility/section-resolver"),
+    render         = require("render");
 
 var AdminCheck = React.createClass({
     getInitialState: function() {
         return {
             password: ""
         };
-    },
-
-    back: function() {
-        Link.back();
     },
 
     updatePassword: function(event) {
@@ -28,11 +25,15 @@ var AdminCheck = React.createClass({
         event.preventDefault();
 
         if(this.state.password === "tea") {
-            Link.to("admin/"+resolveSection(lastLesson));
+            render(require("./admin"), {section: this.props.section});
         }
         else {
             this.back();
         }
+    },
+
+    back: function() {
+        render(this.props.backComponent);
     },
 
     componentDidMount: function() {

@@ -2,7 +2,7 @@
     @include size(100%, 100%);
 }
 
-.continue-arrow {
+.lesson-arrow {
     @include size(250px, 156px);
     @include pos(64px, 64px, bottom, right);
     display: block;
@@ -16,7 +16,7 @@
     }
 }
 
-.continue-arrow-content {
+.lesson-arrow-content {
     position: relative;
     top: 41%;
     width: 100%;

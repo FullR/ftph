@@ -1,6 +1,7 @@
 "use strict";
 
-var assign = require("utility/functional/assign");
+var _      = require("lodash"),
+    assign = require("utility/functional/assign");
 
 var animationChoiceMixin = {
     // Set a property on a specified choice to the given value

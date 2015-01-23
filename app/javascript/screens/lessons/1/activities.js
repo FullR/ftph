@@ -1,9 +1,10 @@
 "use strict";
 
-var Activity = require("screens/lessons/1/activity");
+var Activity1to3 = require("screens/lessons/1/activity-1-3"),
+    Activity4to15 = require("screens/lessons/1/activity-4-15");
 
 module.exports = {
-    "1": Activity({ 
+    "1": Activity1to3({ 
         id: "1", 
         choices: [
             {word: "top", correct: true}, 
@@ -15,7 +16,7 @@ module.exports = {
         phonic: "t"
     }),
 
-    "2": Activity({
+    "2": Activity1to3({
         id: "2",
         choices: [
             {word: "bug"}, 
@@ -28,7 +29,7 @@ module.exports = {
         phonic: "t" 
     }),
 
-    "3": Activity({
+    "3": Activity1to3({
         id: "3",
         choices: [
             {word: "wet"}, 
@@ -41,7 +42,7 @@ module.exports = {
         phonic: "t" 
     }),
 
-    "4": Activity({
+    "4": Activity4to15({
         id: "4",
         choices: [
             {word: "map", correct: true}, 
@@ -54,7 +55,7 @@ module.exports = {
         lessonWords: ["mom", "monkey"]
     }),
 
-    "5": Activity({
+    "5": Activity4to15({
         id: "5",
         choices: [
             {word: "clam"}, 
@@ -68,7 +69,7 @@ module.exports = {
         lessonWords: ["mom", "monkey"]
     }),
 
-    "6": Activity({
+    "6": Activity4to15({
         id: "6",
         choices: [
             {word: "ball"}, 
@@ -81,7 +82,7 @@ module.exports = {
         lessonWords: ["lock", "lion"]
     }),
 
-    "7": Activity({
+    "7": Activity4to15({
         id: "7",
         choices: [
             {word: "leg", correct: true}, 
@@ -95,7 +96,7 @@ module.exports = {
         lessonWords: ["lock", "lion"]
     }),
 
-    "8": Activity({
+    "8": Activity4to15({
         id: "8",
         choices: [
             {word: "run"}, 
@@ -108,7 +109,7 @@ module.exports = {
         lessonWords: ["nap", "neck"]
     }),
 
-    "9": Activity({
+    "9": Activity4to15({
         id: "9",
         choices: [
             {word: "hand"}, 
@@ -122,7 +123,7 @@ module.exports = {
         lessonWords: ["nap", "neck"]
     }),
 
-    "10": Activity({
+    "10": Activity4to15({
         id: "10",
         choices: [
             {word: "dirt"}, 
@@ -135,7 +136,7 @@ module.exports = {
         lessonWords: ["rat", "rain"]
     }),
 
-    "11": Activity({
+    "11": Activity4to15({
         id: "11",
         choices: [
             {word: "red", correct: true}, 
@@ -149,7 +150,7 @@ module.exports = {
         lessonWords: ["rat", "rain"]
     }),
 
-    "12": Activity({
+    "12": Activity4to15({
         id: "12",
         choices: [
             {word: "gum", correct: true}, 
@@ -162,7 +163,7 @@ module.exports = {
         lessonWords: ["gate", "giggle"]
     }),
 
-    "13": Activity({
+    "13": Activity4to15({
         id: "13",
         choices: [
             {word: "hug"}, 
@@ -176,7 +177,7 @@ module.exports = {
         lessonWords: ["gate", "giggle"]
     }),
 
-    "14": Activity({
+    "14": Activity4to15({
         id: "14",
         choices: [
             {word: "bus"}, 
@@ -189,7 +190,7 @@ module.exports = {
         lessonWords: ["sit", "sister"]
     }),
 
-    "15": Activity({
+    "15": Activity4to15({
         id: "15",
         choices: [
             {word: "fish"}, 

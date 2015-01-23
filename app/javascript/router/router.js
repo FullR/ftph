@@ -41,13 +41,16 @@ var lesson = actions.lesson.map(getParams("lessonId")).map(function(params) {
     return _.extend(params, lessonData[params.lessonId] || {});
 });
 
-actions.index
-    .onValue(render("splash"));
+// Render splash
+actions.index.onValue(render("splash"));
 
-
+// Render activities
 activity.onValue(render("activity-wrapper"));
+
+// Render lessons
 lesson.onValue(render("lesson-wrapper"));
 
+// Render lesson feedback
 actions.lessonFeedback
     .map(function(params) {
         var id = params[0];
@@ -58,38 +61,12 @@ actions.lessonFeedback
     })
     .onValue(render("lesson-feedback"));
 
+// render admin
 actions.admin
     .map(getParams("sectionId"))
     .onValue(render("admin"));
 
-
-actions.adminCheck
-    .onValue(render("admin-check"));
-
-// Save last lesson/activity for admin screen
-activity.onValue(function(params) {
-    store.set({
-        lastLesson: params.lessonId,
-        lastActivity: {
-            lesson: params.lessonId,
-            activity: params.activityId
-        },
-        lastScreen: {
-            lesson: params.lessonId,
-            activity: params.activityId
-        }
-    });
-});
-
-lesson.onValue(function(params) {
-    store.set({
-        lastLesson: params.lessonId,
-        lastScreen: {
-            lesson: params.lessonId,
-            activity: null
-        }
-    });
-});
+// render admin check
+actions.adminCheck.onValue(render("admin-check"));
 
 actions.start();
-//Backbone.history.loadUrl();

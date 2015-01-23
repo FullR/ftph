@@ -1,41 +1,9 @@
 "use strict";
 
-var React   = require("react"),
-    Link    = require("components/utility/link"),
-    WebLink = require("components/utility/web-link"),
-    store   = require("storage");
-
-function truthy(n) { return !!n; }
-
-var SectionButton = React.createClass({
-    show: function() {
-        Link.to("admin/"+this.props.id);
-    },
-
-    render: function() {
-        var classNames = [
-            "section-button",
-            "section-button-"+this.props.id,
-            this.props.active ? "section-button-active" : null
-        ].filter(truthy).join(" ");
-
-        return (
-            <div key={this.props.key} className={classNames} onClick={this.show}>
-                <div className='section-button-title'>
-                    {this.props.title}
-                </div>
-                {this.props.letters ?
-                    <div className='section-button-letters'>
-                        {this.props.letters}
-                    </div> : null
-                }
-                <div className='section-button-lessons'>
-                    Lessons {this.props.lessons}
-                </div>
-            </div>
-        );
-    }
-});
+var React         = require("react"),
+    WebLink       = require("components/utility/web-link"),
+    store         = require("storage"),
+    SectionButton = require("screens/admin/section-button");
 
 var sectionComponents = {
     "1":  require("./sections/1"),
@@ -65,15 +33,8 @@ var sections = [
 
 var Admin = React.createClass({
     getInitialState: function() {
-        var lastLesson = (store.get("lastScreen") || {}).lesson;
-
-        if(lastLesson) {
-            return {
-                selectedLesson: lastLesson
-            };
-        }
         return {
-            selectedLesson: "1"
+            section: this.props.section || "1"
         };
     },
 
@@ -88,20 +49,26 @@ var Admin = React.createClass({
     },
 
     renderSection: function() {
-        var Section = sectionComponents[this.props.sectionId || "1"];
+        var Section = sectionComponents[this.state.section];
         return (<Section selectLesson={this.selectLesson} selectedLesson={this.state.selectedLesson}/>);
+    },
+
+    showSection: function(sectionId) {
+        this.state.section = sectionId;
+        this.setState(this.state);
     },
 
     renderNav: function() {
         return sections.map(function(section) {
             return (
                 <SectionButton
+                    onClick={this.showSection.bind(this, section.id)}
                     key={section.id}
                     id={section.id} 
                     title={section.title}
                     lessons={section.lessons}
                     letters={section.letters}
-                    active={section.id === this.props.sectionId}/>
+                    active={section.id === this.state.section}/>
             );
         }.bind(this));
     },

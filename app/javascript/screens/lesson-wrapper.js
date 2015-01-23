@@ -10,6 +10,7 @@ var LessonWrapper = React.createClass({
         return (
             <div className='lesson-wrapper'>
                 <Lesson />
+                <AdminButton />
             </div>
         );
     }

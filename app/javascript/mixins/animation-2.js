@@ -4,7 +4,6 @@ var Q            = require("q"),
     PromiseQueue = require("utility/promise-queue"),
     slice        = [].slice;
 
-
 /*
     A mixin for starting/stopping/replaying animation functions
 
@@ -25,10 +24,12 @@ var animationMixin = {
         The input function can also be a string referring to method in the current context
     */
     then: function(fn /*, ...args*/) {
-        var args = slice.call(arguments, 1);
+        var args = slice.call(arguments, 1),
+            fnString;
 
         if(typeof fn === "string") {
             if(this[fn]) {
+                fnString = fn;
                 fn = this[fn];
             }
             else {
@@ -37,19 +38,26 @@ var animationMixin = {
         }
 
         return function() {
-            var result = fn.apply(null, args);
-            //this.forceUpdate();
-            return result;
+            if(fnString) { console.log("Running " + fnString); };
+            return fn.apply(null, args);
         }.bind(this);
     },
 
     /*
         Runs the passed animation function
     */
-    animate: function(animationFn) {
+    animate: function(animation) {
+        var animationFn;
         // allow passing function names instead of functions
-        if(typeof animationFn === "string") {
-            animationFn = this[animationFn];
+        if(typeof animation === "string") {
+            animationFn = this[animation];
+
+            if(!animationFn) {
+                throw new Error("Could not find animation: " + animation);
+            }
+        }
+        else {
+            animationFn = animation;
         }
 
         if(this.animationQueue) {

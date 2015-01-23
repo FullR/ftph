@@ -2,6 +2,8 @@
 
 var _           = require("lodash"),
     Store       = require("putainde-localstorage"),
+    deepGet     = require("utility/deep-get"),
+    deepSet     = require("utility/deep-set"),
     namespace   = require("../project").namespace,
     ls          = Store.create({namespace: namespace}),
     version     = "1.0.3";
@@ -41,10 +43,10 @@ function getActivities(lessonId) {
 
     return lessonData.activities || (lessonData.activities = {});
 }
-
-// Submit new data for an individual activity
-// The basic schema should be something like this:
 /*
+    Submit new data for an individual activity
+    The basic schema should be something like this:
+
     correct: boolean
     selected: [array of selected choice indexes]
 */
@@ -64,22 +66,22 @@ function getLessonData(id) {
 }
 
 module.exports = {
-    getModel() {
+    getModel: function() {
         return modelData;
     },
 
-    set(key, value) {
+    set: function(key, value) {
         if(typeof key === "object") {
             _.extend(modelData, key);
         }
         else {
-            modelData[key] = value;
+            deepSet(modelData, key, value);
         }
         save();
     },
 
-    get(key) {
-        return modelData[key];
+    get: function(key) {
+        return deepGet(modelData, key);
     },
 
     save: save,

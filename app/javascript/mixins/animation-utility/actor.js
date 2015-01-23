@@ -44,19 +44,21 @@ function ActorMixin(actorKey, initialState) {
                 .then(this.actorSet.bind(this, "state", "speaking-closed"));
         },
 
-        // Same as #say except sayRef plays a sound on a child element (such as a choice)
-        sayRef: function(refKey, soundId) {
-            if(!this.playRef) { throw new Error("Missing sound container mixin"); }
-
-            this.actorSet("state", "speaking");
-
-            return this.playRef(refKey, soundId)
-                .then(this.actorSet.bind(this, "state", "speaking-closed"));
-        },
-
         // Have the actor sit down
         sit: function() {
             this.actorSet("state", "sitting");
+        },
+
+        // Returns the correct callback for handling the actor being clicked
+        // null if the animation is currently running
+        // and the animate method bound to the passed animation otherwise
+        animationCallback: function(animation) {
+            if(this.state.animating) {
+                return null
+            }
+            else {
+                return this.animate.bind(this, animation);
+            }
         }
     };
 }

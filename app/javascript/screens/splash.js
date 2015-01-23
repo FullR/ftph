@@ -3,7 +3,8 @@
 var React       = require("react"),
     Link        = require("components/utility/link"),
     WebLink     = require("components/utility/web-link"),
-    AdminButton = require("components/admin-button");
+    AdminButton = require("components/admin-button"),
+    render      = require("render");
 
 var Splash = React.createClass({
     mixins: [require("mixins/sound-container")],
@@ -15,7 +16,7 @@ var Splash = React.createClass({
     },
 
     nextScreen: function() {
-        Link.to("lesson/1");
+        render(require("screens/lessons/1/lesson"));
     },
 
     render: function() {
@@ -26,7 +27,7 @@ var Splash = React.createClass({
                     <img src='assets/images/tctc-logo.png' />
                 </WebLink>
                 <div className='grades'>PreK - 2</div>
-                <AdminButton />
+                <AdminButton section="1" backComponent={Splash} />
                 <img className='background' src='assets/images/splash.png'/>
                 <button onClick={this.nextScreen}></button>
             </div>

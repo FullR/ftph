@@ -99,14 +99,6 @@ var soundContainer = {
         }
     },
 
-
-    /*
-        Plays a child sound container's sound
-    */
-    playRef: function(refKey, soundId) {
-        return this.refs[refKey].play(soundId);
-    },
-
     componentWillMount: function() {
         if(this.autoplaySound) {
             this.play(this.autoplaySound);

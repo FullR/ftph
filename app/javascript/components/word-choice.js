@@ -1,8 +1,8 @@
 "use strict";
 
-var React = require("react"),
+var React     = require("react"),
     WordImage = require("components/word-image"),
-    Choice = require("components/choice");
+    Choice    = require("components/choice");
 
 var WordChoice = React.createClass({
     render: function() {

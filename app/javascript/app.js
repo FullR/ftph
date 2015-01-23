@@ -4,6 +4,7 @@ var React   = require("react"),
     ready   = require("./polyfills/cordova/device-ready"),
     project = require("../project"),
     $       = require("jquery"),
+    render  = require("render"),
     muted   = false;
 
 function preload() {
@@ -38,7 +39,8 @@ ready.then(function() {
             });
         }
         preload();
-        require("router/router");
+        render(require("screens/splash"), {});
+        //require("router/router");
     } catch(e) {
         return require("q").reject(e); // Q keeps errors from being thrown within promise callbacks
     }

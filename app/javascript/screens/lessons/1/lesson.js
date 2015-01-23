@@ -5,22 +5,24 @@ var React       = require("react"),
     Choice      = require("components/choice"),
     WordImage   = require("components/word-image"),
     Owl         = require("components/owl"),
-    Title       = require("components/lesson-title");
+    Title       = require("components/lesson-title"),
+    WordChoice  = require("components/word-choice"),
+    LessonArrow = require("components/lesson-arrow"),
+    render      = require("render");
 
 var Lesson1 = React.createClass({
     mixins: [
-        require("mixins/storage"),
-        require("mixins/sound-container"),
-        require("mixins/animation-2"),
-        require("mixins/animation-utility/choices"),
-        require("mixins/animation-utility/actor")("owl")
+        require("mixins/storage"),                       // load/save methods
+        require("mixins/sound-container"),               // Manage sounds
+        require("mixins/animation-2"),                   // Manage playing/stopping animations
+        require("mixins/animation-utility/choices"),     // Utility methods for animating choices
+        require("mixins/animation-utility/actor")("owl") // Utility methods for animating actor
     ],
     autoplayAnimation: "instructions",
 
     getInitialState: function() {
         return {
             owl: {
-                centered: false,
                 hidden: true,
                 state: "sitting"
             },
@@ -32,6 +34,10 @@ var Lesson1 = React.createClass({
         };
     },
 
+    componentWillMount: function() {
+        this.save("last-lesson", "1");
+    },
+
     getSounds: function() {
         return {
             "the-first-sound": "assets/audio/lessons/lesson-1/instructions/the-first-sound",
@@ -41,9 +47,9 @@ var Lesson1 = React.createClass({
             "t":               "assets/audio/phonics/lesson-phonics/t",
             "touch-arrow":     "assets/audio/common/touch-arrow",
 
-            "tail": "assets/audio/words/lesson-words/tail",
-            "tip": "assets/audio/words/lesson-words/tip",
-            "tape": "assets/audio/words/lesson-words/tape"
+            "tail":            "assets/audio/words/lesson-words/tail",
+            "tip":             "assets/audio/words/lesson-words/tip",
+            "tape":            "assets/audio/words/lesson-words/tape"
         };
     },
 
@@ -53,76 +59,54 @@ var Lesson1 = React.createClass({
             then("hideChoices"),
             then("centerActor"),
             then("revealActor"),
-
-            then("say", "the-first-sound"),
-            then("wait", 250),
-
+            then("say", "the-first-sound"), then("wait", 250),
             then("uncenterActor"),
             then("revealChoice", 0),
-            then("say", "tail"),
-            then("wait", 250),
-
+            then("say", "tail"),            then("wait", 250),
             then("revealChoice", 1),
-            then("say", "tip"),
-            then("wait", 250),
-
+            then("say", "tip"),             then("wait", 250),
             then("revealChoice", 2),
-            then("say", "tape"),
-            then("wait", 250),
-
-            then("say", "is"),
-            then("wait", 250),
-
-            then("say", "t"),
-            then("wait", 250),
-
-            then("say", "say-the-words"),
-            then("wait", 250),
-
-            then("say", "tail"),
-            then("wait", 250),
-
-            then("say", "tip"),
-            then("wait", 250),
-
-            then("say", "tape"),
-            then("wait", 250),
-
-            then("say", "slowly"),
-            then("wait", 250),
-
+            then("say", "tape"),            then("wait", 250),
+            then("say", "is"),              then("wait", 250),
+            then("say", "t"),               then("wait", 250),
+            then("say", "say-the-words"),   then("wait", 250),
+            then("say", "tail"),            then("wait", 250),
+            then("say", "tip"),             then("wait", 250),
+            then("say", "tape"),            then("wait", 250),
+            then("say", "slowly"),          then("wait", 250),
             then("say", "touch-arrow"),
-
             then("sit")
         ];
     },
 
-    render: function() {
-        this.state.owl.onClick = this.state.animating ? null : this.animate.bind(this, "instructions");
+    renderChoice: function(choice) {
+        return (
+            <WordChoice
+                {...choice}
+                sound={this.getSound(choice.word)}
+                soundDisabled={this.state.animating}
+                key={choice.word}/>
+        );
+    },
 
+    render: function() {
+        var lastActivity = this.load("lesson-1.last-activity") || "1";
         return (
             <div className='lesson lesson-1'>
                 <Title title="Beginning Sounds" subtitle="Lesson 1" />
 
-                <Owl {...this.state.owl} />
+                {/* `animationCallback` comes from the animation-utility/actor mixin */}
+                <Owl {...this.state.owl} onClick={this.animationCallback("instructions")} />
 
                 <div className='choices'>
-                    {this.state.choices.map(function(choice) {
-                        return (
-                            <Choice
-                                sound={this.getSound(choice.word)}
-                                soundDisabled={this.state.animating}
-                                hidden={choice.hidden} 
-                                ref={choice.word} 
-                                key={choice.word}>
-
-                                <WordImage word={choice.word}/>
-                            </Choice>
-                        );
-                    }, this)}
+                    {this.state.choices.map(this.renderChoice)}
                 </div>
 
-                <AdminButton />
+                <LessonArrow next={require("./activities")[lastActivity]}>
+                    Activity {lastActivity}
+                </LessonArrow>
+
+                <AdminButton section="1" backComponent={Lesson1} />
             </div>
         );
     }

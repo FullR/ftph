@@ -4,7 +4,7 @@ var React = require("react");
 
 var Choice = React.createClass({
     mixins: [
-        require("mixins/classNames")
+        require("mixins/class-names")
     ],
 
     getInitialState: function() {
