@@ -2,7 +2,6 @@
 
 var React       = require("react"),
     _           = require("lodash"),
-    Link        = require("components/utility/link"),
     AdminButton = require("components/admin-button"),
     store = require("storage");
 
@@ -17,7 +16,7 @@ var LessonFeedback = React.createClass({
             percent = Math.floor((score / activities.length) * 100),
             next    = this.props.next || "lesson/" + ((+this.props.id) + 1),
             prev    = this.props.prev || "lesson/" + this.props.id;
-        console.log(activities);
+
         return (
             <div className='lesson-feedback'>
                 <h1>{this.props.title} Complete!</h1>
@@ -28,8 +27,8 @@ var LessonFeedback = React.createClass({
                     {score}/{activities.length}
                 </p>
                 {percent >= 85 ?
-                    <Link to={next} className='lesson-feedback-next'><button></button></Link> :
-                    <Link to={prev} className='lesson-feedback-prev'><button></button></Link>
+                    <div className='lesson-feedback-next'><button></button></div> :
+                    <div className='lesson-feedback-prev'><button></button></div>
                 }
                 <AdminButton />
             </div>

@@ -1,8 +1,10 @@
 "use strict";
 
-var React     = require("react"),
-    WordImage = require("components/word-image"),
-    Teacher   = require("components/teacher");
+var React        = require("react"),
+    WordImage    = require("components/word-image"),
+    Teacher      = require("components/teacher"),
+    FeedbackWord = require("components/activity-feedback/feedback-word"),
+    AdminButton  = require("components/admin-button");
 
 var ActivityFeedback = React.createClass({
     mixins: [
@@ -14,6 +16,7 @@ var ActivityFeedback = React.createClass({
 
     getInitialState: function() {
         return {
+            hidingContinueButton: true,
             teacher: {
                 state: "sitting",
                 hidden: false
@@ -24,39 +27,35 @@ var ActivityFeedback = React.createClass({
     getSounds: function() {
         return {
             // feedback
+            "selected-word": "assets/audio/words/activity-words/"+this.props.selected.word,
             "applause":     "assets/audio/common/applause",
             "doesnt-begin": "assets/audio/lessons/lesson-1/activities/feedback/doesnt-begin",
-            "begins-with":  "assets/audio/lessons/lesson-1/activities/feedback/begins-with"
+            "begins-with":  "assets/audio/lessons/lesson-1/activities/feedback/begins-with",
+            "t": "assets/audio/phonics/activity-phonics/t"
         };
     },
 
     animation: function(then) {
-        return [
-            then("say", "applause"),
+        var selected = this.props.selected;
 
-            this.props.selected.correct ? then("say", "begins-with") : then("say", "doesnt-beging")
-        ];
+        if(selected.correct) {
+            return [
+                then("say", "applause"), then("wait", 250),
+                then("say", "selected-word"), then("wait", 250),
+                then("say", "begins-with"), then("wait", 250),
+                then("say", "t")
+            ];
+        }
+        else {
+            return [
+                then("say", "selected-word"), then("wait", 250),
+                then("say", "doesnt-begin"), then("wait", 250),
+                then("say", "t")
+            ];
+        }
     },
 
-    render: function() {
-        var selected = this.props.selected,
-            correctStr = selected.correct ? "correct" : "incorrect";
-
-        return (
-            <div className={'feedback-words-container single ' + correctStr}>
-                <Teacher {...this.state.teacher} />
-                <div className='feedback-words'>
-                    <div className='feedback-word'>
-                        <WordImage word={selected.word} disableHCenter={true}/>
-                        {!selected.correct ? 
-                            <div className='incorrect-feedback-icon' /> :
-                            null
-                        }
-                    </div>
-                </div>
-            </div>
-        );
-    }
+    render: require("templates/activity-feedback/single-word")
 });
 
 module.exports = ActivityFeedback;

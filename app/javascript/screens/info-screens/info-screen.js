@@ -3,8 +3,7 @@
 var React   = require("react"),
     $       = require("jquery"),
     _       = require("lodash"),
-    WebLink = require("components/utility/web-link"),
-    Link    = require("components/utility/link");
+    WebLink = require("components/utility/web-link");
 
 var InfoScreen = React.createClass({
     getInitialState: function() {
@@ -33,7 +32,7 @@ var InfoScreen = React.createClass({
     },
 
     goHome: function() {
-        Link.to("menu");
+        
     },
 
     render: function() {

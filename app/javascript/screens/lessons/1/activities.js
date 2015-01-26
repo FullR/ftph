@@ -1,9 +1,10 @@
 "use strict";
 
-var Activity1to3 = require("screens/lessons/1/activity-1-3"),
+var linkObject = require("utility/link-object"),
+    Activity1to3 = require("screens/lessons/1/activity-1-3"),
     Activity4to15 = require("screens/lessons/1/activity-4-15");
 
-module.exports = {
+module.exports = linkObject({
     "1": Activity1to3({ 
         id: "1", 
         choices: [
@@ -203,4 +204,4 @@ module.exports = {
         phonic: "ss",
         lessonWords: ["sit", "sister"]
     })
-};
+});

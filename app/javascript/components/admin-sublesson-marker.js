@@ -2,7 +2,6 @@
 
 var React = require("react"),
     store = require("storage"),
-    Link  = require("components/utility/link"),
     util  = require("utility");
 
 function getLast() {
@@ -16,7 +15,7 @@ var AdminSublessonMarker = React.createClass({
     },
 
     routeTo() {
-        Link.to(["lesson/", this.props.parent, "-", this.props.letter].join(""));
+        //Link.to(["lesson/", this.props.parent, "-", this.props.letter].join(""));
     },
 
     isFromSubsequentActivity() {

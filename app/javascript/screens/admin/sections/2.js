@@ -1,7 +1,6 @@
 "use strict";
 
 var React        = require("react"),
-    Link         = require("components/utility/link"),
     LessonButton = require("components/lesson-button");
 
 var Section2 = React.createClass({

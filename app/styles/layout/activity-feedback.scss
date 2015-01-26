@@ -1,4 +1,3 @@
-
 @mixin star-wrapped($large: false) {
     @if $large == true {
         border-width: 50px;

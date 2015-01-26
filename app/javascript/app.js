@@ -1,12 +1,14 @@
 "use strict";
 
 var React   = require("react"),
-    ready   = require("./polyfills/cordova/device-ready"),
+    ready   = require("polyfills/cordova/device-ready"),
     project = require("../project"),
     $       = require("jquery"),
     render  = require("render"),
-    muted   = false;
+    Splash  = require("screens/splash"),
+    muted   = true;
 
+// Preload commonly used images
 function preload() {
     require("images").images.forEach((image) => {
         $("<img/>")[0].src = image;
@@ -22,7 +24,13 @@ ready.then(function() {
         require("./polyfills/cordova/cordova-media-plugin")();
 
         if(window.__platform.name === "web") {
-            // hover seems to be broken on android
+            /* 
+                hover seems to be broken on android,
+                so I'm using a sass mixin for hover
+                effects that only applies hover styles
+                when the hover-enabled class is present on
+                a parent element
+            */
             $("body").addClass("hover-enabled");
             // set title
             $("title").html(project.title);
@@ -39,7 +47,7 @@ ready.then(function() {
             });
         }
         preload();
-        render(require("screens/splash"), {});
+        render(<Splash/>);
         //require("router/router");
     } catch(e) {
         return require("q").reject(e); // Q keeps errors from being thrown within promise callbacks

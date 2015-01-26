@@ -38,7 +38,7 @@ var animationMixin = {
         }
 
         return function() {
-            if(fnString) { console.log("Running " + fnString); };
+            //if(fnString) { console.log("Running " + fnString); };
             return fn.apply(null, args);
         }.bind(this);
     },

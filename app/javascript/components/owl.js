@@ -3,9 +3,9 @@
 var React = require("react");
 
 var Owl = React.createClass({
-    mixins: [require("mixins/utility")],
+    mixins: [require("mixins/class-names")],
     render: function() {
-        var className = this.className(
+        var className = this.classNames(
             "owl",
             "owl-"+this.props.state,
             this.props.centered ? "owl-centered" : null,

@@ -3,7 +3,7 @@
 var React = require("react"),
     render = require("render");
 
-var LessonArrow = React.createClass({
+var Arrow = React.createClass({
     render: function() {
         var NextComponent = this.props.next,
             options = this.props.nextProps;
@@ -22,4 +22,4 @@ var LessonArrow = React.createClass({
     }
 });
 
-module.exports = LessonArrow;
+module.exports = Arrow;

@@ -2,8 +2,7 @@
 
 var React                = require("react"),
     LessonButton         = require("components/lesson-button"),
-    AdminSublessonMarker = require("components/admin-sublesson-marker"),
-    Link = require("components/utility/link");
+    AdminSublessonMarker = require("components/admin-sublesson-marker");
 
 var Section1 = React.createClass({
     render: function() {

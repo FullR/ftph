@@ -5,7 +5,7 @@ var _     = require("lodash"),
     get   = require("utility/functional/get"),
     Teacher = require("components/teacher"),
     WordChoice = require("components/word-choice"),
-    CornerInfo = require("components/activity-corner-info");
+    Info = require("components/activity/info");
 
 module.exports = function(options) {
     var {id, choices, returnRoute, nextRoute, phonic, sublesson, lessonWords, defaultAnimation} = options;
@@ -95,7 +95,7 @@ module.exports = function(options) {
                 <div className='activity lesson-1-activity'>
                     <Teacher {...this.state.teacher} onClick={this.animationCallback("instructions")}/>
                     <div className='choices'>{this.state.choices.map(this.renderChoice)}</div>
-                    <CornerInfo lessonId="1" lessonTitle="Beginning Sounds" activityId={id} activityCount="15" />
+                    <Info lessonId="1" lessonTitle="Beginning Sounds" activityId={id} activityCount="15" />
                 </div>
             );
         }

@@ -1,4 +1,8 @@
-.activity-wrapper, .lesson-wrapper, .activity, .lesson, .activity-feedback {
+.activity-wrapper, 
+.lesson-wrapper, 
+.activity, 
+.lesson, 
+.activity-feedback {
     @include size(100%, 100%);
 }
 

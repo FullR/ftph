@@ -1,17 +1,26 @@
 "use strict";
 
-var _     = require("lodash"),
-    React = require("react"),
-    Teacher = require("components/teacher"),
-    WordImage = require("components/word-image"),
-    WordChoice = require("components/word-choice"),
-    CornerInfo = require("components/activity-corner-info"),
+var _           = require("lodash"),
+    React       = require("react"),
+    Teacher     = require("components/teacher"),
+    WordImage   = require("components/word-image"),
+    WordChoice  = require("components/word-choice"),
+    Info        = require("components/activity/info"),
     AdminButton = require("components/admin-button"),
-    Feedback = require("./activity-feedback"),
-    render   = require("render");
+    Feedback    = require("./activity-feedback"),
+    render      = require("render");
 
 module.exports = function(options) {
-    var {id, choices, returnRoute, nextRoute, phonic, sublesson, lessonWords, defaultAnimation} = options;
+    var {
+        id,
+        choices,
+        returnRoute,
+        nextRoute,
+        phonic,
+        sublesson,
+        lessonWords,
+        defaultAnimation
+    } = options;
 
     var Activity = React.createClass({
         mixins: [
@@ -76,15 +85,6 @@ module.exports = function(options) {
             ];
         },
 
-        renderChoice: function(choice, index) {
-            return (
-                <WordChoice {...choice} 
-                    sound={this.getSound("choice-"+(index+1))}
-                    soundDisabled={this.state.animating}
-                    key={choice.word}
-                    onClick={this.selectChoice.bind(this, choice)}/>
-            );
-        },
 
         selectChoice: function(choice) {
             choice.selected = !choice.selected;
@@ -99,12 +99,22 @@ module.exports = function(options) {
             }
         },
 
+        renderChoice: function(choice, index) {
+            return (
+                <WordChoice {...choice} 
+                    sound={this.getSound("choice-"+(index+1))}
+                    soundDisabled={this.state.animating}
+                    key={choice.word}
+                    onClick={this.selectChoice.bind(this, choice)}/>
+            );
+        },
+
         render: function() {
             return (
                 <div className='activity lesson-1-activity'>
                     <Teacher {...this.state.teacher} onClick={this.animationCallback("instructions")}/>
                     <div className='choices'>{this.state.choices.map(this.renderChoice)}</div>
-                    <CornerInfo lessonId="1" lessonTitle="Beginning Sounds" activityId={id} activityCount="15" />
+                    <Info lessonId="1" lessonTitle="Beginning Sounds" activityId={id} activityCount="15" />
                     <AdminButton section="1" backComponent={Activity}/>
                 </div>
             );

@@ -1,7 +1,6 @@
 "use strict";
 
 var React       = require("react"),
-    Link        = require("components/utility/link"),
     WebLink     = require("components/utility/web-link"),
     AdminButton = require("components/admin-button"),
     render      = require("render");
@@ -16,7 +15,8 @@ var Splash = React.createClass({
     },
 
     nextScreen: function() {
-        render(require("screens/lessons/1/lesson"));
+        var Lesson1 = require("screens/lessons/1/lesson");
+        render(<Lesson1/>);
     },
 
     render: function() {

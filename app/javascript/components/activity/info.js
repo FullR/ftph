@@ -7,7 +7,7 @@ var React = require("react");
         Lesson {lessonId}: {lessonTitle}
         Activity {activityId} of {activityCount}
 */
-var ActivityCornerInfo = React.createClass({
+var Info = React.createClass({
     render: function() {
         return (
             <div className='corner-info'>

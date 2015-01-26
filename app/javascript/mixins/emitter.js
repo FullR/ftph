@@ -1,5 +1,8 @@
 "use strict";
 
+/*
+    Mixin for providing basic subscriber model
+*/
 var emitter = {
     // Alert subscribers to an event
     fire: function(eventId, event) {

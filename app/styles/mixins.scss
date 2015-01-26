@@ -1,3 +1,4 @@
+// Breakpoint mixin
 @mixin bp($size, $dim: width) {
     @if $size == tiny {
         @media screen and (max-#{$dim}: 480px) { @content; }
@@ -18,12 +19,22 @@
     height: 100%;
 }
 
+// Hover/active wrapper. If the hover-enabled class isn't present, 
+// no hover effects will be used
 @mixin active() {
     .hover-enabled &:hover, &:active {
         @content;
     }
 }
 
+/*
+    Set all position properties:
+    y offset,
+    x offset,
+    top/bottom,
+    left/right,
+    position
+*/
 @mixin pos($y: auto, $x: auto, $topBottom: top, $leftRight: left, $posType: absolute) {
     position: $posType;
     @if $topBottom == top {
@@ -41,11 +52,15 @@
     }
 }
 
+// Utility mixin for setting width/height
 @mixin size($width: auto, $height: auto) {
     width: $width;
     height: $height;
 }
 
+// Utility mixin for creating buttons
+// with image backgrounds and hover image
+// backgrounds
 @mixin image-button($imgUrl, $hoverUrl) {
     background: url($imgUrl) no-repeat;
     background-size: 100% 100%;
@@ -63,10 +78,12 @@
           border-image:$src $width $offset $repeat;
 }
 
+// Marks the last element as last for susy grids
 @mixin mark-last {
     &:last-child { @include last; }
 }
 
+// after pseudo-selector with default blank content
 @mixin after($content: "") {
     &::after {
         content: $content;
@@ -74,6 +91,7 @@
     }
 }
 
+// before pseudo-selector with default blank content
 @mixin before($content: "") {
     &::before {
         content: $content;

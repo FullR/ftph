@@ -1,7 +1,6 @@
 "use strict";
 
 var React          = require("react"),
-    Link           = require("components/utility/link"),
     store          = require("storage"),
     Timer          = require("components/timer"),
     resolveSection = require("utility/section-resolver"),
