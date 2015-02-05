@@ -1,84 +1,111 @@
 "use strict";
 
-var React     = require("react"),
-    WordImage = require("components/word-image");
+var React        = require("react"),
+    WordActivity = require("screens/activity/word"),
+    WordImage    = require("components/word-image"),
+    render       = require("render");
 
-module.exports = function(options) {
-    return React.createClass({
-        mixins: [
-            require("mixins/game-screen")("activity", options.choices),
-            require("mixins/activity")("4", options.id, options.nextRoute),
-            require("mixins/render/activity/basic"),
-            require("mixins/single-choice")
-        ],
-        defaultAnimation: options.defaultAnimation,
+var Lesson4Activity = React.createClass({
+    mixins: [
+        require("mixins/extend-sounds"), 
+        require("mixins/storage")
+    ],
 
-        getInitialState: function() {
-            return {
-                instructions: {
-                    "touch-the": this.sound("assets/audio/lessons/lesson-4/activities/instructions/touch-the"),
-                    "rhyme-word":   this.sound("assets/audio/words/activity-words/"+options.rhymeWord)
-                },
+    getAdditionalSounds: function() {
+        return {
+            "touch-the": "assets/audio/lessons/lesson-4/activities/instructions/touch-the",
+            "rhyme-word": "assets/audio/words/activity-words/" + this.props.word
+        };
+    },
 
-                feedback: {
-                    "applause": this.sound("assets/audio/common/applause"),
-                    "rhyme": this.sound("assets/audio/lessons/lesson-4/activities/feedback/rhyme"),
-                    "does-not": this.sound("assets/audio/lessons/lesson-4/activities/feedback/does-not"),
-                }
-            };
-        },
+    componentWillMount: function() {
+        this.save("lesson-4.last-screen", this.props.id);
+    },
 
-        instructions: {
-            animation: function(then) {
-                return [
-                    then("hideChoices"),
-                    then("setupActor"),
-                    then("uncenterActor"),
-                    then("actorSay", "instructions.touch-the"),
-                    then("wait", 200),
-                    then("actorSay", "instructions.rhyme-word"),
-                    then("wait", 250),
-                    this.actorSayChoices(),
-                    then("sit")
-                ];
-            }
-        },
+    render: function() {
+        var choices = this.props.choices,
+            nextScreen = this.props.nextScreen,
+            activityId = this.props.id,
+            rhymeWord = this.props.word;
 
-        feedback: {
-            animation: function(then) {
-                var selected = this.getSelected()[0];
+        return (
+            <WordActivity {...this.props}
+                lessonId="4"
+                section="1"
+                className="lesson-4-activity"
+                lessonTitle="Rhyme Match"
+                activityCount="20"
+                sounds={this.getSounds()}
+                lessonScreen={require("screens/lessons/4")}
 
-                if(this.isCorrect()) {
+                onSubmit={(activity, correct) => {
+                    this.save("lesson-4.activities."+activityId+".correct", correct);
+                }}
+
+                instructions={function(then) {
                     return [
-                        then("showContinueButton"),
-                        then("play", "feedback.applause"),
-                        then("actorSay", selected),
-                        then("wait", 250),
-                        then("actorSay", "feedback.rhyme"),
-                        then("wait", 250),
-                        then("actorSay", "instructions.rhyme-word")
-                    ];
-                }
-                else {
-                    return  [
-                        then("actorSay", selected),
-                        then("wait", 250),
-                        then("actorSay", "feedback.does-not"),
-                        then("wait", 250),
-                        then("actorSay", "instructions.rhyme-word"),
-                        then("showContinueButton")
-                    ];
-                }
-            }
-        },
+                        then("uncenterActor"),
+                        then("say", "touch-the"), then("wait", 250),
+                        then("say", "rhyme-word"), then("wait", 250),
 
-        renderExtras: function() {
-            return (
-                <div className='rhyme-word'>
-                    <WordImage word={options.rhymeWord} />
-                </div>
-            );
-        }
-    });
+                        then("revealChoice", 0),
+                        then("say", choices[0].word), then("wait", 250),
 
-};
+                        then("revealChoice", 1),
+                        then("say", choices[1].word), then("wait", 250),
+
+                        then("revealChoice", 2),
+                        then("say", choices[2].word), then("wait", 250),
+
+                        then("sit")
+                    ];
+                }}
+
+                renderFeedback={function(activity) {
+                    var Feedback = require("screens/activity-feedback/single-word"),
+                        correct = activity.isCorrect(),
+                        selected = activity.getSelected(),
+                        feedback = (
+                            <Feedback
+                                lessonId="4"
+                                lessonTitle="Rhyme Match"
+                                activityId={activityId}
+                                activityCount="20"
+                                section="1"
+                                correct={correct}
+                                nextScreen={nextScreen}
+                                word={activity.getSelected()[0].word}
+                                sounds={{
+                                    "does-not": "assets/audio/lessons/lesson-4/activities/feedback/does-not",
+                                    "rhyme": "assets/audio/lessons/lesson-4/activities/feedback/rhyme",
+
+                                    "selected": "assets/audio/words/activity-words/"+selected[0].word,
+                                    "rhyme-word": "assets/audio/words/activity-words/"+rhymeWord
+                                }}
+                                correctAnimation={function(then) {
+                                    return [
+                                        then("say", "selected"),  then("wait", 250),
+                                        then("say", "rhyme"),     then("wait", 250),
+                                        then("say", "rhyme-word")
+                                    ];
+                                }}
+                                incorrectAnimation={function(then) {
+                                    return [
+                                        then("say", "selected"),  then("wait", 250),
+                                        then("say", "does-not"),  then("wait", 250),
+                                        then("say", "rhyme-word")
+                                    ];
+                                }}/>
+                        );
+
+                    render(feedback);
+                }}>
+                    <div className='rhyme-word'>
+                        <WordImage word={this.props.word} disableHCenter={true}/>
+                    </div>
+                </WordActivity>
+        );
+    }
+});
+
+module.exports = Lesson4Activity;

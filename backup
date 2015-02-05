@@ -19,6 +19,7 @@ backup "current-edits.docx"
 backup "gulpfile.js"
 backup "package.json"
 backup "backup"
+backup "../Fun-Time-Phonics-Assets"
 
 tar -zcvf "fun-time-phonics.tar.gz" ./backup-dir &&
 sshpass -p "ctADl0g1n" scp fun-time-phonics.tar.gz james@12.0.0.70:/home/james/server/backups/ &&

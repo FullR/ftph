@@ -32,6 +32,10 @@ var storageMixin = {
     */
     save: function(key, value) {
         store.set(key, value);
+    },
+
+    merge: function(source) {
+        store.merge(source);
     }
 };
 

@@ -6,8 +6,8 @@ var _      = require("lodash"),
     glob   = Q.nfbind(require("glob")),
     mkdirp = Q.nfbind(require("mkdirp")),
     rimraf = Q.nfbind(require("rimraf")),
-    inDir  = "raw-assets/audio",
-    outDir = "statics/assets";
+    inDir  = "../Fun-Time-Phonics-Assets/audio",
+    outDir = "statics/assets/audio";
 
 function run(command, options) {
     var deferred = Q.defer();
@@ -25,10 +25,8 @@ function run(command, options) {
     return deferred.promise;
 }
 
-function replaceBase(newBase, file) {
-    var parts = file.split("/");
-    parts[0] = newBase;
-    return parts.join("/");
+function replaceBase(oldBase, newBase, file) {
+    return file.replace(oldBase, newBase);
 }
 
 function replaceExt(newExt, file) {
@@ -59,7 +57,7 @@ function buildOggs(files) {
                 "sox", 
                 "'"+file+"'", 
                 "-C6", 
-                "'" + replaceExt("ogg", replaceBase(outDir, file)) + "'"
+                "'" + replaceExt("ogg", replaceBase(inDir, outDir, file)) + "'"
             ].join(" "));
         });
     }, Q.resolve());
@@ -75,7 +73,7 @@ function buildMp3s(files) {
                 "sox", 
                 "'"+file+"'", 
                 "-C192", 
-                "'" + replaceExt("mp3", replaceBase(outDir, file)) + "'"
+                "'" + replaceExt("mp3", replaceBase(inDir, outDir, file)) + "'"
             ].join(" "));
         });
     }, Q.resolve());
@@ -84,7 +82,7 @@ function buildMp3s(files) {
 function buildPaths(files) {
     return Q.all(
         _.uniq(files.map(getPath))
-            .map(replaceBase.bind(null, outDir))
+            .map(replaceBase.bind(null, inDir, outDir))
             .map(function(path) {
                 return mkdirp(path);
             })
@@ -95,19 +93,20 @@ function clean() {
     return rimraf(outDir + "/audio");
 }
 
+function errorHandler(prefix) {
+    return function(error) {
+        console.log(prefix + ": " + error);
+    };
+}
+
 function buildAudioAssets() {
     return glob(inDir + "/**/*.wav").then(function(sounds) {
-        function logErrors(error) {
-            console.log(error);
-        }
-
-        Q.resolve()
-            .then(clean)
-            .then(buildPaths.bind(null, sounds))
-            .then(buildMp3s.bind(null, sounds))
-            .then(buildOggs.bind(null, sounds))
-            .then(null, logErrors);
-    });
+        return Q.resolve()
+            .then(clean,                         errorHandler("Clean failed"))
+            .then(buildPaths.bind(null, sounds), errorHandler("Failed to build directory tree"))
+            .then(buildMp3s.bind(null, sounds),  errorHandler("Failed to build MP3s"))
+            .then(buildOggs.bind(null, sounds),  errorHandler("Failed to build OGGs"));
+    }, errorHandler("Failed to fetch file glob"));
 }
 
 if(require.main === module) {

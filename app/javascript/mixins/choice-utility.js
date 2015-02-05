@@ -13,11 +13,11 @@ function choiceUtilityMixin(requiredChoiceCount) {
         },
 
         // Toggles the selection of a choice
-        // selectChoice: function(choice) {
-        //     choice.selected = !choice.selected;
+        selectChoice: function(choice) {
+            choice.selected = !choice.selected;
 
-        //     this.setState(this.state);
-        // },
+            this.setState(this.state);
+        },
 
         // Returns an array of selected choices
         getSelectedChoices: function() {

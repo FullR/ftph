@@ -15,7 +15,7 @@ var Splash = React.createClass({
     },
 
     nextScreen: function() {
-        var Lesson1 = require("screens/lessons/1/lesson");
+        var Lesson1 = require("screens/lessons/1");
         render(<Lesson1/>);
     },
 
@@ -26,7 +26,7 @@ var Splash = React.createClass({
                 <WebLink className='logo' href='http://criticalthinking.com/'>
                     <img src='assets/images/tctc-logo.png' />
                 </WebLink>
-                <div className='grades'>PreK - 2</div>
+                <div className='grades'>PreK - 2 aa</div>
                 <AdminButton section="1" backComponent={Splash} />
                 <img className='background' src='assets/images/splash.png'/>
                 <button onClick={this.nextScreen}></button>

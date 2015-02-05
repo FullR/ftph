@@ -49,12 +49,17 @@ function ActorMixin(actorKey, initialState) {
             this.actorSet("state", "sitting");
         },
 
+        // Have the actor stand up
+        stand: function() {
+            this.actorSet("state", "speaking-closed");
+        },
+
         // Returns the correct callback for handling the actor being clicked
         // null if the animation is currently running
         // and the animate method bound to the passed animation otherwise
         animationCallback: function(animation) {
             if(this.state.animating) {
-                return null
+                return null;
             }
             else {
                 return this.animate.bind(this, animation);

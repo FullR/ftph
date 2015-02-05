@@ -2,8 +2,8 @@
 
 var React         = require("react"),
     WebLink       = require("components/utility/web-link"),
-    store         = require("storage"),
-    SectionButton = require("screens/admin/section-button");
+    SectionButton = require("screens/admin/section-button"),
+    render        = require("render");
 
 var sectionComponents = {
     "1":  require("./sections/1"),
@@ -19,33 +19,42 @@ var sectionComponents = {
 };
 
 var sections = [
-    {id: "1",  title: "Word Sounds",                                lessons: "1-7"},
-    {id: "2",  title: "Short Vowel Sounds",                         lessons: "8-14"},
-    {id: "3",  title: "Short Vowels",                               lessons: "15-20",   letters: "a-u"},
-    {id: "4",  title: <span>Consonant<br/>With Vowel</span>,        lessons: "21-43",   letters: "b-f"},
-    {id: "5",  title: <span>Consonant<br/>With Vowel</span>,        lessons: "44-63",   letters: "g-k"},
-    {id: "6",  title: <span>Consonant<br/>With Vowel</span>,        lessons: "64-88",   letters: "l-p"},
-    {id: "7",  title: <span>Consonant<br/>With Vowel</span>,        lessons: "89-108",  letters: "q-t"},
-    {id: "8",  title: <span>Consonant<br/>With Vowel</span>,        lessons: "109-121", letters: "v-z"},
-    {id: "9",  title: <span>Building on<br/>Co-Articulation</span>, lessons: "122-124"},
-    {id: "10", title: "Reading Words",                              lessons: "125-126"}
+    {id: "1",  title: "Word Sounds",                                  lessons: "1-7"},
+    {id: "2",  title: "Short Vowel Sounds",                           lessons: "8-14"},
+    {id: "3",  title: "Short Vowels",                                 lessons: "15-20",   letters: "a-u"},
+    {id: "4",  title: (<span>Consonant<br/>With Vowel</span>),        lessons: "21-43",   letters: "b-f"},
+    {id: "5",  title: (<span>Consonant<br/>With Vowel</span>),        lessons: "44-63",   letters: "g-k"},
+    {id: "6",  title: (<span>Consonant<br/>With Vowel</span>),        lessons: "64-88",   letters: "l-p"},
+    {id: "7",  title: (<span>Consonant<br/>With Vowel</span>),        lessons: "89-108",  letters: "q-t"},
+    {id: "8",  title: (<span>Consonant<br/>With Vowel</span>),        lessons: "109-121", letters: "v-z"},
+    {id: "9",  title: (<span>Building on<br/>Co-Articulation</span>), lessons: "122-124"},
+    {id: "10", title: "Reading Words",                                lessons: "125-126"}
 ];
 
 var Admin = React.createClass({
+    mixins: [
+        require("mixins/storage")
+    ],
+
     getInitialState: function() {
         return {
+            selectedLesson: this.load("last-lesson") || "1",
             section: this.props.section || "1"
         };
     },
 
     selectLesson: function(lessonId) {
         this.setState({
-            selectedLesson: lessonId
+            selectedLesson: lessonId,
+            section: this.state.section
         });
     },
 
     back: function() {
-        Link.to("lesson/"+this.state.selectedLesson);
+        var AdminRenderLesson = require("screens/lessons").get(this.state.selectedLesson);
+        if(AdminRenderLesson) {
+            render(<AdminRenderLesson />);
+        }
     },
 
     renderSection: function() {
@@ -56,6 +65,10 @@ var Admin = React.createClass({
     showSection: function(sectionId) {
         this.state.section = sectionId;
         this.setState(this.state);
+    },
+
+    isLessonComplete: function(lessonId) {
+        this.load("lesson-"+lessonId+".completed");
     },
 
     renderNav: function() {
@@ -74,6 +87,7 @@ var Admin = React.createClass({
     },
 
     render: function() {
+        console.log(this.state.selectedLesson);
         return (
             <div className='admin'>
                 <div className='admin-header'>
@@ -91,7 +105,7 @@ var Admin = React.createClass({
                 <div className='admin-current-section'>
                     {this.renderSection()}
                     <div className='admin-back-button' onClick={this.back}>
-                        {store.hasLessonBeenComplete(this.state.selectedLesson) ? "Replay" : "Play"} Lesson {this.state.selectedLesson}
+                        {this.isLessonComplete(this.state.selectedLesson) ? "Replay" : "Play"} Lesson {this.state.selectedLesson}
                     </div>
                 </div>
             </div>

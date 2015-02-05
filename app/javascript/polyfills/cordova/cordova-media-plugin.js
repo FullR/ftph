@@ -5,6 +5,7 @@ var Q = require("q");
 function applyMediaPolyfill() {
     var noop = function() {},
         HowlerModule,
+        Howler,
         Howl;
 
     function MediaPollyfill(url, onFinishPlaying, onErrorPlaying, onPlayingStatus) {

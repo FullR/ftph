@@ -4,6 +4,7 @@ var React          = require("react"),
     store          = require("storage"),
     Timer          = require("components/timer"),
     resolveSection = require("utility/section-resolver"),
+    Admin          = require("screens/admin/admin"),
     render         = require("render");
 
 var AdminCheck = React.createClass({
@@ -24,7 +25,9 @@ var AdminCheck = React.createClass({
         event.preventDefault();
 
         if(this.state.password === "tea") {
-            render(require("./admin"), {section: this.props.section});
+            render(
+                <Admin section={this.props.section}/>
+            );
         }
         else {
             this.back();
@@ -32,7 +35,7 @@ var AdminCheck = React.createClass({
     },
 
     back: function() {
-        render(this.props.backComponent);
+        render.previous();
     },
 
     componentDidMount: function() {

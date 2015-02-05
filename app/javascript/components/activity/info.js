@@ -18,4 +18,4 @@ var Info = React.createClass({
     }
 });
 
-module.exports = ActivityCornerInfo;
+module.exports = Info;

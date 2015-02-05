@@ -59,6 +59,9 @@ _.extend(Sound.prototype, emitter, {
     },
 
     play: function() {
+        if(!this.loaded) {
+            return Q.resolve();
+        }
         return this.stop()
             .then(function() {
                 var deferred = Q.defer();

@@ -7,7 +7,7 @@ var React                = require("react"),
 var Section1 = React.createClass({
     render: function() {
         var {selectLesson, selectedLesson} = this.props;
-        console.log(selectedLesson);
+
         return (
             <div className='admin-section-1'>
                 <LessonButton lesson='1' title='Beginning Sounds' className='sec-1-btn-long' selectLesson={selectLesson} selected={selectedLesson === '1'}>

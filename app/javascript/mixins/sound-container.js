@@ -21,9 +21,14 @@ var soundContainer = {
         Transforms path strings into sound objects
     */
     resolveSounds: function() {
+        var sounds = _.cloneDeep(this.props.sounds);
+
         if(!this._soundsResolved) {
             this._soundsResolved = true;
-            this.sounds = _.transform(this.getSounds ? this.getSounds() : {}, function(resolved, path, id) {
+            if(this.getSounds) {
+                _.extend(sounds, this.getSounds());
+            }
+            this.sounds = _.transform(sounds, function(resolved, path, id) {
                 resolved[id] = soundManager.get(path);
             });
         }
@@ -31,29 +36,30 @@ var soundContainer = {
     },
 
     /*
-        Returns the sound object with the given id
+        Returns the sound object with the given id. 
+        Throws an error if the sound isn't found
     */
     getSound: function(id) {
-        return (this.resolveSounds() || {})[id];
+        var sound = (this.resolveSounds() || {})[id];
+        if(!sound) {
+            throw new Error("Could not find sound with id: " + id);
+        }
+        return sound;
     },
     
     /*
         Plays the sound object with the given id. If sound isn't loaded, it is loaded.
-
         Returns a promise that is resolved when the sound finishes playing.
     */
     play: function(id) {
         return this.loadSounds()
             .then(function() {
-                var sounds = this.sounds;
-                if(!sounds[id]) {
-                    return Q.reject("Cannot find sound with id: " + id);
-                }
+                var sound = this.getSound(id);
 
                 this.state.playingSound = true;
                 this.setState(this.state);
 
-                return sounds[id].play();
+                return sound.play();
             }.bind(this))
             .then(function() {
                 this.state.playingSound = false;
@@ -83,6 +89,9 @@ var soundContainer = {
             sounds = this.sounds;
             this._loadSoundsPromise = Q.all(_.invoke(sounds, "load"))
                 .then(function() {
+                    return sounds;
+                },
+                function() {
                     return sounds;
                 });
         }

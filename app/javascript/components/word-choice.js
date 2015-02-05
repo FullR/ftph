@@ -8,7 +8,7 @@ var WordChoice = React.createClass({
     render: function() {
         return (
             <Choice {...this.props}>
-                <WordImage word={this.props.word} />
+                <WordImage word={this.props.word} disableHCenter={true} />
             </Choice>
         );
     }

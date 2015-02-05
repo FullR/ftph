@@ -1,55 +1,62 @@
 "use strict";
 
-var React = require("react");
+var _ = require("lodash"),
+    React = require("react"),
+    SubLesson = require("screens/lesson/sub");
 
-module.exports = function(options) {
-    return React.createClass({
-        mixins: [
-            require("mixins/lesson")(options.id, options.nextRoute),
-            require("mixins/render/lesson/basic"),
-            require("mixins/game-screen")("lesson", options.choices)
-        ],
+/*
+    Props:
+        phonic,
+        phonicFilename,
+        choices
+*/
+var Lesson2Sublesson = React.createClass({
+    mixins: [require("mixins/storage")],
 
-        getInitialState: function() {
-            return {
-                instructions: {
-                    "listen-for":  this.sound("assets/audio/lessons/lesson-2/sub-lessons/instructions/listen-for"),
-                    "and":         this.sound("assets/audio/lessons/lesson-2/sub-lessons/instructions/and"),
-                    "as-in":       this.sound("assets/audio/lessons/lesson-2/sub-lessons/instructions/as-in"),
-                    "phonic":      this.sound("assets/audio/phonics/lesson-phonics/"+options.phonic),
-                    "touch-arrow": this.sound("assets/audio/common/touch-arrow")
-                }
-            };
-        },
-        
-        // Whether or not the lesson should return to the last played activity rather than `options.nextRoute` 
-        shouldReturn: function(lastActivity) {
-            return lastActivity &&
-                lastActivity.lesson === "2" && 
-                (options.activities || []).indexOf(lastActivity.activity) !== -1;
-        },
+    componentWillMount: function() {
+        this.save("last-lesson", "2-"+this.props.phonic);
+    },
 
-        instructions: {
-            animation: function(then) {
-                return [
-                    then("hideChoices"),
-                    then("setupActor"),
-                    then("actorSay", "instructions.listen-for"),
-                    then("wait", 250),
-                    then("actorSay", "instructions.phonic"),
-                    then("wait", 250),
-                    then("actorSay", "instructions.as-in"),
+    render: function() {
+        var word1          = this.props.choices[0].word,
+            word2          = this.props.choices[1].word,
+            activities     = this.props.activities,
+            lastActivityId = this.load("lesson-2-"+this.props.phonic+".last-screen") || (_.keys(activities)[0]),
+            nextScreen     = activities[lastActivityId];
 
-                    then("uncenterActor"),
+        return (
+            <SubLesson {...this.props}
+                id={"2-"+this.props.phonic}
+                title="Ending Sounds"
+                subtitle={"Lesson 2 " + this.props.phonic}
+                nextScreen={nextScreen}
+                nextLabel={"Activity " + lastActivityId}
+                sounds={{
+                    "listen-for": "assets/audio/lessons/lesson-2/sub-lessons/instructions/listen-for",
+                    "as-in":      "assets/audio/lessons/lesson-2/sub-lessons/instructions/as-in",
+                    "and":        "assets/audio/common/lessons/and"
+                }}
+                
+                instructions={function(then) {
+                    return [
+                        then("say", "listen-for"), then("wait", 250),
+                        then("say", "phonic"), then("wait", 250),
+                        then("say", "as-in"), then("wait", 250),
 
-                    this.actorSayChoice(0),
-                    then("actorSay", "instructions.and"),
-                    this.actorSayChoice(1),
-                    then("wait", 250),
-                    then("actorSay", "instructions.touch-arrow"),
-                    then("sit")
-                ];
-            }
-        }
-    });
-};
+                        then("uncenterActor"),
+                        then("revealChoice", 0),
+                        then("say", word1), then("wait", 250),
+
+                        then("say", "and"), then("wait", 250),
+
+                        then("revealChoice", 1),
+                        then("say", word2),
+
+                        then("sit")
+                    ];
+                }}/>
+        );
+    }
+});
+
+module.exports = Lesson2Sublesson;

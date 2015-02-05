@@ -51,3 +51,9 @@
     left: 60px;
     bottom: 60px;
 }
+
+.activity-feedback-arrow {
+    @include image-button("images/arrow.png", "images/arrow_hover.png");
+    @include size(240px, 150px);
+    @include pos(100px, 100px, bottom, right);
+}
