@@ -6,7 +6,7 @@ var React   = require("react"),
     $       = require("jquery"),
     render  = require("render"),
     Splash  = require("screens/splash"),
-    muted   = true;
+    muted   = false;
 
 // Preload commonly used images
 function preload() {

@@ -35,44 +35,6 @@ var imageSize = function(path) {
     });
 };
 
-// Custom react transform forces es6 option
-var reactTransform = function(file) {
-    return reactify(file, {es6: true});
-};
-reactTransform.process = reactify.process;
-reactTransform.isJSXExtensionRe = reactify.isJSXExtensionRe;
-
-var bundler = watchify(Browserify(_.extend({
-    paths: ["./node_modules", "./app/javascript"],
-    debug: true
-}, watchify.args)))
-    .transform(reactTransform)
-    .transform('brfs')
-    .add("./app/javascript/app.js");
-
-bundler.on('update', bundle);
-
-bundler.on("time", function(time) {
-    gutil.log("Bundled in " + time + " ms");
-});
-
-function bundle() {
-    return bundler
-        .bundle()
-        .on('error', function(error) {
-            gutil.log([
-                error.name,
-                "'"+(error.description || error.message)+"'",
-                "Line " + (error.lineNumber || error.line),
-                "Column " + (error.column || error.columnNumber)
-            ].join("\n"));
-        })
-        .pipe(source("app.js"))
-        .pipe(gulp.dest("./dist/assets"));
-}
-// Compile javascript and jsx files
-gulp.task("javascript", bundle);
-
 function isntJS(file) {
     return file.slice(-3) !== ".js";
 }
@@ -80,6 +42,46 @@ function isntJS(file) {
 function tail(arr) {
     return arr[arr.length-1];
 }
+
+// Custom react transform forces es6 option
+var reactTransform = _.extend(function(file) {
+    return reactify(file, {es6: true});
+}, {
+    process: reactify.process,
+    isJSXExtensionRe: reactify.isJSXExtensionRe
+});
+
+var bundler = _.once(function() {
+    return watchify(Browserify(_.extend({
+        paths: ["./node_modules", "./app/javascript"],
+        debug: true
+    }, watchify.args)))
+    .transform(reactTransform)
+    .transform('brfs')
+    .add("./app/javascript/app.js")
+    .on('update', bundle)
+    .on("time", function(time) {
+        gutil.log("Bundled in " + time + " ms");
+    });
+});
+
+function bundle() {
+    return bundler()
+        .bundle()
+        /*.on('error', function(error) {
+            gutil.log([
+                error.name,
+                "'"+(error.description || error.message)+"'",
+                "Line " + (error.lineNumber || error.line),
+                "Column " + (error.column || error.columnNumber)
+            ].join("\n"));
+        })*/
+        .pipe(source("app.js"))
+        .pipe(gulp.dest("./dist/assets"));
+}
+// Compile javascript and jsx files
+gulp.task("javascript", ["index-lessons"], bundle);
+
 
 // create a json file listing all images except the 
 // word images so the client can preload them

@@ -7,7 +7,7 @@ var _           = require("lodash"),
     initStorage = require("initial-storage"),
     namespace   = require("../project").namespace,
     ls          = Store.create({namespace: namespace}),
-    version     = "1.0.9";
+    version     = "1.0.10";
 
 
 var modelData = ls.get("application");
@@ -32,11 +32,11 @@ module.exports = {
     },
 
     set: function(key, value) {
-        if(typeof key === "object") {
-            _.extend(modelData, key);
+        if(typeof key === "string" || _.isArray(key)) {
+            deepSet(modelData, key, value);
         }
         else {
-            deepSet(modelData, key, value);
+            _.extend(modelData, key);
         }
         save();
     },

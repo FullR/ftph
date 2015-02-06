@@ -1,25 +1,26 @@
 "use strict";
 
 var React      = require("react"),
-    WordLesson = require("screens/lesson/word");
+    WordLesson = require("screens/lesson/word"),
+    info       = require("./info");
 
 var Lesson1 = React.createClass({
     mixins: [require("mixins/storage")],
 
     render: function() {
-        var activities = require("./activities"),
-            storage = this.load("lesson-1"),
+        var activities     = require("./activities"),
+            storage        = this.load(info.namespace),
             nextActivityId = storage["last-screen"] || "1",
-            nextActivity = activities[nextActivityId];
+            nextActivity   = activities[nextActivityId];
 
         return (
             <WordLesson
-                id="1"
-                title="Beginning Sounds"
-                subtitle="Lesson 1"
-                section="1"
-                nextScreen={nextActivity}
-                nextLabel={"Activity " + nextActivityId}
+                id         = {info.id}
+                title      = {info.title}
+                subtitle   = {info.subtitle}
+                section    = {info.section}
+                nextScreen = {nextActivity}
+                nextLabel  = {"Activity " + nextActivityId}
                 sounds={{
                     "the-first-sound": "assets/audio/lessons/lesson-1/instructions/the-first-sound",
                     "is":              "assets/audio/lessons/lesson-1/instructions/is",

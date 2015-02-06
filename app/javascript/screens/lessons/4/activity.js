@@ -3,7 +3,8 @@
 var React        = require("react"),
     WordActivity = require("screens/activity/word"),
     WordImage    = require("components/word-image"),
-    render       = require("render");
+    render       = require("render"),
+    lessonInfo   = require("./info");
 
 var Lesson4Activity = React.createClass({
     mixins: [
@@ -13,40 +14,40 @@ var Lesson4Activity = React.createClass({
 
     getAdditionalSounds: function() {
         return {
-            "touch-the": "assets/audio/lessons/lesson-4/activities/instructions/touch-the",
+            "touch-the":  "assets/audio/lessons/lesson-4/activities/instructions/touch-the",
             "rhyme-word": "assets/audio/words/activity-words/" + this.props.word
         };
     },
 
     componentWillMount: function() {
-        this.save("lesson-4.last-screen", this.props.id);
+        this.save([lessonInfo.namespace, "last-screen"], this.props.id);
     },
 
     render: function() {
-        var choices = this.props.choices,
+        var choices    = this.props.choices,
             nextScreen = this.props.nextScreen,
             activityId = this.props.id,
-            rhymeWord = this.props.word;
+            rhymeWord  = this.props.word;
 
         return (
             <WordActivity {...this.props}
-                lessonId="4"
-                section="1"
-                className="lesson-4-activity"
-                lessonTitle="Rhyme Match"
-                activityCount="20"
-                sounds={this.getSounds()}
-                lessonScreen={require("screens/lessons/4")}
+                lessonId      = {lessonInfo.id}
+                section       = {lessonInfo.section}
+                className     = "lesson-4-activity"
+                lessonTitle   = {lessonInfo.title}
+                activityCount = {lessonInfo.activityCount}
+                sounds        = {this.getSounds()}
+                lessonScreen  = {require("screens/lessons/4")}
 
                 onSubmit={(activity, correct) => {
-                    this.save("lesson-4.activities."+activityId+".correct", correct);
+                    this.save([lessonInfo.namespace, "activities", activityId, "correct"], correct);
                 }}
 
                 instructions={function(then) {
                     return [
                         then("uncenterActor"),
-                        then("say", "touch-the"), then("wait", 250),
-                        then("say", "rhyme-word"), then("wait", 250),
+                        then("say", "touch-the"),     then("wait", 250),
+                        then("say", "rhyme-word"),    then("wait", 250),
 
                         then("revealChoice", 0),
                         then("say", choices[0].word), then("wait", 250),
@@ -67,21 +68,23 @@ var Lesson4Activity = React.createClass({
                         selected = activity.getSelected(),
                         feedback = (
                             <Feedback
-                                lessonId="4"
-                                lessonTitle="Rhyme Match"
-                                activityId={activityId}
-                                activityCount="20"
-                                section="1"
-                                correct={correct}
-                                nextScreen={nextScreen}
-                                word={activity.getSelected()[0].word}
-                                sounds={{
-                                    "does-not": "assets/audio/lessons/lesson-4/activities/feedback/does-not",
-                                    "rhyme": "assets/audio/lessons/lesson-4/activities/feedback/rhyme",
+                                lessonId      = {lessonInfo.id}
+                                lessonTitle   = {lessonInfo.title}
+                                activityId    = {activityId}
+                                activityCount = {lessonInfo.activityCount}
+                                section       = {lessonInfo.section}
+                                correct       = {correct}
+                                nextScreen    = {nextScreen}
+                                word          = {activity.getSelected()[0].word}
 
-                                    "selected": "assets/audio/words/activity-words/"+selected[0].word,
+                                sounds={{
+                                    "does-not":   "assets/audio/lessons/lesson-4/activities/feedback/does-not",
+                                    "rhyme":      "assets/audio/lessons/lesson-4/activities/feedback/rhyme",
+
+                                    "selected":   "assets/audio/words/activity-words/"+selected[0].word,
                                     "rhyme-word": "assets/audio/words/activity-words/"+rhymeWord
                                 }}
+
                                 correctAnimation={function(then) {
                                     return [
                                         then("say", "selected"),  then("wait", 250),
@@ -89,6 +92,7 @@ var Lesson4Activity = React.createClass({
                                         then("say", "rhyme-word")
                                     ];
                                 }}
+
                                 incorrectAnimation={function(then) {
                                     return [
                                         then("say", "selected"),  then("wait", 250),

@@ -8,9 +8,13 @@
         deepGet(a, "foo.bar.fizz") === "buzz"
 */
 function deepGet(obj, keys) {
-    return keys.split(".").reduce(function(target, key) {
-        return (target || {})[key];
-    }, obj);
+    if(typeof keys === "string") {
+        keys = keys.split(".");
+    }
+    for(var i = 0, length = keys.length; obj && i < length; i++) {
+        obj = obj[keys[i]];
+    }
+    return obj;
 }
 
 module.exports = deepGet;

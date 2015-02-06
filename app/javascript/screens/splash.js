@@ -8,6 +8,7 @@ var React       = require("react"),
 var Splash = React.createClass({
     mixins: [require("mixins/sound-container")],
     autoplaySound: "welcome",
+
     getSounds: function() {
         return {
             "welcome": "assets/audio/common/welcome"
@@ -26,8 +27,8 @@ var Splash = React.createClass({
                 <WebLink className='logo' href='http://criticalthinking.com/'>
                     <img src='assets/images/tctc-logo.png' />
                 </WebLink>
-                <div className='grades'>PreK - 2 aa</div>
-                <AdminButton section="1" backComponent={Splash} />
+                <div className='grades'>PreK - 2</div>
+                <AdminButton section="1"/>
                 <img className='background' src='assets/images/splash.png'/>
                 <button onClick={this.nextScreen}></button>
             </div>

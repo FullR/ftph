@@ -2,8 +2,16 @@
 
 var _            = require("lodash"),
     Q            = require("q"),
-    soundManager = require("sound/sound-manager");
+    deepGet      = require("utility/deep-get"),
+    deepMap      = require("utility/deep-map"),
+    soundManager = require("sound/sound-manager"),
+    constant     = require("utility/functional/constant");
 
+function valuesDeep(obj) {
+    var values = [];
+    deepMap(function(value) { values.push(value); }, obj);
+    return values;
+}
 
 /*
     Manages sounds for a given component. 
@@ -21,17 +29,24 @@ var soundContainer = {
         Transforms path strings into sound objects
     */
     resolveSounds: function() {
-        var sounds = _.cloneDeep(this.props.sounds);
+        var sounds = this.props.sounds ? _.cloneDeep(this.props.sounds) : {},
+            soundArray;
 
         if(!this._soundsResolved) {
             this._soundsResolved = true;
             if(this.getSounds) {
-                _.extend(sounds, this.getSounds());
+                _.merge(sounds, this.getSounds());
             }
-            this.sounds = _.transform(sounds, function(resolved, path, id) {
-                resolved[id] = soundManager.get(path);
-            });
+
+            soundArray = [];
+            this.sounds = deepMap(function(path) {
+                var sound = soundManager.get(path);
+                soundArray.push(sound);
+                return sound;
+            }, sounds);
+            this.soundArray = soundArray;
         }
+
         return this.sounds;
     },
 
@@ -40,7 +55,7 @@ var soundContainer = {
         Throws an error if the sound isn't found
     */
     getSound: function(id) {
-        var sound = (this.resolveSounds() || {})[id];
+        var sound = deepGet(this.resolveSounds() || {}, id);
         if(!sound) {
             throw new Error("Could not find sound with id: " + id);
         }
@@ -72,7 +87,7 @@ var soundContainer = {
     */
     stopSounds: function() {
         if(this.sounds) {
-            return Q.all(_.invoke(this.sounds, "stop"));
+            return Q.all(_.invoke(this.soundArray, "stop"));
         }
         else {
             return Q.resolve();
@@ -84,17 +99,13 @@ var soundContainer = {
     */
     loadSounds: function() {
         var sounds;
+
         if(!this._loadSoundsPromise) {
-            this.resolveSounds();
-            sounds = this.sounds;
-            this._loadSoundsPromise = Q.all(_.invoke(sounds, "load"))
-                .then(function() {
-                    return sounds;
-                },
-                function() {
-                    return sounds;
-                });
+            sounds = this.resolveSounds();
+
+            this._loadSoundsPromise = Q.all(_.invoke(this.soundArray, "load")).then(constant(sounds), constant(sounds))
         }
+
         return this._loadSoundsPromise;
     },
     
@@ -103,7 +114,7 @@ var soundContainer = {
     */
     releaseSounds: function() {
         if(this.sounds) {
-            _.invoke(this.sounds, "release");
+            _.invoke(this.soundArray, "release");
             this._loadSoundsPromise = null;
         }
     },

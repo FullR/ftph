@@ -1,32 +1,34 @@
 "use strict";
 
 var React      = require("react"),
-    WordLesson = require("screens/lesson/word");
+    WordLesson = require("screens/lesson/word"),
+    lessonInfo = require("./info");
 
 var Lesson2 = React.createClass({
     mixins: [require("mixins/storage")],
     displayName: "lesson-2",
 
     render: function() {
-        var storage        = this.load("lesson-2"),
+        var storage        = this.load(lessonInfo.namespace),
             activities     = require("./activities"),
             nextActivityId = storage["last-screen"] || "1",
             nextActivity   = activities[nextActivityId];
 
         return (
             <WordLesson
-                id="2"
-                title="Ending Sounds"
-                subtitle="Lesson 2"
-                nextScreen={nextActivity}
-                nextLabel={"Activity " + nextActivityId}
+                id         = {lessonInfo.id}
+                title      = {lessonInfo.title}
+                subtitle   = {lessonInfo.subtitle}
+                nextScreen = {nextActivity}
+                nextLabel  = {"Activity " + nextActivityId}
+
                 sounds={{
                     "the-last-sound": "assets/audio/lessons/lesson-2/instructions/the-last-sound",
-                    "is":              "assets/audio/lessons/lesson-2/instructions/is",
-                    "say-the-words":   "assets/audio/lessons/lesson-2/instructions/say-the-words",
-                    "slowly":          "assets/audio/common/slowly",
-                    "t":               "assets/audio/phonics/lesson-phonics/t",
-                    "touch-arrow":     "assets/audio/common/touch-arrow"
+                    "is":             "assets/audio/lessons/lesson-2/instructions/is",
+                    "say-the-words":  "assets/audio/lessons/lesson-2/instructions/say-the-words",
+                    "slowly":         "assets/audio/common/slowly",
+                    "t":              "assets/audio/phonics/lesson-phonics/t",
+                    "touch-arrow":    "assets/audio/common/touch-arrow"
                 }}
 
                 choices={[

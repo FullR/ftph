@@ -2,25 +2,26 @@
 
 var React      = require("react"),
     WordLesson = require("screens/lesson/word"),
-    Feedback   = require("screens/lessons/1/lesson-feedback");
+    Feedback   = require("screens/lessons/1/lesson-feedback"),
+    lessonInfo = require("./info");
 
 var Lesson5 = React.createClass({
     mixins: [require("mixins/storage")],
 
     render: function() {
-        var activities = require("./activities"),
-            storage = this.load("lesson-5"),
+        var activities     = require("./activities"),
+            storage        = this.load(lessonInfo.namespace),
             nextActivityId = storage["last-screen"] || "1",
-            nextActivity = activities[nextActivityId];
+            nextActivity   = activities[nextActivityId];
 
         return (
             <WordLesson
-                id="5"
-                title="Rhyme Time"
-                subtitle="Lesson 5"
-                section="1"
-                nextScreen={nextActivity}
-                nextLabel={"Activity " + nextActivityId}
+                id         = {lessonInfo.id}
+                title      = {lessonInfo.title}
+                subtitle   = {lessonInfo.subtitle}
+                section    = {lessonInfo.section}
+                nextScreen = {nextActivity}
+                nextLabel  = {"Activity " + nextActivityId}
                 sounds={{
                     "words-like":      "assets/audio/lessons/lesson-4/instructions/words-like",
                     "rhyme-because":   "assets/audio/lessons/lesson-4/instructions/rhyme-because",

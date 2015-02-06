@@ -2,7 +2,8 @@
 
 var React        = require("react"),
     WordActivity = require("screens/activity/word"),
-    render       = require("render");
+    render       = require("render"),
+    lessonInfo         = require("./info");
 
 var Lesson1Activity4to15 = React.createClass({
     mixins: [
@@ -20,8 +21,11 @@ var Lesson1Activity4to15 = React.createClass({
     },
 
     componentWillMount: function() {
-        this.save(this.props.namespace+".last-screen", this.props.id);
-        this.save("lesson-1.last-screen", this.props.id);
+        // props namespace refers to the sublesson
+        this.save([this.props.namespace, "last-screen"], this.props.id);
+
+        // lesson 1
+        this.save([lessonInfo.namespace, "last-screen"], this.props.id);
     },
 
     render: function() {
@@ -33,18 +37,18 @@ var Lesson1Activity4to15 = React.createClass({
 
         return (
             <WordActivity {...this.props}
-                lessonId="1"
-                section="1"
-                lessonTitle="Beginning Sounds"
-                activityCount="15"
-                sounds={this.getSounds()}
-                lessonScreen={this.props.lessonScreen}
+                lessonId      = {lessonInfo.id}
+                section       = {lessonInfo.section}
+                lessonTitle   = {lessonInfo.title}
+                activityCount = {lessonInfo.activityCount}
+                sounds        = {this.getSounds()}
+                lessonScreen  = {this.props.lessonScreen}
 
-                onSubmit={(activity, correct) => {
-                    this.save("lesson-1.activities."+activityId+".correct", correct);
+                onSubmit = {(activity, correct) => {
+                    this.save([lessonInfo.namespace, "activities", activityId, "correct"], correct);
                 }}
 
-                instructions={function(then) {
+                instructions  = {function(then) {
                     return [
                         then("say", "touch-same-sound"), then("wait", 250),
                         then("say", "word1"),            then("wait", 250),
@@ -73,14 +77,14 @@ var Lesson1Activity4to15 = React.createClass({
                     var Feedback = require("screens/activity-feedback/single-word"),
                         feedback = (
                             <Feedback
-                                lessonId="1"
-                                lessonTitle="Beginning Sounds"
-                                activityId={activityId}
-                                activityCount="15"
-                                section="1"
-                                correct={activity.isCorrect()}
-                                nextScreen={nextScreen}
-                                word={activity.getSelected()[0].word}
+                                lessonId     = {lessonInfo.id}
+                                lessonTitle  = {lessonInfo.title}
+                                activityId   = {activityId}
+                                activityCount= {lessonInfo.activityCount}
+                                section      = {lessonInfo.section}
+                                correct      = {activity.isCorrect()}
+                                nextScreen   = {nextScreen}
+                                word         = {activity.getSelected()[0].word}
                                 sounds={{
                                     "doesnt-begin-same": "assets/audio/lessons/lesson-1/activities/feedback/doesnt-begin-same",
                                     "begins-with-same":  "assets/audio/lessons/lesson-1/activities/feedback/begins-with-same",

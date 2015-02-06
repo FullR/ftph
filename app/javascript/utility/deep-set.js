@@ -11,14 +11,14 @@
         a.foo.bar.fizz === "foobar";
 */
 function deepSet(obj, keys, value) {
-    var last;
-    keys = keys.split(".");
-    keys.reduce(function(target, key) {
-        last = target;
-        if(!target[key]) target[key] = {};
-        return target[key];
-    }, obj);
-    last[keys[keys.length-1]] = value;
+    if(typeof keys === "string") {
+        keys = keys.split(".");
+    }
+    for(var i = 0, length = keys.length - 1; i < length; i++) {
+        obj = obj[keys[i]] || (obj[keys[i]] = {});
+    }
+    obj[keys[i]] = value;
+    return obj;
 }
 
 module.exports = deepSet;

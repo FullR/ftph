@@ -4,7 +4,7 @@ var React          = require("react"),
     LessonFeedback = require("screens/lesson-feedback"),
     lessonInfo     = require("./info");
 
-var Lesson4Feedback = React.createClass({
+module.exports = React.createClass({
     mixins: [
         require("mixins/storage"),
         require("mixins/lesson-storage")(lessonInfo.namespace)
@@ -18,6 +18,7 @@ var Lesson4Feedback = React.createClass({
             "completed":   true,
             "score":       this.getScore()
         };
+
         this.merge(toMerge);
     },
 
@@ -29,10 +30,8 @@ var Lesson4Feedback = React.createClass({
                 section    = {lessonInfo.section}
                 correct    = {this.getScore()}
                 total      = {this.getTotal()}
-                nextScreen = {require("screens/lessons/6")}
-                backScreen = {require("screens/lessons/5")}/>
+                nextScreen = {require("screens/lessons/7")}
+                backScreen = {require("screens/lessons/6")}/>
         );
     }
 });
-
-module.exports = Lesson4Feedback;
