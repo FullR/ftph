@@ -6,6 +6,7 @@ var Lesson2Activity3 = React.createClass({
         return (
             <Activity {...this.props}
                 id="3"
+                autoplayAnimation="choices-only"
                 choices={[
                     {word: "stick"},
                     {word: "blast", correct: true},

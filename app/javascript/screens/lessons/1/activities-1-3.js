@@ -45,14 +45,12 @@ var Lesson1Activity1to3 = React.createClass({
                     then("say", "t"),              then("wait", 250),
 
                     then("uncenterActor"),
-                    then("revealChoice", 0),
-                    then("say", "words.0"),  then("wait", 250),
 
-                    then("revealChoice", 1),
-                    then("say", "words.1"),  then("wait", 250),
-
-                    then("revealChoice", 2),
-                    then("say", "words.2"),  then("wait", 250),
+                    ...choices.map((choice, index) => [
+                        then("revealChoice", index),
+                        then("say", ["words", index]),
+                        then("wait", 250)
+                    ]),
 
                     then("sit")
                 ]}

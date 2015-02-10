@@ -27,7 +27,7 @@ var Lesson1Activity4to15 = React.createClass({
     },
 
     render: function() {
-        var Feedback   = require("screens/activity-feedback/single-word")
+        var Feedback   = require("screens/activity-feedback/single-word"),
             choices    = this.props.choices,
             nextScreen = this.props.nextScreen,
             activityId = this.props.id,
@@ -55,17 +55,11 @@ var Lesson1Activity4to15 = React.createClass({
 
                     then("uncenterActor"),
 
-                    // reveal/say choice 0
-                    then("revealChoice", 0),
-                    then("say", "words.0"),    then("wait", 250),
-
-                    // reveal/say choice 1
-                    then("revealChoice", 1),
-                    then("say", "words.1"),    then("wait", 250),
-
-                    // reveal/say choice 2
-                    then("revealChoice", 2),
-                    then("say", "words.2"),    then("wait", 250),
+                    ...choices.map((choice, index) => [
+                        then("revealChoice", index),
+                        then("say", ["words", index]),
+                        then("wait", 250)
+                    ]),
 
                     then("sit")
                 ]}

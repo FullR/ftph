@@ -34,23 +34,31 @@ var Lesson2Sublesson = React.createClass({
                 nextLabel  = {`Activity ${lastActivityId}`}
                 sounds={{
                     "listen-for": "lessons/lesson-2/sub-lessons/instructions/listen-for",
-                    "as-in":      "lessons/lesson-2/sub-lessons/instructions/as-in",
-                    "and":        "common/lessons/and"
+                    "say":        "common/lessons/say",
+                    "and":        "common/lessons/and",
+                    "slowly":     "common/lessons/slowly",
+                    "then-touch": "common/lessons/then-touch"
                 }}
                 
                 instructions={(then) => [
                     then("say", "listen-for"), then("wait", 250),
-                    then("say", "phonic"),     then("wait", 250),
-                    then("say", "as-in"),      then("wait", 250),
 
                     then("uncenterActor"),
                     then("revealChoice", 0),
                     then("say", "words.0"),    then("wait", 250),
+                    then("say", "and"),        then("wait", 250),
+                    then("revealChoice", 1),
+                    then("say", "words.1"),
+
+                    then("say", "say"),        then("wait", 250),
+                    then("say", "words.0"),    then("wait", 250),
 
                     then("say", "and"),        then("wait", 250),
 
-                    then("revealChoice", 1),
-                    then("say", "words.1"),
+                    then("say", "words.1"),    then("wait", 250),
+
+                    then("say", "slowly"),     then("wait", 250),
+                    then("say", "then-touch"), then("wait", 250),
 
                     then("sit")
                 ]}/>

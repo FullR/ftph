@@ -6,6 +6,7 @@ var Lesson2Activity15 = React.createClass({
         return (
             <Activity {...this.props}
                 id="15"
+                autoplayAnimation="choices-only"
                 lessonScreen={require("screens/lessons/2-b")}
                 namespace="lesson-2-b"
                 choices={[

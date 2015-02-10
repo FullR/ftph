@@ -88,7 +88,7 @@ var Lesson3Activity = React.createClass({
                                         "lessons/lesson-3/activities/feedback/do-not-end" :
                                         "lessons/lesson-3/activities/feedback/do-not-begin",
 
-                                    "both": ending ?
+                                    "correct": ending ?
                                         "lessons/lesson-3/activities/feedback/both-end" :
                                         "lessons/lesson-3/activities/feedback/both-begin",
 

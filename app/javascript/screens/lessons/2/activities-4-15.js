@@ -36,7 +36,7 @@ var Lesson2Activity4to15 = React.createClass({
 
         return (
             <WordActivity {...this.props}
-                lessonId      = {lessonInfo.lessonId}
+                lessonId      = {lessonInfo.id}
                 lessonTitle   = {lessonInfo.title}
                 activityCount = {lessonInfo.activityCount}
                 sounds        = {this.getSounds()}
@@ -54,9 +54,9 @@ var Lesson2Activity4to15 = React.createClass({
 
                     then("uncenterActor"),
 
-                    choices.map((choice, i) => [
-                        then("revealChoice", 0),
-                        then("say", ["words", i]),
+                    choices.map((choice, index) => [
+                        then("revealChoice", index),
+                        then("say", ["words", index]),
                         then("wait", 250),
                     ]),
 
@@ -89,7 +89,7 @@ var Lesson2Activity4to15 = React.createClass({
                             then("say", "word2")
                         ]}
 
-                        incorrectAnimation={(then) [
+                        incorrectAnimation={(then) => [
                             then("say", "word"),            then("wait", 250),
                             then("say", "doesnt-end-same"), then("wait", 250),
                             then("say", "word1"),           then("wait", 250),

@@ -24,11 +24,12 @@ var Lesson2Activity1to3 = React.createClass({
 
         return (
             <WordActivity {...this.props}
-                lessonId      = {lessonInfo.id}
-                lessonTitle   = {lessonInfo.title}
-                activityCount = {lessonInfo.activityCount}
-                sounds        = {this.getSounds()}
-                lessonScreen  = {require("screens/lessons/2")}
+                lessonId          = {lessonInfo.id}
+                lessonTitle       = {lessonInfo.title}
+                activityCount     = {lessonInfo.activityCount}
+                sounds            = {this.getSounds()}
+                autoplayAnimation = {this.props.autoplayAnimation || "instructions"}
+                lessonScreen      = {require("screens/lessons/2")}
 
                 onSubmit={(activity, correct) => {
                     this.save([lessonInfo.namespace, "activities", activityId, "correct"], correct);
@@ -40,9 +41,9 @@ var Lesson2Activity1to3 = React.createClass({
 
                     then("uncenterActor"),
                     
-                    choices.map((choice, i) => [
-                        then("revealChoice", 0),
-                        then("say", ["words", i]),
+                    choices.map((choice, index) => [
+                        then("revealChoice", index),
+                        then("say", ["words", index]),
                         then("wait", 250),
                     ]),
 

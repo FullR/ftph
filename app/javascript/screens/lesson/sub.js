@@ -1,20 +1,11 @@
-var _ = require("lodash"),
-    React = require("react"),
+var _          = require("lodash"),
+    React      = require("react"),
     WordLesson = require("screens/lesson/word");
 
 var SubLesson = React.createClass({
-    mixins: [require("mixins/extend-sounds")],
-
-    getAdditionalSounds: function() {
-        return {
-            "phonic": `phonics/lesson-phonics/${this.props.phonicFilename || this.props.phonic}`
-        };
-    },
-
     render: function() {
         return (
-            <WordLesson {...this.props}
-                sounds={this.getSounds()}/>
+            <WordLesson {...this.props}/>
         );
     }
 });

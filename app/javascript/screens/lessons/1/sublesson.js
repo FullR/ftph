@@ -24,32 +24,43 @@ var Lesson1Sublesson = React.createClass({
 
         return (
             <SubLesson {...this.props}
-                id         = {"1-"+this.props.phonic}
+                id         = {`1-${this.props.phonic}`}
                 title      = {lessonInfo.title}
-                subtitle   = {"Lesson 1 " + this.props.phonic}
+                subtitle   = {`Lesson 1 ${this.props.phonic}`}
                 section    = {lessonInfo.section}
                 nextScreen = {nextScreen}
-                nextLabel  = {"Activity " + lastActivityId}
+                nextLabel  = {`Activity ${lastActivityId}`}
 
                 sounds={{
                     "listen-for": "lessons/lesson-1/sub-lessons/instructions/listen-for",
-                    "as-in":      "lessons/lesson-1/sub-lessons/instructions/as-in",
-                    "and":        "common/lessons/and"
+                    "say":        "common/lessons/say",
+                    "and":        "common/lessons/and",
+                    "slowly":     "common/lessons/slowly",
+                    "then-touch": "common/lessons/then-touch"
                 }}
                 
                 instructions={(then) => [
                     then("say", "listen-for"), then("wait", 250),
-                    then("say", "phonic"),     then("wait", 250),
-                    then("say", "as-in"),      then("wait", 250),
 
                     then("uncenterActor"),
+                    
                     then("revealChoice", 0),
-                    then("say", "words.1"),    then("wait", 250),
+                    then("say", "words.0"),    then("wait", 250),
 
                     then("say", "and"),        then("wait", 250),
 
                     then("revealChoice", 1),
-                    then("say", "words.2"),
+                    then("say", "words.1"),    then("wait", 250),
+
+                    then("say", "say"),        then("wait", 250),
+                    then("say", "words.0"),    then("wait", 250),
+
+                    then("say", "and"),        then("wait", 250),
+
+                    then("say", "words.1"),    then("wait", 250),
+
+                    then("say", "slowly"),     then("wait", 250),
+                    then("say", "then-touch"), then("wait", 250),
 
                     then("sit")
                 ]}/>
