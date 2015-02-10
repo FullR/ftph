@@ -1,5 +1,3 @@
-"use strict";
-
 var React       = require("react"),
     WebLink     = require("components/utility/web-link"),
     AdminButton = require("components/admin-button"),
@@ -11,7 +9,7 @@ var Splash = React.createClass({
 
     getSounds: function() {
         return {
-            "welcome": "assets/audio/common/welcome"
+            "welcome": "common/welcome"
         };
     },
 

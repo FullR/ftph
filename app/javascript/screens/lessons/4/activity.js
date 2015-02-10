@@ -1,5 +1,3 @@
-"use strict";
-
 var React        = require("react"),
     WordActivity = require("screens/activity/word"),
     WordImage    = require("components/word-image"),
@@ -14,8 +12,8 @@ var Lesson4Activity = React.createClass({
 
     getAdditionalSounds: function() {
         return {
-            "touch-the":  "assets/audio/lessons/lesson-4/activities/instructions/touch-the",
-            "rhyme-word": "assets/audio/words/activity-words/" + this.props.word
+            "rhyme-word": `words/activity-words/${this.props.word}`,
+            "touch-the":  "lessons/lesson-4/activities/instructions/touch-the"
         };
     },
 
@@ -43,26 +41,21 @@ var Lesson4Activity = React.createClass({
                     this.save([lessonInfo.namespace, "activities", activityId, "correct"], correct);
                 }}
 
-                instructions={function(then) {
-                    return [
-                        then("uncenterActor"),
-                        then("say", "touch-the"),     then("wait", 250),
-                        then("say", "rhyme-word"),    then("wait", 250),
+                instructions={(then) => [
+                    then("uncenterActor"),
+                    then("say", "touch-the"),     then("wait", 250),
+                    then("say", "rhyme-word"),    then("wait", 250),
 
-                        then("revealChoice", 0),
-                        then("say", choices[0].word), then("wait", 250),
+                    choices.map((choice, i) => [
+                        then("revealChoice", i),
+                        then("say", ["words", i]),
+                        then("wait", 250)
+                    ]),
 
-                        then("revealChoice", 1),
-                        then("say", choices[1].word), then("wait", 250),
+                    then("sit")
+                ]}
 
-                        then("revealChoice", 2),
-                        then("say", choices[2].word), then("wait", 250),
-
-                        then("sit")
-                    ];
-                }}
-
-                renderFeedback={function(activity) {
+                renderFeedback={(activity) => {
                     var Feedback = require("screens/activity-feedback/single-word"),
                         correct = activity.isCorrect(),
                         selected = activity.getSelected(),
@@ -78,28 +71,24 @@ var Lesson4Activity = React.createClass({
                                 word          = {activity.getSelected()[0].word}
 
                                 sounds={{
-                                    "does-not":   "assets/audio/lessons/lesson-4/activities/feedback/does-not",
-                                    "rhyme":      "assets/audio/lessons/lesson-4/activities/feedback/rhyme",
+                                    "does-not":   "lessons/lesson-4/activities/feedback/does-not",
+                                    "rhyme":      "lessons/lesson-4/activities/feedback/rhyme",
 
-                                    "selected":   "assets/audio/words/activity-words/"+selected[0].word,
-                                    "rhyme-word": "assets/audio/words/activity-words/"+rhymeWord
+                                    "selected":   `words/activity-words/${selected[0].word}`,
+                                    "rhyme-word": `words/activity-words/${rhymeWord}`
                                 }}
 
-                                correctAnimation={function(then) {
-                                    return [
-                                        then("say", "selected"),  then("wait", 250),
-                                        then("say", "rhyme"),     then("wait", 250),
-                                        then("say", "rhyme-word")
-                                    ];
-                                }}
+                                correctAnimation={(then) => [
+                                    then("say", "selected"),  then("wait", 250),
+                                    then("say", "rhyme"),     then("wait", 250),
+                                    then("say", "rhyme-word")
+                                ]}
 
-                                incorrectAnimation={function(then) {
-                                    return [
-                                        then("say", "selected"),  then("wait", 250),
-                                        then("say", "does-not"),  then("wait", 250),
-                                        then("say", "rhyme-word")
-                                    ];
-                                }}/>
+                                incorrectAnimation={(then) => [
+                                    then("say", "selected"),  then("wait", 250),
+                                    then("say", "does-not"),  then("wait", 250),
+                                    then("say", "rhyme-word")
+                                ]}/>
                         );
 
                     render(feedback);

@@ -1,11 +1,9 @@
-"use strict";
-
 var React      = require("react");
 
 var AdminButton = React.createClass({
     renderCheckScreen: function() {
         var AdminCheck = require("screens/admin/admin-check"),
-            render = require("render");
+            render     = require("render");
 
         render(<AdminCheck/>);
     },

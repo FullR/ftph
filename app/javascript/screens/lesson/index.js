@@ -1,5 +1,3 @@
-"use strict";
-
 var _           = require("lodash"),
     React       = require("react"),
     Title       = require("components/lesson/title"),
@@ -56,13 +54,13 @@ var Lesson = React.createClass({
             <GameScreen className={this.classNames("lesson")} section={this.props.section}>
                 <Title title={this.props.title} subtitle={this.props.subtitle} />
 
-                <Owl {...this.state.owl} onClick={this.animationCallback("instructions")} />
+                <Owl {...this.state.owl} onClick={this.animationCallback("instructions")}>Lesson</Owl>
 
                 <Arrow next={this.props.nextScreen}>
                     {this.props.nextLabel}
                 </Arrow>
 
-                <div className='choices'>{this.state.choices.map(this.props.renderChoice.bind(null, this))}</div>
+                <div className='choice-group'>{this.state.choices.map(this.props.renderChoice.bind(null, this))}</div>
                 
                 {this.props.children}
             </GameScreen>

@@ -1,5 +1,3 @@
-"use strict";
-
 var Q            = require("q"),
     PromiseQueue = require("utility/promise-queue"),
     slice        = [].slice;
@@ -32,12 +30,11 @@ var animationMixin = {
                 fn = this[fn];
             }
             else {
-                throw new Error("Method not found: " + fn);
+                throw new Error(`Method not found: ${fn}`);
             }
         }
 
         return function() {
-            //if(fnString) { console.log("Running " + fnString); };
             return fn.apply(null, args);
         }.bind(this);
     },
@@ -46,26 +43,28 @@ var animationMixin = {
         Runs the passed animation function
     */
     animate: function(animation) {
-        var animationFn,
-            playAnimation = function() { // Updates component state and runs the promise queue
+        var animationFn;
+
+        // Updates component state and runs the promise queue
+        var playAnimation = () => {
             this.animationQueue = PromiseQueue(animationFn(this.then));
 
             this.state.animating = true;
             this.setState(this.state);
 
-            return this.animationQueue.start().then(function() {
+            return this.animationQueue.start().then(() => {
                 this.animationQueue = null;
                 this.state.animating = false;
                 this.setState(this.state);
-            }.bind(this));
-        }.bind(this);
+            });
+        };
 
         // allow passing function names instead of functions
         if(typeof animation === "string") {
             animationFn = this[animation];
 
             if(!animationFn) {
-                throw new Error("Could not find animation: " + animation);
+                throw new Error(`Could not find animation: ${animation}`);
             }
         }
         else {

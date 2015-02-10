@@ -1,5 +1,3 @@
-"use strict";
-
 var Q     = require("q"),
     _     = require("lodash"),
     Sound = require("./sound");
@@ -9,6 +7,9 @@ var sounds = [],
 
 function get(path) {
     var sound;
+
+    path = `assets/audio/${path}`;
+
     if(soundIndex[path]) { return soundIndex[path]; }
 
     sound = new Sound({path: path});

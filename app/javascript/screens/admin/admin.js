@@ -1,5 +1,3 @@
-"use strict";
-
 var React         = require("react"),
     WebLink       = require("components/utility/web-link"),
     SectionButton = require("screens/admin/section-button"),

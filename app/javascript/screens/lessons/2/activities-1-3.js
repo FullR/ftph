@@ -1,5 +1,3 @@
-"use strict";
-
 var React        = require("react"),
     WordActivity = require("screens/activity/word"),
     render       = require("render"),
@@ -13,13 +11,14 @@ var Lesson2Activity1to3 = React.createClass({
 
     getAdditionalSounds: function() {
         return {
-            "t": "assets/audio/phonics/activity-phonics/t",
-            "touch-the-word": "assets/audio/lessons/lesson-2/activities/instructions/touch-the-word"
+            "t":              "phonics/activity-phonics/t",
+            "touch-the-word": "lessons/lesson-2/activities/instructions/touch-the-word"
         };
     },
 
     render: function() {
-        var choices = this.props.choices,
+        var Feedback   = require("screens/activity-feedback/single-word"),
+            choices    = this.props.choices,
             nextScreen = this.props.nextScreen,
             activityId = this.props.id;
 
@@ -35,60 +34,47 @@ var Lesson2Activity1to3 = React.createClass({
                     this.save([lessonInfo.namespace, "activities", activityId, "correct"], correct);
                 }}
 
-                instructions={function(then) {
-                    return [
-                        then("say", "touch-the-word"), then("wait", 250),
-                        then("say", "t"),              then("wait", 250),
+                instructions={(then) => [
+                    then("say", "touch-the-word"), then("wait", 250),
+                    then("say", "t"),              then("wait", 250),
 
-                        then("uncenterActor"),
+                    then("uncenterActor"),
+                    
+                    choices.map((choice, i) => [
                         then("revealChoice", 0),
-                        then("say", choices[0].word),  then("wait", 250),
+                        then("say", ["words", i]),
+                        then("wait", 250),
+                    ]),
 
-                        then("revealChoice", 1),
-                        then("say", choices[1].word),  then("wait", 250),
+                    then("sit")
+                ]}
 
-                        then("revealChoice", 2),
-                        then("say", choices[2].word),  then("wait", 250),
-
-                        then("sit")
-                    ];
-                }}
-
-                renderFeedback={(activity) => {
-                    var Feedback = require("screens/activity-feedback/single-word"),
-                        feedback = (
-                            <Feedback
-                                lessonId      = {lessonInfo.id}
-                                lessonTitle   = {lessonInfo.title}
-                                activityId    = {activityId}
-                                activityCount = {lessonInfo.activityCount}
-                                section       = {lessonInfo.section}
-                                correct       = {activity.isCorrect()}
-                                nextScreen    = {nextScreen}
-                                word          = {activity.getSelected()[0].word}
-                                sounds={{
-                                    "doesnt-end": "assets/audio/lessons/lesson-2/activities/feedback/doesnt-end",
-                                    "ends-with":  "assets/audio/lessons/lesson-2/activities/feedback/ends-with",
-                                    "t":          "assets/audio/phonics/activity-phonics/t"
-                                }}
-                                correctAnimation={function(then) {
-                                    return [
-                                        then("say", "word"),      then("wait", 250),
-                                        then("say", "ends-with"), then("wait", 250),
-                                        then("say", "t")
-                                    ];
-                                }}
-                                incorrectAnimation={function(then) {
-                                    return [
-                                        then("say", "word"),       then("wait", 250),
-                                        then("say", "doesnt-end"), then("wait", 250),
-                                        then("say", "t")
-                                    ];
-                                }}/>
-                        );
-
-                    render(feedback);
-                }}/>
+                renderFeedback={(activity) => render(
+                    <Feedback
+                        lessonId      = {lessonInfo.id}
+                        lessonTitle   = {lessonInfo.title}
+                        activityId    = {activityId}
+                        activityCount = {lessonInfo.activityCount}
+                        section       = {lessonInfo.section}
+                        correct       = {activity.isCorrect()}
+                        nextScreen    = {nextScreen}
+                        word          = {activity.getSelected()[0].word}
+                        sounds={{
+                            "doesnt-end": "lessons/lesson-2/activities/feedback/doesnt-end",
+                            "ends-with":  "lessons/lesson-2/activities/feedback/ends-with",
+                            "t":          "phonics/activity-phonics/t"
+                        }}
+                        correctAnimation={(then) => [
+                            then("say", "word"),      then("wait", 250),
+                            then("say", "ends-with"), then("wait", 250),
+                            then("say", "t")
+                        ]}
+                        incorrectAnimation={(then) => [
+                            then("say", "word"),       then("wait", 250),
+                            then("say", "doesnt-end"), then("wait", 250),
+                            then("say", "t")
+                        ]}/>
+                )}/>
         );
     }
 });

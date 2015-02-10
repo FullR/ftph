@@ -1,5 +1,3 @@
-"use strict";
-
 var _ = require("lodash"),
     React = require("react"),
     WordLesson = require("screens/lesson/word");
@@ -9,7 +7,7 @@ var SubLesson = React.createClass({
 
     getAdditionalSounds: function() {
         return {
-            phonic: "assets/audio/phonics/lesson-phonics/" + (this.props.phonicFilename || this.props.phonic)
+            "phonic": `phonics/lesson-phonics/${this.props.phonicFilename || this.props.phonic}`
         };
     },
 

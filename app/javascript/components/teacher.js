@@ -1,5 +1,3 @@
-"use strict";
-
 var React = require("react");
 
 var Teacher = React.createClass({
@@ -7,16 +5,14 @@ var Teacher = React.createClass({
     render: function() {
         var className = this.classNames(
             "teacher",
-            "teacher-"+this.props.state,
+            `teacher-${this.props.state}`,
             this.props.centered ? "teacher-centered" : null,
-            this.props.hidden ? "teacher-hidden" : null,
-            this.props.onClick ? "selectable" : null
+            this.props.hidden   ? "teacher-hidden"   : null,
+            this.props.onClick  ? "selectable"       : null
         );
 
-        this.props.className = className;
-
         return (
-            <div {...this.props}>
+            <div {...this.props} className={className}>
                 <div className='teacher-image'/>
 
                 <div className='teacher-content'>

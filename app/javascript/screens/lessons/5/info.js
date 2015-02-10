@@ -1,5 +1,3 @@
-"use strict";
-
 module.exports = {
     id:            "5",
     title:         "Rhyme Time",

@@ -1,5 +1,3 @@
-"use strict";
-
 // From: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind
 function insertPolyfill() {
     if (!Function.prototype.bind) {

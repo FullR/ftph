@@ -1,4 +1,4 @@
-"use strict";
+
 
 /*
     Inverts the output of a function

@@ -1,5 +1,3 @@
-"use strict";
-
 var truthy = require("utility/functional/truthy"),
     slice = [].slice;
 

@@ -1,5 +1,3 @@
-"use strict";
-
 var React        = require("react"),
     WordActivity = require("screens/activity/word"),
     get          = require("utility/functional/get"),
@@ -14,7 +12,7 @@ var Lesson5Activity = React.createClass({
 
     getAdditionalSounds: function() {
         return {
-            "touch-the": "assets/audio/lessons/lesson-5/activities/instructions/touch-the"
+            "touch-the": "lessons/lesson-5/activities/instructions/touch-the"
         };
     },
 
@@ -44,59 +42,54 @@ var Lesson5Activity = React.createClass({
 
                 instructions={function(then) {
                     return [
-                        then("say", "touch-the"),     then("wait", 250),
-
+                        then("say", "touch-the"),
+                        then("wait", 250),
                         then("uncenterActor"),
-                        then("revealChoice", 0),
-                        then("say", choices[0].word), then("wait", 250),
 
-                        then("revealChoice", 1),
-                        then("say", choices[1].word), then("wait", 250),
-
-                        then("revealChoice", 2),
-                        then("say", choices[2].word), then("wait", 250),
+                        // Reveal and say words
+                        ...choices.map((choice, index) => [
+                            then("revealChoice", 0),
+                            then("say", ["words", index]),
+                            then("wait", 250)
+                        ]),
 
                         then("sit")
                     ];
                 }}
 
-                renderFeedback={function(activity) {
+                renderFeedback={(activity) => {
                     var Feedback = require("screens/activity-feedback/multi-word"),
-                        selectedWords = activity.getSelected().map(get("word")),
-                        feedback = (
-                            <Feedback
-                                lessonId      = {lessonInfo.id}
-                                lessonTitle   = {lessonInfo.title}
-                                activityId    = {activityId}
-                                activityCount = {lessonInfo.activityCount}
-                                section       = {lessonInfo.section}
-                                correct       = {activity.isCorrect()}
-                                nextScreen    = {nextScreen}
-                                words         = {selectedWords}
-                                sounds={{
-                                    "rhymes-with":    "assets/audio/lessons/lesson-5/activities/feedback/rhymes-with",
-                                    "does-not-rhyme": "assets/audio/lessons/lesson-5/activities/feedback/does-not-rhyme",
+                        selectedWords = activity.getSelected().map(get("word"));
+                    
+                    render(
+                        <Feedback
+                            lessonId      = {lessonInfo.id}
+                            lessonTitle   = {lessonInfo.title}
+                            activityId    = {activityId}
+                            activityCount = {lessonInfo.activityCount}
+                            section       = {lessonInfo.section}
+                            correct       = {activity.isCorrect()}
+                            nextScreen    = {nextScreen}
+                            words         = {selectedWords}
+                            sounds={{
+                                "selected-1":     `words/activity-words/${selectedWords[0]}`,
+                                "selected-2":     `words/activity-words/${selectedWords[1]}`,
+                                "rhymes-with":    "lessons/lesson-5/activities/feedback/rhymes-with",
+                                "does-not-rhyme": "lessons/lesson-5/activities/feedback/does-not-rhyme"
+                            }}
 
-                                    "selected-1":     "assets/audio/words/activity-words/"+selectedWords[0],
-                                    "selected-2":     "assets/audio/words/activity-words/"+selectedWords[1]
-                                }}
-                                correctAnimation={function(then) {
-                                    return [
-                                        then("say", "selected-1"),  then("wait", 250),
-                                        then("say", "rhymes-with"), then("wait", 250),
-                                        then("say", "selected-2"),  then("wait", 250)
-                                    ];
-                                }}
-                                incorrectAnimation={function(then) {
-                                    return [
-                                        then("say", "selected-1"),     then("wait", 250),
-                                        then("say", "does-not-rhyme"), then("wait", 250),
-                                        then("say", "selected-2"),     then("wait", 250),
-                                    ];
-                                }}/>
-                        );
+                            correctAnimation={(then) => [
+                                then("say", "selected-1"),  then("wait", 250),
+                                then("say", "rhymes-with"), then("wait", 250),
+                                then("say", "selected-2"),  then("wait", 250)
+                            ]}
 
-                    render(feedback);
+                            incorrectAnimation={(then) => [
+                                then("say", "selected-1"),     then("wait", 250),
+                                then("say", "does-not-rhyme"), then("wait", 250),
+                                then("say", "selected-2"),     then("wait", 250),
+                            ]}/>
+                    );
                 }}/>
         );
     }

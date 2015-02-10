@@ -1,4 +1,4 @@
-"use strict";
+
 
 /*
     Curried dot operator

@@ -1,27 +1,24 @@
-"use strict";
-
 var React   = require("react"),
     ready   = require("polyfills/cordova/device-ready"),
     project = require("../project"),
-    $       = require("jquery"),
     render  = require("render"),
     Splash  = require("screens/splash"),
     muted   = false;
 
 // Preload commonly used images
-function preload() {
-    require("images").images.forEach((image) => {
-        $("<img/>")[0].src = image;
+function preloadImages() {
+    require("images").images.forEach(function(image) {
+        document.createElement("img").src = image;
     });
 }
 
 ready.then(function() {
     try {
         //Function.prototype.bind polyfill for cordova
-        require("./polyfills/function-prototype-bind")();
+        require("polyfills/function-prototype-bind")();
 
         // Cordova media polyfill
-        require("./polyfills/cordova/cordova-media-plugin")();
+        require("polyfills/cordova/cordova-media-plugin")();
 
         if(window.__platform.name === "web") {
             /* 
@@ -30,23 +27,34 @@ ready.then(function() {
                 effects that only applies hover styles
                 when the hover-enabled class is present on
                 a parent element
+
+                The exact issue is that hover effects seem
+                to be applied on the active state and are
+                not removed when the user finishes the
+                action
             */
-            $("body").addClass("hover-enabled");
-            // set title
-            $("title").html(project.title);
+            if(document.body.classList) {
+                document.body.classList.add("hover-enabled");
+            }
+            else {
+                document.body.className += " hover-enabled";
+            }
+
+            // Set title
+            document.getElementsByTagName("title")[0].innerHTML = project.title;
 
             if(muted) {
                 window.Media.mute();
             }
             // Toggle mute when 'm' key is pressed
-            $(document).on("keydown", (e) => {
+            document.addEventListener("keydown", function(e) {
                 if(e.which === 77) {
                     window.Media[muted ? "unmute" : "mute"]();
                     muted = !muted;
                 }
             });
         }
-        preload();
+        preloadImages();
         render(<Splash/>);
         //require("router/router");
     } catch(e) {

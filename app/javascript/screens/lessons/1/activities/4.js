@@ -1,5 +1,3 @@
-"use strict";
-
 var React    = require("react"),
     Activity = require("screens/lessons/1/activities-4-15");
 

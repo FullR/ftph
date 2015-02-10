@@ -1,18 +1,46 @@
-"use strict";
-
 var React      = require("react"),
     WordLesson = require("screens/lesson/word"),
     lessonInfo = require("./info");
 
 var Lesson2 = React.createClass({
-    mixins: [require("mixins/storage")],
-    displayName: "lesson-2",
+    mixins: [
+        require("mixins/storage"),
+        require("mixins/initial-storage")(lessonInfo.namespace)
+    ],
+
+    getInitialStorage: function() {
+        return {
+            "last-screen": null,
+            "activities": {
+                "1":  {"correct": false},
+                "2":  {"correct": false},
+                "3":  {"correct": false},
+                "4":  {"correct": false},
+                "5":  {"correct": false},
+                "6":  {"correct": false},
+                "7":  {"correct": false},
+                "8":  {"correct": false},
+                "9":  {"correct": false},
+                "10": {"correct": false},
+                "11": {"correct": false},
+                "12": {"correct": false},
+                "13": {"correct": false},
+                "14": {"correct": false},
+                "15": {"correct": false}
+            }
+        };
+    },
 
     render: function() {
-        var storage        = this.load(lessonInfo.namespace),
-            activities     = require("./activities"),
+        var activities     = require("./activities"),
+            storage        = this.load(lessonInfo.namespace),
             nextActivityId = storage["last-screen"] || "1",
-            nextActivity   = activities[nextActivityId];
+            nextActivity   = activities[nextActivityId],
+            choices        = [
+                {word: "hot", hidden: true},
+                {word: "bat", hidden: true},
+                {word: "sit", hidden: true}
+            ];
 
         return (
             <WordLesson
@@ -20,44 +48,41 @@ var Lesson2 = React.createClass({
                 title      = {lessonInfo.title}
                 subtitle   = {lessonInfo.subtitle}
                 nextScreen = {nextActivity}
-                nextLabel  = {"Activity " + nextActivityId}
+                nextLabel  = {`Activity ${nextActivityId}`}
+                choices    = {choices}
 
                 sounds={{
-                    "the-last-sound": "assets/audio/lessons/lesson-2/instructions/the-last-sound",
-                    "is":             "assets/audio/lessons/lesson-2/instructions/is",
-                    "say-the-words":  "assets/audio/lessons/lesson-2/instructions/say-the-words",
-                    "slowly":         "assets/audio/common/slowly",
-                    "t":              "assets/audio/phonics/lesson-phonics/t",
-                    "touch-arrow":    "assets/audio/common/touch-arrow"
+                    "the-last-sound": "lessons/lesson-2/instructions/the-last-sound",
+                    "is":             "lessons/lesson-2/instructions/is",
+                    "say-the-words":  "lessons/lesson-2/instructions/say-the-words",
+                    "slowly":         "common/slowly",
+                    "t":              "phonics/lesson-phonics/t",
+                    "touch-arrow":    "common/touch-arrow"
                 }}
 
-                choices={[
-                    {word: "hot", hidden: true},
-                    {word: "bat", hidden: true},
-                    {word: "sit", hidden: true}
-                ]}
-                
-                instructions={function(then) {
-                    return [
-                        then("say", "the-last-sound"), then("wait", 250),
-                        then("uncenterActor"),
-                        then("revealChoice", 0),
-                        then("say", "hot"),            then("wait", 250),
-                        then("revealChoice", 1),
-                        then("say", "bat"),            then("wait", 250),
-                        then("revealChoice", 2),
-                        then("say", "sit"),            then("wait", 250),
-                        then("say", "is"),             then("wait", 250),
-                        then("say", "t"),              then("wait", 250),
-                        then("say", "say-the-words"),  then("wait", 250),
-                        then("say", "hot"),            then("wait", 250),
-                        then("say", "bat"),            then("wait", 250),
-                        then("say", "sit"),            then("wait", 250),
-                        then("say", "slowly"),         then("wait", 250),
-                        then("say", "touch-arrow"),
-                        then("sit")
-                    ];
-                }}/>
+                instructions={(then) => [
+                    then("say", "the-last-sound"), then("wait", 250),
+                    then("uncenterActor"),
+
+                    choices.map((choice, i) => [
+                        then("revealChoice", i),
+                        then("say", ["words", i]),
+                        then("wait", 250),
+                    ]),
+
+                    then("say", "is"),             then("wait", 250),
+                    then("say", "t"),              then("wait", 250),
+                    then("say", "say-the-words"),  then("wait", 250),
+
+                    choices.map((choice, i) => [
+                        then("say", ["words", i]),
+                        then("wait", 250)
+                    ]),
+
+                    then("say", "slowly"),         then("wait", 250),
+                    then("say", "touch-arrow"),
+                    then("sit")
+                ]}/>
         );
     }
 });

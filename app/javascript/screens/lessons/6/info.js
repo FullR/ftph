@@ -1,5 +1,3 @@
-"use strict";
-
 module.exports = {
     id:            "6",
     title:         "Say the Word",

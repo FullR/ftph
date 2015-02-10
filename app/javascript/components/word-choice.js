@@ -1,5 +1,3 @@
-"use strict";
-
 var React     = require("react"),
     WordImage = require("components/word-image"),
     Choice    = require("components/choice");

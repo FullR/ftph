@@ -1,26 +1,22 @@
-"use strict";
-
 var _           = require("lodash"),
     React       = require("react"),
     Lesson      = require("screens/lesson"),
     WordChoice  = require("components/word-choice");
 
 var WordLesson = React.createClass({
-    getSounds: function() {
-        var sounds = _.clone(this.props.sounds),
-            choiceSounds = this.props.choices.reduce(function(sounds, choice) {
-                sounds[choice.word] = "assets/audio/words/lesson-words/"+choice.word;
-                return sounds;
-            }, {});
+    mixins: [require("mixins/extend-sounds")],
 
-        return _.extend(sounds, choiceSounds);
+    getAdditionalSounds: function() {
+        return {
+            "words": this.props.choices.map((choice) => `words/lesson-words/${choice.word}`)
+        };
     },
 
-    renderChoice: function(lesson, choice) {
+    renderChoice: function(lesson, choice, index) {
         return (
             <WordChoice
                 {...choice}
-                sound={lesson.getSound(choice.word)}
+                sound={lesson.getSound(["words", index])}
                 soundDisabled={lesson.state.animating}
                 key={choice.word}/>
         );

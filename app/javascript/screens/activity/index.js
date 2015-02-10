@@ -1,5 +1,3 @@
-"use strict";
-
 var _           = require("lodash"),
     React       = require("react"),
     AdminButton = require("components/admin-button"),
@@ -28,16 +26,26 @@ var Activity = React.createClass({
         lessonId: React.PropTypes.string.isRequired
     },
 
+    componentDidUpdate: function() {
+        if(this.shouldShowFeedback()) {
+            this.props.renderFeedback.call(null, this);
+        }
+    },
+
+    componentWillMount: function() {
+        this.save("last-lesson", this.props.lessonId);
+    },
+
     getNamespace: function() {
-        return "lesson-"+this.props.lessonId+".activities."+this.props.id;
+        return `lesson-${this.props.lessonId}.activities.${this.props.id}`;
     },
 
     saveChoices: function() {
-        this.save(this.getNamespace()+".choices", this.state.choices);
+        this.save([this.getNamespace(), "choices"], this.state.choices);
     },
 
     loadChoices: function() {
-        return this.load(this.getNamespace()+".choices");
+        return this.load([this.getNamespace(), "choices"]);
     },
 
     getAutoplayAnimation: function() {
@@ -88,11 +96,6 @@ var Activity = React.createClass({
         return this.getSelected().every(get("correct"));
     },
 
-    componentDidUpdate: function() {
-        if(this.shouldShowFeedback()) {
-            this.props.renderFeedback.call(null, this);
-        }
-    },
 
     selectChoice: function(choice) {
         choice.selected = !choice.selected;
@@ -106,16 +109,27 @@ var Activity = React.createClass({
         }
     },
 
+    renderLesson: function() {
+        var Lesson;
+        if(this.props.renderLesson) {
+            this.props.renderLesson();
+        }
+        else if(this.props.lessonScreen) {
+            Lesson = this.props.lessonScreen;
+            render(<Lesson />);
+        }
+    },
+
     render: function() {
         return (
             <GameScreen className={this.classNames("activity")}>
-                <Owl onClick={render.bind(null, this.props.lessonScreen)} state="sitting"/>
+                <Owl onClick={this.renderLesson} state="sitting">Lesson</Owl>
 
-                <Teacher {...this.state.teacher} onClick={this.animationCallback("instructions")} />
+                <Teacher {...this.state.teacher} onClick={this.animationCallback("instructions")}>Instructions</Teacher>
 
                 {this.props.children}
 
-                <div className='choices'>{this.state.choices.map(this.props.renderChoice.bind(null, this))}</div>
+                <div className='choice-group'>{this.state.choices.map(this.props.renderChoice.bind(null, this))}</div>
 
                 <Info 
                     lessonId={this.props.lessonId}

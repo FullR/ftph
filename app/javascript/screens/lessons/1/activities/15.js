@@ -1,5 +1,3 @@
-"use strict";
-
 var React    = require("react"),
     Activity = require("screens/lessons/1/activities-4-15");
 
@@ -9,6 +7,7 @@ var Lesson1Activity15 = React.createClass({
             <Activity {...this.props}
                 id="15"
                 lessonScreen={require("screens/lessons/1-s")}
+                autoplayAnimation="choices-only"
                 namespace="lesson-1-s"
                 choices={[
                     {word: "fish"},

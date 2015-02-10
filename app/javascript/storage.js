@@ -1,5 +1,3 @@
-"use strict";
-
 var _           = require("lodash"),
     Store       = require("putainde-localstorage"),
     deepGet     = require("utility/deep-get"),

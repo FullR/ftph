@@ -1,5 +1,3 @@
-"use strict";
-
 var React    = require("react"),
     Activity = require("screens/lessons/6/activity");
 
@@ -8,7 +6,7 @@ module.exports = React.createClass({
         return (
             <Activity {...this.props}
                 id="7"
-                phonics={["b", "uh", "g"]}
+                phonics={["b", "uh", "gh"]}
                 choices={[
                     {word: "bug", correct: true},
                     {word: "dog"},

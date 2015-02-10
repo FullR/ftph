@@ -1,6 +1,5 @@
-"use strict";
-
 var get = require("utility/functional/get");
+
 /*
     `requiredChoiceCount` refers to the number of
     choices that need to be selected to progress

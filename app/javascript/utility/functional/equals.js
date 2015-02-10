@@ -1,4 +1,4 @@
-"use strict";
+
 
 // Curried strict equality operator
 function equals(a) {

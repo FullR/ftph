@@ -1,4 +1,4 @@
-"use strict";
+
 
 /*
     Takes a key and a value and returns a function 

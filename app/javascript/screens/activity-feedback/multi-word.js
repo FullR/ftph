@@ -1,13 +1,11 @@
-"use strict";
-
-var React     = require("react");
+var React = require("react");
 
 var ActivityMultiWordFeedback = React.createClass({
     mixins: [require("mixins/extend-sounds")],
 
     getAdditionalSounds: function() {
         return this.props.words.reduce(function(sounds, word, index) {
-            sounds["word-"+index] = "assets/audio/words/activity-words/"+word;
+            sounds["word-"+index] = `words/activity-words/${word}`;
             return sounds;
         }, {});
     },
@@ -20,7 +18,7 @@ var ActivityMultiWordFeedback = React.createClass({
 
         return (
             <Feedback {...this.props} sounds={this.getSounds()}>
-                <div className={'feedback-words-container multiple ' + correctStr}>
+                <div className={`feedback-words-container multiple ${correctStr}`}>
                     <div className='feedback-words'>
                         {words.map((word) =>
                             <div key={word} className='feedback-word'>

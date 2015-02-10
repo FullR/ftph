@@ -1,27 +1,20 @@
-"use strict";
-
-var _ = require("lodash");
-
-/*
-    Adds an animation function to the component for revealing just the choices
-*/
+// Adds an animation function to the component for 
+// revealing and saying just the choices
 module.exports = {
     "choices-only": function(then) {
-        var steps = [
+        return [
             then("uncenterActor"),
             then("revealActor"),
-            then("hideChoices")
-        ];
+            then("hideChoices"),
 
-        _.pluck(this.props.choices, "word").forEach(function(soundId, index) {
-            steps.push(
+            // Reveal and say each choice's word
+            ...this.props.choices.map((word, index) => [
                 then("revealChoice", index),
-                then("say", soundId),
+                then("say", ["words", index]),
                 then("wait", 250)
-            );
-        });
+            ]),
 
-        steps.push(then("sit"));
-        return steps;
+            then("sit")
+        ];
     }
 };

@@ -1,34 +1,33 @@
-"use strict";
-
 var React   = require("react"),
-    $       = require("jquery"),
-    _       = require("lodash"),
     WebLink = require("components/utility/web-link");
 
 var InfoScreen = React.createClass({
-    getInitialState: function() {
-        return {
-            eventId: "resize." + _.uniqueId("info-screen-")
-        };
-    },
+    mixins: [require("mixins/class-names")],
 
     resizeContent: function() {
-        var $this = $("#outlet"),
-            $content = $(".info-screen-content"),
-            height = $this.height(),
-            headerHeight = $(".info-screen-header").height(),
-            footerHeight = $(".info-screen-footer").height();
+        var el           = this.getDOMNode(),
+            header       = document.getElementsByClassName("info-screen-header")[0],
+            content      = document.getElementsByClassName("info-screen-content")[0],
+            footer       = document.getElementsByClassName("info-screen-footer")[0],
+            height       = el.offsetHeight,
+            headerHeight = header.offsetHeight,
+            footerHeight = footer.offsetHeight;
 
-        $content.height(height - headerHeight - footerHeight);
+        content.style.height = `${height - headerHeight - footerHeight}px`;
     },
 
     componentDidMount: function() {
-        $(window).on(this.state.eventId, this.resizeContent.bind(this));
-        this.resizeContent();
+        var _resizeHandler = (() => this.resizeContent());
+
+        document.addEventListener("resize", _resizeHandler)
+        this._resizeHandler = _resizeHandler;
     },
 
     componentWillUnmount: function() {
-        $(window).off(this.state.eventId);
+        if(this._resizeHandler) {
+            document.removeEventListener("resize", this._resizeHandler);
+            this._resizeHandler = null;
+        }
     },
 
     goHome: function() {
@@ -36,13 +35,8 @@ var InfoScreen = React.createClass({
     },
 
     render: function() {
-        var classNames = [
-            "info-screen",
-            this.props.className || ""
-        ].join(" ");
-
         return (
-            <div className={classNames}>
+            <div className={this.classNames("info-screen")}>
                 <div className='info-screen-header'>
                     {this.props.header}
                 </div>

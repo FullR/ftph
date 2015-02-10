@@ -1,4 +1,4 @@
-"use strict";
+
 
 /*
     Set a deeply nested property in an object.

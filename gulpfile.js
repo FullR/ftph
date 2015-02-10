@@ -1,32 +1,16 @@
 "use strict";
 
-var gulp        = require("gulp"),                   // Task runner
+var gulp        = require("gulp"),                // Task runner
     gutil       = require("gulp-util"),
     Q           = require("q"),
     _           = require("lodash"),
-    fs          = require("fs"),
-    plumber     = require("gulp-plumber"),           // Handles gulp errors without stopping the watch task
-    sass        = require("gulp-ruby-sass"),         // Compiles scss/sass files into css
-    Browserify  = require("browserify"),             // Allows `require` and `module.exports` to be used in browser javascript
-    watchify    = require("watchify"),
-    jshint      = require("gulp-jshint"),            // Checks javascript files for issues
-    scsslint    = require("gulp-scss-lint"),         // Check scss files for issues
-    reactify    = require("reactify"),               // Browserify plugin for compiling jsx files
-    source      = require("vinyl-source-stream"),    // Allows the use of text streams with gulp (needed for browserify)
-    stylish     = require("jshint-stylish"),         // Prints a pretty report from the output of jshint
-    Builder     = require("node-webkit-builder"),    // Builds Windows/Mac executables
-    cssMin      = require("gulp-minify-css"),        // Minify CSS
-    uglify      = require("gulp-uglify"),            // Minify Javascript
-    prefix      = require("gulp-autoprefixer"),      // Autoprefix Vendor specific CSS properties
-    Filter      = require("gulp-filter"),            // Used to filter streams using globs
-    imageMin    = require("gulp-imagemin"),          // Optimizes images
-    glob        = require("glob"),                   // For quering the filesystem for filenames
-    _imageSize  = require("image-size"),
-    cordovaUtil = require("./cordova-utility"),      // Script for setting up cordova and building android apks
-    buildAudio  = require("./build-audio"),          // Converts .wav files to .ogg and .mp3
-    port        = 4210;                              // For test server
+    plumber     = require("gulp-plumber"),        // Handles gulp errors without stopping the watch task
+    source      = require("vinyl-source-stream"), // Allows the use of text streams with gulp (needed for browserify)
+    port        = 4210;                           // For test server
 
 var imageSize = function(path) {
+    var _imageSize  = require("image-size");
+
     return Q.promise(function(resolve, reject) {
         _imageSize(path, function(err, result) {
             if(err) { reject(err); }
@@ -35,50 +19,34 @@ var imageSize = function(path) {
     });
 };
 
-function isntJS(file) {
-    return file.slice(-3) !== ".js";
-}
-
 function tail(arr) {
     return arr[arr.length-1];
 }
 
-// Custom react transform forces es6 option
-var reactTransform = _.extend(function(file) {
-    return reactify(file, {es6: true});
-}, {
-    process: reactify.process,
-    isJSXExtensionRe: reactify.isJSXExtensionRe
-});
-
 var bundler = _.once(function() {
+    var Browserify = require("browserify"),
+        watchify   = require("watchify");
+
     return watchify(Browserify(_.extend({
         paths: ["./node_modules", "./app/javascript"],
         debug: true
     }, watchify.args)))
-    .transform(reactTransform)
+    .transform(require("6to5ify"))
     .transform('brfs')
     .add("./app/javascript/app.js")
     .on('update', bundle)
     .on("time", function(time) {
-        gutil.log("Bundled in " + time + " ms");
+        gutil.log("Finished building (" + time + " ms)");
     });
 });
 
 function bundle() {
     return bundler()
         .bundle()
-        /*.on('error', function(error) {
-            gutil.log([
-                error.name,
-                "'"+(error.description || error.message)+"'",
-                "Line " + (error.lineNumber || error.line),
-                "Column " + (error.column || error.columnNumber)
-            ].join("\n"));
-        })*/
         .pipe(source("app.js"))
         .pipe(gulp.dest("./dist/assets"));
 }
+
 // Compile javascript and jsx files
 gulp.task("javascript", ["index-lessons"], bundle);
 
@@ -86,6 +54,9 @@ gulp.task("javascript", ["index-lessons"], bundle);
 // create a json file listing all images except the 
 // word images so the client can preload them
 gulp.task("map-images", function(callback) {
+    var fs = require("fs"),
+        glob = require("glob");
+
     glob("assets/images/!(words)/*", {cwd: "statics"}, function(err, files) {
         if(err) {
             callback(err);
@@ -100,6 +71,9 @@ gulp.task("map-images", function(callback) {
 // Generates the app/javascript/word-images.json file
 // and populates it with path, width, height of each word image
 gulp.task("index-word-images", function(callback) {
+    var fs = require("fs"),
+        glob = require("glob");
+
     glob("images/words/*.png", {cwd: "../Fun-Time-Phonics-Assets"}, function(error, images) {
         //console.log(images);
         var imageIndex = {};
@@ -129,6 +103,8 @@ gulp.task("index-word-images", function(callback) {
 // Create a javascript file that includes 
 // all lessons in the app's lessons directory
 gulp.task("index-lessons", function(callback) {
+    var fs = require("fs"),
+        glob = require("glob");
 
     glob("screens/lessons/*", {cwd: "app/javascript"}, function(err, files) {
         var json;
@@ -136,10 +112,11 @@ gulp.task("index-lessons", function(callback) {
             callback(err);
         }
         else {
-            files = files.filter(isntJS);
+            files = files.filter(function isntJS(file) {
+                return file.slice(-3) !== ".js";
+            });
 
             json = [
-                '"use strict";\n',
                 '/* This file is automatically generated by gulpfile.js task "index-lessons" */\n',
                 'module.exports = {', 
                     '    ' +
@@ -157,23 +134,9 @@ gulp.task("index-lessons", function(callback) {
     });
 });
 
-// Check javascript files for issues
-gulp.task("lint", function() {
-    return gulp.src("app/javascript/**/*.js")
-        .pipe(plumber())
-        .pipe(jshint())
-        .pipe(jshint.reporter(stylish));
-});
-
-
-gulp.task("lint-scss", function() {
-    return gulp.src("app/styles/**/*.scss")
-        .pipe(scsslint());
-});
-
 // Compile scss files
 gulp.task("styles", function() {
-    var cssFilter = Filter("*.css");
+    var sass = require("gulp-ruby-sass");
     return gulp.src("app/styles/app.scss")
         .pipe(plumber())
         .pipe(sass({style: "compressed", require: ["susy"]}))
@@ -204,6 +167,8 @@ gulp.task("statics", function() {
 
 // Build Windows/Mac distributions
 gulp.task("build-desktop", ["build"], function(callback) {
+    var Builder = require("node-webkit-builder");
+
     var builder = new Builder({
         files: ["./dist/**/!(*.mp3)"],
         cacheDir: "./.node-webkit-cache",
@@ -223,7 +188,7 @@ gulp.task("build-desktop", ["build"], function(callback) {
 });
 
 gulp.task("build-android", ["build"], function(callback) {
-    cordovaUtil.build()
+    require("./cordova-utility").build()
         .then(function() {
             callback();
         }, function(err) {
@@ -231,11 +196,10 @@ gulp.task("build-android", ["build"], function(callback) {
         })
 });
 
-gulp.task("build-audio", function() {
-    return buildAudio();
-});
+gulp.task("build-audio", require("./build-audio"));
 
 gulp.task("build-images", function() {
+    var imageMin = require("gulp-imagemin");
     return gulp.src("../Fun-Time-Phonics-Assets/images/**/*")
         .pipe(imageMin({ progressive: true }))
         .pipe(gulp.dest("statics/assets/images"));

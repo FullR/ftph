@@ -1,5 +1,3 @@
-"use strict";
-
 var React     = require("react"),
     WordImage = require("components/word-image"),
     Feedback  = require("screens/activity-feedback");
@@ -9,7 +7,7 @@ var ActivitySingleWordFeedback = React.createClass({
 
     getAdditionalSounds: function() {
         return {
-            "word": "assets/audio/words/activity-words/" + this.props.word
+            "word": `words/activity-words/${this.props.word}`
         };
     },
 
@@ -19,7 +17,7 @@ var ActivitySingleWordFeedback = React.createClass({
 
         return (
             <Feedback {...this.props} sounds={this.getSounds()}>
-                <div className={'feedback-words-container single ' + correctStr}>
+                <div className={`feedback-words-container single ${correctStr}`}>
                     <div className='feedback-words'>
                         <div className='feedback-word'>
                             <WordImage word={this.props.word} disableHCenter={true}/>

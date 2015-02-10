@@ -1,5 +1,3 @@
-"use strict";
-
 function ActorMixin(actorKey, initialState) {
     return {
         // Retrieve the actor object

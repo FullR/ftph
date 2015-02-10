@@ -1,5 +1,3 @@
-"use strict";
-
 module.exports = function(version) {
     return {
         version: version,

@@ -1,5 +1,3 @@
-"use strict";
-
 var _            = require("lodash"),
     Q            = require("q"),
     deepGet      = require("utility/deep-get"),

@@ -1,5 +1,3 @@
-"use strict";
-
 var React                = require("react"),
     LessonButton         = require("components/lesson-button"),
     AdminSublessonMarker = require("components/admin-sublesson-marker");

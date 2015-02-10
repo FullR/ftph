@@ -1,8 +1,8 @@
-"use strict";
+var React = require("react");
 
 module.exports = {
     id:            "2",
-    title:         "Ending Sounds",
+    title:         <span><span className='lesson-2-title-beginning'>Ending</span> Sounds</span>,
     subtitle:      "Lesson 2",
     activityCount: "15",
     section:       "1",

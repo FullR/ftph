@@ -1,5 +1,3 @@
-"use strict";
-
 var React    = require("react"),
     Activity = require("screens/lessons/6/activity");
 
@@ -15,7 +13,7 @@ module.exports = React.createClass({
                     {word: "cat"}
                 ]}
                 incorrectFeedback={(then, word) => [ // box/cat doesn't have /eh/ or /g/ sounds
-                    then("say", ["words", word === "box" ? "0" : "1"]),
+                    then("say", "word"),
                     then("say", "doesnt-have"),
                     then("say", "phonics.0"),
                     then("say", "or"),

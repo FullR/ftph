@@ -1,5 +1,3 @@
-"use strict";
-
 /*
     Mixin for providing basic subscriber model
 */

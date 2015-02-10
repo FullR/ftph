@@ -1,5 +1,3 @@
-"use strict";
-
 var React      = require("react"),
     InfoScreen = require("components/screens/info-screen"),
     project    = require("../../project");

@@ -1,11 +1,7 @@
-"use strict";
-
 var React = require("react");
 
 var Choice = React.createClass({
-    mixins: [
-        require("mixins/class-names")
-    ],
+    mixins: [require("mixins/class-names")],
 
     getInitialState: function() {
         return {
@@ -41,13 +37,13 @@ var Choice = React.createClass({
     render: function() {
         var sound = this.props.sound,
             classNames = this.classNames(
-            "choice", 
-            this.state.playingSound  ? "choice-sound-playing" : null, 
-            this.props.selected ? "choice-selected"      : null,
-            this.props.hidden   ? "choice-hidden"        : null,
-            this.props.detached ? "choice-detached"      : null,
-            this.props.onClick  ? "choice-selectable"    : null
-        );
+                "choice", 
+                this.state.playingSound ? "choice--sound-playing" : null, 
+                this.props.selected     ? "choice--selected"      : null,
+                this.props.hidden       ? "choice--hidden"        : null,
+                this.props.detached     ? "choice--detached"      : null,
+                this.props.onClick      ? "choice--selectable"    : null
+            );
 
         // Do nothing if there is no sound or if sound is currently playing
         // Otherwise, play the sound
@@ -55,13 +51,13 @@ var Choice = React.createClass({
 
         return (
             <div key={this.props.key} className={classNames}>
-                <div className='choice-content' onClick={this.props.onClick}>
+                <div className='choice__content' onClick={this.props.onClick}>
                     {this.props.children}
                 </div>
 
                 {sound && !this.props.soundDisabled ? 
                     <button 
-                        className='choice-play-button' 
+                        className='choice__play-button' 
                         onClick={onReplayClick} /> :
                     null
                 }

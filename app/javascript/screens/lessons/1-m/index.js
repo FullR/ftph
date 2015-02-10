@@ -1,5 +1,3 @@
-"use strict";
-
 var React = require("react"),
     Lesson1SubLesson = require("screens/lessons/1/sublesson");
 

@@ -20,13 +20,16 @@ body #outlet {
 @import 'pres/variables';
 @import 'layout/variables';
 @import 'reset';
-@import 'normalize';
+@import 'setup';
 
 @import 'common';
 
 // Layout
 @import 'layout/splash';
-@import 'layout/choice';
+//@import 'layout/choice';
+@import 'components/choice';
+@import 'components/choice-group';
+
 @import 'layout/game-screen';
 @import 'layout/activity-feedback';
 @import 'layout/admin';

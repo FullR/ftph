@@ -1,5 +1,3 @@
-"use strict";
-
 var React = require("react"),
     store = require("storage");
 
@@ -33,12 +31,12 @@ var AdminSublessonMarker = React.createClass({
     render: function() {
         var classNames = [
             "admin-sublesson-marker",
-            this.props.selected ? "admin-sublesson-marker-active" : null//this.isActive() ? "admin-sublesson-marker-active" : null
+            this.props.selected ? "admin-sublesson-marker-active" : null
         ].join(" ");
 
         var onClick = function(event) {
             event.stopPropagation();
-            this.props.selectLesson(this.props.parent+"-"+this.props.letter);
+            this.props.selectLesson(`${this.props.parent}-${this.props.letter}`);
         }.bind(this);
 
         return (

@@ -1,5 +1,3 @@
-"use strict";
-
 var React       = require("react"),
     Teacher     = require("components/teacher"),
     WordImage   = require("components/word-image"),
@@ -18,8 +16,8 @@ var ActivityFeedback = React.createClass({
     getInitialState: function() {
         return {
             teacher: {
-                state: "speaking-closed",
-                hidden: false,
+                state:    "speaking-closed",
+                hidden:   false,
                 centered: false
             },
             hidingContinueButton: !this.props.correct
@@ -39,7 +37,7 @@ var ActivityFeedback = React.createClass({
     getSounds: function() {
         if(this.props.correct) {
             return {
-                "applause": "assets/audio/common/applause"
+                "applause": "common/applause"
             };
         }
         else {

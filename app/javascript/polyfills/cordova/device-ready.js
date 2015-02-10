@@ -1,5 +1,3 @@
-"use strict";
-
 var Q = require("q");
 
 var ready;

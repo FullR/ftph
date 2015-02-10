@@ -1,5 +1,3 @@
-"use strict";
-
 var React          = require("react"),
     store          = require("storage"),
     Timer          = require("components/timer"),

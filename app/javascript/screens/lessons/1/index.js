@@ -1,62 +1,89 @@
-"use strict";
-
 var React      = require("react"),
     WordLesson = require("screens/lesson/word"),
-    info       = require("./info");
+    lessonInfo       = require("./info");
 
 var Lesson1 = React.createClass({
-    mixins: [require("mixins/storage")],
+    mixins: [
+        require("mixins/storage"),
+        require("mixins/initial-storage")(lessonInfo.namespace)
+    ],
+
+    getInitialStorage: function() {
+        return {
+            "last-screen": null,
+            "activities": {
+                "1":  {"correct": false},
+                "2":  {"correct": false},
+                "3":  {"correct": false},
+                "4":  {"correct": false},
+                "5":  {"correct": false},
+                "6":  {"correct": false},
+                "7":  {"correct": false},
+                "8":  {"correct": false},
+                "9":  {"correct": false},
+                "10": {"correct": false},
+                "11": {"correct": false},
+                "12": {"correct": false},
+                "13": {"correct": false},
+                "14": {"correct": false},
+                "15": {"correct": false}
+            }
+        };
+    },
 
     render: function() {
         var activities     = require("./activities"),
-            storage        = this.load(info.namespace),
+            storage        = this.load(lessonInfo.namespace),
             nextActivityId = storage["last-screen"] || "1",
-            nextActivity   = activities[nextActivityId];
+            nextActivity   = activities[nextActivityId],
+            choices        = [
+                {word: "tail", hidden: true},
+                {word: "tip",  hidden: true},
+                {word: "tape", hidden: true}
+            ];
 
         return (
             <WordLesson
-                id         = {info.id}
-                title      = {info.title}
-                subtitle   = {info.subtitle}
-                section    = {info.section}
+                id         = {lessonInfo.id}
+                title      = {lessonInfo.title}
+                subtitle   = {lessonInfo.subtitle}
+                section    = {lessonInfo.section}
                 nextScreen = {nextActivity}
                 nextLabel  = {"Activity " + nextActivityId}
+                choices    = {choices}
                 sounds={{
-                    "the-first-sound": "assets/audio/lessons/lesson-1/instructions/the-first-sound",
-                    "is":              "assets/audio/lessons/lesson-1/instructions/is",
-                    "say-the-words":   "assets/audio/lessons/lesson-1/instructions/say-the-words",
-                    "slowly":          "assets/audio/common/slowly",
-                    "t":               "assets/audio/phonics/lesson-phonics/t",
-                    "touch-arrow":     "assets/audio/common/touch-arrow"
+                    "the-first-sound": "lessons/lesson-1/instructions/the-first-sound",
+                    "is":              "lessons/lesson-1/instructions/is",
+                    "say-the-words":   "lessons/lesson-1/instructions/say-the-words",
+                    "slowly":          "common/slowly",
+                    "t":               "phonics/lesson-phonics/t",
+                    "touch-arrow":     "common/touch-arrow"
                 }}
 
-                choices={[
-                    {word: "tail", hidden: true},
-                    {word: "tip",  hidden: true},
-                    {word: "tape", hidden: true}
-                ]}
                 
-                instructions={function(then) {
-                    return [
-                        then("say", "the-first-sound"), then("wait", 250),
-                        then("uncenterActor"),
-                        then("revealChoice", 0),
-                        then("say", "tail"),            then("wait", 250),
-                        then("revealChoice", 1),
-                        then("say", "tip"),             then("wait", 250),
-                        then("revealChoice", 2),
-                        then("say", "tape"),            then("wait", 250),
-                        then("say", "is"),              then("wait", 250),
-                        then("say", "t"),               then("wait", 250),
-                        then("say", "say-the-words"),   then("wait", 250),
-                        then("say", "tail"),            then("wait", 250),
-                        then("say", "tip"),             then("wait", 250),
-                        then("say", "tape"),            then("wait", 250),
-                        then("say", "slowly"),          then("wait", 250),
-                        then("say", "touch-arrow"),
-                        then("sit")
-                    ];
-                }}/>
+                instructions={(then) => [
+                    then("say", "the-first-sound"), then("wait", 250),
+                    then("uncenterActor"),
+
+                    choices.map((choice, i) => [
+                        then("revealChoice", i),
+                        then("say", ["words", i]),
+                        then("wait", 250)
+                    ]),
+
+                    then("say", "is"),              then("wait", 250),
+                    then("say", "t"),               then("wait", 250),
+                    then("say", "say-the-words"),   then("wait", 250),
+
+                    choices.map((choice, i) => [
+                        then("say", ["words", i]),
+                        then("wait", 250)
+                    ]),
+
+                    then("say", "slowly"),          then("wait", 250),
+                    then("say", "touch-arrow"),
+                    then("sit")
+                ]}/>
         );
     }
 });

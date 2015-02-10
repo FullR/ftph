@@ -1,5 +1,3 @@
-"use strict";
-
 module.exports = {
     id:            "4",
     title:         "Rhyme Match",

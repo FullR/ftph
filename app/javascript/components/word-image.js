@@ -1,7 +1,4 @@
-"use strict";
-
 var React = require("react"),
-    $     = require("jquery"),
     wordImages = require("word-images");
 
 var WordImage = React.createClass({
@@ -16,21 +13,26 @@ var WordImage = React.createClass({
     getImageData: function() {
         var data = wordImages[this.props.word];
         if(!data) {
-            throw new Error("Word Image index id not found: " + this.props.word);
+            throw new Error(`Word Image index id not found: ${this.props.word}`);
         }
         return data;
     },
 
+    // Compute the width/height to fit the image
+    // in its parent without breaking its aspect ratio.
+    // Also centers horizontally and vertically unless
+    // the props disableVCenter and/or disableHCenter
+    // are true
     computeFittedDimensions: function() {
-        var {width, height, path} = this.getImageData();
-        var $parent = $(this.getDOMNode()).parent(),
-            pWidth  = $parent.width(),
-            pHeight = $parent.height(),
-            wRatio  = (pWidth/width),
-            hRatio  = (pHeight/height),
+        var {width, height, path} = this.getImageData(),
+            parent = this.getDOMNode().parentNode,
+            pWidth  = parent.offsetWidth,
+            pHeight = parent.offsetHeight,
+            wRatio  = (pWidth  / width),
+            hRatio  = (pHeight / height),
+            state   = {fitted: true},
             fWidth,  // final image width
-            fHeight, // final image height
-            state = {fitted: true};
+            fHeight; // final image height
 
         if(wRatio < hRatio) {
             fWidth = pWidth;

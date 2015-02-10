@@ -1,18 +1,56 @@
-"use strict";
-
 var React      = require("react"),
     WordLesson = require("screens/lesson/word"),
     Feedback   = require("screens/lessons/1/lesson-feedback"),
     lessonInfo = require("./info");
 
 var Lesson5 = React.createClass({
-    mixins: [require("mixins/storage")],
+    mixins: [
+        require("mixins/storage"),
+        require("mixins/initial-storage")(lessonInfo.namespace)
+    ],
+
+    getInitialStorage: function() {
+        return {
+            "last-screen": null,
+            "activities": {
+                "1":  {"correct": false},
+                "2":  {"correct": false},
+                "3":  {"correct": false},
+                "4":  {"correct": false},
+                "5":  {"correct": false},
+                "6":  {"correct": false},
+                "7":  {"correct": false},
+                "8":  {"correct": false},
+                "9":  {"correct": false},
+                "10": {"correct": false},
+                "11": {"correct": false},
+                "12": {"correct": false},
+                "13": {"correct": false},
+                "14": {"correct": false},
+                "15": {"correct": false},
+                "16": {"correct": false},
+                "17": {"correct": false},
+                "18": {"correct": false},
+                "19": {"correct": false}
+            }
+        };
+    },
 
     render: function() {
         var activities     = require("./activities"),
-            storage        = this.load(lessonInfo.namespace),
+            storage        = this.load(lessonInfo),
             nextActivityId = storage["last-screen"] || "1",
-            nextActivity   = activities[nextActivityId];
+            nextActivity   = activities[nextActivityId],
+            choiceGroup1   = [                    
+                {word: "red",   hidden: true},
+                {word: "head",  hidden: true},
+                {word: "bed",   hidden: true}
+            ],
+            choiceGroup2   = [
+                {word: "wait",  hidden: true, detached: true},
+                {word: "gate",  hidden: true, detached: true},
+                {word: "eight", hidden: true, detached: true}
+            ];
 
         return (
             <WordLesson
@@ -21,66 +59,68 @@ var Lesson5 = React.createClass({
                 subtitle   = {lessonInfo.subtitle}
                 section    = {lessonInfo.section}
                 nextScreen = {nextActivity}
-                nextLabel  = {"Activity " + nextActivityId}
+                nextLabel  = {`Activity ${nextActivityId}`}
                 sounds={{
-                    "words-like":      "assets/audio/lessons/lesson-4/instructions/words-like",
-                    "rhyme-because":   "assets/audio/lessons/lesson-4/instructions/rhyme-because",
-                    "rhyme-because-2": "assets/audio/lessons/lesson-4/instructions/rhyme-because-2",
-                    "slowly":          "assets/audio/common/slowly",
-                    "touch-arrow":     "assets/audio/common/touch-arrow"
+                    "words-like":      "lessons/lesson-4/instructions/words-like",
+                    "rhyme-because":   "lessons/lesson-4/instructions/rhyme-because",
+                    "rhyme-because-2": "lessons/lesson-4/instructions/rhyme-because-2",
+                    "slowly":          "common/slowly",
+                    "touch-arrow":     "common/touch-arrow"
                 }}
 
                 choices={[
-                    {word: "red",   hidden: true},
-                    {word: "head",  hidden: true},
-                    {word: "bed",   hidden: true},
-
-                    {word: "wait",  hidden: true, detached: true},
-                    {word: "gate",  hidden: true, detached: true},
-                    {word: "eight", hidden: true, detached: true}
+                    ...choiceGroup1,
+                    ...choiceGroup2
                 ]}
                 
-                instructions={function(then) {
-                    return [
-                        then("attachChoice", 0), then("attachChoice", 1), then("attachChoice", 2),
-                        then("detachChoice", 3), then("detachChoice", 4), then("detachChoice", 5),
-                        then("hideChoice", 3),   then("hideChoice", 4),   then("hideChoice", 5),
+                instructions={(then) => [
+                    // Attach choice group 1, detach group 2, and hide group 2
+                    ...choiceGroup1.map((choice, index) => [
+                        then("attachChoice", index),
+                        then("detachChoice", index + 3),
+                        then("hideChoice", index + 3)
+                    ]),
 
-                        then("say", "words-like"),    then("wait", 250),
-                        then("uncenterActor"),
+                    then("say", "words-like"),
+                    then("wait", 250),
+                    then("uncenterActor"),
 
-                        then("revealChoice", 0),
-                        then("say", "red"),           then("wait", 250),
-                        then("revealChoice", 1),
-                        then("say", "head"),          then("wait", 250),
-                        then("revealChoice", 2),
-                        then("say", "bed"),           then("wait", 250),
+                    // Reveal and say group 1
+                    ...choiceGroup1.map((choice, index) => [
+                        then("revealChoice", index),
+                        then("say", ["words", index]),
+                        then("wait", 250)
+                    ]),
 
-                        then("say", "rhyme-because"), then("wait", 250),
+                    then("say", "rhyme-because"), then("wait", 250),
 
-                        then("detachChoice", 0), then("detachChoice", 1), then("detachChoice", 2),
-                        then("attachChoice", 3), then("attachChoice", 4), then("attachChoice", 5),
+                    // Attach group 2 and detach group 1
+                    ...choiceGroup1.map((choice, index) => [
+                        then("detachChoice", index),
+                        then("attachChoice", index + 3)
+                    ]),
 
-                        then("revealChoice", 3),
-                        then("say", "wait"),          then("wait", 250),
-                        then("revealChoice", 4),
-                        then("say", "gate"),          then("wait", 250),
-                        then("revealChoice", 5),
-                        then("say", "eight"),         then("wait", 250),
 
-                        then("say", "rhyme-because-2"),
+                    // Reveal and say group 2
+                    ...choiceGroup1.map((choice, index) => [
+                        then("revealChoice", index + 3),
+                        then("say", ["words", index + 3]),
+                        then("wait", 250)
+                    ]),
 
-                        then("say", "wait"),          then("wait", 250),
-                        then("say", "gate"),          then("wait", 250),
-                        then("say", "eight"),         then("wait", 250),
+                    then("say", "rhyme-because-2"),
 
-                        then("say", "slowly"),        then("wait", 250),
+                    // Say group 2
+                    ...choiceGroup1.map((choice, index) => [
+                        then("say", ["words", index + 3]),
+                        then("wait", 250)
+                    ]),
 
-                        then("say", "touch-arrow"),
-
-                        then("sit")
-                    ];
-                }}/>
+                    then("say", "slowly"),
+                    then("wait", 250),
+                    then("say", "touch-arrow"),
+                    then("sit")
+                ]}/>
         );
     }
 });

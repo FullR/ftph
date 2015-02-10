@@ -1,8 +1,5 @@
-"use strict";
-
 var React = require("react");
 
-var noop = function() {};
 var Timer = React.createClass({
     getInitialState: function() {
         return {
@@ -11,9 +8,11 @@ var Timer = React.createClass({
     },
 
     startTimer: function() {
-        this.interval = setInterval(function() {
+        this.interval = setInterval(() => {
             if(this.state.remaining <= 1) {
-                (this.props.onComplete || noop)();
+                if(this.props.onComplete) {
+                    this.props.onComplete();
+                }
                 this.stopTimer();
             }
             else {
@@ -21,7 +20,7 @@ var Timer = React.createClass({
                     remaining: this.state.remaining - 1
                 });
             }
-        }.bind(this), 1000);
+        }, 1000);
     },
 
     stopTimer: function() {
