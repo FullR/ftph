@@ -1,0 +1,73 @@
+$choice-width: 300px;
+$choice-height: 300px;
+$choice-border-width: 3px;
+$choice-content-width: 90%;
+$choice-content-height: 90%;
+
+$choice-selected-shadow: 0px 0px 25px 0px #0A0;
+$choice-selected-border: 3px solid #0A0;
+
+$play-button-width: 32px;
+$play-button-height: 32px;
+$play-button-bottom-offset: -48px;
+$play-button-zindex: 3;
+$play-button-image: 'images/replay-button.png';
+$play-button-hover-image: 'images/replay-button_active.png';
+
+.choice {
+    @include size($choice-width, $choice-height);
+    border: $choice-border-width solid black;
+    position: relative;
+    display: inline-block;
+    line-height: $choice-height;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.choice__content {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    @include size($choice-content-width, $choice-content-height);
+
+    img {
+        display: inline-block;
+    }
+}
+
+.choice--selectable {
+    cursor: pointer;
+}
+
+.choice--hidden {
+    visibility: hidden;
+}
+
+.choice--detached {
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
+}
+
+.choice__play-button {
+    @include size($play-button-width, $play-button-width);
+    @include pos($play-button-bottom-offset, 50%, bottom);
+    margin-left: -($play-button-width/2);
+    z-index: $play-button-zindex;
+    cursor: pointer;
+    background: url($play-button-image) no-repeat;
+    background-size: 100% 100%;
+    border: 0;
+    outline: 0;
+}
+
+.choice--sound-playing .choice__play-button {
+    background-image: url($play-button-hover-image);
+}
+
+.choice--sound-playing, 
+.choice--selected {
+    box-shadow: $choice-selected-shadow;
+    border: $choice-selected-border;
+}

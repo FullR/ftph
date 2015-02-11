@@ -2,14 +2,14 @@
     cursor: pointer;
 }
 
-.admin-button-icon {
+.admin-button__icon {
     position: inline-block;
     @include size(22px, 29px);
     margin-right: 4px;
     vertical-align: middle;
 }
 
-.admin-button > span {
+.admin-button__text {
     height: 32px;
     line-height: 32px;
     color: #568ED4;

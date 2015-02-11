@@ -1,7 +1,8 @@
 $choice-margin: 0 4px 0 4px;
+$choice-group-bottom-offset: 30%;
 
 .choice-group {
-    @include pos(30%, 0, bottom);
+    @include pos($choice-group-bottom-offset, 0, bottom);
     text-align: center;
     width: 100%;
 }

@@ -11,8 +11,8 @@ var AdminButton = React.createClass({
     render: function() {
         return (
             <div className='admin-button' onClick={this.renderCheckScreen}>
-                <img className='admin-button-icon' src='assets/images/lock-icon.png'/>
-                <span>Admin/Score</span>
+                <img className='admin-button__icon' src='assets/images/lock-icon.png'/>
+                <span className='admin-button__text'>Admin/Score</span>
             </div>
         );
     }

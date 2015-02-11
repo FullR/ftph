@@ -40,7 +40,7 @@ var Timer = React.createClass({
 
     render: function() {
         return (
-            <span className='timer'>{this.state.remaining}</span>
+            <span {...this.props} className='timer'>{this.state.remaining}</span>
         );
     }
 });

@@ -24,17 +24,28 @@ body #outlet {
 
 @import 'common';
 
+// Components
+    // Common
+        @import 'components/common/tctc-logo';
+
+    // Game Screens
+        @import 'components/game-screen/choice';
+        @import 'components/game-screen/choice-group';
+
+    // Lessons
+        @import 'components/lesson/arrow';
+
+    // Admin
+        @import 'components/admin/admin-button';
+        @import 'components/admin/admin-check';
+
 // Layout
 @import 'layout/splash';
 //@import 'layout/choice';
-@import 'components/choice';
-@import 'components/choice-group';
 
 @import 'layout/game-screen';
 @import 'layout/activity-feedback';
 @import 'layout/admin';
-@import 'layout/admin-button';
-@import 'layout/admin-check';
 @import 'layout/lesson-wrapper';
 @import 'layout/rhyme-word';
 @import 'layout/lesson-feedback';

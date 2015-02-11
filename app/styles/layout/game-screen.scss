@@ -6,28 +6,6 @@
     @include size(100%, 100%);
 }
 
-.lesson-arrow {
-    @include size(250px, 156px);
-    @include pos(64px, 64px, bottom, right);
-    display: block;
-    background: url('images/arrow.png') no-repeat;
-    background-size: 100% 100%;
-    cursor: pointer;
-
-    @include active {
-        background: url('images/arrow_hover.png') no-repeat;
-        background-size: 100% 100%;
-    }
-}
-
-.lesson-arrow-content {
-    position: relative;
-    top: 41%;
-    width: 100%;
-    text-align: center;
-    font-size: 22px;
-}
-
 .corner-info {
     @include pos(16px, 16px, bottom, right);
     text-align: center;

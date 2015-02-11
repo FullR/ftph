@@ -12,7 +12,7 @@ var Arrow = React.createClass({
 
         return (
             <div className='lesson-arrow' onClick={onClick}>
-                <div className='lesson-arrow-content'>
+                <div className='lesson-arrow__content'>
                     {this.props.children}
                 </div>
             </div>
