@@ -14,8 +14,7 @@ module.exports = React.createClass({
                 ]}
                 incorrectFeedback={(then, word) => [
                     then("say", "word"),
-                    then("say", "doesnt-have"),
-                    then("say", "an"),
+                    then("say", "doesnt-have-an"),
                     then("say", "phonics.1"),
                     then("say", "sound")
                 ]}

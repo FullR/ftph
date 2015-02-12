@@ -1,0 +1,12 @@
+$choice-margin: 0 4px 0 4px;
+$bottom-offset: 30%;
+
+.choice-group {
+    @include pos($bottom-offset, 0, bottom);
+    text-align: center;
+    width: 100%;
+}
+
+.choice-group .choice {
+    margin: $choice-margin; // spacing between choices
+}

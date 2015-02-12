@@ -2,8 +2,8 @@ var _           = require("lodash"),
     React       = require("react"),
     Title       = require("components/lesson/title"),
     Arrow       = require("components/lesson/arrow"),
-    AdminButton = require("components/admin-button"),
-    Owl         = require("components/owl"),
+    AdminButton = require("components/admin/admin-button"),
+    Owl         = require("components/game-screen/owl"),
     GameScreen  = require("screens/game-screen");
 
 

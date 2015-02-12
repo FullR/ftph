@@ -1,6 +1,6 @@
 var React          = require("react"),
     store          = require("storage"),
-    Timer          = require("components/timer"),
+    Timer          = require("components/utility/timer"),
     resolveSection = require("utility/section-resolver"),
     Admin          = require("screens/admin/admin"),
     render         = require("render");

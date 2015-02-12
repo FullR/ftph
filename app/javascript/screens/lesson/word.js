@@ -1,7 +1,7 @@
 var _           = require("lodash"),
     React       = require("react"),
     Lesson      = require("screens/lesson"),
-    WordChoice  = require("components/word-choice");
+    WordChoice  = require("components/game-screen/word-choice");
 
 var WordLesson = React.createClass({
     mixins: [require("mixins/extend-sounds")],
@@ -16,7 +16,7 @@ var WordLesson = React.createClass({
         return (
             <WordChoice
                 {...choice}
-                sound={lesson.getSound(["words", index])}
+                screenType="lesson"
                 soundDisabled={lesson.state.animating}
                 key={choice.word}/>
         );

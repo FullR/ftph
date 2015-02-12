@@ -1,0 +1,33 @@
+$image: 'images/arrow.png';
+$hover-image: 'images/arrow_hover.png';
+
+$width: 250px;
+$height: 156px;
+
+$right-offset: 64px;
+$bottom-offset: 64px;
+
+$content-size: 22px;
+$content-top-offset: 41%;
+
+.lesson-arrow {
+    @include size($width, $height);
+    @include pos($bottom-offset, $right-offset, bottom, right);
+    display: block;
+    background: url($image) no-repeat;
+    background-size: 100% 100%;
+    cursor: pointer;
+
+    @include active {
+        background: url($hover-image) no-repeat;
+        background-size: 100% 100%;
+    }
+}
+
+.lesson-arrow__content {
+    position: relative;
+    top: $content-top-offset;
+    width: 100%;
+    text-align: center;
+    font-size: $content-size;
+}

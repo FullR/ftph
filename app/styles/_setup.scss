@@ -1,0 +1,52 @@
+// Css boilerplate
+
+// Default grid settings
+$susy: (
+    columns: 12,
+    container: 1920px,
+    global-box-sizing: border-box 
+);
+
+@include border-box-sizing;
+
+body #outlet {
+    @include container;
+}
+
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    input, textarea {
+        -webkit-touch-callout: auto;
+        -webkit-user-select: auto;
+    }
+}
+
+*, *:before, *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; 
+}
+
+html {
+    font-size: 62.5%;
+    font-family: Arial;
+    background-color: #FFF;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body, #outlet {
+    @include size(100%, 100%);
+    position: relative;
+    z-index: 0;
+    margin: 0;
+    padding: 0;
+}
+
+button:focus {
+    outline: 0;
+}

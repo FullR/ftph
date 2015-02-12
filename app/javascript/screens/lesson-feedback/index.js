@@ -1,7 +1,7 @@
 var React       = require("react"),
     _           = require("lodash"),
     truthy      = require("utility/functional/truthy"),
-    AdminButton = require("components/admin-button"),
+    AdminButton = require("components/admin/admin-button"),
     render      = require("render"),
     GameScreen  = require("screens/game-screen");
 
@@ -77,18 +77,18 @@ var LessonFeedback = React.createClass({
 
         return (
             <GameScreen className='lesson-feedback'>
-                <h1>{this.props.title} Complete!</h1>
-                <h2>Lesson {this.props.lessonId}</h2>
-                <p className='score'>
+                <h1 className='lesson-feedback__title'>{this.props.title} Complete!</h1>
+                <h2 className='lesson-feedback__subtitle'>Lesson {this.props.lessonId}</h2>
+                <p className='lesson-feedback__score'>
                     Score {percent}%
                     <br/>
                     {score}/{total}
                 </p>
                 {percent >= 85 ?
-                    <div className='lesson-feedback-next' onClick={this.next}><button></button></div> :
-                    <div className='lesson-feedback-prev' onClick={this.back}><button></button></div>
+                    <button className='lesson-feedback__next-button' onClick={this.next}></button> :
+                    <button className='lesson-feedback__prev-button' onClick={this.back}></button>
                 }
-                <AdminButton section={this.props.section}/>
+                <AdminButton/>
             </GameScreen>
         );
     }

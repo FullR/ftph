@@ -1,0 +1,93 @@
+$font-family: "Comic Sans MS";
+$border-image: 'images/correct-border-large.png';
+$border-image-width: 50;
+$border-image-offset: 50;
+$border-width: 50px;
+
+$title-top-distance: 8%; // Distance between title and the top of the screen
+$title-font-size: 64px;
+
+$subtitle-top-distance: 10px; // Distance between subtitle and title
+$subtitle-font-size: 22px;
+
+$score-top-distance: 80px; // Distance between subtitle and score
+$score-font-size: 48px;
+
+$button-top-distance: 140px; // Distance between button and score
+$button-width: 192px;
+$button-height: 120px;
+
+$next-button-image: 'images/arrow.png';
+$next-button-image-hover: 'images/arrow_hover.png';
+
+$prev-button-image: 'images/back-arrow.png';
+$prev-button-image-hover: 'images/back-arrow_hover.png';
+
+// overwrite default admin button position due to large border
+$admin-button-left: 60px;
+$admin-button-bottom: 60px;
+
+
+.lesson-feedback {
+    @include fill;
+    @include border-image(url($border-image), $border-image-width, $border-image-offset, round);
+    
+    border-width: $border-width;
+    overflow: auto;
+    text-align: center;
+    font-family: $font-family;
+}
+
+.lesson-feedback > .lesson-feedback__score {
+    margin-top: $score-top-distance;
+    font-size: $score-font-size;
+    font-weight: bold;
+}
+
+.lesson-feedback > .lesson-feedback__title, 
+.lesson-feedback > .lesson-feedback__subtitle {
+    width: 100%;
+}
+
+.lesson-feedback > .lesson-feedback__title {
+    margin-top: $title-top-distance;
+    font-size: $title-font-size;
+    font-weight: bold;
+}
+
+.lesson-feedback > .lesson-feedback__subtitle {
+    margin-top: $subtitle-top-distance;
+    font-size: $subtitle-font-size;
+}
+
+.lesson-feedback > .lesson-feedback__next-button, 
+.lesson-feedback > .lesson-feedback__prev-button {
+    @include size($button-width, $button-height);
+    position: relative;
+    top: $button-top-distance;
+    display: inline-block;
+    background-size: 100% 100%;
+    border: 0;
+    cursor: pointer;
+}
+
+.lesson-feedback__next-button {
+    background: url($next-button-image) no-repeat;
+
+    @include active {
+        background-image: url($next-button-image-hover);
+    }
+}
+
+.lesson-feedback__prev-button {
+    background: url($prev-button-image) no-repeat;
+
+    @include active {
+        background-image: url($prev-button-image-hover);
+    }
+}
+
+.lesson-feedback .admin-button {
+    left: $admin-button-left;
+    bottom: $admin-button-bottom;
+}

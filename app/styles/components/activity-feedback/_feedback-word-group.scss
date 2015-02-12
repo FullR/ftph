@@ -1,0 +1,18 @@
+$frame-border-width: 25px;
+$border-image: 'images/correct-border.png';
+$border-image-width: 25;
+$border-image-offset: 25;
+
+.feedback-word-group {
+    text-align: center;
+}
+
+.feedback-word-group__frames {
+    display: inline-block;
+    text-align: center;
+}
+
+.feedback-word-group--correct .feedback-word-group__frames {
+    border-width: $frame-border-width;
+    @include border-image(url($border-image), $border-image-width, $border-image-offset, round);
+}

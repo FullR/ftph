@@ -1,0 +1,28 @@
+$frame-width: 350px;
+$frame-height: 250px;
+
+$icon-image: 'images/incorrect-x.png';
+$icon-height: 250px;
+$test-color: #F00;
+
+
+.feedback-frame {
+    @include size($frame-width, $frame-height);
+    display: inline-block;
+    text-align: center;
+    margin: 0 16px 0 16px;
+    position: relative;
+    vertical-align: middle;
+    > img {
+        display: inline-block;
+    }
+}
+
+.feedback-frame__icon {
+    position: absolute;
+    @include size($icon-height, $icon-height);
+    background: url($icon-image) no-repeat;
+    background-size: 100% 100%;
+    left: ($frame-width - $icon-height) / 2; // center the icon in the frame
+    top: 0;
+}

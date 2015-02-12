@@ -1,0 +1,208 @@
+// Individual button colors
+$section-colors: (
+    (1,  #e4ecc0, #ecf2d3, #e9efcb), // index, active, inactive, background
+    (2,  #fbdfe7, #fce9ee, #fce4eb),
+    (3,  #fffcab, #fffdc4, #fffdb9),
+    (4,  #dfe8f5, #e9eff8, #e4ecf7),
+    (5,  #fee5ad, #feedc6, #fee9bb),
+    (6,  #eeddeb, #f3e7f1, #f1e3ee),
+    (7,  #dff1d8, #e9f5e4, #e4f3df),
+    (8,  #eee4d7, #f3ece3, #f0e7dc),
+    (9,  #fcdac2, #fde5d4, #fde0cc),
+    (10, #d5ddee, #e2e7f3, #dce3f1)
+);
+
+// Admin screen Rows
+.admin .admin-header {
+    @include container;
+    @include pos(0);
+    @include size(100%, 5%);
+    border: 1px solid #1285e7;
+    text-align: center;
+    background-image: linear-gradient(to bottom, #FFFFFF 0%, #87BFFF 100%)
+}
+
+.admin .admin-nav {
+    @include container;
+    @include pos(5%, 5%);
+    @include size(90%, 30%);
+}
+
+.admin .admin-current-section {
+    @include pos(35%);
+    @include size(100%, 65%);
+    border-top: 3px solid black;
+    padding-top: 32px;
+    color: blue;
+}
+
+// Admin header
+
+.admin-header {
+    font-size: 22px;
+    span, h1, ul {
+        position: relative;
+        height: 100%;
+    }
+}
+
+.admin-header ul {
+    position: relative;
+    @include span(2 nest);
+    @include container;
+    list-style-type: none;
+    height: 100%;
+    margin-left: span(1/2);
+    text-align: left;
+    top: 25%;
+    li {
+        position: relative;
+        display: inline-block;
+        top: 25%;
+        text-align: center;
+        cursor: pointer;
+        &:not(:first-child) {
+            margin-left: 8%;
+        }
+        @include active {
+            text-decoration: underline;
+        }
+    }
+}
+
+.admin-header h1 {
+    @include span(7);
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    top: 18%;
+}
+
+.admin-header .admin-header-grades {
+    @include span(2 last);
+    margin-right: span(1/2);
+    text-align: right;
+    top: 25%;
+}
+
+// Admin Navigation Buttons
+.admin-nav .section-button {
+    position: relative;
+    height: 48%;
+    cursor: pointer;
+    box-shadow: 0px 5px 8px 0px rgba(50, 50, 50, 0.35);
+    text-align: center;
+    margin-top: 0.1%;
+    margin-bottom: 0.1%;
+    transition: 0.1s background-color;
+
+    &:last-child, &:nth-child(5) {
+        @include last;
+    }
+    @include span(2 of 10);
+    height: 48%;
+}
+
+.admin-nav .section-button-active {
+    border: 2px solid red;
+
+    // fix the effects of adding a border
+    & .section-button-title {
+        margin-top: 14px;
+    }
+
+    & .section-button-lessons {
+        bottom: 2px;
+    }
+}
+
+.section-button .section-button-title {
+    font-weight: bold;
+    margin-top: 16px;
+    width: 50%;
+    margin-left: 25%;
+    font-size: 18px;
+}
+
+.section-button .section-button-letters {
+    color: #505;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.section-button .section-button-lessons {
+    @include pos(4px, 0, bottom);
+    font-size: 16px;
+    width: 100%;
+    text-align: center;
+}
+
+
+
+// libsass is making my @each directive fail
+@for $i from 1 through 10 {
+    .section-button-#{$i} {
+        background-color: nth(nth($section-colors, $i), 3);
+
+        @include active {
+            background-color: nth(nth($section-colors, $i), 2);
+        }
+        &.section-button-active {
+            background-color: nth(nth($section-colors, $i), 2); 
+        }
+    }
+
+    .admin-section-#{$i} .lesson-button {
+        background: nth(nth($section-colors, $i), 3);
+
+        @include active {
+            background: nth(nth($section-colors, $i), 2);
+        }
+    }
+}
+
+.lesson-button-index {
+    @include pos(4px, 4px);
+    font-size: 16px;
+}
+
+.lesson-button {
+    cursor: pointer;
+    transition: 0.1s;
+    @include active {
+        border-color: #1285e7;
+    }
+}
+
+
+.admin-back-button {
+    @include pos(2%, 2%, bottom, right);
+    @include size(240px, 160px);
+    background: url('images/arrow.png');
+    background-size: 100% 100%;
+    line-height:  160px;
+    text-align: center;
+    cursor: pointer;
+    color: #000;
+    font-size: 22px;
+
+    @include active {
+        background-image: url('images/arrow_hover.png');
+        color: white;
+    }
+}
+
+@import 'admin-sections/1';
+@import 'admin-sections/2';
+@import 'admin-sections/3';
+@import 'admin-sections/4';
+// 5 and 6 same as 4
+@import 'admin-sections/7';
+@import 'admin-sections/8';
+@import 'admin-sections/9';
+@import 'admin-sections/10';
+
+
+.lesson-button.lesson-button-prev {
+    border-color: red;
+}

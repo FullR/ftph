@@ -1,0 +1,16 @@
+$act-fb-config: (
+    bottom-offset: 30%,
+    arrow-image: "images/arrow.png",
+    arrow-image-hover: "images/arrow_hover.png"
+);
+
+.activity-feedback__arrow {
+    @include image-button(map-get($act-fb-config, arrow-image), map-get($act-fb-config, arrow-image-hover));
+    @include size(240px, 150px);
+    @include pos(100px, 100px, bottom, right);
+}
+
+.activity-feedback > .feedback-word-group {
+    @include pos(map-get($act-fb-config, bottom-offset));
+    width: 100%;
+}

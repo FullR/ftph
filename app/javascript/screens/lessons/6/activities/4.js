@@ -26,8 +26,7 @@ module.exports = React.createClass({
                     else {
                         return [
                             then("say", "word"),
-                            then("say", "doesnt-have"),
-                            then("say", "a"),
+                            then("say", "doesnt-have-a"),
                             then("say", "phonics.1"),
                             then("say", "sound")
                         ];

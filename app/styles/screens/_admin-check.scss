@@ -1,0 +1,86 @@
+$admin-check-config: (
+    background: #C5AECE,
+
+    instructions-size: 20px,
+    instructions-top-margin: 8%,
+    instructions-botton-margin: 5%,
+    
+    timer-conteiner-height: 30%,
+    timer-size: 28px,
+    timer-background: #CDE39F,
+    timer-top-offset: 40%, // distance between timer and top of its container (approximately centered)
+
+    input-width: 25%,
+    input-height: 40px,
+    input-font-size: 36px,
+
+    submit-button-width: 230px,
+    submit-button-height: 144px,
+    submit-button-font-size: 20px,
+    submit-button-image: 'images/arrow_hover.png',
+    submit-button-hover-image: 'images/arrow.png'
+);
+
+.admin-check {
+    @include fill;
+    background: map-get($admin-check-config, background);
+    position: relative;
+}
+
+.admin-check__timer-container {
+    @include size(100%, map-get($admin-check-config, timer-conteiner-height));
+    @include pos(0, 0, bottom);
+    background: map-get($admin-check-config, timer-background);
+    text-align: center;
+    font-size: map-get($admin-check-config, timer-size);
+}
+
+.admin-check__timer {
+    display: block;
+    @include pos(map-get($admin-check-config, timer-top-offset), 0); // 40% for approximate vertical centering
+    width: 100%;
+}
+
+.admin-check__password-label {
+    font-weight: bold;
+}
+
+.admin-check .admin-check__instructions {
+    display: inline-block;
+    //height: 30%;
+    margin-top: map-get($admin-check-config, instructions-top-margin);
+    margin-bottom: map-get($admin-check-config, instructions-bottom-margin);
+    width: 100%;
+    text-align: center;
+    font-size: map-get($admin-check-config, instructions-size);
+}
+
+.admin-check__input-container {
+    text-align: center;
+}
+
+.admin-check .admin-check__password-input {
+    display: inline-block;
+    position: relative;
+    @include size(map-get($admin-check-config, input-width), map-get($admin-check-config, input-height));
+    font-size: map-get($admin-check-config, input-font-size);
+}
+
+.admin-check__submit-button {
+    display: inline-block;
+    position: relative;
+    @include size(map-get($admin-check-config, submit-button-width), map-get($admin-check-config, submit-button-height));
+    bottom: 10px;
+    left: 10px;
+
+    background: url(map-get($admin-check-config, submit-button-image)) no-repeat;
+    background-size: 100% 100%;
+    font-size: map-get($admin-check-config, submit-button-font-size);
+    border: 0;
+    color: #FFF;
+    cursor: pointer;
+    @include active {
+        background-image: url(map-get($admin-check-config, submit-button-hover-image));
+        color: #000;
+    }
+}

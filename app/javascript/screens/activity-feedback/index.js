@@ -1,8 +1,8 @@
 var React       = require("react"),
-    Teacher     = require("components/teacher"),
-    WordImage   = require("components/word-image"),
-    Info        = require("components/activity/info"),
-    AdminButton = require("components/admin-button"),
+    Teacher     = require("components/game-screen/teacher"),
+    WordImage   = require("components/game-screen/word-image"),
+    Info        = require("components/game-screen/info"),
+    AdminButton = require("components/admin/admin-button"),
     GameScreen  = require("screens/game-screen"),
     render      = require("render");
 
@@ -87,7 +87,7 @@ var ActivityFeedback = React.createClass({
                 <Teacher {...this.state.teacher} onClick={this.animationCallback(this.getAutoplayAnimation())}/>
                 {this.props.children}
                 {this.state.hidingContinueButton ? null :
-                    <div className='activity-feedback-arrow' onClick={this.props.renderNextScreen || this.renderNextScreen}/>
+                    <div className='activity-feedback__arrow' onClick={this.props.renderNextScreen || this.renderNextScreen}/>
                 }
                 <Info 
                     lessonId={this.props.lessonId}

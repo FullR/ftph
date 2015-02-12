@@ -1,0 +1,59 @@
+$top: 16px;
+$left: 16px;
+
+$sitting-image: 'images/owl/default.png';
+$sitting-width: 150px;
+$sitting-height: 187px;
+
+$speaking-image: 'images/owl/speaking.gif';
+$speaking-width: 150px;
+$speaking-height: 158px;
+
+$closed-image: 'images/owl/speaking-closed.png';
+$closed-width: 150px;
+$closed-height: 158px;
+
+$content-size: 18px;
+$centered-size-ratio: 1.5;
+
+// Generates the different owl states and their centered versions
+@mixin owl-state($name, $image, $width, $height) {
+    &.owl--#{$name} .owl__image {
+        @include size($width, $height);
+        background: url($image) no-repeat;
+        background-size: 100% 100%;
+    }
+
+    &.owl--#{$name}.owl--centered {
+        @include pos(50%, 50%);
+        margin-top:  -(($height * $centered-size-ratio) / 2);
+        margin-left: -(($width  * $centered-size-ratio) / 2);
+
+        .owl__image {
+            @include size($width * $centered-size-ratio, $height * $centered-size-ratio);
+        }
+    }
+}
+
+.owl {
+    @include pos($top, $left);
+    @include owl-state("sitting", $sitting-image, $sitting-width, $sitting-height);
+    @include owl-state("speaking", $speaking-image, $speaking-width, $speaking-height);
+    @include owl-state("speaking-closed", $closed-image, $closed-width, $closed-height);
+}
+
+.owl--hidden {
+    display: none;
+}
+
+.owl__content {
+    visibility: hidden;
+    width: 100%;
+    text-align: center;
+    font-size: $content-size;
+}
+
+// Only show owl's content when it's sitting
+.owl--sitting .owl__content {
+    visibility: visible;
+}

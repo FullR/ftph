@@ -1,5 +1,5 @@
-var React = require("react"),
-    AdminButton = require("components/admin-button");
+var React       = require("react"),
+    AdminButton = require("components/admin/admin-button");
 
 var GameScreen = React.createClass({
     mixins: [require("mixins/storage")],

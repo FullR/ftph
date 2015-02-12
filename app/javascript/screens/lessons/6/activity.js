@@ -1,6 +1,6 @@
 var React        = require("react"),
     WordActivity = require("screens/activity/word"),
-    WordImage    = require("components/word-image"),
+    WordImage    = require("components/game-screen/word-image"),
     render       = require("render"),
     lessonInfo   = require("./info");
 
@@ -45,7 +45,8 @@ var Lesson4Activity = React.createClass({
 
                 instructions={(then) => [
                     then("say", "listen"),
-
+                    then("wait", 250),
+                    
                     ...phonics.map((phonic, index) => 
                         then("say", ["phonics", index])
                     ),
@@ -63,9 +64,9 @@ var Lesson4Activity = React.createClass({
                 ]}
 
                 renderFeedback={(activity) => {
-                    var Feedback = require("screens/activity-feedback/single-word"),
+                    var Feedback = require("screens/activity-feedback/words"),
                         correct  = activity.isCorrect(),
-                        selected = activity.getSelected();
+                        selected = activity.getSelected()[0];
 
                     render(
                         <Feedback
@@ -76,7 +77,7 @@ var Lesson4Activity = React.createClass({
                             section       = {lessonInfo.section}
                             correct       = {correct}
                             nextScreen    = {nextScreen}
-                            word          = {activity.getSelected()[0].word}
+                            words         = {[selected.word]}
 
                             sounds={{
                                 "phonics": phonics.map((phonic) => 
@@ -90,6 +91,8 @@ var Lesson4Activity = React.createClass({
                                 "an":                "common/activities/an",
                                 "a":                 "common/activities/a",
                                 "doesnt-have":       "lessons/lesson-6/activities/feedback/doesnt-have",
+                                "doesnt-have-a":       "lessons/lesson-6/activities/feedback/doesnt-have-a",
+                                "doesnt-have-an":       "lessons/lesson-6/activities/feedback/doesnt-have-an",
                                 "doesnt-begin-with": "lessons/lesson-6/activities/feedback/doesnt-begin-with",
                                 "doesnt-end-with":   "lessons/lesson-6/activities/feedback/doesnt-end-with"
                             }}
@@ -99,7 +102,7 @@ var Lesson4Activity = React.createClass({
                                     then("say", ["phonics", index])
                                 ),
                                 then("wait", 250),
-                                then("say", "word")
+                                then("say", "words.0")
                             ]}
 
                             incorrectAnimation={function(then) {

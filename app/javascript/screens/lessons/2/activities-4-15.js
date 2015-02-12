@@ -14,7 +14,7 @@ var Lesson2Activity4to15 = React.createClass({
             "word1":            `words/activity-words/${this.props.word1}`,
             "word2":            `words/activity-words/${this.props.word2}`,
             "touch-same-sound": "lessons/lesson-2/activities/instructions/touch-same-sound",
-            "and":              "common/and"
+            "and":              "common/activities/and"
         };
     },
 
@@ -27,7 +27,7 @@ var Lesson2Activity4to15 = React.createClass({
     },
 
     render: function() {
-        var Feedback   = require("screens/activity-feedback/single-word"),
+        var Feedback   = require("screens/activity-feedback/words"),
             choices    = this.props.choices,
             nextScreen = this.props.nextScreen,
             activityId = this.props.id,
@@ -42,9 +42,9 @@ var Lesson2Activity4to15 = React.createClass({
                 sounds        = {this.getSounds()}
                 lessonScreen  = {this.props.lessonScreen}
 
-                onSubmit={(activity, correct) => {
-                    this.save([lessonInfo.namespace, "activities", activityId, "correct"], correct);
-                }}
+                onSubmit={(activity, correct) =>
+                    this.save([lessonInfo.namespace, "activities", activityId, "correct"], correct)
+                }
 
                 instructions={(then) => [
                     then("say", "touch-same-sound"), then("wait", 250),
@@ -72,7 +72,7 @@ var Lesson2Activity4to15 = React.createClass({
                         section       = {lessonInfo.section}
                         correct       = {activity.isCorrect()}
                         nextScreen    = {nextScreen}
-                        word          = {activity.getSelected()[0].word}
+                        words         = {[activity.getSelected()[0].word]}
                         sounds={{
                             "word1":           `words/activity-words/${word1}`,
                             "word2":           `words/activity-words/${word2}`,
@@ -82,7 +82,7 @@ var Lesson2Activity4to15 = React.createClass({
                         }}
 
                         correctAnimation={(then) => [
-                            then("say", "word"),           then("wait", 250),
+                            then("say", "words.0"),        then("wait", 250),
                             then("say", "ends-with-same"), then("wait", 250),
                             then("say", "word1"),          then("wait", 250),
                             then("say", "and"),            then("wait", 250),
@@ -90,7 +90,7 @@ var Lesson2Activity4to15 = React.createClass({
                         ]}
 
                         incorrectAnimation={(then) => [
-                            then("say", "word"),            then("wait", 250),
+                            then("say", "words.0"),         then("wait", 250),
                             then("say", "doesnt-end-same"), then("wait", 250),
                             then("say", "word1"),           then("wait", 250),
                             then("say", "and"),             then("wait", 250),

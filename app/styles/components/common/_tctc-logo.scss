@@ -1,0 +1,10 @@
+$width: 20.5rem;
+$height: 13.25rem;
+$zindex: 2;
+
+.tctc-logo {
+    @include size($width, $height);
+    background: url('images/tctc-logo.png') no-repeat;
+    background-size: 100% 100%;
+    z-index: $zindex;
+}

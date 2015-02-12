@@ -58,7 +58,7 @@ var Lesson5Activity = React.createClass({
                 }}
 
                 renderFeedback={(activity) => {
-                    var Feedback = require("screens/activity-feedback/multi-word"),
+                    var Feedback = require("screens/activity-feedback/words"),
                         selectedWords = activity.getSelected().map(get("word"));
                     
                     render(
@@ -72,22 +72,20 @@ var Lesson5Activity = React.createClass({
                             nextScreen    = {nextScreen}
                             words         = {selectedWords}
                             sounds={{
-                                "selected-1":     `words/activity-words/${selectedWords[0]}`,
-                                "selected-2":     `words/activity-words/${selectedWords[1]}`,
                                 "rhymes-with":    "lessons/lesson-5/activities/feedback/rhymes-with",
                                 "does-not-rhyme": "lessons/lesson-5/activities/feedback/does-not-rhyme"
                             }}
 
                             correctAnimation={(then) => [
-                                then("say", "selected-1"),  then("wait", 250),
-                                then("say", "rhymes-with"), then("wait", 250),
-                                then("say", "selected-2"),  then("wait", 250)
+                                then("say", "words.0"),        then("wait", 250),
+                                then("say", "rhymes-with"),    then("wait", 250),
+                                then("say", "words.1"),        then("wait", 250)
                             ]}
 
                             incorrectAnimation={(then) => [
-                                then("say", "selected-1"),     then("wait", 250),
+                                then("say", "words.0"),        then("wait", 250),
                                 then("say", "does-not-rhyme"), then("wait", 250),
-                                then("say", "selected-2"),     then("wait", 250),
+                                then("say", "words.1"),        then("wait", 250),
                             ]}/>
                     );
                 }}/>

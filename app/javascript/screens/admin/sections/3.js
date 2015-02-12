@@ -1,7 +1,7 @@
 
 
 var React        = require("react"),
-    LessonButton = require("components/lesson-button");
+    LessonButton = require("components/admin/lesson-button");
 
 var Section3 = React.createClass({
     render: function() {

@@ -1,0 +1,13 @@
+$rhyme-word-width: 225px;
+$rhyme-word-height: 225px;
+$rhyme-word-top: 10%;
+
+.lesson-4-activity > .lesson-4-activity__rhyme-word {
+    @include size($rhyme-word-width, $rhyme-word-height);
+    @include pos($rhyme-word-top, 50%);
+    margin-left: -($rhyme-word-width / 2); // Center using negative margins
+}
+
+.lesson-4-activity > .choice-group {
+    bottom: 20%;
+}

@@ -1,27 +1,17 @@
 @import 'susy';
 
-/* Default grid settings */
-$susy: (
-    /* Tells Susy to use 12 columns */
-    columns: 12,
-    /* Tells Susy that the container has a max-width of 1920px */
-    container: 1920px,
-    /* Tells Susy to use border-box */
-    global-box-sizing: border-box 
-);
+// Mixins
+    @import 'mixins/active';
+    @import 'mixins/before-after';
+    @import 'mixins/border-image';
+    @import 'mixins/fill';
+    @import 'mixins/image-button';
+    @import 'mixins/mark-last';
+    @import 'mixins/pos';
+    @import 'mixins/size';
 
-@include border-box-sizing;
-
-body #outlet {
-    @include container;
-}
-
-@import 'mixins';
-@import 'pres/variables';
-@import 'layout/variables';
 @import 'reset';
 @import 'setup';
-
 @import 'common';
 
 // Components
@@ -31,29 +21,31 @@ body #outlet {
     // Game Screens
         @import 'components/game-screen/choice';
         @import 'components/game-screen/choice-group';
+        @import 'components/game-screen/owl';
+        @import 'components/game-screen/teacher';
+        @import 'components/game-screen/info';
 
     // Lessons
         @import 'components/lesson/arrow';
 
+    // Activity Feedback
+        @import 'components/activity-feedback/feedback-frame';
+        @import 'components/activity-feedback/feedback-word-group';
+
     // Admin
         @import 'components/admin/admin-button';
-        @import 'components/admin/admin-check';
 
-// Layout
-@import 'layout/splash';
-//@import 'layout/choice';
 
-@import 'layout/game-screen';
-@import 'layout/activity-feedback';
-@import 'layout/admin';
-@import 'layout/lesson-wrapper';
-@import 'layout/rhyme-word';
-@import 'layout/lesson-feedback';
+// Screens
+    @import 'screens/splash';
+    @import 'screens/activity';
+    @import 'screens/lesson';
+    @import 'screens/activity-feedback';
+    @import 'screens/admin-check';
+    @import 'screens/lesson-feedback';
+    @import 'screens/admin'; // Needs to be refactored
 
-// Presentation
-@import 'pres/teacher';
-@import 'pres/owl';
-
-// Individual lessons
-@import 'lessons/1';
-@import 'lessons/2';
+    // Individual Lessons
+        @import 'screens/lessons/1';
+        @import 'screens/lessons/2';
+        @import 'screens/lessons/4';

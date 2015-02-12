@@ -1,0 +1,28 @@
+$height: 32px;
+$size: 20px;
+$color: #568ED4;
+
+$icon-width: 22px;
+$icon-height: 29px;
+$icon-spacing: 4px;
+
+.admin-button {
+    cursor: pointer;
+    @include pos(2%, 2%, bottom);
+}
+
+.admin-button__icon {
+    @include size($icon-width, $icon-height);
+    margin-right: $icon-spacing;
+    position: inline-block;
+    vertical-align: middle;
+}
+
+.admin-button__text {
+    height: $height;
+    line-height: $height;
+    color: $color;
+    font-size: $size;
+    text-decoration: underline;
+    vertical-align: middle;
+}

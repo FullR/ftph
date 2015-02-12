@@ -1,7 +1,7 @@
 var React        = require("react"),
     _            = require("lodash"),
     WordActivity = require("screens/activity/word"),
-    WordImage    = require("components/word-image"),
+    WordImage    = require("components/game-screen/word-image"),
     render       = require("render"),
     lessonInfo   = require("./info");
 
@@ -63,7 +63,7 @@ var Lesson4Activity = React.createClass({
                 ]}
 
                 renderFeedback={(activity) => {
-                    var Feedback = require("screens/activity-feedback/single-word"),
+                    var Feedback = require("screens/activity-feedback/words"),
                         correct  = activity.isCorrect(),
                         selected = activity.getSelected();
                         render(
@@ -75,7 +75,7 @@ var Lesson4Activity = React.createClass({
                                 section       = {lessonInfo.section}
                                 correct       = {correct}
                                 nextScreen    = {nextScreen}
-                                word          = {activity.getSelected()[0].word}
+                                words         = {[activity.getSelected()[0].word]}
 
                                 sounds={_.extend({
                                     "phonics": phonics.map((phonic) =>
@@ -104,7 +104,7 @@ var Lesson4Activity = React.createClass({
                                         then("say", ["phonics", index])
                                     ),
                                     then("wait", 250),
-                                    then("say", "word")
+                                    then("say", "words.0")
                                 ]}
 
                                 incorrectAnimation={(then) => 

@@ -71,7 +71,7 @@ var Lesson3Activity = React.createClass({
                 ]}
 
                 renderFeedback={function(activity) {
-                    var Feedback = require("screens/activity-feedback/multi-word"),
+                    var Feedback = require("screens/activity-feedback/words"),
                         feedback = (
                             <Feedback
                                 lessonId      = {lessonInfo.id}
@@ -88,7 +88,7 @@ var Lesson3Activity = React.createClass({
                                         "lessons/lesson-3/activities/feedback/do-not-end" :
                                         "lessons/lesson-3/activities/feedback/do-not-begin",
 
-                                    "correct": ending ?
+                                    "both": ending ?
                                         "lessons/lesson-3/activities/feedback/both-end" :
                                         "lessons/lesson-3/activities/feedback/both-begin",
 
@@ -96,16 +96,16 @@ var Lesson3Activity = React.createClass({
                                 }}
 
                                 correctAnimation={(then) => [
-                                    then("say", "word-0"), then("wait", 250),
-                                    then("say", "and"),    then("wait", 250),
-                                    then("say", "word-1"), then("wait", 250),
+                                    then("say", "words.0"), then("wait", 250),
+                                    then("say", "and"),     then("wait", 250),
+                                    then("say", "words.1"), then("wait", 250),
                                     then("say", "both")
                                 ]}
 
                                 incorrectAnimation={(then) => [
-                                    then("say", "word-0"), then("wait", 250),
-                                    then("say", "and"),    then("wait", 250),
-                                    then("say", "word-1"), then("wait", 250),
+                                    then("say", "words.0"), then("wait", 250),
+                                    then("say", "and"),     then("wait", 250),
+                                    then("say", "words.1"), then("wait", 250),
                                     then("say", "do-not")
                                 ]}/>
                         );
