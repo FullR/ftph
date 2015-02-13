@@ -16,13 +16,18 @@ module.exports = React.createClass({
                     then("say", "word"),
                     then("say", "doesnt-make"),
                     then("say", "phonics.1"),
-                    then("say", "and"),
+                    then("say", "sound"),
+                    then("say", "or"),
                     then("say", "doesnt-end-with"),
-                    then("say", "phonics.1")
+                    then("say", "a"),
+                    then("say", "phonics.1"),
+                    then("say", "sound")
                 ] : [
                     then("say", "word"),
                     then("say", "doesnt-end-with"),
-                    then("say", "phonics.0")
+                    then("say", "a"),
+                    then("say", "phonics.0"),
+                    then("say", "sound")
                 ]}
                 nextScreen={require("./3")}/>
         );

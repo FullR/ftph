@@ -26,6 +26,17 @@ var Activity = React.createClass({
         lessonId: React.PropTypes.string.isRequired
     },
 
+    getInitialState: function() {
+        return {
+            teacher: {
+                state: "sitting",
+                hidden: true
+            },
+
+            choices: this.loadChoices() || _.cloneDeep(this.props.choices)
+        };
+    },
+
     componentDidUpdate: function() {
         if(this.shouldShowFeedback()) {
             this.props.renderFeedback.call(null, this);
@@ -37,31 +48,23 @@ var Activity = React.createClass({
     },
 
     getNamespace: function() {
-        return `lesson-${this.props.lessonId}.activities.${this.props.id}`;
+        return [`lesson-${this.props.lessonId}`, "activities", this.props.id];
     },
 
     saveChoices: function() {
-        this.save([this.getNamespace(), "choices"], this.state.choices);
+        // The namespace consists of multiple parts, so it needs
+        // to be spread into the path
+        this.save([...this.getNamespace(), "choices"], this.state.choices);
     },
 
     loadChoices: function() {
-        return this.load([this.getNamespace(), "choices"]);
+        return this.load([...this.getNamespace(), "choices"]);
     },
 
     getAutoplayAnimation: function() {
         return this.props.autoplayAnimation || "instructions";
     },
 
-    getInitialState: function() {
-        return {
-            teacher: {
-                state: "sitting",
-                hidden: true
-            },
-
-            choices: this.loadChoices() || _.cloneDeep(this.props.choices)
-        };
-    },
 
     instructions: function(then) {
         var steps;

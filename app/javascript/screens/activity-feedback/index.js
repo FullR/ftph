@@ -8,10 +8,15 @@ var React       = require("react"),
 
 var ActivityFeedback = React.createClass({
     mixins: [
+        require("mixins/storage"),
         require("mixins/sound-container"),
         require("mixins/animation"),
         require("mixins/animation-utility/actor")("teacher")
     ],
+
+    propTypes: {
+        lessonId: React.PropTypes.string.isRequired
+    },
 
     getInitialState: function() {
         return {
@@ -74,10 +79,9 @@ var ActivityFeedback = React.createClass({
     },
 
     renderNextScreen: function() {
-        var Next;
-        if(this.props.nextScreen) {
-            Next = this.props.nextScreen;
-            render(<Next />);
+        var NextScreen = this.props.nextScreen;
+        if(NextScreen) {
+            render(<NextScreen />);
         }
     },
 

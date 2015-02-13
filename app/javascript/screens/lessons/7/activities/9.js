@@ -12,9 +12,6 @@ module.exports = React.createClass({
                     {word: "bread"},
                     {word: "red", correct: true}
                 ]}
-                feedbackSounds={{
-                    "b": "phonics/activity-phonics/b"
-                }}
                 incorrectFeedback={(then, word) => word === "road" ? [
                     then("say", "word"),
                     then("say", "doesnt-make"),
@@ -23,8 +20,10 @@ module.exports = React.createClass({
                     then("say", "sound")
                 ] : [
                     then("say", "word"),
-                    then("say", "begins-with"),
-                    then("say", "b")
+                    then("say", "doesnt-begin-with"),
+                    then("say", "a"),
+                    then("say", "phonics.0"),
+                    then("say", "sound")
                 ]}
                 nextScreen={require("./10")}/>
         );

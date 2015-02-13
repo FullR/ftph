@@ -20,7 +20,9 @@ module.exports = React.createClass({
                     then("say", "sound"),
                     then("say", "and"),
                     then("say", "doesnt-end-with"),
-                    then("say", "phonics.2")
+                    then("say", "a"),
+                    then("say", "phonics.2"),
+                    then("say", "sound")
                 ] : [
                     then("say", "word"),
                     then("say", "doesnt-make"),

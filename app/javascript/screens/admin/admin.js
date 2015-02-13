@@ -36,8 +36,8 @@ var Admin = React.createClass({
 
     getInitialState: function() {
         return {
-            selectedLesson: this.load("last-lesson") || "1",
-            section: this.props.section || "1"
+            section: this.props.section || "1",
+            selectedLesson: this.load("last-lesson") || "1"
         };
     },
 
@@ -66,7 +66,7 @@ var Admin = React.createClass({
     },
 
     isLessonComplete: function(lessonId) {
-        this.load("lesson-"+lessonId+".completed");
+        this.load(`lesson-${lessonId}.completed`);
     },
 
     renderNav: function() {

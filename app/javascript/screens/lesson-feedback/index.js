@@ -21,8 +21,12 @@ var LessonFeedback = React.createClass({
         lessonId: React.PropTypes.string.isRequired
     },
 
+    getNamespace: function() {
+        return `lesson-${this.props.lessonId}`;
+    },
+
     loadLesson: function() {
-        return this.load("lesson-"+this.props.lessonId) || {};
+        return this.load(this.getNamespace()) || {};
     },
 
     getActivities: function() {
@@ -63,7 +67,7 @@ var LessonFeedback = React.createClass({
             "score":       this.getScore()
         });
 
-        this.save(this.props.lessonId, storage);
+        this.save(this.getNamespace(), storage);
     },
 
     componentWillMount: function() {

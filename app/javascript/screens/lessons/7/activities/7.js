@@ -21,7 +21,9 @@ module.exports = React.createClass({
                 ] : [
                     then("say", "word"),
                     then("say", "doesnt-end-with"),
-                    then("say", "phonics.2")
+                    then("say", "a"),
+                    then("say", "phonics.2"),
+                    then("say", "sound")
                 ]}
                 nextScreen={require("./8")}/>
         );

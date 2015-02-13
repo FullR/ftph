@@ -26,22 +26,13 @@
   },
   "dependencies": {
     "ampersand-router": "^1.0.6",
-    "backbone": "^1.1.2",
-    "bacon": "0.0.1",
-    "baconjs": "^0.7.37",
-    "class": "^0.1.4",
-    "glob": "^4.3.2",
     "gulp-autoprefixer": "^2.0.0",
     "gulp-imagemin": "^2.0.0",
     "gulp-util": "^3.0.3",
     "howler": "^1.1.25",
-    "klass": "^1.4.0",
     "lodash": "^2.4.1",
-    "mootools": "^1.5.1",
-    "prototype": "0.0.5",
     "putainde-localstorage": "^2.1.0",
     "q": "^1.0.1",
-    "react": "^0.12.0",
-    "underscore": "^1.7.0"
+    "react": "^0.12.0"
   }
 }
