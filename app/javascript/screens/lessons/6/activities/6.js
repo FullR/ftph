@@ -16,7 +16,7 @@ module.exports = React.createClass({
                     if(word === "head") {
                         return [
                             then("say", "word"),
-                            then("say", "doesnt-have-an"),
+                            then("say", "doesnt-have-the"),
                             then("say", "phonics.0"),
                             then("say", "sound")
                         ];
@@ -24,10 +24,10 @@ module.exports = React.createClass({
                     else {
                         return [
                             then("say", "word"),
-                            then("say", "doesnt-begin-with"),
+                            then("say", "doesnt-have-the"),
                             then("say", "phonics.0"),
-                            then("say", "and"),
-                            then("say", "doesnt-end-with"),
+                            then("say", "sound"),
+                            then("say", "or-end-with"),
                             then("say", "phonics.1")
                         ];
                     }

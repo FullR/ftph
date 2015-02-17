@@ -16,19 +16,18 @@ module.exports = React.createClass({
                     if(word === "ice") {
                         return [
                             then("say", "word"),
-                            then("say", "doesnt-have"),
+                            then("say", "doesnt-have-the"),
                             then("say", "phonics.0"),
-                            then("say", "or"),
-                            then("say", "phonics.1"),
-                            then("say", "sounds")
+                            then("say", "sound"),
+                            then("say", "or-end-with"),
+                            then("say", "phonics.1")
                         ];
                     }
                     else {
                         return [
                             then("say", "word"),
-                            then("say", "doesnt-have-a"),
-                            then("say", "phonics.1"),
-                            then("say", "sound")
+                            then("say", "doesnt-end-with"),
+                            then("say", "phonics.1")
                         ];
                     }
                 }}

@@ -15,13 +15,12 @@ module.exports = React.createClass({
                 incorrectFeedback={(then, word) => 
                     word === "wag" ? [
                         then("say", "word"),
-                        then("say", "doesnt-have-an"),
+                        then("say", "doesnt-have-the"),
                         then("say", "phonics.1"),
                         then("say", "sound")
                     ] : [
                         then("say", "word"),
                         then("say", "doesnt-end-with"),
-                        then("say", "a"),
                         then("say", "phonics.2")
                     ]
                 }

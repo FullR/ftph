@@ -3,7 +3,7 @@ var React   = require("react"),
     project = require("../project"),
     render  = require("render"),
     Splash  = require("screens/splash"),
-    muted   = true;
+    muted   = false;
 
 // Preload commonly used images
 function preloadImages() {

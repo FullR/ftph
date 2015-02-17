@@ -6,7 +6,7 @@ module.exports = React.createClass({
         return (
             <Activity {...this.props}
                 id="7"
-                phonics={["b", "uh", "gh"]}
+                phonics={["b", "uh", "g"]}
                 choices={[
                     {word: "bug", correct: true},
                     {word: "dog"},
@@ -16,19 +16,18 @@ module.exports = React.createClass({
                     if(word === "dog") {
                         return [
                             then("say", "word"),
-                            then("say", "doesnt-have"),
-                            then("say", "phonics.0"),
-                            then("say", "or"),
+                            then("say", "doesnt-have-the"),
                             then("say", "phonics.1"),
-                            then("say", "sounds")
+                            then("say", "sound"),
+                            then("say", "or-begin-with"),
+                            then("say", "phonics.0")
                         ];
                     }
                     else {
                         return [
                             then("say", "word"),
-                            then("say", "doesnt-have-a"),
-                            then("say", "phonics.0"),
-                            then("say", "sound")
+                            then("say", "doesnt-begin-with"),
+                            then("say", "phonics.0")
                         ];
                     }
                 }}

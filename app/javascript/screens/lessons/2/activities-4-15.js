@@ -65,7 +65,7 @@ var Lesson2Activity4to15 = React.createClass({
 
                 renderFeedback={(activity) => render(
                     <Feedback
-                        lessonId      = {lessonInfo.lessonId}
+                        lessonId      = {lessonInfo.id}
                         lessonTitle   = {lessonInfo.title}
                         activityId    = {activityId}
                         activityCount = {lessonInfo.activityCount}

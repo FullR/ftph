@@ -12,28 +12,14 @@ module.exports = React.createClass({
                     {word: "cut"},
                     {word: "up", correct: true}
                 ]}
-                incorrectFeedback={(then, word) => {
-                    if(word === "hot") {
-                        return [
-                            then("say", "word"),
-                            then("say", "doesnt-have"),
-                            then("say", "phonics.0"),
-                            then("say", "or"),
-                            then("say", "phonics.1"),
-                            then("say", "sounds")
-                        ];
-                    }
-                    else {
-                        return [
-                            then("say", "word"),
-                            then("say", "doesnt-begin-with"),
-                            then("say", "phonics.0"),
-                            then("say", "and"),
-                            then("say", "doesnt-end-with"),
-                            then("say", "phonics.1")
-                        ];
-                    }
-                }}
+                incorrectFeedback={(then, word) => [
+                    then("say", "word"),
+                    then("say", "doesnt-have-the"),
+                    then("say", "phonics.0"),
+                    then("say", "sound"),
+                    then("say", "or-end-with"),
+                    then("say", "phonics.1")
+                ]}
                 nextScreen={require("./3")}/>
         );
     }

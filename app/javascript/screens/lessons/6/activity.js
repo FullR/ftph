@@ -85,16 +85,11 @@ var Lesson4Activity = React.createClass({
                                 ),
                                 "word":              `words/activity-words/${selected.word}`,
                                 "sound":             "common/activities/sound",
-                                "sounds":            "common/activities/sounds",
-                                "and":               "common/activities/and",
-                                "or":                "common/activities/or",
-                                "an":                "common/activities/an",
-                                "a":                 "common/activities/a",
-                                "doesnt-have":       "lessons/lesson-6/activities/feedback/doesnt-have",
-                                "doesnt-have-a":       "lessons/lesson-6/activities/feedback/doesnt-have-a",
-                                "doesnt-have-an":       "lessons/lesson-6/activities/feedback/doesnt-have-an",
+                                "doesnt-have-the":   "lessons/lesson-6/activities/feedback/doesnt-have-the",
                                 "doesnt-begin-with": "lessons/lesson-6/activities/feedback/doesnt-begin-with",
-                                "doesnt-end-with":   "lessons/lesson-6/activities/feedback/doesnt-end-with"
+                                "doesnt-end-with":   "lessons/lesson-6/activities/feedback/doesnt-end-with",
+                                "or-end-with":       "lessons/lesson-6/activities/feedback/or-end-with",
+                                "or-begin-with":     "lessons/lesson-6/activities/feedback/or-begin-with"
                             }}
 
                             correctAnimation={(then) => [

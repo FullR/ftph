@@ -6,7 +6,7 @@ module.exports = React.createClass({
         return (
             <Activity {...this.props}
                 id="15"
-                phonics={["ih", "nnh", "ch"]}
+                phonics={["ih", "n", "ch"]}
                 choices={[
                     {word: "itch"},
                     {word: "inch", correct: true},
@@ -15,8 +15,9 @@ module.exports = React.createClass({
                 incorrectFeedback={(then, word) =>
                     word === "itch" ? [
                         then("say", "word"),
-                        then("say", "doesnt-end-with"),
-                        then("say", "phonics.2")
+                        then("say", "doesnt-begin-with"),
+                        then("say", "phonics.0"),
+                        then("say", "phonics.1")
                     ] : [
                         then("say", "word"),
                         then("say", "doesnt-begin-with"),

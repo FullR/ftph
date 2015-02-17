@@ -43,7 +43,7 @@ var Lesson3Activity = React.createClass({
                 lessonId               = {lessonInfo.id}
                 section                = {lessonInfo.section}
                 lessonTitle            = {lessonInfo.title}
-                activityCount          = {lessonInfo.activitycount}
+                activityCount          = {lessonInfo.activityCount}
                 sounds                 = {this.getSounds()}
                 lessonScreen           = {require("screens/lessons/3")}
 

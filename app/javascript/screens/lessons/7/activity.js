@@ -13,7 +13,7 @@ var Lesson4Activity = React.createClass({
 
     getAdditionalSounds: function() {
         return {
-            "listen": "lessons/lesson-6/activities/instructions/listen",
+            "listen": "lessons/lesson-7/activities/instructions/listen",
             "phonics": this.props.phonics.map((phonic) => "phonics/activity-phonics/"+phonic)
         };
     },
@@ -30,8 +30,7 @@ var Lesson4Activity = React.createClass({
             correctAnimation  = this.props.correctAnimation,
             incorrectFeedback = this.props.incorrectFeedback,
             choices           = this.props.choices,
-            phonics           = this.props.phonics,
-            feedbackSounds    = this.props.feedbackSounds || {};
+            phonics           = this.props.phonics;
 
         return (
             <WordActivity {...this.props}
@@ -77,27 +76,18 @@ var Lesson4Activity = React.createClass({
                                 nextScreen    = {nextScreen}
                                 words         = {[activity.getSelected()[0].word]}
 
-                                sounds={_.extend({
+                                sounds={{
                                     "phonics": phonics.map((phonic) =>
                                         `phonics/activity-phonics/${phonic}`
                                     ),
                                     "word":              `words/activity-words/${selected.word}`,
                                     "sound":             "common/activities/sound",
-                                    "sounds":            "common/activities/sounds",
-                                    "and":               "common/activities/and",
-                                    "or":                "common/activities/or",
-                                    "an":                "common/activities/an",
-                                    "a":                 "common/activities/a",
-                                    "doesnt-have":       "lessons/lesson-6/activities/feedback/doesnt-have",
+                                    "doesnt-have-the":   "lessons/lesson-6/activities/feedback/doesnt-have-the",
                                     "doesnt-begin-with": "lessons/lesson-6/activities/feedback/doesnt-begin-with",
                                     "doesnt-end-with":   "lessons/lesson-6/activities/feedback/doesnt-end-with",
-
-                                    // Sounds specific to lesson 7 activities
-                                    "but":               "common/activities/but",
-                                    "it-begins-with":    "lessons/lesson-7/activities/feedback/it-begins-with",
-                                    "doesnt-make":       "lessons/lesson-7/activities/feedback/doesnt-make",
-                                    "makes":             "lessons/lesson-7/activities/feedback/makes"
-                                }, feedbackSounds)}
+                                    "or-end-with":       "lessons/lesson-6/activities/feedback/or-end-with",
+                                    "or-begin-with":     "lessons/lesson-6/activities/feedback/or-begin-with"
+                                }}
 
                                 correctAnimation={(then) => [
                                     phonics.map((phonic, index) => 

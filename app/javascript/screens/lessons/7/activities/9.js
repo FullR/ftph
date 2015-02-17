@@ -14,16 +14,13 @@ module.exports = React.createClass({
                 ]}
                 incorrectFeedback={(then, word) => word === "road" ? [
                     then("say", "word"),
-                    then("say", "doesnt-make"),
-                    then("say", "an"),
+                    then("say", "doesnt-make-the"),
                     then("say", "phonics.1"),
                     then("say", "sound")
                 ] : [
                     then("say", "word"),
                     then("say", "doesnt-begin-with"),
-                    then("say", "a"),
-                    then("say", "phonics.0"),
-                    then("say", "sound")
+                    then("say", "phonics.0")
                 ]}
                 nextScreen={require("./10")}/>
         );
