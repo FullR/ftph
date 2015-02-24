@@ -24,6 +24,8 @@ var Lesson = React.createClass({
 
     componentWillMount: function() {
         this.save("last-lesson", this.props.id);
+        this.save(["lesson-"+this.props.id, "last-screen"], null);
+        this.save(["lesson-"+this.props.id, "completed"], false);
     },
 
     getInitialState: function() {
@@ -32,7 +34,6 @@ var Lesson = React.createClass({
                 state: "sitting",
                 hidden: true
             },
-
             choices: _.cloneDeep(this.props.choices)
         };
     },

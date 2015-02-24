@@ -8,12 +8,12 @@ var Lesson2Feedback = React.createClass({
     // Reset last activity for lesson 1 and its sublessons
     componentWillMount: function() {
         this.merge({
-            "lesson-2-b": { "last-screen": null },
-            "lesson-2-d": { "last-screen": null },
-            "lesson-2-f": { "last-screen": null },
-            "lesson-2-k": { "last-screen": null },
-            "lesson-2-m": { "last-screen": null },
-            "lesson-2-p": { "last-screen": null }
+            "lesson-2-b": { "last-screen": null, "completed": true },
+            "lesson-2-d": { "last-screen": null, "completed": true },
+            "lesson-2-f": { "last-screen": null, "completed": true },
+            "lesson-2-k": { "last-screen": null, "completed": true },
+            "lesson-2-m": { "last-screen": null, "completed": true },
+            "lesson-2-p": { "last-screen": null, "completed": true }
         });
     },
 

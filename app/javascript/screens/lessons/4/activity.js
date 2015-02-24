@@ -17,10 +17,6 @@ var Lesson4Activity = React.createClass({
         };
     },
 
-    componentWillMount: function() {
-        this.save([lessonInfo.namespace, "last-screen"], this.props.id);
-    },
-
     render: function() {
         var choices    = this.props.choices,
             nextScreen = this.props.nextScreen,

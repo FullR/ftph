@@ -1,6 +1,7 @@
 var React         = require("react"),
     WebLink       = require("components/utility/web-link"),
     SectionButton = require("screens/admin/section-button"),
+    SectionList   = require("components/admin/section-list"),
     render        = require("render");
 
 var sectionComponents = {
@@ -49,15 +50,23 @@ var Admin = React.createClass({
     },
 
     back: function() {
-        var AdminRenderLesson = require("screens/lessons").get(this.state.selectedLesson);
-        if(AdminRenderLesson) {
-            render(<AdminRenderLesson />);
-        }
-    },
+        var lessonId       = this.state.selectedLesson,
+            lastScreen     = this.loadLesson(lessonId)["last-screen"],
+            Lesson         = require("screens/lessons").get(lessonId),
+            LessonFeedback = require("screens/lessons/feedback-index")[lessonId],
+            activities     = require("screens/lessons/activity-index")[lessonId],
+            Activity;
 
-    renderSection: function() {
-        var Section = sectionComponents[this.state.section];
-        return (<Section selectLesson={this.selectLesson} selectedLesson={this.state.selectedLesson}/>);
+        if(!lastScreen) {
+            render(<Lesson/>);
+        }
+        else if(lastScreen === "feedback") {
+            render(<LessonFeedback/>);
+        }
+        else {
+            Activity = activities[lastScreen];
+            render(<Activity/>);
+        }
     },
 
     showSection: function(sectionId) {
@@ -65,8 +74,39 @@ var Admin = React.createClass({
         this.setState(this.state);
     },
 
-    isLessonComplete: function(lessonId) {
-        this.load(`lesson-${lessonId}.completed`);
+    loadLesson: function(id) {
+        return this.load(`lesson-${id}`) || {};
+    },
+
+    getArrowPrefix: function() {
+        var selectedData = this.loadLesson(this.state.selectedLesson);
+        if(selectedData["last-screen"]) {
+            return "Return to";
+        }
+        else if(selectedData.completed) {
+            return "Replay";
+        }
+        else {
+            return "Play";
+        }
+    },
+
+    isSelectedCompleted: function() {
+        return this.loadLesson(this.state.selectedLesson).completed;
+    },
+
+    incrementSection: function() {
+        if(this.state.section !== "10") {
+            this.state.section = ((+this.state.section) + 1) + "";
+            this.setState(this.state);
+        }
+    },
+
+    decrementSection: function() {
+        if(this.state.section !== "1") {
+            this.state.section = ((+this.state.section) - 1) + "";
+            this.setState(this.state);
+        }
     },
 
     renderNav: function() {
@@ -84,8 +124,12 @@ var Admin = React.createClass({
         }.bind(this));
     },
 
+    renderSection: function() {
+        var Section = sectionComponents[this.state.section];
+        return (<Section selectLesson={this.selectLesson} selectedLesson={this.state.selectedLesson}/>);
+    },
+
     render: function() {
-        console.log(this.state.selectedLesson);
         return (
             <div className='admin'>
                 <div className='admin-header'>
@@ -97,14 +141,28 @@ var Admin = React.createClass({
                     <h1>Fun-Time Phonics Admin/Score</h1>
                     <span className='admin-header-grades'>PreK - 2</span>
                 </div>
-                <div className='admin-nav'>
-                    {this.renderNav()}
-                </div>
+
+                <div className='admin__section-header'></div>
+
                 <div className='admin-current-section'>
+                    {this.state.section === "10" ? 
+                        null :
+                        <button
+                            className='admin__next-section-button'
+                            onClick={this.incrementSection}>Next Section</button>
+                    }
+                    {this.state.section === "1" ?
+                        null :
+                        <button
+                            className='admin__previous-section-button'
+                            onClick={this.decrementSection}>Previous Section</button>
+                    }
+
                     {this.renderSection()}
-                    <div className='admin-back-button' onClick={this.back}>
-                        {this.isLessonComplete(this.state.selectedLesson) ? "Replay" : "Play"} Lesson {this.state.selectedLesson}
-                    </div>
+                </div>
+                <SectionList selected={this.state.section+""}/>
+                <div className='admin-back-button' onClick={this.back}>
+                    {this.getArrowPrefix()} Lesson {this.state.selectedLesson}
                 </div>
             </div>
         );

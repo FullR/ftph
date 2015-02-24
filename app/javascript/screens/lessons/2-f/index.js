@@ -5,10 +5,7 @@ var Lesson2f = React.createClass({
     render: function() {
         return (
             <Lesson2SubLesson
-                activities={{
-                    "10": require("screens/lessons/2/activities/10"),
-                    "11": require("screens/lessons/2/activities/11")
-                }}
+                activities={require("./activities")}
                 phonic="f"
                 phonicFilename="fh"
                 choices={[

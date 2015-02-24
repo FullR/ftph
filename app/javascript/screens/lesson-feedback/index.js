@@ -42,7 +42,17 @@ var LessonFeedback = React.createClass({
     },
 
     next: function() {
-        var Next = this.props.nextScreen;
+        var Next = this.props.nextScreen,
+            storage = this.loadLesson();
+
+        _.extend(storage, {
+            "completed": true,
+            "last-screen": null,
+            "last-activity": null
+        });
+
+        this.save(this.getNamespace(), storage);
+
         render(<Next />);
     },
 
@@ -62,11 +72,12 @@ var LessonFeedback = React.createClass({
         }
 
         _.extend(storage, {
-            "last-screen": null,
-            "completed":   true,
+            "last-screen": "feedback",
+            "last-activity": null,
             "score":       this.getScore()
         });
 
+        this.save("last-lesson", this.props.lessonId);
         this.save(this.getNamespace(), storage);
     },
 

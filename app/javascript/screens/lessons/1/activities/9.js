@@ -9,6 +9,7 @@ var Lesson1Activity9 = React.createClass({
                 lessonScreen={require("screens/lessons/1-n")}
                 autoplayAnimation="choices-only"
                 namespace="lesson-1-n"
+                sublessonId="1-n"
                 choices={[
                     {word: "hand"},
                     {word: "net", correct: true},

@@ -23,7 +23,6 @@ var Lesson2Activity4to15 = React.createClass({
     componentWillMount: function() {
         var sublessonNamespace = `lesson-2-${this.props.phonic}`;
         this.save([sublessonNamespace, "last-screen"], this.props.id);
-        this.save([lessonInfo.namespace, "last-screen"], this.props.id);
     },
 
     render: function() {

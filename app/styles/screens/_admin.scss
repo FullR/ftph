@@ -1,3 +1,5 @@
+$top-padding: 32px;
+
 // Individual button colors
 $section-colors: (
     (1,  #e4ecc0, #ecf2d3, #e9efcb), // index, active, inactive, background
@@ -11,6 +13,24 @@ $section-colors: (
     (9,  #fcdac2, #fde5d4, #fde0cc),
     (10, #d5ddee, #e2e7f3, #dce3f1)
 );
+
+.admin__next-section-button {
+    @include pos($top-padding, 2%, top, right);
+}
+
+.admin__previous-section-button {
+    @include pos($top-padding, 2%, top, left);
+}
+
+.admin .section-list {
+    @include pos($top-padding + 30px, 2%, top, right);
+    color: black;
+    font-size: 20px;
+}
+
+.section-list__item--selected {
+    font-weight: bold;
+}
 
 // Admin screen Rows
 .admin .admin-header {
@@ -29,18 +49,18 @@ $section-colors: (
 }
 
 .admin .admin-current-section {
-    @include pos(35%);
-    @include size(100%, 65%);
-    border-top: 3px solid black;
-    padding-top: 32px;
+    @include pos(20%);
+    @include size(80%, 75%);
+    padding-top: $top-padding;
     color: blue;
+    font-size: 16px;
 }
 
 // Admin header
 
 .admin-header {
     font-size: 22px;
-    span, h1, ul {
+    span, ul {
         position: relative;
         height: 100%;
     }
@@ -48,7 +68,7 @@ $section-colors: (
 
 .admin-header ul {
     position: relative;
-    @include span(2 nest);
+    @include span(5 nest);
     @include container;
     list-style-type: none;
     height: 100%;
@@ -70,8 +90,13 @@ $section-colors: (
     }
 }
 
+.admin__section-header {
+
+}
+
 .admin-header h1 {
-    @include span(7);
+    @include pos(0, 0);
+    width: 100%;
     font-size: 28px;
     font-weight: bold;
     text-align: center;
@@ -79,7 +104,7 @@ $section-colors: (
 }
 
 .admin-header .admin-header-grades {
-    @include span(2 last);
+    @include span(5 last);
     margin-right: span(1/2);
     text-align: right;
     top: 25%;
@@ -158,6 +183,10 @@ $section-colors: (
         @include active {
             background: nth(nth($section-colors, $i), 2);
         }
+    }
+
+    .admin__section-header-#{$i} {
+        
     }
 }
 

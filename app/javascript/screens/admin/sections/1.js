@@ -29,7 +29,6 @@ var Section1 = React.createClass({
                 <LessonButton lesson='5' title='Rhyme Time' className='sec-1-btn-short' selectLesson={selectLesson} selected={selectedLesson === '5'}/>
                 <LessonButton lesson='6' title='Say the Word' className='sec-1-btn-short' selectLesson={selectLesson} selected={selectedLesson === '6'}/>
                 <LessonButton lesson='7' title='Echo' className='sec-1-btn-short' selectLesson={selectLesson} selected={selectedLesson === '7'}/>
-
             </div>
         );
     }

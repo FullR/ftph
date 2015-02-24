@@ -21,9 +21,6 @@ var Lesson1Activity4to15 = React.createClass({
     componentWillMount: function() {
         // props namespace refers to the sublesson
         this.save([this.props.namespace, "last-screen"], this.props.id);
-
-        // lesson 1
-        this.save([lessonInfo.namespace, "last-screen"], this.props.id);
     },
 
     render: function() {

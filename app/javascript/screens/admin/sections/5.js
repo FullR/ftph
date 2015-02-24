@@ -5,7 +5,7 @@ var Section5 = React.createClass({
     render: function() {
         return (
             <div className='admin-section-5'>
-                <LessonButton title='Lesson G' hideIndex={true} className='cons-btn-long'>
+                <LessonButton title='Lesson g' hideIndex={true} className='cons-btn-long'>
                     <LessonButton title='ga' lesson='44' className='inner-btn'/>
                     <LessonButton title='go' lesson='45' className='inner-btn'/>
                     <LessonButton title='gu' lesson='46' className='inner-btn'/>
@@ -14,7 +14,7 @@ var Section5 = React.createClass({
                     <span className='cons-btn-subheader'>ga-gu</span>
                 </LessonButton>
 
-                <LessonButton title='Lesson H' hideIndex={true} className='cons-btn-long'>
+                <LessonButton title='Lesson h' hideIndex={true} className='cons-btn-long'>
                     <LessonButton title='ha' lesson='48' className='inner-btn'/>
                     <LessonButton title='he' lesson='49' className='inner-btn'/>
                     <LessonButton title='hi' lesson='50' className='inner-btn'/>
@@ -31,7 +31,7 @@ var Section5 = React.createClass({
                     </div>
                 </LessonButton>
 
-                <LessonButton title='Lesson J' hideIndex={true} className='cons-btn-long'>
+                <LessonButton title='Lesson j' hideIndex={true} className='cons-btn-long'>
                     <LessonButton title='ja' lesson='54' className='inner-btn'/>
                     <LessonButton title='je' lesson='55' className='inner-btn'/>
                     <LessonButton title='ji' lesson='56' className='inner-btn'/>
@@ -42,7 +42,7 @@ var Section5 = React.createClass({
                     <span className='cons-btn-subheader'>ja-ju</span>
                 </LessonButton>
 
-                <LessonButton title='Lesson K' hideIndex={true} className='cons-btn-long'>
+                <LessonButton title='Lesson k' hideIndex={true} className='cons-btn-long'>
                     <LessonButton title='ke' lesson='60' className='inner-btn'/>
                     <LessonButton title='ki' lesson='61' className='inner-btn'/>
                 </LessonButton>

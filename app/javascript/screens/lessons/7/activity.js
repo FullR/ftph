@@ -1,11 +1,10 @@
 var React        = require("react"),
-    _            = require("lodash"),
     WordActivity = require("screens/activity/word"),
     WordImage    = require("components/game-screen/word-image"),
     render       = require("render"),
     lessonInfo   = require("./info");
 
-var Lesson4Activity = React.createClass({
+var Lesson7Activity = React.createClass({
     mixins: [
         require("mixins/extend-sounds"), 
         require("mixins/storage")
@@ -16,10 +15,6 @@ var Lesson4Activity = React.createClass({
             "listen": "lessons/lesson-7/activities/instructions/listen",
             "phonics": this.props.phonics.map((phonic) => "phonics/activity-phonics/"+phonic)
         };
-    },
-
-    componentWillMount: function() {
-        this.save([lessonInfo.namespace, "last-screen"], this.props.id);
     },
 
     render: function() {
@@ -46,13 +41,16 @@ var Lesson4Activity = React.createClass({
 
                 instructions={(then) => [
                     then("say", "listen"),
-
-                    phonics.map((phonic, index) => then("say", ["phonics", index])),
+                    then("wait", 250),
+                    
+                    ...phonics.map((phonic, index) => 
+                        then("say", ["phonics", index])
+                    ),
 
                     then("wait", 250),
                     then("uncenterActor"),
                     
-                    choices.map((choice, index) => [
+                    ...choices.map((choice, index) => [
                         then("revealChoice", index),
                         then("say", ["words", index]),
                         then("wait", 250)
@@ -64,46 +62,47 @@ var Lesson4Activity = React.createClass({
                 renderFeedback={(activity) => {
                     var Feedback = require("screens/activity-feedback/words"),
                         correct  = activity.isCorrect(),
-                        selected = activity.getSelected();
-                        render(
-                            <Feedback
-                                lessonId      = {lessonInfo.id}
-                                lessonTitle   = {lessonInfo.title}
-                                activityId    = {activityId}
-                                activityCount = {lessonInfo.activityCount}
-                                section       = {lessonInfo.section}
-                                correct       = {correct}
-                                nextScreen    = {nextScreen}
-                                words         = {[activity.getSelected()[0].word]}
+                        selected = activity.getSelected()[0];
 
-                                sounds={{
-                                    "phonics": phonics.map((phonic) =>
-                                        `phonics/activity-phonics/${phonic}`
-                                    ),
-                                    "word":              `words/activity-words/${selected.word}`,
-                                    "sound":             "common/activities/sound",
-                                    "doesnt-have-the":   "lessons/lesson-6/activities/feedback/doesnt-have-the",
-                                    "doesnt-begin-with": "lessons/lesson-6/activities/feedback/doesnt-begin-with",
-                                    "doesnt-end-with":   "lessons/lesson-6/activities/feedback/doesnt-end-with",
-                                    "or-end-with":       "lessons/lesson-6/activities/feedback/or-end-with",
-                                    "or-begin-with":     "lessons/lesson-6/activities/feedback/or-begin-with"
-                                }}
+                    render(
+                        <Feedback
+                            lessonId      = {lessonInfo.id}
+                            lessonTitle   = {lessonInfo.title}
+                            activityId    = {activityId}
+                            activityCount = {lessonInfo.activityCount}
+                            section       = {lessonInfo.section}
+                            correct       = {correct}
+                            nextScreen    = {nextScreen}
+                            words         = {[selected.word]}
 
-                                correctAnimation={(then) => [
-                                    phonics.map((phonic, index) => 
-                                        then("say", ["phonics", index])
-                                    ),
-                                    then("wait", 250),
-                                    then("say", "words.0")
-                                ]}
+                            sounds={{
+                                "phonics": phonics.map((phonic) => 
+                                    `phonics/activity-phonics/${phonic}`
+                                ),
+                                "word":              `words/activity-words/${selected.word}`,
+                                "sound":             "common/activities/sound",
+                                "doesnt-have-the":   "lessons/lesson-6/activities/feedback/doesnt-have-the",
+                                "doesnt-begin-with": "lessons/lesson-6/activities/feedback/doesnt-begin-with",
+                                "doesnt-end-with":   "lessons/lesson-6/activities/feedback/doesnt-end-with",
+                                "or-end-with":       "lessons/lesson-6/activities/feedback/or-end-with",
+                                "or-begin-with":     "lessons/lesson-6/activities/feedback/or-begin-with"
+                            }}
 
-                                incorrectAnimation={(then) => 
-                                    incorrectFeedback(then, selected.word)
-                                }/>
-                        );
+                            correctAnimation={(then) => [
+                                ...phonics.map((phonic, index) => 
+                                    then("say", ["phonics", index])
+                                ),
+                                then("wait", 250),
+                                then("say", "words.0")
+                            ]}
+
+                            incorrectAnimation={function(then) {
+                                return incorrectFeedback(then, selected.word);
+                            }}/>
+                    );
                 }}/>
         );
     }
 });
 
-module.exports = Lesson4Activity;
+module.exports = Lesson7Activity;

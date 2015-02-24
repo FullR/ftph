@@ -8,7 +8,7 @@ var Lesson3Activity5 = React.createClass({
                 id="5"
                 autoplayAnimation="choices-only"
                 choices={[
-                    {word: "reading", correct: true},
+                    {word: "read", correct: true},
                     {word: "bear"},
                     {word: "rose", correct: true}
                 ]}

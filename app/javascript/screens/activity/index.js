@@ -37,6 +37,26 @@ var Activity = React.createClass({
         };
     },
 
+    saveLastScreen: function() {
+        this.save(["lesson-"+this.props.lessonId, "last-screen"], this.props.id);
+        this.save(["lesson-"+this.props.lessonId, "last-activity"], this.props.id);
+        if(this.props.sublessonId) {
+            this.save(["lesson-"+this.props.sublessonId, "last-screen"], this.props.id);
+            this.save(["lesson-"+this.props.sublessonId, "last-activity"], this.props.id);
+        }
+    },
+
+    saveLastLesson: function() {
+        // if this activity is part of a sublesson, 
+        // mark that subless as the last lesson
+        if(this.props.sublessonId) {
+            this.save("last-lesson", this.props.sublessonId);
+        }
+        else {
+            this.save("last-lesson", this.props.lessonId);
+        }
+    },
+
     componentDidUpdate: function() {
         if(this.shouldShowFeedback()) {
             this.props.renderFeedback.call(null, this);
@@ -44,7 +64,8 @@ var Activity = React.createClass({
     },
 
     componentWillMount: function() {
-        this.save("last-lesson", this.props.lessonId);
+        this.saveLastScreen();
+        this.saveLastLesson();
     },
 
     getNamespace: function() {

@@ -33,7 +33,7 @@ module.exports = React.createClass({
     render: function() {
         // Redirect to either the last played activity or activity 1
         var storage    = this.load(lessonInfo.namespace),
-            activityId = storage["last-screen"] || "1",
+            activityId = storage["last-activity"] || "1",
             Activity   = require("./activities")[activityId];
 
         return (<Activity />);

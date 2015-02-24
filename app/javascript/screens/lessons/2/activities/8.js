@@ -8,6 +8,7 @@ var Lesson2Activity8 = React.createClass({
                 id="8"
                 lessonScreen={require("screens/lessons/2-k")}
                 namespace="lesson-2-k"
+                sublessonId="2-k"
                 choices={[
                     {word: "truck", correct: true},
                     {word: "tickle"},

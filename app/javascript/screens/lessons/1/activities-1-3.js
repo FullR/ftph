@@ -16,10 +16,6 @@ var Lesson1Activity1to3 = React.createClass({
         };
     },
 
-    componentWillMount: function() {
-        this.save([info.namespace, "last-screen"], this.props.id);
-    },
-
     render: function() {
         var Feedback   = require("screens/activity-feedback/words"),
             choices    = this.props.choices,

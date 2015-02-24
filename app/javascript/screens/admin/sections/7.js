@@ -5,10 +5,10 @@ var Section7 = React.createClass({
     render: function() {
         return (
             <div className='admin-section-7'>
-                <LessonButton title='Lesson Q' lesson='89' hideIndex={true} className='cons-btn-long'/>
+                <LessonButton title='Lesson q' lesson='89' hideIndex={true} className='cons-btn-long'/>
                 <div className='cons-btn-short empty' />
 
-                <LessonButton title='Lesson R' className='cons-btn-long'>
+                <LessonButton title='Lesson r' className='cons-btn-long'>
                     <LessonButton title='ra' lesson='90' className='inner-btn'/>
                     <LessonButton title='re' lesson='91' className='inner-btn'/>
                     <LessonButton title='ri' lesson='92' className='inner-btn'/>
@@ -25,7 +25,7 @@ var Section7 = React.createClass({
                     </div>
                 </LessonButton>
 
-                <LessonButton title='Lesson S' className='cons-btn-long'>
+                <LessonButton title='Lesson s' className='cons-btn-long'>
                     <LessonButton title='sa' lesson='96' className='inner-btn'/>
                     <LessonButton title='se' lesson='97' className='inner-btn'/>
                     <LessonButton title='si' lesson='98' className='inner-btn'/>
@@ -36,7 +36,7 @@ var Section7 = React.createClass({
                     <span className='cons-btn-subheader'>sa-su</span>
                 </LessonButton>
 
-                <LessonButton title='Lesson T' className='cons-btn-long'>
+                <LessonButton title='Lesson t' className='cons-btn-long'>
                     <LessonButton title='ta' lesson='102' className='inner-btn'/>
                     <LessonButton title='te' lesson='103' className='inner-btn'/>
                     <LessonButton title='ti' lesson='104' className='inner-btn'/>

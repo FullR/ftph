@@ -26,7 +26,7 @@ var Lesson1Sublesson = React.createClass({
             <SubLesson {...this.props}
                 id         = {`1-${this.props.phonic}`}
                 title      = {lessonInfo.title}
-                subtitle   = {`Lesson 1 ${this.props.phonic}`}
+                subtitle   = {`Lesson 1 /${this.props.phonic}/`}
                 section    = {lessonInfo.section}
                 nextScreen = {nextScreen}
                 nextLabel  = {`Activity ${lastActivityId}`}

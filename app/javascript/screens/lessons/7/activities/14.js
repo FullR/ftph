@@ -6,7 +6,7 @@ module.exports = React.createClass({
         return (
             <Activity {...this.props}
                 id="14"
-                phonics={["f", "iih", "s", "t"]}
+                phonics={["f", "ih", "s", "t"]}
                 choices={[
                     {word: "fish"},
                     {word: "fast"},

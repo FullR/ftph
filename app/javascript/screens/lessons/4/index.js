@@ -39,7 +39,7 @@ var Lesson4 = React.createClass({
     render: function() {
         var activities     = require("./activities"),
             storage        = this.load(lessonInfo),
-            nextActivityId = storage["last-screen"] || "1",
+            nextActivityId = storage["last-activity"] || "1",
             nextActivity   = activities[nextActivityId],
             choiceGroup1   = [                    
                 {word: "red",   hidden: true},

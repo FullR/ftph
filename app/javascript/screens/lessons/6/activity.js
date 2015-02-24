@@ -4,7 +4,7 @@ var React        = require("react"),
     render       = require("render"),
     lessonInfo   = require("./info");
 
-var Lesson4Activity = React.createClass({
+var Lesson6Activity = React.createClass({
     mixins: [
         require("mixins/extend-sounds"), 
         require("mixins/storage")
@@ -15,10 +15,6 @@ var Lesson4Activity = React.createClass({
             "listen": "lessons/lesson-6/activities/instructions/listen",
             "phonics": this.props.phonics.map((phonic) => "phonics/activity-phonics/"+phonic)
         };
-    },
-
-    componentWillMount: function() {
-        this.save([lessonInfo.namespace, "last-screen"], this.props.id);
     },
 
     render: function() {
@@ -109,4 +105,4 @@ var Lesson4Activity = React.createClass({
     }
 });
 
-module.exports = Lesson4Activity;
+module.exports = Lesson6Activity;

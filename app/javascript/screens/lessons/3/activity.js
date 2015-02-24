@@ -26,10 +26,6 @@ var Lesson3Activity = React.createClass({
         return sounds;
     },
 
-    componentWillMount: function() {
-        this.save([lessonInfo.namespace, "last-screen"], this.props.id);
-    },
-
     render: function() {
         var choices          = this.props.choices,
             nextScreen       = this.props.nextScreen,

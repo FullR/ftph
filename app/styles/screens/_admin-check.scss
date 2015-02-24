@@ -1,13 +1,13 @@
 $background: #C5AECE;
 
-$instructions-size: 20px;
+$instructions-size: 28px;
 $instructions-top-margin: 8%;
 $instructions-bottom-margin: 5%;
 
 $timer-conteiner-height: 30%;
 $timer-size: 28px;
 $timer-background: #CDE39F;
-$timer-top-offset: 40%; // distance between timer and top of its container (approximately centered
+$timer-top-offset: 40%; // distance between timer and top of its container (approximately centered)
 
 $input-container-distance: 5%; // distance between input and instruction
 $input-width: 25%;
@@ -30,13 +30,13 @@ $submit-button-hover-image: 'images/arrow.png';
     @include size(100%, $timer-conteiner-height);
     @include pos(0, 0, bottom);
     background: $timer-background;
-    text-align: center;
     font-size: $timer-size;
+    text-align: center;
 }
 
 .admin-check__timer {
+    @include pos($timer-top-offset, 0);
     display: block;
-    @include pos($timer-top-offset, 0); // 40% for approximate vertical centering
     width: 100%;
 }
 
@@ -45,37 +45,35 @@ $submit-button-hover-image: 'images/arrow.png';
 }
 
 .admin-check .admin-check__instructions {
-    display: inline-block;
-    //height: 30%;
     margin-top: $instructions-top-margin;
     margin-bottom: $instructions-bottom-margin;
+    font-size: $instructions-size;
+    display: inline-block;
     width: 100%;
     text-align: center;
-    font-size: $instructions-size;
 }
 
 .admin-check .admin-check__input-container {
     text-align: center;
-    //margin-top: $input-container-distance;
 }
 
 .admin-check .admin-check__password-input {
-    display: inline-block;
-    position: relative;
     @include size($input-width, $input-height);
     font-size: $input-font-size;
+    display: inline-block;
+    position: relative;
+    text-align: center;
 }
 
 .admin-check .admin-check__submit-button {
+    @include size($submit-button-width, $submit-button-height);
+    background: url($submit-button-image) no-repeat;
+    font-size: $submit-button-font-size;
     display: inline-block;
     position: relative;
-    @include size($submit-button-width, $submit-button-height);
     bottom: 10px;
     left: 10px;
-
-    background: url($submit-button-image) no-repeat;
     background-size: 100% 100%;
-    font-size: $submit-button-font-size;
     border: 0;
     color: #FFF;
     cursor: pointer;
