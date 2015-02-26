@@ -1,17 +1,3 @@
-.admin .admin-section-2 {
-	height: 50%;
-	width: 70%;
-	margin-left: 15%;
-	text-align: center;
-}
-
-.admin-section-2  .sec-2-btn {
-	position: relative;
-	display: inline-block;
-	width: 18%;
-	height: 48%;
-	margin: 2% 1% 0 1%;
-	border: 3px solid black;
-
-	text-decoration: underline;
+.admin-section-2 {
+    @include size(100%, 100%);
 }

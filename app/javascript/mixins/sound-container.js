@@ -50,7 +50,7 @@ var soundContainer = {
 
     /*
         Returns the sound object with the given id. 
-        Throws an error if the sound isn't found
+        Throws an error if the sound isn"t found
     */
     getSound: function(id) {
         var sound = deepGet(this.resolveSounds() || {}, id);
@@ -61,7 +61,7 @@ var soundContainer = {
     },
     
     /*
-        Plays the sound object with the given id. If sound isn't loaded, it is loaded.
+        Plays the sound object with the given id. If sound isn"t loaded, it is loaded.
         Returns a promise that is resolved when the sound finishes playing.
     */
     play: function(id) {

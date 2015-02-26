@@ -14,8 +14,8 @@ var Owl = React.createClass({
 
         return (
             <div {...this.props} className={classNames}>
-                <div className='owl__image'/>
-                <div className='owl__content'>
+                <div className="owl__image"/>
+                <div className="owl__content">
                     {this.props.children}
                 </div>
             </div>

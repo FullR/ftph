@@ -51,13 +51,13 @@ var Choice = React.createClass({
 
         return (
             <div key={this.props.key} className={classNames}>
-                <div className='choice__content' onClick={this.props.onClick}>
+                <div className="choice__content" onClick={this.props.onClick}>
                     {this.props.children}
                 </div>
 
                 {sound && !this.props.soundDisabled ? 
                     <button 
-                        className='choice__play-button' 
+                        className="choice__play-button" 
                         onClick={onReplayClick} /> :
                     null
                 }

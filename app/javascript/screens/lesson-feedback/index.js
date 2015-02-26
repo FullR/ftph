@@ -91,17 +91,17 @@ var LessonFeedback = React.createClass({
             percent = Math.floor((score / total) * 100);
 
         return (
-            <GameScreen className='lesson-feedback'>
-                <h1 className='lesson-feedback__title'>{this.props.title} Complete!</h1>
-                <h2 className='lesson-feedback__subtitle'>Lesson {this.props.lessonId}</h2>
-                <p className='lesson-feedback__score'>
+            <GameScreen className="lesson-feedback">
+                <h1 className="lesson-feedback__title">{this.props.title} Complete!</h1>
+                <h2 className="lesson-feedback__subtitle">Lesson {this.props.lessonId}</h2>
+                <p className="lesson-feedback__score">
                     Score {percent}%
                     <br/>
                     {score}/{total}
                 </p>
                 {percent >= 85 ?
-                    <button className='lesson-feedback__next-button' onClick={this.next}></button> :
-                    <button className='lesson-feedback__prev-button' onClick={this.back}></button>
+                    <button className="lesson-feedback__next-button" onClick={this.next}></button> :
+                    <button className="lesson-feedback__prev-button" onClick={this.back}></button>
                 }
                 <AdminButton/>
             </GameScreen>

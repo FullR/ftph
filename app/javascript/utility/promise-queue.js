@@ -12,7 +12,7 @@ var _     = require("lodash"),
     Returns a control object with these methods:
         start: Starts the evaluation of the queue functions. Returns a promise that resolves when the queue finishes.
         stop: Removes all elements from the queue and resolves the promise returned by `#start` and `#getPromise`.
-        getPromise: Returns queue's promise.
+        getPromise: Returns queue"s promise.
 */
 function PromiseQueue(promiseFns) {
     var deferred = Q.defer();

@@ -1,32 +1,29 @@
-var React  = require("react"),
-    truthy = require("utility/functional/truthy");
+var React = require("react");
 
 var LessonButton = React.createClass({
     mixins: [require("mixins/class-names")],
 
+    onClick: function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        if(this.props.onSelect) {
+            this.props.onSelect(this.props.lessonId);
+        }
+    },
+
     render: function() {
         var classNames = this.classNames(
             "lesson-button",
-            this.props.active   ? "lesson-button-active" : null,
-            this.props.selected ? "lesson-button-prev"   : null
+            "lesson-button-"+this.props.lessonId,
+            this.props.selected ? "lesson-button--selected" : null
         );
 
-        var onClick = this.props.selectLesson ? this.props.selectLesson.bind(null, this.props.lesson) : null;
-
         return (
-            <span className={classNames} to={`lesson/${this.props.lesson}`} onClick={onClick}>
-                {!this.props.hideIndex ?
-                    <div className='lesson-button-index'>{this.props.lesson}</div> :
-                    null 
-                }
-
-                {this.props.title ? 
-                    <div className='lesson-button-title'>{this.props.title}</div>:
-                    null
-                }
-
+            <div {...this.props} onClick={this.onClick} className={classNames}>
+                <div className="lesson-button__index">{this.props.lessonId}</div>
                 {this.props.children}
-            </span>
+            </div>
         );
     }
 });

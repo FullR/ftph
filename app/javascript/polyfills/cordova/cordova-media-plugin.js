@@ -18,7 +18,6 @@ function applyMediaPolyfill() {
         Howl = HowlerModule.Howl;
         Howler = HowlerModule.Howler;
 
-
         MediaPollyfill.prototype = {
             load: function() {
                 var deferred = Q.defer();
@@ -36,15 +35,22 @@ function applyMediaPolyfill() {
             },
 
             stop: function() {
-                this.sound.stop();
+                if(this.sound) {
+                    this.sound.stop();
+                }
             },
 
             play: function() {
-                this.sound.play();
+                if(this.sound) {
+                    this.sound.play();
+                }
             },
 
             release: function() {
-                
+                if(this.sound) {
+                    this.sound.unload();
+                    this.sound = null;
+                }
             }
         };
 

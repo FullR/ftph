@@ -19,7 +19,7 @@ var Lesson2Activity4to15 = React.createClass({
     },
 
     // On mount, set lesson 2 last lesson and
-    // the current activity's sublesson last lesson
+    // the current activity"s sublesson last lesson
     componentWillMount: function() {
         var sublessonNamespace = `lesson-2-${this.props.phonic}`;
         this.save([sublessonNamespace, "last-screen"], this.props.id);

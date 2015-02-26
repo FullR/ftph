@@ -1,6 +1,7 @@
 var React       = require("react"),
     TctcLogo    = require("components/common/tctc-logo"),
     AdminButton = require("components/admin/admin-button"),
+    WordList    = require("screens/word-list"),
     render      = require("render");
 
 var Splash = React.createClass({
@@ -18,14 +19,19 @@ var Splash = React.createClass({
         render(<Lesson1/>);
     },
 
+    showWordList: function() {
+        render(<WordList/>);
+    },
+
     render: function() {
         var user = this.props.user;
         return (
-            <div className='splash'>
+            <div className="splash">
                 <TctcLogo />
                 <AdminButton/>
-                <div className='splash__grade-label'>PreK - 2</div>
-                <button className='splash__next-button' onClick={this.nextScreen}></button>
+                <button onClick={this.showWordList} style={{position: "absolute", bottom: 0, right: "50%"}}>Word List</button>
+                <div className="splash__grade-label">PreK - 2</div>
+                <button className="splash__next-button" onClick={this.nextScreen}></button>
             </div>
         );
     }

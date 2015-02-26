@@ -6,7 +6,7 @@ var FeedbackFrame = React.createClass({
             <div {...this.props} className="feedback-frame">
                 {this.props.children}
                 {!this.props.correct ?
-                    <div className='feedback-frame__icon' /> :
+                    <div className="feedback-frame__icon" /> :
                     null
                 }
             </div>

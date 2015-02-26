@@ -4,7 +4,7 @@ var React   = require("react"),
 var TctcLogo = React.createClass({
     render: function() {
         return (
-            <WebLink className='tctc-logo' href='http://criticalthinking.com/'/>
+            <WebLink className="tctc-logo" href="http://criticalthinking.com/"/>
         );
     }
 });

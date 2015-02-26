@@ -13,9 +13,9 @@ var Teacher = React.createClass({
 
         return (
             <div {...this.props} className={className}>
-                <div className='teacher__image'/>
+                <div className="teacher__image"/>
 
-                <div className='teacher__content'>
+                <div className="teacher__content">
                     {this.props.children}
                 </div>
             </div>

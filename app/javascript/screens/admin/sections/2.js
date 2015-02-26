@@ -1,17 +1,20 @@
-var React        = require("react"),
+var React = require("react"),
+    SectionHeader = require("components/admin/section-header"),
     LessonButton = require("components/admin/lesson-button");
 
 var Section2 = React.createClass({
+    isSelected: function(lessonId) {
+        return lessonId === this.props.value;
+    },
+
     render: function() {
+        var onSelect = this.props.onSelect;
+
         return (
-            <div className='admin-section-2'>
-                <LessonButton lesson='8'  title='Short a'     className='sec-2-btn'/>
-                <LessonButton lesson='9'  title='Short e'     className='sec-2-btn'/>
-                <LessonButton lesson='10' title='Short i'     className='sec-2-btn'/>
-                <LessonButton lesson='11' title='Short o'     className='sec-2-btn'/>
-                <LessonButton lesson='12' title='Short u'     className='sec-2-btn'/>
-                <LessonButton lesson='13' title='Odd One Out' className='sec-2-btn'/>
-                <LessonButton lesson='14' title='A New World' className='sec-2-btn'/>
+            <div className="admin-section admin-section-2">
+                <button className="previous-section-button">Previous Section</button>
+                <SectionHeader title="Word Sounds" lessons="7-14"/>
+                <button className="next-section-button">Next Section</button>
             </div>
         );
     }

@@ -87,7 +87,7 @@ var Lesson4Activity = React.createClass({
 
                     render(feedback);
                 }}>
-                    <div className='lesson-4-activity__rhyme-word'>
+                    <div className="lesson-4-activity__rhyme-word">
                         <WordImage word={this.props.word} disableHCenter={true}/>
                     </div>
                 </WordActivity>

@@ -14,26 +14,23 @@ $section-colors: (
     (10, #d5ddee, #e2e7f3, #dce3f1)
 );
 
-.admin__next-section-button {
-    @include pos($top-padding, 2%, top, right);
-}
+// // libsass is making my @each directive fail
+// @for $i from 1 through 10 {
+//     .admin-section-#{$i} .lesson-button {
+//         background: nth(nth($section-colors, $i), 3);
 
-.admin__previous-section-button {
-    @include pos($top-padding, 2%, top, left);
-}
+//         @include active {
+//             background: nth(nth($section-colors, $i), 2);
+//         }
+//     }
 
-.admin .section-list {
-    @include pos($top-padding + 30px, 2%, top, right);
-    color: black;
-    font-size: 20px;
-}
-
-.section-list__item--selected {
-    font-weight: bold;
-}
+//     .admin-section-#{$i}__header {
+//         background-color: nth(nth($section-colors, $i), 3);
+//     }
+// }
 
 // Admin screen Rows
-.admin .admin-header {
+.admin__header {
     @include container;
     @include pos(0);
     @include size(100%, 5%);
@@ -42,31 +39,30 @@ $section-colors: (
     background-image: linear-gradient(to bottom, #FFFFFF 0%, #87BFFF 100%)
 }
 
-.admin .admin-nav {
-    @include container;
-    @include pos(5%, 5%);
-    @include size(90%, 30%);
-}
-
-.admin .admin-current-section {
-    @include pos(20%);
-    @include size(80%, 75%);
-    padding-top: $top-padding;
+.admin__current-section {
+    @include pos(8%, 5%);
+    @include size(75%, 88%);
     color: blue;
     font-size: 16px;
 }
 
-// Admin header
-
-.admin-header {
-    font-size: 22px;
-    span, ul {
-        position: relative;
-        height: 100%;
-    }
+.admin .section-list {
+    @include pos(8%, 1%, top, right);
 }
 
-.admin-header ul {
+// Admin header
+
+.admin__header {
+    font-size: 22px;
+}
+
+.admin__header-nav,
+.admin__header-grades {
+    position: relative;
+    height: 100%;
+}
+
+.admin__header-nav {
     position: relative;
     @include span(5 nest);
     @include container;
@@ -75,26 +71,23 @@ $section-colors: (
     margin-left: span(1/2);
     text-align: left;
     top: 25%;
-    li {
-        position: relative;
-        display: inline-block;
-        top: 25%;
-        text-align: center;
-        cursor: pointer;
-        &:not(:first-child) {
-            margin-left: 8%;
-        }
-        @include active {
-            text-decoration: underline;
-        }
+}
+
+.admin__header-nav-item {
+    position: relative;
+    display: inline-block;
+    top: 25%;
+    text-align: center;
+    cursor: pointer;
+    &:not(:first-child) {
+        margin-left: 8%;
+    }
+    @include active {
+        text-decoration: underline;
     }
 }
 
-.admin__section-header {
-
-}
-
-.admin-header h1 {
+.admin__header-title {
     @include pos(0, 0);
     width: 100%;
     font-size: 28px;
@@ -103,94 +96,14 @@ $section-colors: (
     top: 18%;
 }
 
-.admin-header .admin-header-grades {
+.admin-header .admin__header-grades {
     @include span(5 last);
     margin-right: span(1/2);
     text-align: right;
     top: 25%;
 }
 
-// Admin Navigation Buttons
-.admin-nav .section-button {
-    position: relative;
-    height: 48%;
-    cursor: pointer;
-    box-shadow: 0px 5px 8px 0px rgba(50, 50, 50, 0.35);
-    text-align: center;
-    margin-top: 0.1%;
-    margin-bottom: 0.1%;
-    transition: 0.1s background-color;
-
-    &:last-child, &:nth-child(5) {
-        @include last;
-    }
-    @include span(2 of 10);
-    height: 48%;
-}
-
-.admin-nav .section-button-active {
-    border: 2px solid red;
-
-    // fix the effects of adding a border
-    & .section-button-title {
-        margin-top: 14px;
-    }
-
-    & .section-button-lessons {
-        bottom: 2px;
-    }
-}
-
-.section-button .section-button-title {
-    font-weight: bold;
-    margin-top: 16px;
-    width: 50%;
-    margin-left: 25%;
-    font-size: 18px;
-}
-
-.section-button .section-button-letters {
-    color: #505;
-    font-size: 16px;
-    font-weight: bold;
-}
-
-.section-button .section-button-lessons {
-    @include pos(4px, 0, bottom);
-    font-size: 16px;
-    width: 100%;
-    text-align: center;
-}
-
-
-
-// libsass is making my @each directive fail
-@for $i from 1 through 10 {
-    .section-button-#{$i} {
-        background-color: nth(nth($section-colors, $i), 3);
-
-        @include active {
-            background-color: nth(nth($section-colors, $i), 2);
-        }
-        &.section-button-active {
-            background-color: nth(nth($section-colors, $i), 2); 
-        }
-    }
-
-    .admin-section-#{$i} .lesson-button {
-        background: nth(nth($section-colors, $i), 3);
-
-        @include active {
-            background: nth(nth($section-colors, $i), 2);
-        }
-    }
-
-    .admin__section-header-#{$i} {
-        
-    }
-}
-
-.lesson-button-index {
+.lesson-button__index {
     @include pos(4px, 4px);
     font-size: 16px;
 }
@@ -204,7 +117,7 @@ $section-colors: (
 }
 
 
-.admin-back-button {
+.admin__back-button {
     @include pos(2%, 2%, bottom, right);
     @include size(240px, 160px);
     background: url('images/arrow.png');
@@ -221,17 +134,37 @@ $section-colors: (
     }
 }
 
-@import 'admin-sections/1';
-@import 'admin-sections/2';
-@import 'admin-sections/3';
-@import 'admin-sections/4';
-// 5 and 6 same as 4
-@import 'admin-sections/7';
-@import 'admin-sections/8';
-@import 'admin-sections/9';
-@import 'admin-sections/10';
+.admin-section {
+    @include size(100%, 100%);
+    @include container;
+    position: relative;
+}
+
+.lesson-button {
+    position: relative;
+}
 
 
-.lesson-button.lesson-button-prev {
-    border-color: red;
+// Section header and back/next arrows
+.next-section-button,
+.previous-section-button,
+.section-header {
+    height: 19%;
+    margin-bottom: 1%;
+}
+
+.previous-section-button {
+    @include span(2);
+    margin-left: span(3);
+}
+
+.section-header {
+    @include span(2);
+    border: 1px solid black;
+}
+
+.next-section-button {
+    @include span(2);
+    margin-right: span(3);
+    //@include last;
 }
