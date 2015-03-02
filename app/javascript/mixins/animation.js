@@ -22,7 +22,8 @@ var animationMixin = {
         The input function can also be a string referring to method in the current context
     */
     then: function(fn, ...args) {
-        var fnString;
+        var fnString,
+            boundFn;
 
         if(typeof fn === "string") {
             if(this[fn]) {
@@ -34,10 +35,12 @@ var animationMixin = {
             }
         }
 
-        return function() {
-            console.log("Running",fnString);
+        boundFn =() => {
             return fn.apply(null, args);
-        }.bind(this);
+        };
+
+        boundFn.displayName = fnString+"("+args.join(",")+")";
+        return boundFn;
     },
 
     /*
@@ -56,12 +59,11 @@ var animationMixin = {
             return this.animationQueue.start()
                 .then(() => {
                     this.animationQueue = null;
-                    this.state.animating = false;
-                    this.setState(this.state);
+                    //this.state.animating = false;
+                    //this.setState(this.state);
                 })
                 .catch((error) => {
                     console.error("Animation failed:",error);
-                    console.trace();
                 });
         };
 
@@ -90,7 +92,6 @@ var animationMixin = {
 
     stopAnimation: function() {
         if(this.animationQueue) {
-            console.log("Stopping animation queue");
             this.animationQueue.stop();
         }
     },

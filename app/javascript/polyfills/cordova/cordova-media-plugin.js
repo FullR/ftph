@@ -47,10 +47,10 @@ function applyMediaPolyfill() {
             },
 
             release: function() {
-                if(this.sound) {
-                    this.sound.unload();
-                    this.sound = null;
-                }
+                //if(this.sound) {
+                //    this.sound.unload();
+                //    this.sound = null;
+                //}
             }
         };
 

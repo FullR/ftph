@@ -20,13 +20,24 @@ function PromiseQueue(promiseFns) {
 
     // shift the next step function off of `promiseFns`
     function next() {
+        var fn;
         if(promiseFns.length === 0) {
             deferred.resolve();
         }
         else {
+            fn = promiseFns.shift() || _.noop;
             Q.resolve()
-                .then(promiseFns.shift() || _.noop)
-                .then(next, deferred.reject);
+                .then(fn)
+                .then(next)
+                .catch((error) => {
+                    if(fn.displayName) {
+                        console.error("Animation error:",error,"in",fn.displayName);
+                    }
+                    else {
+                        console.error("Animation error:",error);
+                    }
+                    return next();
+                });
         }
     }
     

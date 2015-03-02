@@ -10,18 +10,19 @@ var Choice = React.createClass({
     },
 
     // On mount, watch the passed sound for play/end events
-    componentWillMount: function() {
+    componentDidMount: function() {
         var sound = this.props.sound;
+
         if(sound) {
-            sound.on("play", function() {
+            sound.on("play", () => {
                 this.state.playingSound = true;
                 this.setState(this.state);
-            }.bind(this));
+            });
 
-            sound.on("end", function() {
+            sound.on("end", () => {
                 this.state.playingSound = false;
                 this.setState(this.state);
-            }.bind(this));
+            });
         }
     },
 

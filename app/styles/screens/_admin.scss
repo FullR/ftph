@@ -30,14 +30,6 @@ $section-colors: (
 // }
 
 // Admin screen Rows
-.admin__header {
-    @include container;
-    @include pos(0);
-    @include size(100%, 5%);
-    border: 1px solid #1285e7;
-    text-align: center;
-    background-image: linear-gradient(to bottom, #FFFFFF 0%, #87BFFF 100%)
-}
 
 .admin__current-section {
     @include pos(8%, 5%);
@@ -51,9 +43,15 @@ $section-colors: (
 }
 
 // Admin header
-
 .admin__header {
+    @include container;
+    @include pos(0);
+    @include size(100%, 50px);
+    border: 1px solid #1285e7;
+    text-align: center;
+    background-image: linear-gradient(to bottom, #FFFFFF 0%, #87BFFF 100%);
     font-size: 22px;
+    line-height: 50px;
 }
 
 .admin__header-nav,
@@ -70,13 +68,13 @@ $section-colors: (
     height: 100%;
     margin-left: span(1/2);
     text-align: left;
-    top: 25%;
+    //margin-top: 0.8%;
+    z-index: 2;
 }
 
 .admin__header-nav-item {
     position: relative;
     display: inline-block;
-    top: 25%;
     text-align: center;
     cursor: pointer;
     &:not(:first-child) {
@@ -93,14 +91,12 @@ $section-colors: (
     font-size: 28px;
     font-weight: bold;
     text-align: center;
-    top: 18%;
 }
 
-.admin-header .admin__header-grades {
-    @include span(5 last);
-    margin-right: span(1/2);
+.admin__header-grades {
+    @include pos(0, span(1/2), top, right);
+    width: 100%;
     text-align: right;
-    top: 25%;
 }
 
 .lesson-button__index {
