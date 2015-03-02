@@ -65,7 +65,7 @@ var Admin = React.createClass({
     },
 
     nextSection: function() {
-        if(this.state.section < 9) {
+        if(sections[this.state.section + 1]) {
             this.setState({
                 selectedLesson: this.state.selectedLesson,
                 section: this.state.section + 1
@@ -74,7 +74,7 @@ var Admin = React.createClass({
     },
 
     previousSection: function() {
-        if(this.state.section > 0) {
+        if(sections[this.state.section - 1]) {
             this.setState({
                 selectedLesson: this.state.selectedLesson,
                 section: this.state.section - 1

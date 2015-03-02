@@ -2,7 +2,7 @@ $top-padding: 32px;
 
 // Individual button colors
 $section-colors: (
-    (1,  #e4ecc0, #ecf2d3, #e9efcb), // index, active, inactive, background
+    (1,  #e4ecc0, #ecf2d3, #e9efcb), // index, lesson button, lesson button hover, section header
     (2,  #fbdfe7, #fce9ee, #fce4eb),
     (3,  #fffcab, #fffdc4, #fffdb9),
     (4,  #dfe8f5, #e9eff8, #e4ecf7),
@@ -142,29 +142,58 @@ $section-colors: (
 
 .lesson-button {
     position: relative;
+    border: 3px solid black;
+}
+
+
+.lesson-button--selected {
+    border-color: red;
 }
 
 
 // Section header and back/next arrows
-.next-section-button,
-.previous-section-button,
-.section-header {
+.section-header-container {
+    text-align: center;
     height: 19%;
     margin-bottom: 1%;
 }
 
+.next-section-button,
+.previous-section-button,
+.section-header {
+    height: 100%;
+    display: inline-block;
+    vertical-align: middle;
+}
+
 .previous-section-button {
-    @include span(2);
-    margin-left: span(3);
+    background: url("images/arrow-reversed.png") no-repeat;
+    border: 0;
+    outline: 0;
+    background-size: 100% 100%;
+    width: span(2);
+    margin-right: span(1/2);
+    cursor: pointer;
+    @include active {
+        background-image: url("images/arrow-reversed_hover.png");
+    }
 }
 
 .section-header {
-    @include span(2);
+    width: span(2);
+    //@include span(2);
     border: 1px solid black;
 }
 
 .next-section-button {
-    @include span(2);
-    margin-right: span(3);
-    //@include last;
+    background: url("images/arrow.png") no-repeat;
+    border: 0;
+    outline: 0;
+    background-size: 100% 100%;
+    width: span(2);
+    margin-left: span(1/2);
+    cursor: pointer;
+    @include active {
+        background-image: url("images/arrow_hover.png");
+    }
 }

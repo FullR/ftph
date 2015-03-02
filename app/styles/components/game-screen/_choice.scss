@@ -39,6 +39,11 @@ $play-button-hover-image: 'images/replay-button_active.png';
 // Present if an onClick handler is passed
 .choice--selectable {
     cursor: pointer;
+
+    @include active {
+        box-shadow: $selected-shadow;
+        border: $selected-border;
+    }
 }
 
 .choice--hidden {

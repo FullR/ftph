@@ -97,7 +97,13 @@ var Lesson6Activity = React.createClass({
                             ]}
 
                             incorrectAnimation={function(then) {
-                                return incorrectFeedback(then, selected.word);
+                                console.log("Running incorrect feedback");
+                                try {
+                                    return incorrectFeedback(then, selected.word);
+                                }
+                                catch(err) {
+                                    console.log(err);
+                                }
                             }}/>
                     );
                 }}/>

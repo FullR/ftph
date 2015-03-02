@@ -12,10 +12,11 @@ var Section1 = React.createClass({
 
         return (
             <div className="admin-section admin-section-1">
-
-                <button className="previous-section-button" onClick={this.props.renderPrevious}>Previous Section</button>
-                <SectionHeader title="Word Sounds" lessons="1-7"/>
-                <button className="next-section-button" onClick={this.props.renderNext}>Next Section</button>
+                <div className="section-header-container">
+                    <button className="previous-section-button" onClick={this.props.renderPrevious}>Previous Section</button>
+                    <SectionHeader title="Word Sounds" lessons="1-7"/>
+                    <button className="next-section-button" onClick={this.props.renderNext}>Next Section</button>
+                </div>
 
 
                 <LessonButton lessonId="1" onSelect={onSelect} selected={this.isSelected("1")}>

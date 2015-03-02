@@ -1,12 +1,12 @@
 $button-color: #ecf2d3;
 $button-color-hover: #e4ecc0;
+$section-header-color: #e9efcb;
 $lesson-button-title-size: 24px;
 $row-count: 5;
 $row-height: (100%/$row-count) - 1%;
 
 .admin-section-1 {
     > .lesson-button {
-        border: 3px solid black;
         background-color: $button-color;
 
         @include active {
@@ -28,6 +28,14 @@ $row-height: (100%/$row-count) - 1%;
         width: 100%;
         font-size:  $lesson-button-title-size;
         text-align: center;
+    }
+
+    .section-header {
+        background: $section-header-color;
+    }
+
+    .previous-section-button {
+        visibility: hidden;
     }
 }
 
@@ -66,8 +74,10 @@ $row-height: (100%/$row-count) - 1%;
 .lesson-button-1 .sub-lessons,
 .lesson-button-2 .sub-lessons {
     @include span(7);
+    position: relative;
     margin-left: span(5);
-    height: 100%;
+    height: 80%;
+    top: 10%;
 }
 
 .sub-lesson-button {
@@ -75,8 +85,7 @@ $row-height: (100%/$row-count) - 1%;
     background: WHITE;
     border-radius: 8px;
     border: 1px solid black;
-    height: 80%;
-    top: 10%;
+    height: 100%;
 
     .lesson-button__index {
         display: none;

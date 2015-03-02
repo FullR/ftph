@@ -12,10 +12,35 @@ var Section2 = React.createClass({
 
         return (
             <div className="admin-section admin-section-2">
-                <button className="previous-section-button">Previous Section</button>
-                <SectionHeader title="Word Sounds" lessons="7-14"/>
-                <button className="next-section-button">Next Section</button>
+                <div className="section-header-container">
+                    <button className="previous-section-button" onClick={this.props.renderPrevious}>Previous Section</button>
+                    <SectionHeader title="Short Vowel Sounds" lessons="7-14"/>
+                    <button className="next-section-button" onClick={this.props.renderNext}>Next Section</button>
+                </div>
+    
+                <LessonButton lessonId="8" onSelect={onSelect} selected={this.isSelected("8")}>
+                    <div className="lesson-button__title">Short a</div>
+                </LessonButton>
+                <LessonButton lessonId="9" onSelect={onSelect} selected={this.isSelected("9")}>
+                    <div className="lesson-button__title">Short e</div>
+                </LessonButton>
+                <LessonButton lessonId="10" onSelect={onSelect} selected={this.isSelected("10")}>
+                    <div className="lesson-button__title">Short i</div>
+                </LessonButton>
+                <LessonButton lessonId="11" onSelect={onSelect} selected={this.isSelected("11")}>
+                    <div className="lesson-button__title">Short o</div>
+                </LessonButton>
+                <LessonButton lessonId="12" onSelect={onSelect} selected={this.isSelected("12")}>
+                    <div className="lesson-button__title">Short u</div>
+                </LessonButton>
+                <LessonButton lessonId="13" onSelect={onSelect} selected={this.isSelected("13")}>
+                    <div className="lesson-button__title">Odd One Out</div>
+                </LessonButton>
+                <LessonButton lessonId="14" onSelect={onSelect} selected={this.isSelected("14")}>
+                    <div className="lesson-button__title">A New World</div>
+                </LessonButton>
             </div>
+
         );
     }
 });

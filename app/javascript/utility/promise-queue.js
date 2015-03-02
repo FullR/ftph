@@ -26,7 +26,7 @@ function PromiseQueue(promiseFns) {
         else {
             Q.resolve()
                 .then(promiseFns.shift() || _.noop)
-                .then(next);
+                .then(next, deferred.reject);
         }
     }
     

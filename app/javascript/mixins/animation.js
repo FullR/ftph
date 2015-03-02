@@ -35,6 +35,7 @@ var animationMixin = {
         }
 
         return function() {
+            console.log("Running",fnString);
             return fn.apply(null, args);
         }.bind(this);
     },
@@ -52,11 +53,16 @@ var animationMixin = {
             this.state.animating = true;
             this.setState(this.state);
 
-            return this.animationQueue.start().then(() => {
-                this.animationQueue = null;
-                this.state.animating = false;
-                this.setState(this.state);
-            });
+            return this.animationQueue.start()
+                .then(() => {
+                    this.animationQueue = null;
+                    this.state.animating = false;
+                    this.setState(this.state);
+                })
+                .catch((error) => {
+                    console.error("Animation failed:",error);
+                    console.trace();
+                });
         };
 
         // allow passing function names instead of functions
@@ -84,6 +90,7 @@ var animationMixin = {
 
     stopAnimation: function() {
         if(this.animationQueue) {
+            console.log("Stopping animation queue");
             this.animationQueue.stop();
         }
     },
@@ -113,6 +120,7 @@ var animationMixin = {
 
     // On unmount, stop any animations that may be playing
     componentWillUnmount: function() {
+        console.log("Cancelling animation");
         this.stopAnimation();
     }
 };
