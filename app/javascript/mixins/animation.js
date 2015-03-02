@@ -22,7 +22,8 @@ var animationMixin = {
         The input function can also be a string referring to method in the current context
     */
     then: function(fn, ...args) {
-        var fnString;
+        var fnString,
+            boundFn;
 
         if(typeof fn === "string") {
             if(this[fn]) {
@@ -34,9 +35,11 @@ var animationMixin = {
             }
         }
 
-        return function() {
+        boundFn = function() {
             return fn.apply(null, args);
         }.bind(this);
+        boundFn.fnName = fnString;
+        return boundFn;
     },
 
     /*
@@ -47,7 +50,7 @@ var animationMixin = {
 
         // Updates component state and runs the promise queue
         var playAnimation = () => {
-            this.animationQueue = PromiseQueue(animationFn(this.then));
+            this.animationQueue = PromiseQueue(animationFn(this.then), () => this.mounted);
 
             this.state.animating = true;
             this.setState(this.state);
@@ -56,7 +59,7 @@ var animationMixin = {
                 this.animationQueue = null;
                 this.state.animating = false;
                 this.setState(this.state);
-            });
+            });//.catch((error) => console.log("Animation failed:",error));
         };
 
         // allow passing function names instead of functions
@@ -100,6 +103,7 @@ var animationMixin = {
     // and play the returned animation
     componentDidMount: function() {
         var animation;
+        this.mounted = true;
         if(this.autoplayAnimation) {
             this.animate(this.autoplayAnimation);
         }
@@ -113,6 +117,7 @@ var animationMixin = {
 
     // On unmount, stop any animations that may be playing
     componentWillUnmount: function() {
+        this.mounted = false;
         this.stopAnimation();
     }
 };

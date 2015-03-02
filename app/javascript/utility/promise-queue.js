@@ -14,19 +14,31 @@ var _     = require("lodash"),
         stop: Removes all elements from the queue and resolves the promise returned by `#start` and `#getPromise`.
         getPromise: Returns queue's promise.
 */
-function PromiseQueue(promiseFns) {
+function PromiseQueue(promiseFns, shouldRunStep) {
     var deferred = Q.defer();
     promiseFns = _.compact(_.flatten(promiseFns)); // Flatten and remove falsy values (cloning is also a good side effect to avoid mutation when shifting later)
 
     // shift the next step function off of `promiseFns`
     function next() {
+        var fn;
         if(promiseFns.length === 0) {
             deferred.resolve();
         }
         else {
-            Q.resolve()
-                .then(promiseFns.shift() || _.noop)
-                .then(next);
+            fn = promiseFns.shift() || _.noop;
+            if(!shouldRunStep || shouldRunStep()) {
+                Q.resolve()
+                    .then(fn)
+                    .then(next, (error) => {
+                        console.error(error);
+                        if(fn && fn.fnName) {
+                            console.log("in " + fn.fnName);
+                        }
+                    });
+            }
+            else {
+                deferred.resolve();
+            }
         }
     }
     
