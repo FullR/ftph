@@ -1,34 +1,105 @@
-var React                = require("react"),
-    LessonButton         = require("components/admin/lesson-button"),
-    SublessonMarker = require("components/admin/sublesson-marker");
+var React = require("react"),
+    SectionHeader = require("components/admin/section-header"),
+    LessonButton = require("components/admin/lesson-button");
 
 var Section1 = React.createClass({
+    isSelected: function(lessonId) {
+        return lessonId === this.props.value;
+    },
+
     render: function() {
-        var {selectLesson, selectedLesson} = this.props;
+        var onSelect = this.props.onSelect;
 
         return (
-            <div className='admin-section-1'>
-                <LessonButton lesson='1' title='Beginning Sounds' className='sec-1-btn-long' selectLesson={selectLesson} selected={selectedLesson === '1'}>
-                    <SublessonMarker parent='1' letter='m' activities={["4", "5"]} selectLesson={selectLesson} selected={selectedLesson === '1-m'}/>
-                    <SublessonMarker parent='1' letter='l' activities={["6", "7"]} selectLesson={selectLesson} selected={selectedLesson === '1-l'}/>
-                    <SublessonMarker parent='1' letter='n' activities={["8", "9"]} selectLesson={selectLesson} selected={selectedLesson === '1-n'}/>
-                    <SublessonMarker parent='1' letter='r' activities={["10", "11"]} selectLesson={selectLesson} selected={selectedLesson === '1-r'}/>
-                    <SublessonMarker parent='1' letter='g' activities={["12", "13"]} selectLesson={selectLesson} selected={selectedLesson === '1-g'}/>
-                    <SublessonMarker parent='1' letter='s' activities={["14", "15"]} selectLesson={selectLesson} selected={selectedLesson === '1-s'}/>
+            <div className="admin-section admin-section-1">
+                <div className="section-header-container">
+                    <button className="previous-section-button" onClick={this.props.renderPrevious}>Previous Section</button>
+                    <SectionHeader title="Word Sounds" lessons="1-7"/>
+                    <button className="next-section-button" onClick={this.props.renderNext}>Next Section</button>
+                </div>
+
+
+                <LessonButton lessonId="1" onSelect={onSelect} selected={this.isSelected("1")}>
+                    <div className="lesson-button__title">
+                        Beginning Sounds
+                    </div>
+                    <div className="sub-lessons">
+                        <LessonButton lessonId="1-m" onSelect={onSelect} selected={this.isSelected("1-m")} className="sub-lesson-button">
+                            <div className="sub-lesson__title">/m/</div>
+                        </LessonButton>
+                        <LessonButton lessonId="1-l" onSelect={onSelect} selected={this.isSelected("1-l")} className="sub-lesson-button">
+                            <div className="sub-lesson__title">/l/</div>
+                        </LessonButton>
+                        <LessonButton lessonId="1-n" onSelect={onSelect} selected={this.isSelected("1-n")} className="sub-lesson-button">
+                            <div className="sub-lesson__title">/n/</div>
+                        </LessonButton>
+                        <LessonButton lessonId="1-r" onSelect={onSelect} selected={this.isSelected("1-r")} className="sub-lesson-button">
+                            <div className="sub-lesson__title">/r/</div>
+                        </LessonButton>
+                        <LessonButton lessonId="1-g" onSelect={onSelect} selected={this.isSelected("1-g")} className="sub-lesson-button">
+                            <div className="sub-lesson__title">/g/</div>
+                        </LessonButton>
+                        <LessonButton lessonId="1-s" onSelect={onSelect} selected={this.isSelected("1-s")} className="sub-lesson-button">
+                            <div className="sub-lesson__title">/s/</div>
+                        </LessonButton>
+                    </div>
                 </LessonButton>
-                <LessonButton lesson='2' title='Ending Sounds' className='sec-1-btn-long' selectLesson={selectLesson} selected={selectedLesson === '2'}>
-                    <SublessonMarker parent='2' letter='d' activities={["4", "5"]} selectLesson={selectLesson} selected={selectedLesson === '2-d'}/>
-                    <SublessonMarker parent='2' letter='p' activities={["6", "7"]} selectLesson={selectLesson} selected={selectedLesson === '2-p'}/>
-                    <SublessonMarker parent='2' letter='k' activities={["8", "9"]} selectLesson={selectLesson} selected={selectedLesson === '2-k'}/>
-                    <SublessonMarker parent='2' letter='f' activities={["10", "11"]} selectLesson={selectLesson} selected={selectedLesson === '2-f'}/>
-                    <SublessonMarker parent='2' letter='m' activities={["12", "13"]} selectLesson={selectLesson} selected={selectedLesson === '2-m'}/>
-                    <SublessonMarker parent='2' letter='b' activities={["14", "15"]} selectLesson={selectLesson} selected={selectedLesson === '2-b'}/>
+
+                <LessonButton lessonId="2" onSelect={onSelect} selected={this.isSelected("2")}>
+                    <div className="lesson-button__title">
+                        Ending Sounds
+                    </div>
+                    <div className="sub-lessons">
+                        <LessonButton lessonId="2-d" onSelect={onSelect} selected={this.isSelected("2-d")} className="sub-lesson-button">
+                            <div className="sub-lesson__title">/d/</div>
+                        </LessonButton>
+                        <LessonButton lessonId="2-p" onSelect={onSelect} selected={this.isSelected("2-p")} className="sub-lesson-button">
+                            <div className="sub-lesson__title">/p/</div>
+                        </LessonButton>
+                        <LessonButton lessonId="2-k" onSelect={onSelect} selected={this.isSelected("2-k")} className="sub-lesson-button">
+                            <div className="sub-lesson__title">/k/</div>
+                        </LessonButton>
+                        <LessonButton lessonId="2-f" onSelect={onSelect} selected={this.isSelected("2-f")} className="sub-lesson-button">
+                            <div className="sub-lesson__title">/f/</div>
+                        </LessonButton>
+                        <LessonButton lessonId="2-m" onSelect={onSelect} selected={this.isSelected("2-m")} className="sub-lesson-button">
+                            <div className="sub-lesson__title">/m/</div>
+                        </LessonButton>
+                        <LessonButton lessonId="2-b" onSelect={onSelect} selected={this.isSelected("2-b")} className="sub-lesson-button">
+                            <div className="sub-lesson__title">/b/</div>
+                        </LessonButton>
+                    </div>
                 </LessonButton>
-                <LessonButton lesson='3' title='Beginning and Ending Sounds' className='sec-1-btn-long' selectLesson={selectLesson} selected={selectedLesson === '3'}/>
-                <LessonButton lesson='4' title='Rhyme Match' className='sec-1-btn-short' selectLesson={selectLesson} selected={selectedLesson === '4'}/>
-                <LessonButton lesson='5' title='Rhyme Time' className='sec-1-btn-short' selectLesson={selectLesson} selected={selectedLesson === '5'}/>
-                <LessonButton lesson='6' title='Say the Word' className='sec-1-btn-short' selectLesson={selectLesson} selected={selectedLesson === '6'}/>
-                <LessonButton lesson='7' title='Echo' className='sec-1-btn-short' selectLesson={selectLesson} selected={selectedLesson === '7'}/>
+
+                <LessonButton lessonId="3" onSelect={onSelect} selected={this.isSelected("3")}>
+                    <div className="lesson-button__title">
+                        Beginning and Ending Sounds
+                    </div>
+                </LessonButton>
+
+                <LessonButton lessonId="4" onSelect={onSelect} selected={this.isSelected("4")}>
+                    <div className="lesson-button__title">
+                        Rhyme Match
+                    </div>
+                </LessonButton>
+
+                <LessonButton lessonId="5" onSelect={onSelect} selected={this.isSelected("5")}>
+                    <div className="lesson-button__title">
+                        Rhyme Time
+                    </div>
+                </LessonButton>
+
+                <LessonButton lessonId="6" onSelect={onSelect} selected={this.isSelected("6")}>
+                    <div className="lesson-button__title">
+                        Say the Word
+                    </div>
+                </LessonButton>
+
+                <LessonButton lessonId="7" onSelect={onSelect} selected={this.isSelected("7")}>
+                    <div className="lesson-button__title">
+                        Echo
+                    </div>
+                </LessonButton>
             </div>
         );
     }

@@ -42,20 +42,20 @@ var AdminCheck = React.createClass({
 
     render: function() {
         return (
-            <div className='admin-check'>
-                <p className='admin-check__instructions'>
+            <div className="admin-check">
+                <p className="admin-check__instructions">
                     Enter the first three letters of the word
-                    <br/>&quot;<span className='admin-check__password-label'>tea</span>cher&quot;<br/>
+                    <br/>&quot;<span className="admin-check__password-label">tea</span>cher&quot;<br/>
                     in the box and click Go to enter the Admin/Score screen.
                 </p>
 
-                <form className='admin-check__input-container' onSubmit={this.submit}>
-                    <input className='admin-check__password-input' ref='passwordInput' value={this.state.password} onChange={this.updatePassword} />
-                    <button className='admin-check__submit-button'>Go</button>
+                <form className="admin-check__input-container" onSubmit={this.submit}>
+                    <input className="admin-check__password-input" ref="passwordInput" value={this.state.password} onChange={this.updatePassword} />
+                    <button className="admin-check__submit-button">Go</button>
                 </form>
 
-                <div className='admin-check__timer-container'>
-                    <Timer className='admin-check__timer' seconds={15} onComplete={this.back} />
+                <div className="admin-check__timer-container">
+                    <Timer className="admin-check__timer" seconds={15} onComplete={this.back} />
                 </div>
             </div>
         );

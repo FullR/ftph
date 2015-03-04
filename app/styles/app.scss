@@ -35,6 +35,8 @@
 
     // Admin
         @import 'components/admin/admin-button';
+        @import 'components/admin/section-header';
+        @import 'components/admin/section-list';
 
 
 // Screens
@@ -45,8 +47,20 @@
     @import 'screens/admin-check';
     @import 'screens/lesson-feedback';
     @import 'screens/admin'; // Needs to be refactored
+    // Admin Sections
+        @import 'screens/admin-sections/1';
+        @import 'screens/admin-sections/2';
+        @import 'screens/admin-sections/3';
+        @import 'screens/admin-sections/4';
+        @import 'screens/admin-sections/5';
+        @import 'screens/admin-sections/6';
+        @import 'screens/admin-sections/7';
+        @import 'screens/admin-sections/8';
+        @import 'screens/admin-sections/9';
+        @import 'screens/admin-sections/10';
 
     // Individual Lessons
         @import 'screens/lessons/1';
         @import 'screens/lessons/2';
+        @import 'screens/lessons/3';
         @import 'screens/lessons/4';

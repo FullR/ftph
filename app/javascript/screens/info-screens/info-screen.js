@@ -37,17 +37,17 @@ var InfoScreen = React.createClass({
     render: function() {
         return (
             <div className={this.classNames("info-screen")}>
-                <div className='info-screen-header'>
+                <div className="info-screen-header">
                     {this.props.header}
                 </div>
-                <div className='info-screen-content'>
+                <div className="info-screen-content">
                     {this.props.children}
                 </div>
-                <div className='info-screen-footer'>
-                    <div className='info-box'>
-                        &copy; 2014 The Critical Thinking Co.&trade; &#8226; <WebLink href='http://www.criticalthinking.com'>www.CriticalThinking.com</WebLink> &#8226; 800-458-4849
+                <div className="info-screen-footer">
+                    <div className="info-box">
+                        &copy; 2014 The Critical Thinking Co.&trade; &#8226; <WebLink href="http://www.criticalthinking.com">www.CriticalThinking.com</WebLink> &#8226; 800-458-4849
                     </div>
-                    <button className='info-back-button' onClick={this.goHome}>Back</button>
+                    <button className="info-back-button" onClick={this.goHome}>Back</button>
                 </div>
             </div>
         );

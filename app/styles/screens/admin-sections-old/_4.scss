@@ -1,0 +1,125 @@
+.admin-section-4, .admin-section-5, .admin-section-6, .admin-section-7, .admin-section-8 {
+	@include size(80%, 90%);
+	@include container;
+	position: relative;
+	left: 10%;
+}
+
+.admin .cons-btn-long, .admin .cons-btn-short {
+	@include container;
+	height: 24%;
+	margin-bottom: gutter(24);
+	position: relative;
+	display: block;
+}
+
+.admin .cons-btn-long {
+	@include span(8);
+	border: 3px solid black;
+}
+
+.admin .cons-btn-short {
+	@include span(2);
+	border: 3px solid black;
+
+	&:first-child {
+		@include span(2 break);
+		@include last;
+	}
+}
+
+.admin .cons-review-btn {
+	@include span(2 last);
+	border: 3px solid black;
+	height: 51%;
+	position: relative;
+}
+
+.admin .inner-btn {
+	@include span(1 of 8);
+	left: span(3 of 8);
+	position: relative;
+	height: 80%;
+	top: 10%;
+	border: 1px solid black;
+	border-radius: 8px;
+	background: #FFF;
+
+	@include active {
+		background: #FFF;
+	}
+}
+
+.admin .admin-sublesson-marker {
+	@include span(1 of 8);
+	left: span(2 of 8);
+	position: relative;
+	height: 80%;
+	top: 10%;
+	border: 1px solid black;
+	border-radius: 8px;
+	background: #FFF;
+	text-align: center;
+
+	&-content {
+		position: relative;
+		font-size: 22px;
+		top: 35%;
+	}
+
+	&-active {
+		border-color: red;
+	}
+
+	@include active {
+		border-color: #1285e7;
+	}
+
+}
+
+
+// Inside the buttons
+
+.cons-btn-long > .lesson-button-title, .sec-1-btn-long > .lesson-button-title {
+	@include pos(24px, 32px);
+	font-size: 22px;
+	text-decoration: underline;
+}
+
+.cons-btn-short > .lesson-button-title, 
+.sec-1-btn-short > .lesson-button-title, 
+.sec-2-btn > .lesson-button-title, 
+.sec-3-btn > .lesson-button-title {
+	width: 100%;
+	text-align: center;
+	font-size: 22px;
+	margin-top: 4px;
+	text-decoration: underline;
+}
+
+.cons-btn-subheader {
+	text-align: center;
+	width: 100%;
+	display: inline-block;
+	margin-top: 20px;
+	font-size: 22px;
+}
+
+.inner-btn > .lesson-button-title {
+	@include pos(35%, 0);
+	width: 100%;
+	text-align: center;
+	font-size: 24px;
+}
+
+.lesson-button-letters {
+	font-size: 20px;
+	line-height: 30px;
+}
+
+.cons-review-btn > .lesson-button-title {
+	@include pos(35%, 0);
+	width: 100%;
+	text-align: center;
+	font-size: 22px;
+}

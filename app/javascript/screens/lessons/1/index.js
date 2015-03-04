@@ -60,12 +60,11 @@ var Lesson1 = React.createClass({
                     "touch-arrow":     "common/touch-arrow"
                 }}
 
-                
                 instructions={(then) => [
                     then("say", "the-first-sound"), then("wait", 250),
                     then("uncenterActor"),
 
-                    choices.map((choice, i) => [
+                    ...choices.map((choice, i) => [
                         then("revealChoice", i),
                         then("say", ["words", i]),
                         then("wait", 250)
@@ -75,7 +74,7 @@ var Lesson1 = React.createClass({
                     then("say", "t"),               then("wait", 250),
                     then("say", "say-the-words"),   then("wait", 250),
 
-                    choices.map((choice, i) => [
+                    ...choices.map((choice, i) => [
                         then("say", ["words", i]),
                         then("wait", 250)
                     ]),

@@ -6,11 +6,11 @@ var React      = require("react"),
 
 var About = React.createClass({
     render: function() {
-        var title = (<span className='product-title'>{project.title}</span>),
+        var title = (<span className="product-title">{project.title}</span>),
             header = (<h1>About {title}&#8482;</h1>);
 
         return (
-            <InfoScreen className='about' header={header}>
+            <InfoScreen className="about" header={header}>
                 <h2>The Building Blocks of Better Spelling and Vocabulary</h2>
                 <p>{title}&trade; can be used with our award-winning Word Roots books/software products or as an independent teaching tool.&nbsp; The 10 flashcard games in this software teach students the meanings of word parts (prefixes, roots, and suffixes) so they can decode the meaning and spelling of new vocabulary by breaking a word into its word parts.&nbsp; This set of games includes all of the {dictionary.prefixes.length} prefixes, {dictionary.roots.length} roots, {dictionary.suffixes.length} suffixes, and {dictionary.words.length} vocabulary words that are in the corresponding book or software.</p>
 
@@ -18,7 +18,7 @@ var About = React.createClass({
 
                 <p>We have numbered the games in what we consider the optimal learning order, but you also have the option to create your own order to meet your needs.&nbsp; For example, rather than do all of the flashcards by identifying the definition or word part, you may choose to focus on studying prefixes, then suffixes, then roots.</p>
 
-                <p className='indented'>
+                <p className="indented">
                     To see our full line of Word Roots products, please visit:  <WebLink href="http://www.CriticalThinking.com/word-roots.html">http://www.CriticalThinking.com/word-roots.html</WebLink><br/>
                     To find a full list of all our award-winning products, please visit:  <WebLink href="http://www.CriticalThinking.com">http://www.CriticalThinking.com</WebLink>
                 </p>

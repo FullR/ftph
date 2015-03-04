@@ -12,7 +12,7 @@ module.exports = React.createClass({
                     {word: "egg", correct: true},
                     {word: "cat"}
                 ]}
-                incorrectFeedback={(then, word) => [ // box/cat doesn't have /eh/ or /g/ sounds
+                incorrectFeedback={(then, word) => [ // box/cat doesn"t have /eh/ or /g/ sounds
                     then("say", "word"),
                     then("say", "doesnt-have-the"),
                     then("say", "phonics.0"),

@@ -87,11 +87,11 @@ var ActivityFeedback = React.createClass({
 
     render: function() {
         return (
-            <GameScreen className='activity-feedback'>
+            <GameScreen className="activity-feedback">
                 <Teacher {...this.state.teacher} onClick={this.animationCallback(this.getAutoplayAnimation())}/>
                 {this.props.children}
                 {this.state.hidingContinueButton ? null :
-                    <div className='activity-feedback__arrow' onClick={this.props.renderNextScreen || this.renderNextScreen}/>
+                    <div className="activity-feedback__arrow" onClick={this.props.renderNextScreen || this.renderNextScreen}/>
                 }
                 <Info 
                     lessonId={this.props.lessonId}

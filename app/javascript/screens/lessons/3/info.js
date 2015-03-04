@@ -1,3 +1,5 @@
+var React = require("react");
+
 module.exports = {
     id:            "3",
     title:         "Beginning and Ending Sounds",

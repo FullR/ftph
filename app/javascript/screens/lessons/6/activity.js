@@ -79,7 +79,9 @@ var Lesson6Activity = React.createClass({
                                 "phonics": phonics.map((phonic) => 
                                     `phonics/activity-phonics/${phonic}`
                                 ),
+                                "correct-word":      `lessons/lesson-6/activities/feedback/correct/${phonics.join("_")}`,
                                 "word":              `words/activity-words/${selected.word}`,
+
                                 "sound":             "common/activities/sound",
                                 "doesnt-have-the":   "lessons/lesson-6/activities/feedback/doesnt-have-the",
                                 "doesnt-begin-with": "lessons/lesson-6/activities/feedback/doesnt-begin-with",
@@ -89,15 +91,19 @@ var Lesson6Activity = React.createClass({
                             }}
 
                             correctAnimation={(then) => [
-                                ...phonics.map((phonic, index) => 
-                                    then("say", ["phonics", index])
-                                ),
+                                then("say", "correct-word"),
                                 then("wait", 250),
                                 then("say", "words.0")
                             ]}
 
                             incorrectAnimation={function(then) {
-                                return incorrectFeedback(then, selected.word);
+                                console.log("Running incorrect feedback");
+                                try {
+                                    return incorrectFeedback(then, selected.word);
+                                }
+                                catch(err) {
+                                    console.log(err);
+                                }
                             }}/>
                     );
                 }}/>

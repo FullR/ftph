@@ -10,18 +10,19 @@ var Choice = React.createClass({
     },
 
     // On mount, watch the passed sound for play/end events
-    componentWillMount: function() {
+    componentDidMount: function() {
         var sound = this.props.sound;
+
         if(sound) {
-            sound.on("play", function() {
+            sound.on("play", () => {
                 this.state.playingSound = true;
                 this.setState(this.state);
-            }.bind(this));
+            });
 
-            sound.on("end", function() {
+            sound.on("end", () => {
                 this.state.playingSound = false;
                 this.setState(this.state);
-            }.bind(this));
+            });
         }
     },
 
@@ -51,13 +52,13 @@ var Choice = React.createClass({
 
         return (
             <div key={this.props.key} className={classNames}>
-                <div className='choice__content' onClick={this.props.onClick}>
+                <div className="choice__content" onClick={this.props.onClick}>
                     {this.props.children}
                 </div>
 
                 {sound && !this.props.soundDisabled ? 
                     <button 
-                        className='choice__play-button' 
+                        className="choice__play-button" 
                         onClick={onReplayClick} /> :
                     null
                 }

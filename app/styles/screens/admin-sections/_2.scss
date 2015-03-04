@@ -1,17 +1,31 @@
-.admin .admin-section-2 {
-	height: 50%;
-	width: 70%;
-	margin-left: 15%;
-	text-align: center;
-}
+$button-color: #fbdfe7;
+$button-color-hover: #fce9ee;
+$section-header-color: #fce4eb;
+$lesson-button-title-size: 24px;
 
-.admin-section-2  .sec-2-btn {
-	position: relative;
-	display: inline-block;
-	width: 18%;
-	height: 48%;
-	margin: 2% 1% 0 1%;
-	border: 3px solid black;
+.admin-section-2 {
+    text-align: center;
+    .lesson-button {
+        display: inline-block;
+        width: 18%;
+        margin-left: 1%;
+        margin-right: 1%;
+        height: 25%;
+        margin-bottom: 2%;
+        background: $button-color;
+        @include active {
+            background: $button-color-hover;
+        }
+    }
 
-	text-decoration: underline;
+    .lesson-button__title {
+        @include pos(5%, 0);
+        width: 100%;
+        text-decoration: underline;
+        font-size: $lesson-button-title-size;
+    }
+
+    .section-header {
+        background: $section-header-color;
+    }
 }

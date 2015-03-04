@@ -1,18 +1,46 @@
-var React        = require("react"),
+var React = require("react"),
+    SectionHeader = require("components/admin/section-header"),
     LessonButton = require("components/admin/lesson-button");
 
 var Section2 = React.createClass({
+    isSelected: function(lessonId) {
+        return lessonId === this.props.value;
+    },
+
     render: function() {
+        var onSelect = this.props.onSelect;
+
         return (
-            <div className='admin-section-2'>
-                <LessonButton lesson='8'  title='Short a'     className='sec-2-btn'/>
-                <LessonButton lesson='9'  title='Short e'     className='sec-2-btn'/>
-                <LessonButton lesson='10' title='Short i'     className='sec-2-btn'/>
-                <LessonButton lesson='11' title='Short o'     className='sec-2-btn'/>
-                <LessonButton lesson='12' title='Short u'     className='sec-2-btn'/>
-                <LessonButton lesson='13' title='Odd One Out' className='sec-2-btn'/>
-                <LessonButton lesson='14' title='A New World' className='sec-2-btn'/>
+            <div className="admin-section admin-section-2">
+                <div className="section-header-container">
+                    <button className="previous-section-button" onClick={this.props.renderPrevious}>Previous Section</button>
+                    <SectionHeader title="Short Vowel Sounds" lessons="7-14"/>
+                    <button className="next-section-button" onClick={this.props.renderNext}>Next Section</button>
+                </div>
+    
+                <LessonButton lessonId="8" onSelect={onSelect} selected={this.isSelected("8")}>
+                    <div className="lesson-button__title">Short a</div>
+                </LessonButton>
+                <LessonButton lessonId="9" onSelect={onSelect} selected={this.isSelected("9")}>
+                    <div className="lesson-button__title">Short e</div>
+                </LessonButton>
+                <LessonButton lessonId="10" onSelect={onSelect} selected={this.isSelected("10")}>
+                    <div className="lesson-button__title">Short i</div>
+                </LessonButton>
+                <LessonButton lessonId="11" onSelect={onSelect} selected={this.isSelected("11")}>
+                    <div className="lesson-button__title">Short o</div>
+                </LessonButton>
+                <LessonButton lessonId="12" onSelect={onSelect} selected={this.isSelected("12")}>
+                    <div className="lesson-button__title">Short u</div>
+                </LessonButton>
+                <LessonButton lessonId="13" onSelect={onSelect} selected={this.isSelected("13")}>
+                    <div className="lesson-button__title">Odd One Out</div>
+                </LessonButton>
+                <LessonButton lessonId="14" onSelect={onSelect} selected={this.isSelected("14")}>
+                    <div className="lesson-button__title">A New World</div>
+                </LessonButton>
             </div>
+
         );
     }
 });

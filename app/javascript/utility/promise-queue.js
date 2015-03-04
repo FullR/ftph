@@ -12,7 +12,7 @@ var _     = require("lodash"),
     Returns a control object with these methods:
         start: Starts the evaluation of the queue functions. Returns a promise that resolves when the queue finishes.
         stop: Removes all elements from the queue and resolves the promise returned by `#start` and `#getPromise`.
-        getPromise: Returns queue's promise.
+        getPromise: Returns queue"s promise.
 */
 function PromiseQueue(promiseFns, shouldRunStep) {
     var deferred = Q.defer();
@@ -26,19 +26,18 @@ function PromiseQueue(promiseFns, shouldRunStep) {
         }
         else {
             fn = promiseFns.shift() || _.noop;
-            if(!shouldRunStep || shouldRunStep()) {
-                Q.resolve()
-                    .then(fn)
-                    .then(next, (error) => {
-                        console.error(error);
-                        if(fn && fn.fnName) {
-                            console.log("in " + fn.fnName);
-                        }
-                    });
-            }
-            else {
-                deferred.resolve();
-            }
+            Q.resolve()
+                .then(fn)
+                .then(next)
+                .catch((error) => {
+                    if(fn.displayName) {
+                        console.error("Animation error:",error,"in",fn.displayName);
+                    }
+                    else {
+                        console.error("Animation error:",error);
+                    }
+                    return next();
+                });
         }
     }
     

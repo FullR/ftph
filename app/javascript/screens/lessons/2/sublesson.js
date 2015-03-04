@@ -13,7 +13,7 @@ var Lesson2Sublesson = React.createClass({
     mixins: [require("mixins/storage")],
 
     componentWillMount: function() {
-        // store last lesson for this activity's sublesson
+        // store last lesson for this activity"s sublesson
         this.save("last-lesson", `2-${this.props.phonic}`);
     },
 

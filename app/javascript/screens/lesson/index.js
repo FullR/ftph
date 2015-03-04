@@ -61,7 +61,7 @@ var Lesson = React.createClass({
                     {this.props.nextLabel}
                 </Arrow>
 
-                <div className='choice-group'>{this.state.choices.map(this.props.renderChoice.bind(null, this))}</div>
+                <div className="choice-group">{this.state.choices.map(this.props.renderChoice.bind(null, this))}</div>
                 
                 {this.props.children}
             </GameScreen>

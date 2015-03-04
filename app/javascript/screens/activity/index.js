@@ -91,13 +91,13 @@ var Activity = React.createClass({
         var steps;
         if(this.props.instructions) {
             steps = this.props.instructions.call(this, then);
-            // steps that always come first
-            [
+
+            return [
                 then("revealActor"), 
                 then("centerActor"), 
-                then("hideChoices")
-            ].forEach(steps.unshift.bind(steps));
-            return steps;
+                then("hideChoices"),
+                ...steps
+            ];
         }
         else {
             return [then("revealActor")];
@@ -153,7 +153,7 @@ var Activity = React.createClass({
 
                 {this.props.children}
 
-                <div className='choice-group'>{this.state.choices.map(this.props.renderChoice.bind(null, this))}</div>
+                <div className="choice-group">{this.state.choices.map(this.props.renderChoice.bind(null, this))}</div>
 
                 <Info 
                     lessonId={this.props.lessonId}

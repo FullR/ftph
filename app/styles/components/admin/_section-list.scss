@@ -1,0 +1,12 @@
+.section-list {
+    font-size: 22px;
+}
+
+.section-list__item-active {
+    font-weight: bold;
+}
+
+.section-list__item:last-child {
+    position: relative;
+    left: -12px;
+}

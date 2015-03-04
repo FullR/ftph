@@ -7,7 +7,7 @@ module.exports = {
             then("revealActor"),
             then("hideChoices"),
 
-            // Reveal and say each choice's word
+            // Reveal and say each choice"s word
             ...this.props.choices.map((word, index) => [
                 then("revealChoice", index),
                 then("say", ["words", index]),

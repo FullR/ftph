@@ -35,10 +35,12 @@ var animationMixin = {
             }
         }
 
-        boundFn = function() {
+        boundFn =() => {
             return fn.apply(null, args);
-        }.bind(this);
-        boundFn.fnName = fnString;
+        };
+
+        boundFn.displayName = fnString+"("+args.join(",")+")";
+
         return boundFn;
     },
 
@@ -55,11 +57,15 @@ var animationMixin = {
             this.state.animating = true;
             this.setState(this.state);
 
-            return this.animationQueue.start().then(() => {
-                this.animationQueue = null;
-                this.state.animating = false;
-                this.setState(this.state);
-            });//.catch((error) => console.log("Animation failed:",error));
+            return this.animationQueue.start()
+                .then(() => {
+                    this.animationQueue = null;
+                    //this.state.animating = false;
+                    //this.setState(this.state);
+                })
+                .catch((error) => {
+                    console.error("Animation failed:",error);
+                });
         };
 
         // allow passing function names instead of functions
@@ -117,7 +123,6 @@ var animationMixin = {
 
     // On unmount, stop any animations that may be playing
     componentWillUnmount: function() {
-        this.mounted = false;
         this.stopAnimation();
     }
 };

@@ -23,7 +23,7 @@ ready.then(function() {
         if(window.__platform.name === "web") {
             /* 
                 hover seems to be broken on android,
-                so I'm using a sass mixin for hover
+                so I"m using a sass mixin for hover
                 effects that only applies hover styles
                 when the hover-enabled class is present on
                 a parent element
@@ -46,7 +46,7 @@ ready.then(function() {
             if(muted) {
                 window.Media.mute();
             }
-            // Toggle mute when 'm' key is pressed
+            // Toggle mute when "m" key is pressed
             document.addEventListener("keydown", function(e) {
                 if(e.which === 77) {
                     window.Media[muted ? "unmute" : "mute"]();

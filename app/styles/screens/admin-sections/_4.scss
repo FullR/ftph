@@ -1,125 +1,123 @@
-.admin-section-4, .admin-section-5, .admin-section-6, .admin-section-7, .admin-section-8 {
-	@include size(80%, 90%);
-	@include container;
-	position: relative;
-	left: 10%;
+$button-color: #dfe8f5;
+$button-color-hover: #e9eff8;
+$section-header-color: #e4ecf7;
+$lesson-button-title-size: 24px;
+
+$row-count: 5;
+$row-spacing: 1%;
+$row-height: (100%/$row-count) - $row-spacing;
+
+.admin-section-4 {
+    > .lesson-button {
+        background-color: $button-color;
+
+        @include active {
+            background-color: $button-color-hover;
+        }
+    }
+
+    .lesson-button__title {
+        text-decoration: underline;
+        font-size: $lesson-button-title-size;
+    }
+
+    .sub-lesson__title {
+        @include pos(40%, 0);
+        width: 100%;
+        font-size:  $lesson-button-title-size;
+        text-align: center;
+    }
+
+    .section-header {
+        background: $section-header-color;
+    }
 }
 
-.admin .cons-btn-long, .admin .cons-btn-short {
-	@include container;
-	height: 24%;
-	margin-bottom: gutter(24);
-	position: relative;
-	display: block;
+// Long buttons
+.admin-section-4 > .lesson-button-21,
+.admin-section-4 > .lesson-button-27,
+.admin-section-4 > .lesson-button-31,
+.admin-section-4 > .lesson-button-37 {
+    @include span(6 of 10);
+    height: $row-height;
+    margin-bottom: $row-spacing;
+
+    > .lesson-button__index {
+        display: none;
+    }
+
+    .lesson-button__title {
+        @include pos(5%, 1%);
+        font-size: 24px;
+        text-decoration: underline;
+    }
 }
 
-.admin .cons-btn-long {
-	@include span(8);
-	border: 3px solid black;
+// Short review buttons
+.lesson-button-26,
+.lesson-button-30,
+.lesson-button-36,
+.lesson-button-42 {
+    @include span(2 of 10);
+    position: relative;
+    height: $row-height;
+    margin-bottom: $row-spacing;
+
+    .lesson-button__title {
+        @include pos(40%, 0);
+        width: 100%;
+        text-align: center;
+        font-size: 24px;
+        text-decoration: none;
+    }
+
+    &::after {
+        content: "Review";
+        @include pos(2%, 0);
+        width: 100%;
+        text-align: center;
+        font-size: 24px;
+        text-decoration: underline;
+    }
 }
 
-.admin .cons-btn-short {
-	@include span(2);
-	border: 3px solid black;
-
-	&:first-child {
-		@include span(2 break);
-		@include last;
-	}
+.lesson-button-26,
+.lesson-button-42 {
+    @include last;
+    float: left;
 }
 
-.admin .cons-review-btn {
-	@include span(2 last);
-	border: 3px solid black;
-	height: 51%;
-	position: relative;
+.lesson-button-43 {
+    @include span(2 of 10);
+    height: (2 * $row-height) + 1.5%;
+    margin-bottom: $row-spacing;
+    @include last;
 }
 
-.admin .inner-btn {
-	@include span(1 of 8);
-	left: span(3 of 8);
-	position: relative;
-	height: 80%;
-	top: 10%;
-	border: 1px solid black;
-	border-radius: 8px;
-	background: #FFF;
-
-	@include active {
-		background: #FFF;
-	}
+.inner-buttons {
+    position: relative;
+    @include span(9);
+    margin-left: span(3);
+    height: 80%;
+    top: 10%;
 }
 
-.admin .admin-sublesson-marker {
-	@include span(1 of 8);
-	left: span(2 of 8);
-	position: relative;
-	height: 80%;
-	top: 10%;
-	border: 1px solid black;
-	border-radius: 8px;
-	background: #FFF;
-	text-align: center;
+.inner-buttons .lesson-button {
+    @include span(1 of 5);
+    height: 100%;
+    background: WHITE;
+    border: 1px solid black;
+    border-radius: 8px;
 
-	&-content {
-		position: relative;
-		font-size: 22px;
-		top: 35%;
-	}
+    .lesson-button__title {
+        @include pos(40%, 0);
+        width: 100%;
+        text-align: center;
+        text-decoration: none;
+    }
 
-	&-active {
-		border-color: red;
-	}
-
-	@include active {
-		border-color: #1285e7;
-	}
-
-}
-
-
-// Inside the buttons
-
-.cons-btn-long > .lesson-button-title, .sec-1-btn-long > .lesson-button-title {
-	@include pos(24px, 32px);
-	font-size: 22px;
-	text-decoration: underline;
-}
-
-.cons-btn-short > .lesson-button-title, 
-.sec-1-btn-short > .lesson-button-title, 
-.sec-2-btn > .lesson-button-title, 
-.sec-3-btn > .lesson-button-title {
-	width: 100%;
-	text-align: center;
-	font-size: 22px;
-	margin-top: 4px;
-	text-decoration: underline;
-}
-
-.cons-btn-subheader {
-	text-align: center;
-	width: 100%;
-	display: inline-block;
-	margin-top: 20px;
-	font-size: 22px;
-}
-
-.inner-btn > .lesson-button-title {
-	@include pos(35%, 0);
-	width: 100%;
-	text-align: center;
-	font-size: 24px;
-}
-
-.lesson-button-letters {
-	font-size: 20px;
-	line-height: 30px;
-}
-
-.cons-review-btn > .lesson-button-title {
-	@include pos(35%, 0);
-	width: 100%;
-	text-align: center;
-	font-size: 22px;
+    &:last-child {
+        @include last;
+        float: left;
+    }
 }

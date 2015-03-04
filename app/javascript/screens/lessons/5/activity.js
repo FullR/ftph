@@ -44,7 +44,7 @@ var Lesson5Activity = React.createClass({
 
                         // Reveal and say words
                         ...choices.map((choice, index) => [
-                            then("revealChoice", 0),
+                            then("revealChoice", index),
                             then("say", ["words", index]),
                             then("wait", 250)
                         ]),
