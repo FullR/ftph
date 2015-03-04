@@ -66,18 +66,21 @@ var soundContainer = {
     */
     play: function(id) {
         return this.loadSounds()
-            .then(function() {
+            .then(() => {
                 var sound = this.getSound(id);
 
-                this.state.playingSound = true;
-                this.setState(this.state);
-
-                return sound.play();
-            }.bind(this))
-            .then(function() {
-                this.state.playingSound = false;
-                this.setState(this.state);
-            }.bind(this));
+                if(this.isMounted()) {
+                    this.state.playingSound = true;
+                    this.setState(this.state);
+                    return sound.play();
+                }
+            })
+            .then(() => {
+                if(this.isMounted()) {
+                    this.state.playingSound = false;
+                    this.setState(this.state);
+                }
+            });
     },
     
     /*

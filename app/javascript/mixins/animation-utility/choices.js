@@ -10,15 +10,19 @@ var animationChoiceMixin = {
             throw new Error("No choice found at index " + index);
         }
         else {
-            choice[key] = value;
-            this.setState(this.state);
+            if(this.isMounted()) {
+                choice[key] = value;
+                this.setState(this.state);
+            }
         }
     },
 
     // Set a property on all choices to a specified value
     choicesSet: function(key, value) {
-        this.state.choices.forEach(assign(key, value));
-        this.setState(this.state);
+        if(this.isMounted()) {
+            this.state.choices.forEach(assign(key, value));
+            this.setState(this.state);
+        }
     },
 
     // Reveals a choice at the given index

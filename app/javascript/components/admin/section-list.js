@@ -17,10 +17,10 @@ var SectionList = React.createClass({
                     "Reading Words"
                 ].map((sectionTitle, index) => {
                     if(1 + index === this.props.current) {
-                        return (<li className="section-list__item section-list__item-active">{index + 1}. {sectionTitle}</li>);
+                        return (<li key={index} className="section-list__item section-list__item-active">{index + 1}. {sectionTitle}</li>);
                     }
                     else {
-                        return (<li className="section-list__item">{index + 1}. {sectionTitle}</li>);
+                        return (<li key={index} className="section-list__item">{index + 1}. {sectionTitle}</li>);
                     }
                 })}
             </ul>

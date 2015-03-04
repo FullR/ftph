@@ -15,13 +15,17 @@ var Choice = React.createClass({
 
         if(sound) {
             sound.on("play", () => {
-                this.state.playingSound = true;
-                this.setState(this.state);
+                if(this.isMounted()) {
+                    this.state.playingSound = true;
+                    this.setState(this.state);
+                }
             });
 
             sound.on("end", () => {
-                this.state.playingSound = false;
-                this.setState(this.state);
+                if(this.isMounted()) {
+                    this.state.playingSound = false;
+                    this.setState(this.state);
+                }
             });
         }
     },

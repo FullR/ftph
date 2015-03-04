@@ -7,8 +7,10 @@ function ActorMixin(actorKey, initialState) {
 
         // Set a property on the actor object and render
         actorSet: function(key, value) {
-            this.getActor()[key] = value;
-            this.setState(this.state);
+            if(this.isMounted()) {
+                this.getActor()[key] = value;
+                this.setState(this.state);
+            }
         },
 
         // Center the actor on screen
