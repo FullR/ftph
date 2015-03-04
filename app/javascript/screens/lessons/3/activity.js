@@ -31,14 +31,17 @@ var Lesson3Activity = React.createClass({
             nextScreen       = this.props.nextScreen,
             activityId       = this.props.id,
             ending           = this.props.ending,
-            instroduceEnding = this.props.instroduceEnding;
+            instroduceEnding = this.props.instroduceEnding,
+            title = +this.props.id >= 13 ? 
+                    <span>Beginning and <span className="lesson-3-title-ending">Ending</span> Sounds</span> : 
+                    <span><span className="lesson-3-title-beginning">Beginning</span> and Ending Sounds</span>;
 
         return (
             <WordActivity {...this.props}
                 requiredSelectionCount = {2}
                 lessonId               = {lessonInfo.id}
                 section                = {lessonInfo.section}
-                lessonTitle            = {lessonInfo.title}
+                lessonTitle            = {title}
                 activityCount          = {lessonInfo.activityCount}
                 sounds                 = {this.getSounds()}
                 lessonScreen           = {require("screens/lessons/3")}
@@ -71,7 +74,7 @@ var Lesson3Activity = React.createClass({
                         feedback = (
                             <Feedback
                                 lessonId      = {lessonInfo.id}
-                                lessonTitle   = {lessonInfo.title}
+                                lessonTitle   = {title}
                                 activityId    = {activityId}
                                 activityCount = {lessonInfo.activityCount}
                                 section       = {lessonInfo.section}

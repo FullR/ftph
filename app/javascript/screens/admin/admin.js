@@ -96,16 +96,19 @@ var Admin = React.createClass({
                     <span className="admin__header-title">Fun-Time Phonics Admin/Score</span>
                     <span className="admin__header-grades">PreK - 2</span>
                 </div>
-                <SectionList current={this.state.section}/>
 
-                <p style={{display: "none", fontSize: 44, position: "absolute", width: "100%", textAlign: "center", fontWeight: "bold", top: "15%"}}>THIS PAGE IS UNDER CONSTRUCTION</p>
+                <div className="admin__content">
+                    <SectionList current={this.state.section}/>
 
-                <div className="admin__current-section">
-                    <Section value={this.state.selectedLesson} onSelect={this.updateSelectedLesson} renderNext={this.nextSection} renderPrevious={this.previousSection}/>
-                </div>
+                    <p style={{display: "none", fontSize: 44, position: "absolute", width: "100%", textAlign: "center", fontWeight: "bold", top: "15%"}}>THIS PAGE IS UNDER CONSTRUCTION</p>
 
-                <div className="admin__back-button" onClick={this.returnToGame}>
-                    {this.getArrowText()} Lesson {this.state.selectedLesson}
+                    <div className="admin__current-section">
+                        <Section value={this.state.selectedLesson} onSelect={this.updateSelectedLesson} renderNext={this.nextSection} renderPrevious={this.previousSection}/>
+                    </div>
+
+                    <div className="admin__back-button" onClick={this.returnToGame}>
+                        {this.getArrowText()} Lesson {this.state.selectedLesson}
+                    </div>
                 </div>
             </div>
         );
