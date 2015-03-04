@@ -1,14 +1,11 @@
 var truthy = require("utility/functional/truthy"),
     slice = [].slice;
 
-
 /*
     Mixin for providing classname utility methods
 */
 var classNamesMixin = {
-
-    /*
-        Takes an arbitrary number of classnames, filters falsy values,
+    /*  Takes an arbitrary number of classnames, filters falsy values,
         and adds them to the passed classname property
 
         Example:
@@ -18,8 +15,10 @@ var classNamesMixin = {
             "foobar fizz buzz flarp"
     */
     classNames: function(...classNames) {
-        return (this.props.className ? this.props.className + " " : "") + 
-                classNames.filter(truthy).join(" ");
+        return [
+            this.props.className,
+            ...classNames
+        ].filter(truthy).join(" ");
     }
 };
 
