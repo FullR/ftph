@@ -1,4 +1,7 @@
 $top-padding: 32px;
+$back-button-width: 240px;
+$back-button-height: 160px;
+$back-button-offset: 40px;
 
 // Individual button colors
 $section-colors: (
@@ -33,7 +36,9 @@ $section-colors: (
 
 .admin__current-section {
     @include pos(8%, 5%);
-    @include size(75%, 88%);
+    //@include size(80%, 88%);
+    right: $back-button-width + ($back-button-offset * 2);
+    bottom: $back-button-offset;
     color: blue;
     font-size: 16px;
 }
@@ -114,8 +119,8 @@ $section-colors: (
 
 
 .admin__back-button {
-    @include pos(2%, 2%, bottom, right);
-    @include size(240px, 160px);
+    @include pos($back-button-offset, $back-button-offset, bottom, right);
+    @include size($back-button-width, $back-button-height);
     background: url('images/arrow.png');
     background-size: 100% 100%;
     line-height:  160px;
@@ -157,9 +162,13 @@ $section-colors: (
 .next-section-button,
 .previous-section-button,
 .section-header {
-    height: 100%;
     display: inline-block;
     vertical-align: middle;
+}
+
+.next-section-button,
+.previous-section-button {
+    height: 100%;
 }
 
 .previous-section-button {
@@ -176,9 +185,7 @@ $section-colors: (
 }
 
 .section-header {
-    width: span(2);
-    //@include span(2);
-    border: 1px solid black;
+    width: span(4);
 }
 
 .next-section-button {

@@ -4,8 +4,8 @@
 }
 
 .section-header__title {
-    margin-top: 8%;
     width: 100%;
+    font-size: 36px;
     font-weight: bold;
     color: BLACK;
 }
@@ -16,6 +16,7 @@
 }
 
 .section-header__lessons {
-    @include pos(2%, 0, bottom);
+    margin-top: 12px;
+    font-size: 22px;
     width: 100%;
 }

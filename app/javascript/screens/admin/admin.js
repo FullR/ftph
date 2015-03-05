@@ -98,7 +98,7 @@ var Admin = React.createClass({
                 </div>
 
                 <div className="admin__content">
-                    <SectionList current={this.state.section}/>
+                    {/* <SectionList current={this.state.section}/> */}
 
                     <p style={{display: "none", fontSize: 44, position: "absolute", width: "100%", textAlign: "center", fontWeight: "bold", top: "15%"}}>THIS PAGE IS UNDER CONSTRUCTION</p>
 
