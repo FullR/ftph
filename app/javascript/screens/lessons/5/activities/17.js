@@ -8,8 +8,8 @@ var Lesson5Activity17 = React.createClass({
                 id="17"
                 choices={[
                     {word: "square", correct: true},
-                    {word: "jar", correct: true},
-                    {word: "bear"}
+                    {word: "jar"},
+                    {word: "bear", correct: true}
                 ]}
                 nextScreen={require("./18")}/>
         );
