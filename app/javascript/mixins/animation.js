@@ -60,8 +60,10 @@ var animationMixin = {
             return this.animationQueue.start()
                 .then(() => {
                     this.animationQueue = null;
-                    //this.state.animating = false;
-                    //this.setState(this.state);
+                    if(this.isMounted()) {
+                        this.state.animating = false;
+                        this.setState(this.state);
+                    }
                 })
                 .catch((error) => {
                     console.error("Animation failed:",error);

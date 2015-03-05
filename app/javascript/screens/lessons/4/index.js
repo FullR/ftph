@@ -11,6 +11,7 @@ var Lesson4 = React.createClass({
     getInitialStorage: function() {
         return {
             "last-screen": null,
+            "last-activity": null,
             "activities": {
                 "1":  {"correct": false},
                 "2":  {"correct": false},
