@@ -47,7 +47,7 @@ var Lesson7Activity = React.createClass({
                         then("say", ["phonics", index])
                     ),
 
-                    then("wait", 250),
+                    then("wait", 500),
                     then("uncenterActor"),
                     
                     ...choices.map((choice, index) => [
@@ -79,6 +79,8 @@ var Lesson7Activity = React.createClass({
                                 "phonics": phonics.map((phonic) => 
                                     `phonics/activity-phonics/${phonic}`
                                 ),
+                                "correct-word":      `lessons/lesson-7/activities/feedback/correct/${phonics.join("_")}`,
+
                                 "word":              `words/activity-words/${selected.word}`,
                                 "sound":             "common/activities/sound",
                                 "doesnt-have-the":   "lessons/lesson-6/activities/feedback/doesnt-have-the",
@@ -89,9 +91,7 @@ var Lesson7Activity = React.createClass({
                             }}
 
                             correctAnimation={(then) => [
-                                ...phonics.map((phonic, index) => 
-                                    then("say", ["phonics", index])
-                                ),
+                                then("say", "correct-word"),
                                 then("wait", 250),
                                 then("say", "words.0")
                             ]}

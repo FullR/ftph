@@ -47,7 +47,7 @@ var Lesson6Activity = React.createClass({
                         then("say", ["phonics", index])
                     ),
 
-                    then("wait", 250),
+                    then("wait", 500),
                     then("uncenterActor"),
                     
                     ...choices.map((choice, index) => [
@@ -97,13 +97,7 @@ var Lesson6Activity = React.createClass({
                             ]}
 
                             incorrectAnimation={function(then) {
-                                console.log("Running incorrect feedback");
-                                try {
-                                    return incorrectFeedback(then, selected.word);
-                                }
-                                catch(err) {
-                                    console.log(err);
-                                }
+                                return incorrectFeedback(then, selected.word);
                             }}/>
                     );
                 }}/>

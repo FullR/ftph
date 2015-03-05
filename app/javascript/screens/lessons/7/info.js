@@ -1,6 +1,6 @@
 module.exports = {
     id:            "7",
-    title:         "Say the Word",
+    title:         "Echo",
     subtitle:      "Lesson 7",
     activityCount: "15",
     section:       "1",
