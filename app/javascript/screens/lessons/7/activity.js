@@ -96,9 +96,7 @@ var Lesson7Activity = React.createClass({
                                 then("say", "words.0")
                             ]}
 
-                            incorrectAnimation={function(then) {
-                                return incorrectFeedback(then, selected.word);
-                            }}/>
+                            incorrectAnimation={(then) => incorrectFeedback(then, selected.word)}/>
                     );
                 }}/>
         );

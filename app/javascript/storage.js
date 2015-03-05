@@ -5,7 +5,7 @@ var _           = require("lodash"),
     initStorage = require("initial-storage"),
     namespace   = require("../project").namespace,
     ls          = Store.create({namespace: namespace}),
-    version     = "1.0.19";
+    version     = "1.0.20";
 
 
 var modelData = ls.get("application");
