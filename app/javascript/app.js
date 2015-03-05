@@ -14,15 +14,14 @@ function preloadImages() {
 
 ready.then(function() {
     try {
-        //Function.prototype.bind polyfill for cordova
+        // Function.prototype.bind polyfill for cordova
         require("polyfills/function-prototype-bind")();
 
         // Cordova media polyfill
         require("polyfills/cordova/cordova-media-plugin")();
 
         if(window.__platform.name === "web") {
-            /* 
-                hover seems to be broken on android,
+            /*  hover seems to be broken on android,
                 so I"m using a sass mixin for hover
                 effects that only applies hover styles
                 when the hover-enabled class is present on
@@ -56,7 +55,6 @@ ready.then(function() {
         }
         preloadImages();
         render(<Splash/>);
-        //require("router/router");
     } catch(e) {
         return require("q").reject(e); // Q keeps errors from being thrown within promise callbacks
     }
