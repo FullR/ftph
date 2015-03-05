@@ -1,7 +1,6 @@
 dist
 *#
 .sass-cache
-bower_components
 node_modules
 *.tmp
 *~
@@ -10,3 +9,6 @@ cordova
 node-webkit
 android-apks
 statics/assets/audio/*
+statics/assets/images/*
+statics/assets/audio
+statics/assets/images
