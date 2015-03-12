@@ -104,7 +104,23 @@ var soundContainer = {
         if(!this._loadSoundsPromise) {
             sounds = this.resolveSounds();
 
-            this._loadSoundsPromise = Q.all(_.invoke(this.soundArray, "load")).then(constant(sounds), constant(sounds))
+            this._loadSoundsPromise = Q.all(_.invoke(this.soundArray, "load"))
+                .then(() => {
+                    return sounds;
+                }, (error) => {
+                    console.log("Error loading sounds");
+                    return sounds;
+                });
+
+            this._loadSoundsPromise = Q.all(this.soundArray.map((sound) => 
+                sound.load().catch(() => Q.resolve())
+            ))
+                .then(() => {
+                    return sounds;
+                }, (error) => {
+                    console.log("Error loading sounds");
+                    return sounds;
+                });
         }
 
         return this._loadSoundsPromise;
@@ -121,12 +137,9 @@ var soundContainer = {
     },
 
     componentWillMount: function() {
-        if(this.autoplaySound) {
-            this.play(this.autoplaySound);
-        }
-        else {
-            this.loadSounds();
-        }
+        this.loadSounds().then(() => {
+            if(this.autoplaySound) this.play(this.autoplaySound);
+        });
     },
 
     componentWillUnmount: function() {

@@ -36,6 +36,7 @@ var animationMixin = {
         }
 
         boundFn =() => {
+            //console.log("then", boundFn.displayName);
             return fn.apply(null, args);
         };
 
@@ -52,7 +53,7 @@ var animationMixin = {
 
         // Updates component state and runs the promise queue
         var playAnimation = () => {
-            this.animationQueue = PromiseQueue(animationFn(this.then), () => this.mounted);
+            this.animationQueue = PromiseQueue(animationFn(this.then));
 
             this.state.animating = true;
             this.setState(this.state);
@@ -110,16 +111,24 @@ var animationMixin = {
     // If a `getAutoplayAnimation` method is defined, call it,
     // and play the returned animation
     componentDidMount: function() {
-        var animation;
-        this.mounted = true;
-        if(this.autoplayAnimation) {
-            this.animate(this.autoplayAnimation);
+        var runAnimation = () => {
+                var animation;
+                if(this.autoplayAnimation) {
+                    this.animate(this.autoplayAnimation);
+                }
+                else if(this.getAutoplayAnimation) {
+                    animation = this.getAutoplayAnimation();
+                    if(animation) {
+                        this.animate(animation);
+                    }
+                }
+            };
+
+        if(this._loadSoundsPromise) {
+            this._loadSoundsPromise.then(runAnimation, runAnimation);
         }
-        else if(this.getAutoplayAnimation) {
-            animation = this.getAutoplayAnimation();
-            if(animation) {
-                this.animate(animation);
-            }
+        else {
+            runAnimation();
         }
     },
 

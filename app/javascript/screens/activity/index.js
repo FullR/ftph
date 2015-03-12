@@ -33,6 +33,11 @@ var Activity = React.createClass({
                 hidden: true
             },
 
+            owl: {
+                state: "sitting",
+                hidden: false
+            },
+
             choices: this.loadChoices() || _.cloneDeep(this.props.choices)
         };
     },
@@ -124,7 +129,7 @@ var Activity = React.createClass({
     selectChoice: function(choice) {
         choice.selected = !choice.selected;
         this.setState(this.state);
-
+        console.log(this.shouldShowFeedback());
         if(this.shouldShowFeedback()) {
             this.saveChoices();
             if(this.props.onSubmit) {
@@ -147,7 +152,7 @@ var Activity = React.createClass({
     render: function() {
         return (
             <GameScreen className={this.classNames("activity")}>
-                <Owl onClick={this.renderLesson} state="sitting">Lesson</Owl>
+                <Owl {...this.state.owl} onClick={this.props.onOwlClick || this.renderLesson}>Lesson</Owl>
 
                 <Teacher {...this.state.teacher} onClick={this.animationCallback("instructions")}>Instructions</Teacher>
 

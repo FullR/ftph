@@ -1,5 +1,11 @@
+// Mixin for handling owl/teacher animation steps
 function ActorMixin(actorKey, initialState) {
     return {
+        // Change the current target of the actor methods
+        changeActor: function(newActorKey) {
+            actorKey = newActorKey;
+        },
+
         // Retrieve the actor object
         getActor: function() {
             return this.state[actorKey];

@@ -20,9 +20,13 @@ function get(path) {
     return sound;
 }
 
+function release(sound) {
+    sound.stop();
+}
+
 var soundManager = {
     get: get,
-
+    release: release,
     stop: function() {
         return Q.all(sounds.map(function(sound) {
             return sound.stop();

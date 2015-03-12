@@ -1,4 +1,4 @@
-var React = require("react"),
+var React  = require("react"),
     outlet = document.getElementById("outlet");
 
 var current,

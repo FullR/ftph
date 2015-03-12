@@ -3,48 +3,12 @@ $back-button-width: 240px;
 $back-button-height: 160px;
 $back-button-offset: 40px;
 
-// Individual button colors
-$section-colors: (
-    (1,  #e4ecc0, #ecf2d3, #e9efcb), // index, lesson button, lesson button hover, section header
-    (2,  #fbdfe7, #fce9ee, #fce4eb),
-    (3,  #fffcab, #fffdc4, #fffdb9),
-    (4,  #dfe8f5, #e9eff8, #e4ecf7),
-    (5,  #fee5ad, #feedc6, #fee9bb),
-    (6,  #eeddeb, #f3e7f1, #f1e3ee),
-    (7,  #dff1d8, #e9f5e4, #e4f3df),
-    (8,  #eee4d7, #f3ece3, #f0e7dc),
-    (9,  #fcdac2, #fde5d4, #fde0cc),
-    (10, #d5ddee, #e2e7f3, #dce3f1)
-);
-
-// // libsass is making my @each directive fail
-// @for $i from 1 through 10 {
-//     .admin-section-#{$i} .lesson-button {
-//         background: nth(nth($section-colors, $i), 3);
-
-//         @include active {
-//             background: nth(nth($section-colors, $i), 2);
-//         }
-//     }
-
-//     .admin-section-#{$i}__header {
-//         background-color: nth(nth($section-colors, $i), 3);
-//     }
-// }
-
-// Admin screen Rows
-
 .admin__current-section {
     @include pos(8%, 5%);
-    //@include size(80%, 88%);
-    right: $back-button-width + ($back-button-offset * 2);
     bottom: $back-button-offset;
     color: blue;
     font-size: 16px;
-}
-
-.admin .section-list {
-    @include pos(8%, 1%, top, right);
+    right: $back-button-width + ($back-button-offset * 2);
 }
 
 // Admin header
@@ -53,35 +17,35 @@ $section-colors: (
     @include pos(0);
     @include size(100%, 50px);
     border: 1px solid #1285e7;
-    text-align: center;
     background-image: linear-gradient(to bottom, #FFFFFF 0%, #87BFFF 100%);
     font-size: 22px;
     line-height: 50px;
+    text-align: center;
 }
 
 .admin__header-nav,
 .admin__header-grades {
-    position: relative;
     height: 100%;
+    position: relative;
 }
 
 .admin__header-nav {
-    position: relative;
-    @include span(5 nest);
     @include container;
-    list-style-type: none;
+    @include span(5 nest);
     height: 100%;
+    list-style-type: none;
     margin-left: span(1/2);
+    position: relative;
     text-align: left;
-    //margin-top: 0.8%;
     z-index: 2;
 }
 
 .admin__header-nav-item {
-    position: relative;
-    display: inline-block;
-    text-align: center;
     cursor: pointer;
+    display: inline-block;
+    position: relative;
+    text-align: center;
+
     &:not(:first-child) {
         margin-left: 8%;
     }
@@ -92,16 +56,16 @@ $section-colors: (
 
 .admin__header-title {
     @include pos(0, 0);
-    width: 100%;
     font-size: 28px;
     font-weight: bold;
     text-align: center;
+    width: 100%;
 }
 
 .admin__header-grades {
     @include pos(0, span(1/2), top, right);
-    width: 100%;
     text-align: right;
+    width: 100%;
 }
 
 .lesson-button__index {
@@ -117,17 +81,16 @@ $section-colors: (
     }
 }
 
-
 .admin__back-button {
     @include pos($back-button-offset, $back-button-offset, bottom, right);
     @include size($back-button-width, $back-button-height);
     background: url('images/arrow.png');
     background-size: 100% 100%;
+    color: #000;
+    cursor: pointer;
+    font-size: 20px;
     line-height:  160px;
     text-align: center;
-    cursor: pointer;
-    color: #000;
-    font-size: 20px;
 
     @include active {
         background-image: url('images/arrow_hover.png');
@@ -142,21 +105,19 @@ $section-colors: (
 }
 
 .lesson-button {
-    position: relative;
     border: 3px solid black;
+    position: relative;
 }
-
 
 .lesson-button--selected {
-    border-color: red;
+    border-color: red !IMPORTANT; // important to overwrite the hover effect
 }
-
 
 // Section header and back/next arrows
 .section-header-container {
-    text-align: center;
     height: 19%;
     margin-bottom: 1%;
+    text-align: center;
 }
 
 .next-section-button,
@@ -168,17 +129,18 @@ $section-colors: (
 
 .next-section-button,
 .previous-section-button {
+    background-position: center;
+    background-size: 100% 50%;
     height: 100%;
 }
 
 .previous-section-button {
     background: url("images/arrow-reversed.png") no-repeat;
     border: 0;
-    outline: 0;
-    background-size: 100% 100%;
-    width: span(2);
-    margin-right: span(1/2);
     cursor: pointer;
+    margin-right: span(1/2);
+    outline: 0;
+    width: span(2);
     @include active {
         background-image: url("images/arrow-reversed_hover.png");
     }
@@ -191,11 +153,10 @@ $section-colors: (
 .next-section-button {
     background: url("images/arrow.png") no-repeat;
     border: 0;
-    outline: 0;
-    background-size: 100% 100%;
-    width: span(2);
-    margin-left: span(1/2);
     cursor: pointer;
+    margin-left: span(1/2);
+    outline: 0;
+    width: span(2);
     @include active {
         background-image: url("images/arrow_hover.png");
     }
