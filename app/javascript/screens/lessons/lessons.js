@@ -20,5 +20,6 @@ module.exports = {
     "5": require("screens/lessons/5"),
     "6": require("screens/lessons/6"),
     "7": require("screens/lessons/7"),
-    "8": require("screens/lessons/8")
+    "8": require("screens/lessons/8"),
+    "9": require("screens/lessons/9")
 };
