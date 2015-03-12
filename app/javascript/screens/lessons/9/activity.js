@@ -8,7 +8,9 @@ var Lesson8Activity = React.createClass({
     mixins: [require("mixins/storage")],
 
     render: function() {
-        var activityId = this.props.id;
+        var activityId = this.props.id,
+            nextScreen = this.props.nextScreen;
+
         return (
             <ShortVowelActivity {...this.props}
                 phonic="ah"
@@ -31,7 +33,8 @@ var Lesson8Activity = React.createClass({
                         activityCount={lessonInfo.activityCount}
                         section={lessonInfo.section}
                         correct={activity.isCorrect()}
-                        words={[activity.getSelected()[0].word]}/>
+                        words={[activity.getSelected()[0].word]}
+                        nextScreen={nextScreen}/>
                 )}/>
         );
     }
