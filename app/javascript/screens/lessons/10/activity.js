@@ -13,20 +13,20 @@ var Lesson8Activity = React.createClass({
 
         return (
             <ShortVowelActivity {...this.props}
-                phonic="eh"
+                phonic="ih"
                 id={activityId}
                 lessonId={lessonInfo.id}
                 lessonTitle={lessonInfo.title}
                 section={lessonInfo.section}
                 activityCount={lessonInfo.activityCount}
-                lessonScreen={require("screens/lessons/9")}
+                lessonScreen={require("screens/lessons/10")}
                 autoplayAnimation={this.props.autoplayAnimation || "choices-only"}
                 onSubmit={(activity, correct) => 
                     this.save([lessonInfo.namespace, "activities", activityId, "correct"], correct)
                 }
                 renderFeedback={(activity) => render(
                     <ShortVowelFeedback
-                        phonic="eh"
+                        phonic="ih"
                         lessonId={lessonInfo.id}
                         lessonTitle={lessonInfo.title}
                         activityId={activityId}

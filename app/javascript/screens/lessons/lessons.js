@@ -8,6 +8,7 @@ module.exports = {
     "1-n": require("screens/lessons/1-n"),
     "1-r": require("screens/lessons/1-r"),
     "1-s": require("screens/lessons/1-s"),
+    "10": require("screens/lessons/10"),
     "2": require("screens/lessons/2"),
     "2-b": require("screens/lessons/2-b"),
     "2-d": require("screens/lessons/2-d"),

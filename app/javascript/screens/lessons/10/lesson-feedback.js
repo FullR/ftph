@@ -2,7 +2,7 @@ var React          = require("react"),
     LessonFeedback = require("screens/lesson-feedback"),
     lessonInfo     = require("./info");
 
-var Lesson9Feedback = React.createClass({
+var Lesson10Feedback = React.createClass({
     mixins: [require("mixins/storage")],
 
     render: function() {
@@ -11,10 +11,10 @@ var Lesson9Feedback = React.createClass({
                 title      = {lessonInfo.title}
                 lessonId   = {lessonInfo.id}
                 section    = {lessonInfo.section}
-                nextScreen = {require("screens/lessons/10")}
-                backScreen = {require("screens/lessons/9")}/>
+                nextScreen = {require("screens/splash")}
+                backScreen = {require("screens/lessons/10")}/>
         );
     }
 });
 
-module.exports = Lesson9Feedback;
+module.exports = Lesson10Feedback;

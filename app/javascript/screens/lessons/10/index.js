@@ -3,7 +3,7 @@ var React = require("react"),
     lessonInfo = require("./info"),
     activities = require("./activities");
 
-var Lesson8 = React.createClass({
+var Lesson10 = React.createClass({
     mixins: [
         require("mixins/storage"),
         require("mixins/initial-storage")(lessonInfo.namespace)
@@ -44,16 +44,16 @@ var Lesson8 = React.createClass({
 
         return (
             <ShortVowelLesson {... lessonInfo}
-                phonic="eh"
+                phonic="ih"
                 nextScreen={nextActivity}
                 nextLabel={`Activity ${nextActivityId}`}
                 choices={[
-                    {word: "wet"},
-                    {word: "red"},
-                    {word: "leg"}
+                    {word: "sit"},
+                    {word: "tip"},
+                    {word: "kid"}
                 ]}/>
         );
     }
 });
 
-module.exports = Lesson8;
+module.exports = Lesson10;

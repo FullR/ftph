@@ -1,19 +1,19 @@
 var React = require("react"),
-    Activity = require("screens/lessons/8/activity");
+    Activity = require("screens/lessons/9/activity");
 
-var Lesson8Activity18 = React.createClass({
+var Lesson9Activity18 = React.createClass({
     render: function() {
         return (
             <Activity
                 id="18"
                 choices={[
-                    {word: "string"},
-                    {word: "stretch"},
-                    {word: "strap", correct: true}
+                    {word: "stitch"},
+                    {word: "scratch"},
+                    {word: "stretch", correct: true}
                 ]}
                 nextScreen={require("./19")}/>
         );
     }
 });
 
-module.exports = Lesson8Activity18;
+module.exports = Lesson9Activity18;

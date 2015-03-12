@@ -2,7 +2,7 @@ var React          = require("react"),
     LessonFeedback = require("screens/lesson-feedback"),
     lessonInfo     = require("./info");
 
-var Lesson1Feedback = React.createClass({
+var Lesson9Feedback = React.createClass({
     mixins: [require("mixins/storage")],
 
     render: function() {
@@ -17,4 +17,4 @@ var Lesson1Feedback = React.createClass({
     }
 });
 
-module.exports = Lesson1Feedback;
+module.exports = Lesson9Feedback;
