@@ -6,10 +6,10 @@ var ShortVowelFeedback = React.createClass({
         return (
             <WordFeedback {...this.props}
                 sounds={{
-                    "phonic": `phonics/activity-phonics/${this.props.phonic}`,
-                    "makes-the": "lessons/short-vowel/activity/feedback/makes-the",
-                    "doesnt-make-the": "lessons/short-vowel/activity/feedback/doesnt-make-the",
-                    "sound": "lessons/short-vowel/activity/feedback/sound"
+                    "phonic":          `phonics/activity-phonics/${this.props.phonic}`,
+                    "makes-the":       "lessons/short-vowel/activities/feedback/makes-the",
+                    "doesnt-make-the": "lessons/short-vowel/activities/feedback/doesnt-make-the",
+                    "sound":           "lessons/short-vowel/activities/feedback/sound"
                 }}
 
                 correctAnimation={(then) => [

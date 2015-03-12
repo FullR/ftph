@@ -11,7 +11,7 @@ var Lesson8Activity19 = React.createClass({
                     {word: "scratch", correct: true},
                     {word: "screw"}
                 ]}
-                nextScreen={require("screens/lessons/8/lesson-feedback")}/>
+                nextScreen={require("./20")}/>
         );
     }
 });

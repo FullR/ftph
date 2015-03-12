@@ -15,10 +15,7 @@ var WordActivity = React.createClass({
         };
     },
 
-    renderFeedback: function(activity) {
-        render(<div>Activity Feedback</div>);
-    },
-
+    // Render methods
     renderChoice: function(activity, choice, index) {
         return (
             <WordChoice {...choice}
@@ -27,6 +24,10 @@ var WordActivity = React.createClass({
                 onClick={activity.selectChoice.bind(activity, choice)}
                 key={choice.word}/>
         );
+    },
+
+    renderFeedback: function(activity) {
+        render(<div>Activity Feedback</div>);
     },
 
     render: function() {

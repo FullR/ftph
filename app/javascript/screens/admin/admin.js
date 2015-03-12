@@ -7,6 +7,7 @@ var React       = require("react"),
 var Admin = React.createClass({
     mixins: [require("mixins/storage")],
 
+    // Lifecycle methods
     getInitialState: function() {
         return {
             section: this.props.section || 1,
@@ -14,8 +15,10 @@ var Admin = React.createClass({
         };
     },
 
-    loadLesson: function(id) {
-        return this.load(`lesson-${id}`) || {};
+    componentDidUpdate: function() {
+        if(this.state.changed) {
+            setTimeout(this.toggleChangedFlagOff, 500);
+        }
     },
 
     getArrowText: function() {
@@ -31,18 +34,31 @@ var Admin = React.createClass({
         }
     },
 
-    updateSelectedLesson: function(newLessonId) {
-        if(this.state.selectedLesson !== newLessonId) {
+    // Component methods
+    getSectionComponent: function() {
+        return sections[this.state.section];
+    },
+
+    loadLesson: function(id) {
+        return this.load(`lesson-${id}`) || {};
+    },
+
+    nextSection: function() {
+        if(sections[this.state.section + 1]) {
             this.setState({
-                section: this.state.section,
-                selectedLesson: newLessonId,
-                changed: true
+                selectedLesson: this.state.selectedLesson,
+                section: this.state.section + 1
             });
         }
     },
 
-    getSectionComponent: function() {
-        return sections[this.state.section];
+    previousSection: function() {
+        if(sections[this.state.section - 1]) {
+            this.setState({
+                selectedLesson: this.state.selectedLesson,
+                section: this.state.section - 1
+            });
+        }
     },
 
     returnToGame: function() {
@@ -65,30 +81,6 @@ var Admin = React.createClass({
         }
     },
 
-    nextSection: function() {
-        if(sections[this.state.section + 1]) {
-            this.setState({
-                selectedLesson: this.state.selectedLesson,
-                section: this.state.section + 1
-            });
-        }
-    },
-
-    previousSection: function() {
-        if(sections[this.state.section - 1]) {
-            this.setState({
-                selectedLesson: this.state.selectedLesson,
-                section: this.state.section - 1
-            });
-        }
-    },
-
-    componentDidUpdate: function() {
-        if(this.state.changed) {
-            setTimeout(this.toggleChangedFlagOff, 500);
-        }
-    },
-
     toggleChangedFlagOff: function() {
         if(this.isMounted()) {
             this.state.changed = false;
@@ -96,6 +88,17 @@ var Admin = React.createClass({
         }
     },
 
+    updateSelectedLesson: function(newLessonId) {
+        if(this.state.selectedLesson !== newLessonId) {
+            this.setState({
+                section: this.state.section,
+                selectedLesson: newLessonId,
+                changed: true
+            });
+        }
+    },
+
+    // Render methods
     render: function() {
         var Section = this.getSectionComponent(),
             changedClassName = "";

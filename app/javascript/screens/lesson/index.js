@@ -16,10 +16,23 @@ var Lesson = React.createClass({
         require("mixins/animation-utility/actor")("owl"), // Utility methods for animating actor
         require("mixins/class-names")
     ],
-    autoplayAnimation: "instructions",
-
     propTypes: {
         id: React.PropTypes.string.isRequired
+    },
+    autoplayAnimation: "instructions",
+
+    // Lifecycle methods
+    getInitialState: function() {
+        return {
+            owl: {
+                state: "sitting",
+                hidden: true
+            },
+            choices: _.cloneDeep(this.props.choices).map((choice) => {
+                choice.hidden = true;
+                return choice;
+            })
+        };
     },
 
     componentWillMount: function() {
@@ -28,16 +41,7 @@ var Lesson = React.createClass({
         this.save(["lesson-"+this.props.id, "completed"], false);
     },
 
-    getInitialState: function() {
-        return {
-            owl: {
-                state: "sitting",
-                hidden: true
-            },
-            choices: _.cloneDeep(this.props.choices)
-        };
-    },
-
+    // Component methods
     instructions: function(then) {
         var steps;
         if(this.props.instructions) {
@@ -50,6 +54,7 @@ var Lesson = React.createClass({
         }
     },
 
+    // Render methods
     render: function() {
         return (
             <GameScreen className={this.classNames("lesson")} section={this.props.section}>

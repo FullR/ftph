@@ -12,6 +12,7 @@ var WordLesson = React.createClass({
         };
     },
 
+    // Render methods
     renderChoice: function(lesson, choice, index) {
         return (
             <WordChoice

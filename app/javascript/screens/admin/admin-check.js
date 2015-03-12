@@ -6,16 +6,20 @@ var React          = require("react"),
     render         = require("render");
 
 var AdminCheck = React.createClass({
+    // Lifecycle methods
     getInitialState: function() {
         return {
             password: ""
         };
     },
 
-    updatePassword: function(event) {
-        this.setState({
-            password: event.target.value
-        });
+    componentDidMount: function() {
+        this.refs.passwordInput.getDOMNode().focus();
+    },
+
+    // Component methods
+    back: function() {
+        render.previous();
     },
 
     submit: function(event) {
@@ -31,15 +35,14 @@ var AdminCheck = React.createClass({
             this.back();
         }
     },
-
-    back: function() {
-        render.previous();
+    
+    updatePassword: function(event) {
+        this.setState({
+            password: event.target.value
+        });
     },
 
-    componentDidMount: function() {
-        this.refs.passwordInput.getDOMNode().focus();
-    },
-
+    // Render methods
     render: function() {
         return (
             <div className="admin-check">

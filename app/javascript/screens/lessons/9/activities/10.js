@@ -9,7 +9,7 @@ var Lesson8Activity10 = React.createClass({
                 choices={[
                     {word: "bed"},
                     {word: "bud"},
-                    {word: "bad", correct: true}
+                    {word: "bag", correct: true}
                 ]}
                 nextScreen={require("./11")}/>
         );

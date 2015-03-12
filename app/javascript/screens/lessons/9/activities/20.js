@@ -1,11 +1,11 @@
 var React = require("react"),
     Activity = require("screens/lessons/8/activity");
 
-var Lesson8Activity19 = React.createClass({
+var Lesson8Activity20 = React.createClass({
     render: function() {
         return (
             <Activity
-                id="19"
+                id="20"
                 choices={[
                     {word: "screen"},
                     {word: "scratch", correct: true},
@@ -16,4 +16,4 @@ var Lesson8Activity19 = React.createClass({
     }
 });
 
-module.exports = Lesson8Activity19;
+module.exports = Lesson8Activity20;

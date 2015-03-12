@@ -8,8 +8,8 @@ var ShortVowelActivity = React.createClass({
             <WordActivity {...this.props}
                 sounds={{
                     "phonic": `phonics/activity-phonics/${this.props.phonic}`,
-                    "touch-the-word": "lessons/short-vowel/activity/touch-the-word",
-                    "sound": "lessons/short-vowel/activity/sound"
+                    "touch-the-word": "lessons/short-vowel/activities/touch-the-word",
+                    "sound": "lessons/short-vowel/activities/sound"
                 }}
 
                 instructions={(then) => [
@@ -21,7 +21,8 @@ var ShortVowelActivity = React.createClass({
                         then("revealChoice", index),
                         then("say", ["words", index]),
                         then("wait", 250)
-                    ])
+                    ]),
+                    then("sit")
                 ]}/>
         );
     }

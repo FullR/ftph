@@ -18,48 +18,18 @@ var React       = require("react"),
 var LessonFeedback = React.createClass({
     mixins: [require("mixins/storage")],
     propTypes: {
-        lessonId: React.PropTypes.string.isRequired
+        lessonId: React.PropTypes.string.isRequired,
+        title: React.PropTypes.string.isRequired,
+        section: React.PropTypes.string.isRequired,
+
     },
 
-    getNamespace: function() {
-        return `lesson-${this.props.lessonId}`;
+    // Lifecycle methods
+    componentWillMount: function() {
+        this.clearLessonStorage();
     },
 
-    loadLesson: function() {
-        return this.load(this.getNamespace()) || {};
-    },
-
-    getActivities: function() {
-        return _.values(this.loadLesson().activities);
-    },
-
-    getScore: function() {
-        return _.pluck(this.getActivities(), "correct").filter(truthy).length;
-    },
-
-    getTotal: function() {
-        return this.getActivities().length;
-    },
-
-    next: function() {
-        var Next = this.props.nextScreen,
-            storage = this.loadLesson();
-
-        _.extend(storage, {
-            "completed": true,
-            "last-screen": null,
-            "last-activity": null
-        });
-
-        this.save(this.getNamespace(), storage);
-
-        render(<Next />);
-    },
-
-    back: function() {
-        var Back = this.props.backScreen;
-        render(<Back />);
-    },
+    // Component Methods
 
     // Reset last activity for lesson 1 and its sublessons
     clearLessonStorage: function() {
@@ -80,11 +50,49 @@ var LessonFeedback = React.createClass({
         this.save("last-lesson", this.props.lessonId);
         this.save(this.getNamespace(), storage);
     },
-
-    componentWillMount: function() {
-        this.clearLessonStorage();
+    
+    getActivities: function() {
+        return _.values(this.loadLesson().activities);
     },
 
+    getNamespace: function() {
+        return `lesson-${this.props.lessonId}`;
+    },
+
+    getScore: function() {
+        return _.pluck(this.getActivities(), "correct").filter(truthy).length;
+    },
+
+    getTotal: function() {
+        return this.getActivities().length;
+    },
+
+    loadLesson: function() {
+        return this.load(this.getNamespace()) || {};
+    },
+
+    // Render methods
+    renderNext: function() {
+        var Next = this.props.nextScreen,
+            storage = this.loadLesson();
+
+        _.extend(storage, {
+            "completed": true,
+            "last-screen": null,
+            "last-activity": null
+        });
+
+        this.save(this.getNamespace(), storage);
+
+        render(<Next />);
+    },
+
+    renderPrevious: function() {
+        var Back = this.props.backScreen;
+        render(<Back />);
+    },
+
+    // Render methods
     render: function() {
         var score = this.getScore(),
             total = this.getTotal(),
@@ -100,8 +108,8 @@ var LessonFeedback = React.createClass({
                     {score}/{total}
                 </p>
                 {percent >= 85 ?
-                    <button className="lesson-feedback__next-button" onClick={this.next}></button> :
-                    <button className="lesson-feedback__prev-button" onClick={this.back}></button>
+                    <button className="lesson-feedback__next-button" onClick={this.renderNext}></button> :
+                    <button className="lesson-feedback__prev-button" onClick={this.renderPrevious}></button>
                 }
                 <AdminButton/>
             </GameScreen>

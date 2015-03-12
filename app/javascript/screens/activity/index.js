@@ -26,6 +26,7 @@ var Activity = React.createClass({
         lessonId: React.PropTypes.string.isRequired
     },
 
+    // Lifecycle methods
     getInitialState: function() {
         return {
             teacher: {
@@ -38,28 +39,16 @@ var Activity = React.createClass({
                 hidden: false
             },
 
-            choices: this.loadChoices() || _.cloneDeep(this.props.choices)
+            choices: (this.loadChoices() || _.cloneDeep(this.props.choices)).map((choice) => {
+                choice.hidden = true;
+                return choice;
+            })
         };
     },
 
-    saveLastScreen: function() {
-        this.save(["lesson-"+this.props.lessonId, "last-screen"], this.props.id);
-        this.save(["lesson-"+this.props.lessonId, "last-activity"], this.props.id);
-        if(this.props.sublessonId) {
-            this.save(["lesson-"+this.props.sublessonId, "last-screen"], this.props.id);
-            this.save(["lesson-"+this.props.sublessonId, "last-activity"], this.props.id);
-        }
-    },
-
-    saveLastLesson: function() {
-        // if this activity is part of a sublesson, 
-        // mark that subless as the last lesson
-        if(this.props.sublessonId) {
-            this.save("last-lesson", this.props.sublessonId);
-        }
-        else {
-            this.save("last-lesson", this.props.lessonId);
-        }
+    componentWillMount: function() {
+        this.saveLastScreen();
+        this.saveLastLesson();
     },
 
     componentDidUpdate: function() {
@@ -68,29 +57,22 @@ var Activity = React.createClass({
         }
     },
 
-    componentWillMount: function() {
-        this.saveLastScreen();
-        this.saveLastLesson();
+    // Component methods
+    getAutoplayAnimation: function() {
+        return this.props.autoplayAnimation || "instructions";
     },
 
     getNamespace: function() {
         return [`lesson-${this.props.lessonId}`, "activities", this.props.id];
     },
 
-    saveChoices: function() {
-        // The namespace consists of multiple parts, so it needs
-        // to be spread into the path
-        this.save([...this.getNamespace(), "choices"], this.state.choices);
+    getSelected: function() {
+        return this.state.choices.filter(get("selected"));
     },
 
-    loadChoices: function() {
-        return this.load([...this.getNamespace(), "choices"]);
+    getSounds: function() {
+        return this.props.sounds || {};
     },
-
-    getAutoplayAnimation: function() {
-        return this.props.autoplayAnimation || "instructions";
-    },
-
 
     instructions: function(then) {
         var steps;
@@ -109,22 +91,39 @@ var Activity = React.createClass({
         }
     },
 
-    getSounds: function() {
-        return this.props.sounds || {};
-    },
-
-    getSelected: function() {
-        return this.state.choices.filter(get("selected"));
-    },
-
-    shouldShowFeedback: function() {
-        return this.getSelected().length >= (this.props.requiredSelectionCount || 1);
-    },
-
     isCorrect: function() {
         return this.getSelected().every(get("correct"));
     },
 
+    loadChoices: function() {
+        return this.load([...this.getNamespace(), "choices"]);
+    },
+
+    saveLastLesson: function() {
+        // if this activity is part of a sublesson, 
+        // mark that subless as the last lesson
+        if(this.props.sublessonId) {
+            this.save("last-lesson", this.props.sublessonId);
+        }
+        else {
+            this.save("last-lesson", this.props.lessonId);
+        }
+    },
+
+    saveChoices: function() {
+        // The namespace consists of multiple parts, so it needs
+        // to be spread into the path
+        this.save([...this.getNamespace(), "choices"], this.state.choices);
+    },
+
+    saveLastScreen: function() {
+        this.save(["lesson-"+this.props.lessonId, "last-screen"], this.props.id);
+        this.save(["lesson-"+this.props.lessonId, "last-activity"], this.props.id);
+        if(this.props.sublessonId) {
+            this.save(["lesson-"+this.props.sublessonId, "last-screen"], this.props.id);
+            this.save(["lesson-"+this.props.sublessonId, "last-activity"], this.props.id);
+        }
+    },
 
     selectChoice: function(choice) {
         choice.selected = !choice.selected;
@@ -137,6 +136,11 @@ var Activity = React.createClass({
         }
     },
 
+    shouldShowFeedback: function() {
+        return this.getSelected().length >= (this.props.requiredSelectionCount || 1);
+    },
+
+    // Render methods
     renderLesson: function() {
         var Lesson;
         if(this.props.renderLesson) {
@@ -151,13 +155,21 @@ var Activity = React.createClass({
     render: function() {
         return (
             <GameScreen className={this.classNames("activity")}>
-                <Owl {...this.state.owl} onClick={this.props.onOwlClick || this.renderLesson}>Lesson</Owl>
+                <Owl {...this.state.owl} 
+                    onClick={this.props.onOwlClick || this.renderLesson}>
+                    Lesson
+                </Owl>
 
-                <Teacher {...this.state.teacher} onClick={this.animationCallback("instructions")}>Instructions</Teacher>
+                <Teacher {...this.state.teacher} 
+                    onClick={this.animationCallback("instructions")}>
+                    Instructions
+                </Teacher>
 
                 {this.props.children}
 
-                <div className="choice-group">{this.state.choices.map(this.props.renderChoice.bind(null, this))}</div>
+                <div className="choice-group">
+                    {this.state.choices.map(this.props.renderChoice.bind(null, this))}
+                </div>
 
                 <Info 
                     lessonId={this.props.lessonId}

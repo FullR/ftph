@@ -57,8 +57,10 @@ var ActivityFeedback = React.createClass({
     correctAnimation: function(then) {
         var steps;
         if(this.props.correctAnimation) {
-            steps = this.props.correctAnimation.call(this, then);
-            steps.unshift(then("play", "applause"));
+            steps = [
+                then("play", "applause"), 
+                ...this.props.correctAnimation.call(this, then)
+            ];
         }
         else {
             steps = [then("play", "applause")];
