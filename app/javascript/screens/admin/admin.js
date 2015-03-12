@@ -1,13 +1,11 @@
-var React    = require("react"),
-    WebLink  = require("components/utility/web-link"),
-    render   = require("render"),
-    sections = require("screens/admin/sections"),
+var React       = require("react"),
+    WebLink     = require("components/utility/web-link"),
+    render      = require("render"),
+    sections    = require("screens/admin/sections"),
     SectionList = require("components/admin/section-list");
 
 var Admin = React.createClass({
-    mixins: [
-        require("mixins/storage")
-    ],
+    mixins: [require("mixins/storage")],
 
     getInitialState: function() {
         return {
@@ -34,10 +32,13 @@ var Admin = React.createClass({
     },
 
     updateSelectedLesson: function(newLessonId) {
-        this.setState({
-            section: this.state.section,
-            selectedLesson: newLessonId
-        });
+        if(this.state.selectedLesson !== newLessonId) {
+            this.setState({
+                section: this.state.section,
+                selectedLesson: newLessonId,
+                changed: true
+            });
+        }
     },
 
     getSectionComponent: function() {
@@ -82,11 +83,29 @@ var Admin = React.createClass({
         }
     },
 
+    componentDidUpdate: function() {
+        if(this.state.changed) {
+            setTimeout(this.toggleChangedFlagOff, 500);
+        }
+    },
+
+    toggleChangedFlagOff: function() {
+        if(this.isMounted()) {
+            this.state.changed = false;
+            this.setState(this.state);
+        }
+    },
+
     render: function() {
-        var Section = this.getSectionComponent();
+        var Section = this.getSectionComponent(),
+            changedClassName = "";
+
+        if(this.state.changed) {
+            changedClassName = "admin--changed";
+        }
 
         return (
-            <div className="admin">
+            <div className={`admin ${changedClassName}`}>
                 <div className="admin__header">
                     <ul className="admin__header-nav">
                         <li className="admin__header-nav-item">User</li>
@@ -98,8 +117,6 @@ var Admin = React.createClass({
                 </div>
 
                 <div className="admin__content">
-                    {/* <SectionList current={this.state.section}/> */}
-
                     <p style={{display: "none", fontSize: 44, position: "absolute", width: "100%", textAlign: "center", fontWeight: "bold", top: "15%"}}>THIS PAGE IS UNDER CONSTRUCTION</p>
 
                     <div className="admin__current-section">

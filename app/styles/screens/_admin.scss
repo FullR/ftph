@@ -98,6 +98,23 @@ $back-button-offset: 40px;
     }
 }
 
+@-webkit-keyframes glow {
+    from {
+        -webkit-box-shadow: 0px 0px 60px #F00;
+           -moz-box-shadow: 0px 0px 60px #F00;
+                box-shadow: 0px 0px 60px #F00;
+    }
+    to {
+        -webkit-box-shadow: 0px 0px 0px #F00;
+           -moz-box-shadow: 0px 0px 0px #F00;
+                box-shadow: 0px 0px 0px #F00;
+    }
+}
+
+.admin--changed .admin__back-button {
+    -webkit-animation: glow 0.5s;
+}
+
 .admin-section {
     @include size(100%, 100%);
     @include container;
@@ -127,23 +144,23 @@ $back-button-offset: 40px;
     vertical-align: middle;
 }
 
-.next-section-button,
-.previous-section-button {
+.admin .next-section-button,
+.admin .previous-section-button {
     background-position: center;
-    background-size: 100% 50%;
+    background-size: 75% 50%;
+    color: WHITE;
+    font-weight: bold;
     height: 100%;
+    width: span(2);
+    text-align: center;
 }
 
 .previous-section-button {
-    background: url("images/arrow-reversed.png") no-repeat;
+    background: url("images/black-arrow_reversed.png") no-repeat;
     border: 0;
     cursor: pointer;
     margin-right: span(1/2);
     outline: 0;
-    width: span(2);
-    @include active {
-        background-image: url("images/arrow-reversed_hover.png");
-    }
 }
 
 .section-header {
@@ -151,13 +168,9 @@ $back-button-offset: 40px;
 }
 
 .next-section-button {
-    background: url("images/arrow.png") no-repeat;
+    background: url("images/black-arrow.png") no-repeat;
     border: 0;
     cursor: pointer;
     margin-left: span(1/2);
     outline: 0;
-    width: span(2);
-    @include active {
-        background-image: url("images/arrow_hover.png");
-    }
 }

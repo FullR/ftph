@@ -129,7 +129,6 @@ var Activity = React.createClass({
     selectChoice: function(choice) {
         choice.selected = !choice.selected;
         this.setState(this.state);
-        console.log(this.shouldShowFeedback());
         if(this.shouldShowFeedback()) {
             this.saveChoices();
             if(this.props.onSubmit) {
