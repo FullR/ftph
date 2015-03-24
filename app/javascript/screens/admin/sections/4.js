@@ -13,9 +13,9 @@ var Section4 = React.createClass({
         return (
             <div className="admin-section admin-section-4">
                 <div className="section-header-container">
-                    <button className="previous-section-button" onClick={this.props.renderPrevious}>Previous Section</button>
-                    <SectionHeader title="Consonant With Vowel" lessons="1-7"/>
-                    <button className="next-section-button" onClick={this.props.renderNext}>Next Section</button>
+                    <button className="previous-section-button" onClick={this.props.renderPrevious}>Back</button>
+                    <SectionHeader title="Consonant With Vowel" lessons="21-43"/>
+                    <button className="next-section-button" onClick={this.props.renderNext}>Next</button>
                 </div>
 
                 <LessonButton lessonId="21" onSelect={onSelect} selected={this.isSelected("21")}>
@@ -67,7 +67,9 @@ var Section4 = React.createClass({
                 </LessonButton>
 
                 <LessonButton lessonId="43" onSelect={onSelect} selected={this.isSelected("43")}>
-
+                    <div className="lesson-button__title">
+                        Consonant With Vowel Review<br/>b-f
+                    </div>
                 </LessonButton>
 
                 <LessonButton lessonId="31" onSelect={onSelect} selected={this.isSelected("31")}>
@@ -123,7 +125,6 @@ var Section4 = React.createClass({
                         fa-fu
                     </div>
                 </LessonButton>
-
             </div>
         );
     }

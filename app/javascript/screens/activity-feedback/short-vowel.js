@@ -14,15 +14,21 @@ var ShortVowelFeedback = React.createClass({
 
                 correctAnimation={(then) => [
                     then("say", "words.0"),
+                    then("wait", 250),
                     then("say", "makes-the"),
+                    then("wait", 150),
                     then("say", "phonic"),
+                    then("wait", 250),
                     then("say", "sound")
                 ]}
 
                 incorrectAnimation={(then) => [
                     then("say", "words.0"),
+                    then("wait", 250),
                     then("say", "doesnt-make-the"),
+                    then("wait", 150),
                     then("say", "phonic"),
+                    then("wait", 250),
                     then("say", "sound")
                 ]}/>
         );

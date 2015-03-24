@@ -17,7 +17,6 @@ var _     = require("lodash"),
 function PromiseQueue(promiseFns, shouldRunStep) {
     var deferred = Q.defer();
     promiseFns = _.compact(_.flatten(promiseFns)); // Flatten and remove falsy values (cloning is also a good side effect to avoid mutation when shifting later)
-
     // shift the next step function off of `promiseFns`
     function next() {
         var fn;

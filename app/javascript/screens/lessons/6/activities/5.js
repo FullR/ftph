@@ -12,11 +12,6 @@ module.exports = React.createClass({
                     {word: "off"},
                     {word: "ox", correct: true}
                 ]}
-                incorrectFeedback={(then, word) => [
-                    then("say", "word"),
-                    then("say", "doesnt-end-with"),
-                    then("say", "phonics.1")
-                ]}
                 nextScreen={require("./6")}/>
         );
     }

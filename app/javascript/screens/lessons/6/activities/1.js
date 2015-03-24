@@ -6,19 +6,12 @@ module.exports = React.createClass({
         return (
             <Activity {...this.props}
                 id="1"
+                autoplayAnimation="instructions"
                 phonics={["eh", "g"]}
                 choices={[
                     {word: "box"},
                     {word: "egg", correct: true},
                     {word: "cat"}
-                ]}
-                incorrectFeedback={(then, word) => [ // box/cat doesn"t have /eh/ or /g/ sounds
-                    then("say", "word"),
-                    then("say", "doesnt-have-the"),
-                    then("say", "phonics.0"),
-                    then("say", "sound"),
-                    then("say", "or-end-with"),
-                    then("say", "phonics.1")
                 ]}
                 nextScreen={require("./2")}/>
         );

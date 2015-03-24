@@ -12,40 +12,69 @@ var Lesson6Activity = React.createClass({
 
     getAdditionalSounds: function() {
         return {
-            "listen": "lessons/lesson-6/activities/instructions/listen",
-            "phonics": this.props.phonics.map((phonic) => "phonics/activity-phonics/"+phonic)
+            "sounded-word": `lessons/lesson-6/activities/feedback/sounded-words/${this.props.phonics.join("_")}`,
+            "listen": "lessons/lesson-6/activities/instructions/listen"
         };
     },
 
     render: function() {
-        var choices           = this.props.choices,
-            nextScreen        = this.props.nextScreen,
-            activityId        = this.props.id,
-            rhymeWord         = this.props.word,
-            correctAnimation  = this.props.correctAnimation,
-            incorrectFeedback = this.props.incorrectFeedback,
-            choices           = this.props.choices,
-            phonics           = this.props.phonics;
+        var choices    = this.props.choices,
+            nextScreen = this.props.nextScreen,
+            activityId = this.props.id,
+            rhymeWord  = this.props.word,
+            choices    = this.props.choices,
+            phonics    = this.props.phonics;
 
         return (
             <WordActivity {...this.props}
-                lessonId      = {lessonInfo.id}
-                section       = {lessonInfo.section}
-                lessonTitle   = {lessonInfo.title}
-                activityCount = {lessonInfo.activityCount}
-                sounds        = {this.getSounds()}
+                lessonId          = {lessonInfo.id}
+                section           = {lessonInfo.section}
+                lessonTitle       = {lessonInfo.title}
+                activityCount     = {lessonInfo.activityCount}
+                sounds            = {this.getSounds()}
+                teacherText       = "Word Sounds"
+                owlText           = "Instructions"
+                autoplayAnimation = {this.props.autoplayAnimation || "phonics-only"}
 
                 onSubmit={(activity, correct) => {
                     this.save([lessonInfo.namespace, "activities", activityId, "correct"], correct);
                 }}
 
+                onOwlClick={(activity) => {
+                    if(!activity.isAnimating()) {
+                        activity.animate("instructions");
+                    }
+                }}
+
+                onTeacherClick={(activity) => {
+                    if(!activity.isAnimating()) {
+                        activity.animate("phonics-only");
+                    }
+                }}
+
+                animations={{
+                    "phonics-only": (then) => [
+                        then("changeActor", "teacher"),
+                        then("revealActor"),
+                        then("say", "sounded-word"),
+                        then("wait", 250),
+                        ...choices.map((choice, index) => [
+                            then("revealChoice", index),
+                            then("say", ["words", index]),
+                            then("wait", 250)
+                        ]),
+                        then("sit")
+                    ]
+                }}
+
                 instructions={(then) => [
+                    then("uncenterActor"),
+                    then("changeActor", "owl"),
+                    then("centerActor"),
                     then("say", "listen"),
                     then("wait", 250),
                     
-                    ...phonics.map((phonic, index) => 
-                        then("say", ["phonics", index])
-                    ),
+                    then("say", "sounded-word"),
 
                     then("wait", 500),
                     then("uncenterActor"),
@@ -76,27 +105,21 @@ var Lesson6Activity = React.createClass({
                             words         = {[selected.word]}
 
                             sounds={{
-                                "phonics": phonics.map((phonic) => 
-                                    `phonics/activity-phonics/${phonic}`
-                                ),
-                                "correct-word":      `lessons/lesson-6/activities/feedback/correct/${phonics.join("_")}`,
-                                "word":              `words/activity-words/${selected.word}`,
-
-                                "sound":             "common/activities/sound",
-                                "doesnt-have-the":   "lessons/lesson-6/activities/feedback/doesnt-have-the",
-                                "doesnt-begin-with": "lessons/lesson-6/activities/feedback/doesnt-begin-with",
-                                "doesnt-end-with":   "lessons/lesson-6/activities/feedback/doesnt-end-with",
-                                "or-end-with":       "lessons/lesson-6/activities/feedback/or-end-with",
-                                "or-begin-with":     "lessons/lesson-6/activities/feedback/or-begin-with"
+                                "sounded-word":  `lessons/lesson-6/activities/feedback/sounded-words/${phonics.join("_")}`,
+                                "does-not-make": "lessons/lesson-6/activities/feedback/does-not-make"
                             }}
 
                             correctAnimation={(then) => [
-                                then("say", "correct-word"),
+                                then("say", "sounded-word"),
                                 then("wait", 250),
                                 then("say", "words.0")
                             ]}
 
-                            incorrectAnimation={(then) => incorrectFeedback(then, selected.word)}/>
+                            incorrectAnimation={(then) => [
+                                then("say", "sounded-word"),
+                                then("say", "does-not-make"),
+                                then("say", "words.0")
+                            ]}/>
                     );
                 }}/>
         );

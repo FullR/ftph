@@ -22,8 +22,11 @@ var Activity = React.createClass({
     ],
 
     propTypes: {
-        id: React.PropTypes.string.isRequired,
-        lessonId: React.PropTypes.string.isRequired
+        id:            React.PropTypes.string.isRequired,
+        lessonId:      React.PropTypes.string.isRequired,
+        lessonTitle:   React.PropTypes.string.isRequired,
+        activityCount: React.PropTypes.string.isRequired,
+        section:       React.PropTypes.string.isRequired
     },
 
     // Lifecycle methods
@@ -62,12 +65,28 @@ var Activity = React.createClass({
         return this.props.autoplayAnimation || "instructions";
     },
 
+    getCorrectWords: function() {
+        return this.state.choices
+            .filter(get("correct"))
+            .map(get("word"));
+    },
+
+    getIncorrectWords: function() {
+        return this.state.choices
+            .filter((choice) => !choice.correct)
+            .map(get("word"));
+    },
+
     getNamespace: function() {
         return [`lesson-${this.props.lessonId}`, "activities", this.props.id];
     },
 
     getSelected: function() {
         return this.state.choices.filter(get("selected"));
+    },
+
+    getUnselected: function() {
+        return this.state.choices.filter((choice) => !choice.selected);
     },
 
     getSounds: function() {
@@ -153,31 +172,42 @@ var Activity = React.createClass({
     },
 
     render: function() {
+        var {
+            onOwlClick,
+            onTeacherClick,
+            lessonId,
+            lessonTitle,
+            id,
+            activityCount,
+            section,
+            children
+        } = this.props;
+
         return (
-            <GameScreen className={this.classNames("activity")}>
+            <GameScreen {...this.props} className={this.classNames("activity")}>
                 <Owl {...this.state.owl} 
-                    onClick={this.props.onOwlClick || this.renderLesson}>
-                    Lesson
+                    onClick={onOwlClick ? onOwlClick.bind(null, this) : this.renderLesson}>
+                    {this.props.owlText || "Lesson"}
                 </Owl>
 
                 <Teacher {...this.state.teacher} 
-                    onClick={this.animationCallback("instructions")}>
-                    Instructions
+                    onClick={onTeacherClick ? onTeacherClick.bind(null, this) : this.animationCallback("instructions")}>
+                    {this.props.teacherText || "Instructions"}
                 </Teacher>
 
-                {this.props.children}
+                {children}
 
                 <div className="choice-group">
                     {this.state.choices.map(this.props.renderChoice.bind(null, this))}
                 </div>
 
                 <Info 
-                    lessonId={this.props.lessonId}
-                    lessonTitle={this.props.lessonTitle}
-                    activityId={this.props.id}
-                    activityCount={this.props.activityCount}/>
+                    lessonId={lessonId}
+                    lessonTitle={lessonTitle}
+                    activityId={id}
+                    activityCount={activityCount}/>
 
-                <AdminButton section={this.props.section}/>
+                <AdminButton section={section}/>
             </GameScreen>
         );
     }

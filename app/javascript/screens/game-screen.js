@@ -3,6 +3,9 @@ var React       = require("react"),
 
 var GameScreen = React.createClass({
     mixins: [require("mixins/storage")],
+    propTypes: {
+        section: React.PropTypes.string.isRequired
+    },
 
     componentWillMount: function() {
         if(this.props.section) {

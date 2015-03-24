@@ -24,6 +24,7 @@ var Lesson2Activity1to3 = React.createClass({
 
         return (
             <WordActivity {...this.props}
+                section           = {lessonInfo.section}
                 lessonId          = {lessonInfo.id}
                 lessonTitle       = {lessonInfo.title}
                 activityCount     = {lessonInfo.activityCount}

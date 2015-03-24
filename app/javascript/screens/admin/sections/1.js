@@ -13,9 +13,9 @@ var Section1 = React.createClass({
         return (
             <div className="admin-section admin-section-1">
                 <div className="section-header-container">
-                    <button className="previous-section-button" onClick={this.props.renderPrevious}>Previous Section</button>
+                    <button className="previous-section-button" onClick={this.props.renderPrevious}>Back</button>
                     <SectionHeader title="Word Sounds" lessons="1-7"/>
-                    <button className="next-section-button" onClick={this.props.renderNext}>Next Section</button>
+                    <button className="next-section-button" onClick={this.props.renderNext}>Next</button>
                 </div>
 
 
@@ -24,6 +24,9 @@ var Section1 = React.createClass({
                         Beginning Sounds
                     </div>
                     <div className="sub-lessons">
+                        <LessonButton lessonId="1" onSelect={onSelect} selected={this.isSelected("1")} className="sub-lesson-button">
+                            <div className="sub-lesson__title">/t/</div>
+                        </LessonButton>
                         <LessonButton lessonId="1-m" onSelect={onSelect} selected={this.isSelected("1-m")} className="sub-lesson-button">
                             <div className="sub-lesson__title">/m/</div>
                         </LessonButton>
@@ -50,6 +53,9 @@ var Section1 = React.createClass({
                         Ending Sounds
                     </div>
                     <div className="sub-lessons">
+                        <LessonButton lessonId="2" onSelect={onSelect} selected={this.isSelected("2")} className="sub-lesson-button">
+                            <div className="sub-lesson__title">/t/</div>
+                        </LessonButton>
                         <LessonButton lessonId="2-d" onSelect={onSelect} selected={this.isSelected("2-d")} className="sub-lesson-button">
                             <div className="sub-lesson__title">/d/</div>
                         </LessonButton>
@@ -97,7 +103,7 @@ var Section1 = React.createClass({
 
                 <LessonButton lessonId="7" onSelect={onSelect} selected={this.isSelected("7")}>
                     <div className="lesson-button__title">
-                        Echo
+                        Echo the Word
                     </div>
                 </LessonButton>
             </div>

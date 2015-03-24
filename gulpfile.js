@@ -1,55 +1,67 @@
 "use strict";
 
-var gulp        = require("gulp"),                // Task runner
-    gutil       = require("gulp-util"),
-    Q           = require("q"),
-    _           = require("lodash"),
-    plumber     = require("gulp-plumber"),        // Handles gulp errors without stopping the watch task
-    source      = require("vinyl-source-stream"), // Allows the use of text streams with gulp (needed for browserify)
-    port        = 4210;                           // For test server
+var gulp    = require("gulp"),                // Task runner
+    gutil   = require("gulp-util"),
+    Q       = require("q"),
+    _       = require("lodash"),
+    plumber = require("gulp-plumber"),        // Handles gulp errors without stopping the watch task
+    source  = require("vinyl-source-stream"), // Allows the use of text streams with gulp (needed for browserify)
+    port    = 4210;                           // For test server
 
-var imageSize = function(path) {
-    var _imageSize  = require("image-size");
-
-    return Q.promise(function(resolve, reject) {
-        _imageSize(path, function(err, result) {
-            if(err) { reject(err); }
-            else { resolve(result); }
-        });
-    });
+var colors = {
+    time: gutil.colors.magenta,
+    taskName: gutil.colors.cyan,
+    errors: gutil.colors.red.underline
 };
-
-function tail(arr) {
-    return arr[arr.length-1];
-}
 
 var bundler = _.once(function() {
     var Browserify = require("browserify"),
         watchify   = require("watchify");
 
     return watchify(Browserify(_.extend({
-        paths: ["./node_modules", "./app/javascript"],
+        paths: ["./node_modules", "./app/javascript", "./lib"],
         debug: true
     }, watchify.args)))
-    .transform(require("6to5ify"))
-    .transform('brfs')
+    .transform(require("babelify"))
+    .transform("brfs")
     .add("./app/javascript/app.js")
-    .on('update', bundle)
+    .on("update", bundle)
     .on("time", function(time) {
-        gutil.log("Finished building (" + time + " ms)");
+        gutil.log("Finished '"+colors.taskName("bundler")+"' after " + colors.time(time + " ms"));
     });
 });
 
 function bundle() {
+    gutil.log("Starting '"+colors.taskName("bundler")+"'...");
     return bundler()
         .bundle()
+        .on("error", function(error) {
+            gutil.log(colors.errors("Bundler Error:\n") + error.toString());
+        })
         .pipe(source("app.js"))
         .pipe(gulp.dest("./dist/assets"));
 }
 
 // Compile javascript and jsx files
 gulp.task("javascript", ["index-lessons"], bundle);
+gulp.task("javascript-no-watch", ["index-lessons"], function() {
+    var Browserify = require("browserify"),
+        watchify   = require("watchify");
 
+    return Browserify({
+        paths: ["./node_modules", "./app/javascript", "./lib"],
+        debug: true
+    })
+    .transform(require("6to5ify"))
+    .transform("brfs")
+    .add("./app/javascript/app.js")
+    .bundle()
+    .on("error", function(error) {
+        gutil.log(colors.errors("Bundler Error:\n") + error.toString());
+    })
+    .pipe(source("app.js"))
+    .pipe(gulp.dest("./dist/assets"));
+});
 
 // create a json file listing all images except the 
 // word images so the client can preload them
@@ -68,70 +80,11 @@ gulp.task("map-images", function(callback) {
         }
     });
 });
-// Generates the app/javascript/word-images.json file
-// and populates it with path, width, height of each word image
-gulp.task("index-word-images", function(callback) {
-    var fs = require("fs"),
-        glob = require("glob");
-
-    glob("images/words/*.png", {cwd: "../Fun-Time-Phonics-Assets"}, function(error, images) {
-        //console.log(images);
-        var imageIndex = {};
-        images.reduce(function(queue, image, index) {
-            console.log("("+(index+1)+"/"+(images.length)+") " + image);
-            return queue.then(imageSize.bind(null, "../Fun-Time-Phonics-Assets/"+image)).then(function(dimensions) {
-                var imageId = tail(image.split("/")).split(".")[0];
-                imageIndex[imageId] = {
-                    width: dimensions.width,
-                    height: dimensions.height,
-                    path: "assets/"+image
-                };
-            });
-        }, Q.resolve()).then(
-            function(sizes) {
-                fs.writeFile("app/javascript/word-images.json", JSON.stringify(imageIndex, null, 4), function() {
-                    callback();
-                });
-            },
-            function(err) {
-                console.log(err);
-            }
-        );
-    });
-});
 
 // Create a javascript file that includes 
 // all lessons in the app's lessons directory
 gulp.task("index-lessons", function(callback) {
-    var fs = require("fs"),
-        glob = require("glob");
-
-    glob("screens/lessons/*", {cwd: "app/javascript"}, function(err, files) {
-        var json;
-        if(err) {
-            callback(err);
-        }
-        else {
-            files = files.filter(function isntJS(file) {
-                return file.slice(-3) !== ".js";
-            });
-
-            json = [
-                '/* This file is automatically generated by gulpfile.js task "index-lessons" */\n',
-                'module.exports = {', 
-                    '    ' +
-                    files.map(function(file) {
-                        var lessonId = tail(file.split("/"));
-                        return ['"', lessonId, '": ', 'require("',file,'")'].join("");
-                    }).join(",\n    "),
-                "};"
-            ].join("\n");
-            
-            fs.writeFile("app/javascript/screens/lessons/lessons.js", json, function() {
-                callback()
-            });
-        }
-    });
+    return require("./scripts/index-lessons")();
 });
 
 // Compile scss files
@@ -140,7 +93,10 @@ gulp.task("styles", function() {
     return gulp.src("app/styles/app.scss")
         .pipe(plumber())
         .pipe(sass({style: "compressed", require: ["susy"]}))
-        .pipe(gulp.dest("dist/assets"));
+        .pipe(gulp.dest("dist/assets"))
+        .on("log", function(data) {
+            console.log("SASS LOG:",data);
+        });
 });
 
 // Copy source html file
@@ -156,47 +112,15 @@ gulp.task("serve", function() {
 
     app.use(express.static(__dirname + "/dist"));
     app.listen(port);
-    console.log("Listening on port " + port);
+    gutil.log("Listening on port " + port);
 });
 
 // Copy static assets
-gulp.task("statics", function() {
+gulp.task("statics", ["build-assets"], function() {
     return gulp.src("statics/**/*")
         .pipe(gulp.dest("dist"));
 });
 
-// Build Windows/Mac distributions
-gulp.task("build-desktop", ["build"], function(callback) {
-    var Builder = require("node-webkit-builder");
-
-    var builder = new Builder({
-        files: ["./dist/**/!(*.mp3)"],
-        cacheDir: "./.node-webkit-cache",
-        buildDir: "./builds/desktop",
-        platforms: ["win"]
-    });
-
-    builder.on("log", console.log);
-    builder.build().then(
-        function() {
-            callback();
-        },
-        function(err) {
-            callback(err);
-        }
-    );
-});
-
-gulp.task("build-android", ["build"], function(callback) {
-    require("./cordova-utility").build()
-        .then(function() {
-            callback();
-        }, function(err) {
-            callback(err);
-        })
-});
-
-gulp.task("build-audio", require("./build-audio"));
 
 gulp.task("build-images", function() {
     var imageMin = require("gulp-imagemin");
@@ -205,31 +129,17 @@ gulp.task("build-images", function() {
         .pipe(gulp.dest("statics/assets/images"));
 });
 
-gulp.task("upload", ["build"], function() {
-    var exec = require("child_process").exec,
-        Q = require("q"),
-        deferred = Q.defer();
-
-    exec('sshpass -p "ctADl0g1n" scp -r dist/* james@12.0.0.70:/home/james/server/apps/fun-time-phonics', function(err) {
-        if(err) {
-            deferred.reject(err);
-        }
-        else {
-            deferred.resolve();
-        }
-    });
-
-    return deferred.promise;
-});
+gulp.task("build-audio",                       require("./scripts/build-audio"));
+gulp.task("backup",                            require("./scripts/backup"));
+gulp.task("index-word-images",                 require("./scripts/build-word-index"));
+gulp.task("build-desktop", ["build-no-watch"], require("./scripts/build-node-webkit"));
+gulp.task("upload",        ["build-no-watch"], require("./scripts/upload"));
 
 gulp.task("build-assets", ["build-audio", "build-images"]);
-
-gulp.task("setup", ["build-assets", "index-word-images"])
-
-// Build web version
-gulp.task("build", ["javascript", "styles", "html", "statics"]);
-
-gulp.task("distribute", ["build-desktop", "build-android"]);
+gulp.task("setup",        ["build-assets", "index-word-images"])
+gulp.task("distribute",   ["build-desktop", "build-android"]);
+gulp.task("build",        ["javascript", "styles", "html", "statics"]);
+gulp.task("build-no-watch", ["javascript-no-watch", "styles", "html", "statics"])
 
 // Watch source files for changes. Rebuild necessary files when changes are made
 gulp.task("watch", ["build"], function() {

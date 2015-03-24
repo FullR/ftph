@@ -45,9 +45,12 @@ var Lesson = React.createClass({
     instructions: function(then) {
         var steps;
         if(this.props.instructions) {
-            steps = this.props.instructions.call(this, then);
-            [then("revealActor"), then("centerActor"), then("hideChoices")].forEach(steps.unshift.bind(steps));
-            return steps;
+            return [
+                then("centerActor"),
+                then("hideChoices"),
+                then("revealActor"),
+                ...this.props.instructions.call(this, then)
+            ];
         }
         else {
             return [];

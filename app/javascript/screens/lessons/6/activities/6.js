@@ -12,26 +12,6 @@ module.exports = React.createClass({
                     {word: "head"},
                     {word: "hat"}
                 ]}
-                incorrectFeedback={(then, word) => {
-                    if(word === "head") {
-                        return [
-                            then("say", "word"),
-                            then("say", "doesnt-have-the"),
-                            then("say", "phonics.0"),
-                            then("say", "sound")
-                        ];
-                    }
-                    else {
-                        return [
-                            then("say", "word"),
-                            then("say", "doesnt-have-the"),
-                            then("say", "phonics.0"),
-                            then("say", "sound"),
-                            then("say", "or-end-with"),
-                            then("say", "phonics.1")
-                        ];
-                    }
-                }}
                 nextScreen={require("./7")}/>
         );
     }

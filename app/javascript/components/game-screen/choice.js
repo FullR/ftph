@@ -1,4 +1,5 @@
-var React = require("react");
+var React = require("react"),
+    dnd = require("react-dnd");
 
 var Choice = React.createClass({
     mixins: [require("mixins/class-names")],

@@ -40,10 +40,10 @@ $play-button-hover-image: 'images/replay-button_active.png';
 .choice--selectable {
     cursor: pointer;
 
-    @include active {
-        box-shadow: $selected-shadow;
-        border: $selected-border;
-    }
+    //@include active {
+    //    box-shadow: $selected-shadow;
+    //    border: $selected-border;
+    //}
 }
 
 .choice--hidden {

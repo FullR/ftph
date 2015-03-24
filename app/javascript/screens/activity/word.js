@@ -27,7 +27,7 @@ var WordActivity = React.createClass({
     },
 
     renderFeedback: function(activity) {
-        render(<div>Activity Feedback</div>);
+        render(<div>Activity Feedback not found</div>);
     },
 
     render: function() {

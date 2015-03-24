@@ -43,7 +43,7 @@ var Lesson8 = React.createClass({
             nextActivity   = activities[nextActivityId];
 
         return (
-            <ShortVowelLesson {... lessonInfo}
+            <ShortVowelLesson {...lessonInfo}
                 phonic="eh"
                 nextScreen={nextActivity}
                 nextLabel={`Activity ${nextActivityId}`}

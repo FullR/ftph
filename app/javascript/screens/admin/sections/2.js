@@ -13,9 +13,9 @@ var Section2 = React.createClass({
         return (
             <div className="admin-section admin-section-2">
                 <div className="section-header-container">
-                    <button className="previous-section-button" onClick={this.props.renderPrevious}>Previous Section</button>
-                    <SectionHeader title="Short Vowel Sounds" lessons="7-14"/>
-                    <button className="next-section-button" onClick={this.props.renderNext}>Next Section</button>
+                    <button className="previous-section-button" onClick={this.props.renderPrevious}>Back</button>
+                    <SectionHeader title="Short Vowel Sounds" lessons="8-14"/>
+                    <button className="next-section-button" onClick={this.props.renderNext}>Next</button>
                 </div>
     
                 <LessonButton lessonId="8" onSelect={onSelect} selected={this.isSelected("8")}>

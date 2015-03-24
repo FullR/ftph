@@ -11,12 +11,12 @@ var WordListItem = React.createClass({
     },
 
     playLessonSound: function() {
-        var sound = SoundManager.get(this.props.lessonAudioPath);
+        var sound = SoundManager.get(this.props.audio.lesson);
         return sound.load().then(() => sound.play());
     },
 
     playActivitySound: function() {
-        var sound = SoundManager.get(this.props.activityAudioPath);
+        var sound = SoundManager.get(this.props.audio.activity);
         return sound.load().then(() => sound.play());
     },
 
@@ -36,15 +36,15 @@ var WordListItem = React.createClass({
         return (
             <tr {...this.props} style={style}>
                 <td>
-                    <button onClick={this.playLessonSound} disabled={!this.props.lessonAudioPath} style={{display: "inline-block"}}>Lesson Audio</button>
+                    <button onClick={this.playLessonSound} disabled={!this.props.audio.lesson} style={{display: "inline-block"}}>Lesson Audio</button>
                 </td>
                 <td>
-                    <button onClick={this.playActivitySound}  disabled={!this.props.activityAudioPath} style={{display: "inline-block"}}>Activity Audio</button>
+                    <button onClick={this.playActivitySound}  disabled={!this.props.audio.activity} style={{display: "inline-block"}}>Activity Audio</button>
                 </td>
                 <td>
                     {this.state.showingImage ? 
                         <div style={{border: "1px solid black", background: "#FFF"}}>
-                            <img style={{width: 100}} src={this.props.imagePath}/>
+                            <img style={{width: 100}} src={this.props.image.path}/>
                             <br/>
                             <button onClick={this.hideImage}>Hide Image</button>
                         </div> :
@@ -160,7 +160,7 @@ var WordList = React.createClass({
                     <div style={{marginTop: 20}}>
                         <button onClick={this.setPage.bind(this, 0)} disabled={pageNumber === 0}>{"<<"}</button>
                         <button onClick={this.previousPage} disabled={pageNumber === 0}>{"<"}</button>
-                        <span style={{marginLeft: 10, marginRight: 10}}>{pageNumber + 1} / {pages.length}</span>
+                        <span style={{marginLeft: 10, marginRight: 10, width: 60, display: "inline-block"}}>{pageNumber + 1} / {pages.length}</span>
                         <button onClick={this.nextPage} disabled={pageNumber === pages.length-1}>{">"}</button>
                         <button onClick={this.setPage.bind(this, pages.length-1)} disabled={pageNumber === pages.length-1}>{">>"}</button>
                     </div>

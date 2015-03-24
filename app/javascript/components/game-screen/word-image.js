@@ -1,5 +1,7 @@
 var React      = require("react"),
-    wordImages = require("word-images");
+    wordIndex  = require("word-index");
+
+wordIndex.__NOT_FOUND.error = true;
 
 var WordImage = React.createClass({
     mixins: [require("mixins/class-names")],
@@ -11,11 +13,13 @@ var WordImage = React.createClass({
     },
 
     getImageData: function() {
-        var data = wordImages[this.props.word];
+        var data = wordIndex[this.props.word];
+
         if(!data) {
-            throw new Error(`Word Image index id not found: ${this.props.word}`);
+            data = wordIndex.__NOT_FOUND;
         }
-        return data;
+
+        return data.image;
     },
 
     // Compute the width/height to fit the image
@@ -63,17 +67,31 @@ var WordImage = React.createClass({
     },
 
     render: function() {
+        var imageData = this.getImageData();
         return (
             <img 
                 className={this.classNames("word-image")} 
-                src={this.getImageData().path}
+                src={imageData.path}
                 style={{
                     visibility: this.state.fitted ? "invisible" : null,
                     width: this.state.width,
                     height: this.state.height,
                     marginLeft: this.state.marginLeft,
                     marginTop: this.state.marginTop
-                }}/>
+                }}>
+                {imageData.error ?
+                    <div style={{
+                        position: "absolute",
+                        left: 0,
+                        top: "-50%",
+                        height: 20,
+                        width: "100%",
+                        fontSize: 32
+                    }}>"{this.props.word}"</div>
+                    : null
+                }
+
+            </img>
         );
     }
 });

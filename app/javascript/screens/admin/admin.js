@@ -1,8 +1,7 @@
 var React       = require("react"),
     WebLink     = require("components/utility/web-link"),
     render      = require("render"),
-    sections    = require("screens/admin/sections"),
-    SectionList = require("components/admin/section-list");
+    sections    = require("screens/admin/sections");
 
 var Admin = React.createClass({
     mixins: [require("mixins/storage")],
@@ -10,14 +9,14 @@ var Admin = React.createClass({
     // Lifecycle methods
     getInitialState: function() {
         return {
-            section: this.props.section || 1,
+            section: +(this.load("last-section") || 1),
             selectedLesson: this.load("last-lesson") || "1"
         };
     },
 
     componentDidUpdate: function() {
         if(this.state.changed) {
-            setTimeout(this.toggleChangedFlagOff, 500);
+            setTimeout(this.toggleChangedFlagOff, 1000);
         }
     },
 
@@ -49,6 +48,9 @@ var Admin = React.createClass({
                 selectedLesson: this.state.selectedLesson,
                 section: this.state.section + 1
             });
+        }
+        else {
+            console.log("Next section doesn't exist?",this.state.section);
         }
     },
 
@@ -120,8 +122,6 @@ var Admin = React.createClass({
                 </div>
 
                 <div className="admin__content">
-                    <p style={{display: "none", fontSize: 44, position: "absolute", width: "100%", textAlign: "center", fontWeight: "bold", top: "15%"}}>THIS PAGE IS UNDER CONSTRUCTION</p>
-
                     <div className="admin__current-section">
                         <Section value={this.state.selectedLesson} onSelect={this.updateSelectedLesson} renderNext={this.nextSection} renderPrevious={this.previousSection}/>
                     </div>

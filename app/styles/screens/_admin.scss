@@ -98,21 +98,40 @@ $back-button-offset: 40px;
     }
 }
 
-@-webkit-keyframes glow {
-    from {
-        -webkit-box-shadow: 0px 0px 60px #F00;
-           -moz-box-shadow: 0px 0px 60px #F00;
-                box-shadow: 0px 0px 60px #F00;
+@-webkit-keyframes alert {
+    0% {
+        width: 0;
+        height: 0;
+        left: $back-button-width/2;
+        top: $back-button-height/2;
     }
-    to {
-        -webkit-box-shadow: 0px 0px 0px #F00;
-           -moz-box-shadow: 0px 0px 0px #F00;
-                box-shadow: 0px 0px 0px #F00;
+    50% {
+        width: $back-button-width;
+        height: $back-button-width;
+        left: 0;
+        top: -($back-button-width/8);
+    }
+    100% {
+        width: 0;
+        height: 0;
+        left: $back-button-width/2;
+        top: $back-button-height/2;
     }
 }
 
 .admin--changed .admin__back-button {
-    -webkit-animation: glow 0.5s;
+    z-index: 2;
+    &::after {
+        -webkit-animation: alert 1.0s;
+        //border: 3px solid red;
+        border-radius: 50%;
+        content: "";
+        position: absolute;
+        z-index: 1;
+        -webkit-box-shadow: 0px 0px 60px rgba(0,200,0,0.9);
+           -moz-box-shadow: 0px 0px 60px rgba(0,200,0,0.9);
+                box-shadow: 0px 0px 60px rgba(0,200,0,0.9);
+    }
 }
 
 .admin-section {
@@ -153,6 +172,10 @@ $back-button-offset: 40px;
     height: 100%;
     width: span(2);
     text-align: center;
+
+    @include active {
+        color: #87BFFF;
+    }
 }
 
 .previous-section-button {

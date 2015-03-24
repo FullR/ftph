@@ -15,6 +15,111 @@ var animationMixin = {
         };
     },
 
+    // On mount, if an autoplay animation is set, play it
+    // If a `getAutoplayAnimation` method is defined, call it,
+    // and play the returned animation
+    componentDidMount: function() {
+        var runAnimation = () => {
+                var animation;
+                if(this.autoplayAnimation) {
+                    this.animate(this.autoplayAnimation);
+                }
+                else if(this.getAutoplayAnimation) {
+                    animation = this.getAutoplayAnimation();
+                    if(animation) {
+                        this.animate(animation);
+                    }
+                }
+            };
+
+        if(this._loadSoundsPromise) {
+            this._loadSoundsPromise.then(runAnimation, runAnimation);
+        }
+        else {
+            runAnimation();
+        }
+    },
+
+    // On unmount, stop any animations that may be playing
+    componentWillUnmount: function() {
+        this.stopAnimation();
+    },
+
+    /*
+        Runs the passed animation function
+    */
+    animate: function(animation) {
+        var animationFn;
+
+        // Updates component state and runs the promise queue
+        var playAnimation = () => {
+            this.animationQueue = PromiseQueue(animationFn(this.then));
+
+            this.state.animating = true;
+            this.setState(this.state);
+
+            return this.animationQueue.start()
+                .then(() => {
+                    this.animationQueue = null;
+                    if(this.isMounted()) {
+                        this.state.animating = false;
+                        this.setState(this.state);
+                    }
+                })
+                .catch((error) => {
+                    this.animationQueue = null;
+                    if(this.isMounted()) {
+                        this.state.animating = false;
+                        this.setState(this.state);
+                    }
+                    console.error("Animation failed:", error);
+                });
+        };
+
+        // allow passing function names instead of functions
+        if(typeof animation === "string") {
+            animationFn = this.getAnimation(animation);
+        }
+        else {
+            animationFn = animation;
+        }
+
+        if(this.animationQueue) {
+            this.animationQueue.getPromise() // wait until current animation has finished stopping
+                .then(playAnimation.bind(this));
+
+            this.stopAnimation();
+        }
+        else {
+            playAnimation(this);
+        }
+    },
+
+    // Retrieves an animation with a given id
+    // Throws an error if the animation isn't found
+    getAnimation: function(animationId) {
+        if(this[animationId]) {
+            return this[animationId];
+        }
+        else if(this.props.animations && this.props.animations[animationId]) {
+            return this.props.animations[animationId];
+        }
+        else {
+            throw new Error(`Animation not found: ${animationId}`);
+        }
+    },
+
+    // Returns true if an animation is currently running
+    isAnimating: function() {
+        return !!this.animationQueue;
+    },
+
+    stopAnimation: function() {
+        if(this.animationQueue) {
+            this.animationQueue.stop();
+        }
+    },
+
     /*
         Takes a function or method name and a variable number of arguments
         and returns a function that when invoked, executes the passed function
@@ -45,97 +150,12 @@ var animationMixin = {
         return boundFn;
     },
 
-    /*
-        Runs the passed animation function
-    */
-    animate: function(animation) {
-        var animationFn;
-
-        // Updates component state and runs the promise queue
-        var playAnimation = () => {
-            this.animationQueue = PromiseQueue(animationFn(this.then));
-
-            this.state.animating = true;
-            this.setState(this.state);
-
-            return this.animationQueue.start()
-                .then(() => {
-                    this.animationQueue = null;
-                    if(this.isMounted()) {
-                        this.state.animating = false;
-                        this.setState(this.state);
-                    }
-                })
-                .catch((error) => {
-                    console.error("Animation failed:",error);
-                });
-        };
-
-        // allow passing function names instead of functions
-        if(typeof animation === "string") {
-            animationFn = this[animation];
-
-            if(!animationFn) {
-                throw new Error(`Could not find animation: ${animation}`);
-            }
-        }
-        else {
-            animationFn = animation;
-        }
-
-        if(this.animationQueue) {
-            this.animationQueue.getPromise() // wait until current animation has finished stopping
-                .then(playAnimation.bind(this));
-
-            this.stopAnimation();
-        }
-        else {
-            playAnimation(this);
-        }
-    },
-
-    stopAnimation: function() {
-        if(this.animationQueue) {
-            this.animationQueue.stop();
-        }
-    },
-
     // utility wait function
     wait: function(ms) {
         var deferred = Q.defer();
         setTimeout(deferred.resolve, ms);
         return deferred.promise;
     },
-
-    // On mount, if an autoplay animation is set, play it
-    // If a `getAutoplayAnimation` method is defined, call it,
-    // and play the returned animation
-    componentDidMount: function() {
-        var runAnimation = () => {
-                var animation;
-                if(this.autoplayAnimation) {
-                    this.animate(this.autoplayAnimation);
-                }
-                else if(this.getAutoplayAnimation) {
-                    animation = this.getAutoplayAnimation();
-                    if(animation) {
-                        this.animate(animation);
-                    }
-                }
-            };
-
-        if(this._loadSoundsPromise) {
-            this._loadSoundsPromise.then(runAnimation, runAnimation);
-        }
-        else {
-            runAnimation();
-        }
-    },
-
-    // On unmount, stop any animations that may be playing
-    componentWillUnmount: function() {
-        this.stopAnimation();
-    }
 };
 
 module.exports = animationMixin;

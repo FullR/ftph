@@ -14,8 +14,11 @@ var ShortVowelActivity = React.createClass({
 
                 instructions={(then) => [
                     then("say", "touch-the-word"),
+                    then("wait", 250),
                     then("say", "phonic"),
+                    then("wait", 250),
                     then("say", "sound"),
+                    then("wait", 250),
                     then("uncenterActor"),
                     ...choices.map((choice, index) => [
                         then("revealChoice", index),

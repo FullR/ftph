@@ -11,7 +11,7 @@ var Lesson10Feedback = React.createClass({
                 title      = {lessonInfo.title}
                 lessonId   = {lessonInfo.id}
                 section    = {lessonInfo.section}
-                nextScreen = {require("screens/splash")}
+                nextScreen = {require("screens/lessons/11")}
                 backScreen = {require("screens/lessons/10")}/>
         );
     }

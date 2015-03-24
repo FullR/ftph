@@ -45,6 +45,7 @@ var Lesson2 = React.createClass({
         return (
             <WordLesson
                 id         = {lessonInfo.id}
+                section    = {lessonInfo.section}
                 title      = {lessonInfo.title}
                 subtitle   = {lessonInfo.subtitle}
                 nextScreen = {nextActivity}

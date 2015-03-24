@@ -37,8 +37,9 @@ var soundContainer = {
             }
 
             soundArray = [];
-            this.sounds = deepMap(function(path) {
+            this.sounds = deepMap(function(path, key) {
                 var sound = soundManager.get(path);
+
                 soundArray.push(sound);
                 return sound;
             }, sounds);
