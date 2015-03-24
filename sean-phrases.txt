@@ -1,0 +1,43 @@
+Common
+"then touch the green arrow to begin"
+"touch the green arrow to begin"
+"is"
+"and"
+"sound"
+"say"
+"slowly"
+
+Lesson 1
+"say the words"
+"the first sound you hear in a word is called the beginning sound. the beginning sound in the words"
+"listen for the new beginning sound in"
+
+Lesson 2
+"say the words"
+"the last sound you hear in a word is called the ending sound. the ending sound in the words"
+"listen for the new ending sound in"
+
+Lesson 3
+"the last sound you hear in a word is called the ending sound. the ending sound in the word"
+"the first sound you hear in a word is called the beginning sound. the beginning sound in the word"
+"say the word"
+
+Lesson 4
+"rhyme because they all have the same ending sound"
+"the words"
+"rhyme because they all end in eight"
+"words like"
+
+Lessons 8-12
+"words like"
+"make the"
+"sound say"
+
+Lesson 13
+"makes the"
+
+Lesson 14
+"if you take out the"
+"sound from"
+"and put"
+"the new word is"

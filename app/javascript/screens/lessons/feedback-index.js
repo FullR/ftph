@@ -9,6 +9,7 @@ module.exports = {
     "14": require("screens/lessons/14/lesson-feedback"),
     "15": require("screens/lessons/15/lesson-feedback"),
     "16": require("screens/lessons/16/lesson-feedback"),
+    "17": require("screens/lessons/17/lesson-feedback"),
     "2": require("screens/lessons/2/lesson-feedback"),
     "3": require("screens/lessons/3/lesson-feedback"),
     "4": require("screens/lessons/4/lesson-feedback"),

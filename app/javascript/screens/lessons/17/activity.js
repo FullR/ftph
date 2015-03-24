@@ -4,7 +4,7 @@ var React = require("react"),
     lessonInfo = require("./info"),
     render = require("render");
 
-var Lesson16Activity = React.createClass({
+var Lesson17Activity = React.createClass({
     mixins: [require("mixins/storage")],
 
     render: function() {
@@ -21,7 +21,7 @@ var Lesson16Activity = React.createClass({
                 lessonTitle={lessonInfo.title}
                 section={lessonInfo.section}
                 activityCount={lessonInfo.activityCount}
-                lessonScreen={require("screens/lessons/16")}
+                lessonScreen={require("screens/lessons/17")}
                 autoplayAnimation={this.props.autoplayAnimation || "choices-only"}
                 namespace={lessonInfo.namespace}
                 renderFeedback={(activity) => render(
@@ -39,4 +39,4 @@ var Lesson16Activity = React.createClass({
     }
 });
 
-module.exports = Lesson16Activity;
+module.exports = Lesson17Activity;

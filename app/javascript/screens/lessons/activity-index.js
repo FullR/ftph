@@ -15,6 +15,7 @@ module.exports = {
     "14": require("screens/lessons/14/activities"),
     "15": require("screens/lessons/15/activities"),
     "16": require("screens/lessons/16/activities"),
+    "17": require("screens/lessons/17/activities"),
     "2": require("screens/lessons/2/activities"),
     "2-b": require("screens/lessons/2-b/activities"),
     "2-d": require("screens/lessons/2-d/activities"),
