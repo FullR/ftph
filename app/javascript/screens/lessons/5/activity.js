@@ -1,8 +1,8 @@
-var React        = require("react"),
-    WordActivity = require("screens/activity/word"),
-    get          = require("utility/functional/get"),
-    render       = require("render"),
-    lessonInfo   = require("./info");
+var React        = require("react");
+var WordActivity = require("screens/activity/word");
+var get          = require("utility/functional/get");
+var render       = require("render");
+var lessonInfo   = require("./info");
 
 var Lesson5Activity = React.createClass({
     mixins: [
@@ -17,9 +17,9 @@ var Lesson5Activity = React.createClass({
     },
 
     render: function() {
-        var choices    = this.props.choices,
-            nextScreen = this.props.nextScreen,
-            activityId = this.props.id;
+        var choices    = this.props.choices;
+        var nextScreen = this.props.nextScreen;
+        var activityId = this.props.id;
 
         return (
             <WordActivity {...this.props}
@@ -31,10 +31,6 @@ var Lesson5Activity = React.createClass({
                 activityCount          = {lessonInfo.activityCount}
                 sounds                 = {this.getSounds()}
                 lessonScreen           = {require("screens/lessons/5")}
-
-                onSubmit={(activity, correct) => {
-                    this.save(["lesson-5", "activities", activityId, "correct"], correct);
-                }}
 
                 instructions={function(then) {
                     return [

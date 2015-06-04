@@ -1,5 +1,5 @@
-var React = require("react"),
-    Lesson1SubLesson = require("screens/lessons/1/sublesson");
+var React = require("react");
+var Lesson1SubLesson = require("screens/lessons/1/sublesson");
 
 var Lesson1n = React.createClass({
     render: function() {

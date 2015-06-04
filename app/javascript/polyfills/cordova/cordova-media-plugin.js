@@ -1,10 +1,10 @@
 var Q = require("q");
+var noop = function() {};
 
 function applyMediaPolyfill() {
-    var noop = function() {},
-        HowlerModule,
-        Howler,
-        Howl;
+    var HowlerModule;
+    var Howler;
+    var Howl;
 
     function MediaPollyfill(url, onFinishPlaying, onErrorPlaying, onPlayingStatus) {
         this.url = url;
@@ -19,7 +19,7 @@ function applyMediaPolyfill() {
         Howler = HowlerModule.Howler;
 
         MediaPollyfill.prototype = {
-            load: function() {
+            load() {
                 var deferred = Q.defer();
 
                 this.sound = new Howl({
@@ -34,19 +34,19 @@ function applyMediaPolyfill() {
                 return deferred.promise;
             },
 
-            stop: function() {
+            stop() {
                 if(this.sound) {
                     this.sound.stop();
                 }
             },
 
-            play: function() {
+            play() {
                 if(this.sound) {
                     this.sound.play();
                 }
             },
 
-            release: function() {
+            release() {
                 //if(this.sound) {
                 //    this.sound.unload();
                 //    this.sound = null;
@@ -63,6 +63,11 @@ function applyMediaPolyfill() {
         };
 
         window.Media = MediaPollyfill;
+    }
+    else {
+        window.Media.prototype.load = function() {
+            return Q.resolve(this);
+        };
     }
     return window.Media;
 }

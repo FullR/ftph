@@ -1,7 +1,7 @@
 var React = require("react");
 
 var FeedbackFrame = React.createClass({
-    render: function() {
+    render() {
         return (
             <div {...this.props} className="feedback-frame">
                 {this.props.children}

@@ -1,7 +1,7 @@
-var React      = require("react"),
-    WordLesson = require("screens/lesson/word"),
-    lessonInfo = require("./info"),
-    activities = require("./activities");
+var React      = require("react");
+var WordLesson = require("screens/lesson/word");
+var lessonInfo = require("./info");
+var activities = require("./activities");
 
 var Lesson13 = React.createClass({
     mixins: [
@@ -38,16 +38,20 @@ var Lesson13 = React.createClass({
     },
 
     render: function() {
-        var storage = this.load(lessonInfo.namespace),
-            nextActivityId = storage["last-activity"] || "1",
-            nextActivity = activities[nextActivityId],
-            choices = [
-                {word: "rat"},
-                {word: "wet"},
-                {word: "sit"},
-                {word: "pot"},
-                {word: "rug"}
-            ];
+        var storage = this.load(lessonInfo.namespace);
+        var nextActivityId = storage["last-activity"] || "1";
+        var nextActivity = activities[nextActivityId];
+        var choices = [
+            {word: "rat"},
+            {word: "wet"},
+            {word: "sit"},
+            {word: "pot"},
+            {word: "rug"}
+        ];
+
+        var delays = [
+            [225, 60, 100]
+        ];
 
         return (
             <WordLesson {...lessonInfo}
@@ -58,24 +62,69 @@ var Lesson13 = React.createClass({
 
                 sounds={{
                     "phonics": ["ah", "eh", "ih", "oh", "uh"].map((phonic) => `phonics/lesson-phonics/${phonic}`),
+                    "listen": "lessons/lesson-13/instructions/listen",
                     "makes-the": "lessons/lesson-13/instructions/makes-the",
                     "and": "lessons/lesson-13/instructions/and",
                     "sound": "lessons/lesson-13/instructions/sound",
-                    "touch-the": "lessons/lesson-13/instructions/touch-the"
+                    "touch-the": "common/lessons/touch-the"
                 }}
 
                 instructions={(then) => [
+                    then("say", "listen"),
+                    then("wait", 665),
                     then("uncenterActor"),
-                    ...choices.map((choice, index) => [
-                        index === 4 ?
-                            then("say", "and") : 
-                            null,
-                        then("revealChoice", index),
-                        then("say", ["words", index]),
-                        then("say", "makes-the"),
-                        then("say", ["phonics", index]),
-                        then("say", "sound")
-                    ]),
+
+                    then("revealChoice", 0),
+                    then("say", ["words", 0]),
+                    then("wait", 225),
+                    then("say", "makes-the"),
+                    then("wait", 50),
+                    then("say", ["phonics", 0]),
+                    then("wait", 100),
+                    then("say", "sound"),
+                    then("wait", 550),
+
+                    then("revealChoice", 1),
+                    then("say", ["words", 1]),
+                    then("wait", 225),
+                    then("say", "makes-the"),
+                    then("wait", 125),
+                    then("say", ["phonics", 1]),
+                    then("wait", 100),
+                    then("say", "sound"),
+                    then("wait", 475),
+
+                    then("revealChoice", 2),
+                    then("say", ["words", 2]),
+                    then("wait", 275),
+                    then("say", "makes-the"),
+                    then("wait", 150),
+                    then("say", ["phonics", 2]),
+                    then("wait", 100),
+                    then("say", "sound"),
+                    then("wait", 650),
+
+                    then("revealChoice", 3),
+                    then("say", ["words", 3]),
+                    then("wait", 250),
+                    then("say", "makes-the"),
+                    then("wait", 50),
+                    then("say", ["phonics", 3]),
+                    then("wait", 130),
+                    then("say", "sound"),
+                    then("wait", 550),
+
+                    then("say", "and"), then("wait", 125),
+                    then("revealChoice", 4),
+                    then("say", ["words", 4]),
+                    then("wait", 100),
+                    then("say", "makes-the"),
+                    then("wait", 175),
+                    then("say", ["phonics", 4]),
+                    then("wait", 100),
+                    then("say", "sound"),
+                    then("wait", 800),
+
                     then("say", "touch-the"),
                     then("sit")
                 ]}/>

@@ -1,10 +1,10 @@
-var React   = require("react"),
-    WebLink = require("components/utility/web-link");
+var React = require("react");
+var WebLink = require("components/utility/web-link");
 
 var InfoScreen = React.createClass({
     mixins: [require("mixins/class-names")],
 
-    resizeContent: function() {
+    resizeContent() {
         var el           = this.getDOMNode(),
             header       = document.getElementsByClassName("info-screen-header")[0],
             content      = document.getElementsByClassName("info-screen-content")[0],
@@ -16,25 +16,25 @@ var InfoScreen = React.createClass({
         content.style.height = `${height - headerHeight - footerHeight}px`;
     },
 
-    componentDidMount: function() {
+    componentDidMount() {
         var _resizeHandler = (() => this.resizeContent());
 
         document.addEventListener("resize", _resizeHandler)
         this._resizeHandler = _resizeHandler;
     },
 
-    componentWillUnmount: function() {
+    componentWillUnmount() {
         if(this._resizeHandler) {
             document.removeEventListener("resize", this._resizeHandler);
             this._resizeHandler = null;
         }
     },
 
-    goHome: function() {
+    goHome() {
         
     },
 
-    render: function() {
+    render() {
         return (
             <div className={this.classNames("info-screen")}>
                 <div className="info-screen-header">

@@ -1,8 +1,8 @@
-var React = require("react"),
-    WordActivity = require("screens/activity/word");
+var React = require("react");
+var WordActivity = require("screens/activity/word");
 
 var ShortVowelActivity = React.createClass({
-    render: function() {
+    render() {
         var choices = this.props.choices;
         return (
             <WordActivity {...this.props}

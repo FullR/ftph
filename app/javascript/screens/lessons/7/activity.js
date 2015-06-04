@@ -1,8 +1,8 @@
-var React        = require("react"),
-    WordActivity = require("screens/activity/word"),
-    WordImage    = require("components/game-screen/word-image"),
-    render       = require("render"),
-    lessonInfo   = require("./info");
+var React        = require("react");
+var WordActivity = require("screens/activity/word");
+var WordImage    = require("components/game-screen/word-image");
+var render       = require("render");
+var lessonInfo   = require("./info");
 
 var Lesson7Activity = React.createClass({
     mixins: [
@@ -12,18 +12,18 @@ var Lesson7Activity = React.createClass({
 
     getAdditionalSounds: function() {
         return {
-            "sounded-word": `lessons/lesson-6/activities/feedback/sounded-words/${this.props.phonics.join("_")}`,
+            "sounded-word": `lessons/lesson-7/sounded-words/${this.props.phonics.join("_")}`,
             "listen": "lessons/lesson-7/activities/instructions/listen"
         };
     },
 
     render: function() {
-        var choices           = this.props.choices,
-            nextScreen        = this.props.nextScreen,
-            activityId        = this.props.id,
-            rhymeWord         = this.props.word,
-            choices           = this.props.choices,
-            phonics           = this.props.phonics;
+        var choices = this.props.choices,
+            nextScreen = this.props.nextScreen,
+            activityId = this.props.id,
+            rhymeWord = this.props.word,
+            choices = this.props.choices,
+            phonics = this.props.phonics;
 
         return (
             <WordActivity {...this.props}
@@ -35,10 +35,6 @@ var Lesson7Activity = React.createClass({
                 teacherText       = "Word Sounds"
                 owlText           = "Instructions"
                 autoplayAnimation = {this.props.autoplayAnimation || "phonics-only"}
-
-                onSubmit={(activity, correct) => {
-                    this.save([lessonInfo.namespace, "activities", activityId, "correct"], correct);
-                }}
 
                 onOwlClick={(activity) => {
                     if(!activity.isAnimating()) {
@@ -73,7 +69,9 @@ var Lesson7Activity = React.createClass({
                     then("centerActor"),
                     then("say", "listen"),
                     then("wait", 250),
-                    
+                    then("uncenterActor"),
+                    then("changeActor", "teacher"),
+                    then("centerActor"),
                     then("say", "sounded-word"),
 
                     then("wait", 500),
@@ -105,7 +103,7 @@ var Lesson7Activity = React.createClass({
                             words         = {[selected.word]}
 
                             sounds={{
-                                "sounded-word":  `lessons/lesson-6/activities/feedback/sounded-words/${phonics.join("_")}`,
+                                "sounded-word":  `lessons/lesson-7/sounded-words/${phonics.join("_")}`,
                                 "does-not-make": "lessons/lesson-6/activities/feedback/does-not-make"
                             }}
 

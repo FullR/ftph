@@ -12,7 +12,7 @@ module.exports = React.createClass({
                     {word: "chip"},
                     {word: "shop"}
                 ]}
-                nextScreen={require("screens/lessons/7/lesson-feedback")}/>
+                nextScreen={require("./16")}/>
         );
     }
 });

@@ -3,11 +3,11 @@ var React = require("react"),
     LessonButton = require("components/admin/lesson-button");
 
 var Section2 = React.createClass({
-    isSelected: function(lessonId) {
+    isSelected(lessonId) {
         return lessonId === this.props.value;
     },
 
-    render: function() {
+    render() {
         var onSelect = this.props.onSelect;
 
         return (
@@ -37,7 +37,7 @@ var Section2 = React.createClass({
                     <div className="lesson-button__title">Odd One Out</div>
                 </LessonButton>
                 <LessonButton lessonId="14" onSelect={onSelect} selected={this.isSelected("14")}>
-                    <div className="lesson-button__title">A New World</div>
+                    <div className="lesson-button__title">Forming New Words</div>
                 </LessonButton>
             </div>
 

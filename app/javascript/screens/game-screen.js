@@ -1,5 +1,5 @@
-var React       = require("react"),
-    AdminButton = require("components/admin/admin-button");
+var React = require("react");
+var AdminButton = require("components/admin/admin-button");
 
 var GameScreen = React.createClass({
     mixins: [require("mixins/storage")],
@@ -7,13 +7,13 @@ var GameScreen = React.createClass({
         section: React.PropTypes.string.isRequired
     },
 
-    componentWillMount: function() {
+    componentWillMount() {
         if(this.props.section) {
             this.save("last-section", this.props.section);
         }
     },
 
-    render: function() {
+    render() {
         return (
             <div {...this.props}>
                 {this.props.children}

@@ -1,7 +1,7 @@
-var React = require("react"),
-    ShortSoundLesson = require("screens/lesson/short-sound"),
-    lessonInfo = require("./info"),
-    activities = require("./activities");
+var React = require("react");
+var ShortSoundLesson = require("screens/lesson/short-sound");
+var lessonInfo = require("./info");
+var activities = require("./activities");
 
 var Lesson16 = React.createClass({
     mixins: [
@@ -37,9 +37,9 @@ var Lesson16 = React.createClass({
     },
 
     render: function() {
-        var storage = this.load(lessonInfo.namespace),
-            nextActivityId = storage["last-activity"] || "1",
-            nextActivity   = activities[nextActivityId];
+        var storage = this.load(lessonInfo.namespace);
+        var nextActivityId = storage["last-activity"] || "1";
+        var nextActivity   = activities[nextActivityId];
 
         return (
             <ShortSoundLesson {...lessonInfo}

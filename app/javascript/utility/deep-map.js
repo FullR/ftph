@@ -1,12 +1,9 @@
-
-
 var _ = require("lodash");
 
 /*
     Maps every value in a complex structure without changing 
     the shape of the structure
 */
-
 function deepMap(fn, value, key, container) {
     if(_.isArray(value)) {
         return value.map(deepMap.bind(null, fn));

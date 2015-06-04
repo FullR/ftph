@@ -4,7 +4,7 @@ var React = require("react"),
 var Lesson9Activity8 = React.createClass({
     render: function() {
         return (
-            <Activity
+            <Activity {...this.props}
                 id="8"
                 choices={[
                     {word: "egg", correct: true},

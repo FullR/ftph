@@ -2,17 +2,17 @@
 function ActorMixin(actorKey, initialState) {
     return {
         // Change the current target of the actor methods
-        changeActor: function(newActorKey) {
+        changeActor(newActorKey) {
             actorKey = newActorKey;
         },
 
         // Retrieve the actor object
-        getActor: function() {
+        getActor() {
             return this.state[actorKey];
         },
 
         // Set a property on the actor object and render
-        actorSet: function(key, value) {
+        actorSet(key, value) {
             if(this.isMounted()) {
                 this.getActor()[key] = value;
                 this.setState(this.state);
@@ -20,28 +20,28 @@ function ActorMixin(actorKey, initialState) {
         },
 
         // Center the actor on screen
-        centerActor: function() {
+        centerActor() {
             this.actorSet("centered", true);
         },
 
         // Uncenter the actor on screen
-        uncenterActor: function() {
+        uncenterActor() {
             this.actorSet("centered", false);
         },
 
         // Hides the actor
-        hideActor: function() {
+        hideActor() {
             this.actorSet("hidden", true);
         },
 
         // Reveals the actor
-        revealActor: function() {
+        revealActor() {
             this.actorSet("hidden", false);
         },
 
         // Have the actor speak while the sound corresponding to the sound id is playing
         // Requires the sound-container mixin to function
-        say: function(soundId) {
+        say(soundId) {
             if(!this.play) { throw new Error("Missing sound container mixin"); }
 
             this.actorSet("state", "speaking");
@@ -51,19 +51,19 @@ function ActorMixin(actorKey, initialState) {
         },
 
         // Have the actor sit down
-        sit: function() {
+        sit() {
             this.actorSet("state", "sitting");
         },
 
         // Have the actor stand up
-        stand: function() {
+        stand() {
             this.actorSet("state", "speaking-closed");
         },
 
         // Returns the correct callback for handling the actor being clicked
         // null if the animation is currently running
         // and the animate method bound to the passed animation otherwise
-        animationCallback: function(animation) {
+        animationCallback(animation) {
             if(this.state.animating) {
                 return null;
             }

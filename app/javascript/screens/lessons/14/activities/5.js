@@ -4,16 +4,16 @@ var React = require("react"),
 var Lesson14Activity5 = React.createClass({
     render: function() {
         return (
-            <Activity
+            <Activity {...this.props}
                 id="5"
                 choices={[
-                    {word: "nest"},
-                    {word: "net", correct: true},
-                    {word: "knot"}
+                    {word: "pat"},
+                    {word: "pot", correct: true},
+                    {word: "putt"}
                 ]}
-                removedPhonic="uh"
-                addedPhonic="eh"
-                targetWord="nut"
+                removedPhonic="eh"
+                addedPhonic="oh"
+                targetWord="pet"
                 nextScreen={require("./6")}/>
         );
     }

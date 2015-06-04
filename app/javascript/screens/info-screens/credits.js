@@ -1,9 +1,9 @@
-var React      = require("react"),
-    InfoScreen = require("components/screens/info-screen"),
-    project    = require("../../project");
+var React = require("react");
+var InfoScreen = require("components/screens/info-screen");
+var project = require("../../project");
 
 var Credits = React.createClass({
-    render: function() {
+    render() {
         return (
             <InfoScreen className="credits">
                 <h1>Credits</h1>

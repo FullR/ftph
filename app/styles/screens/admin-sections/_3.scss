@@ -1,7 +1,7 @@
 $button-color: #fffcab;
 $button-color-hover: #fffdc4;
 $section-header-color: #fffdb9;
-$lesson-button-title-size: 24px;
+$lesson-button-title-size: 38px;
 
 .admin-section-3 {
     text-align: center;
@@ -19,7 +19,7 @@ $lesson-button-title-size: 24px;
     }
 
     .lesson-button__title {
-        @include pos(5%, 0);
+        @include pos(25px, 0);
         width: 100%;
         text-decoration: underline;
         font-size: $lesson-button-title-size;

@@ -1,5 +1,3 @@
-
-
 /*
     Retrieves a deeply nested property from an object.
 

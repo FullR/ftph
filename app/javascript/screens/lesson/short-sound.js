@@ -1,9 +1,9 @@
-var React = require("react"),
-    WordLesson = require("screens/lesson/word");
+var React = require("react");
+var WordLesson = require("screens/lesson/word");
 
-/* Lessons 15-20 */
+/* Lessons 15-19 */
 var ShortSoundLesson = React.createClass({
-    render: function() {
+    render() {
         var choices = this.props.choices;
         return (
             <WordLesson {...this.props}
@@ -41,7 +41,19 @@ var ShortSoundLesson = React.createClass({
                     then("say", "sound-in-them"),
                     then("say", "touch-the"),
                     then("sit")
-                ]}/>
+                ]}>
+            <div style={{
+                    display: "inline-block",
+                    position: "absolute",
+                    left: "50%",
+                    width: 100,
+                    height: 100,
+                    textAlign: "center",
+                    marginLeft: -50,
+                    top: 100,
+                    fontSize: 200
+                }}>{this.props.letter}</div>
+            </WordLesson>
         );
     }
 });

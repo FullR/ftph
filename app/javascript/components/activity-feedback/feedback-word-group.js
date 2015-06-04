@@ -1,10 +1,10 @@
-var React        = require("react"),
-    FeedbackWord = require("components/activity-feedback/feedback-word");
+var React = require("react");
+var FeedbackWord = require("components/activity-feedback/feedback-word");
 
 var FeedbackWordGroup = React.createClass({
     mixins: [require("mixins/class-names")],
 
-    render: function() {
+    render() {
         var classNames = this.classNames(
             "feedback-word-group",
             this.props.correct ? "feedback-word-group--correct" : null

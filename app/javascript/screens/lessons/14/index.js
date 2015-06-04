@@ -1,7 +1,7 @@
-var React = require("react"),
-    WordLesson = require("screens/lesson/word"),
-    lessonInfo = require("./info"),
-    activities = require("./activities");
+var React = require("react");
+var WordLesson = require("screens/lesson/word");
+var lessonInfo = require("./info");
+var activities = require("./activities");
 
 var Lesson14 = React.createClass({
     mixins: [
@@ -33,12 +33,12 @@ var Lesson14 = React.createClass({
     },
 
     render: function() {
-        var storage = this.load(lessonInfo.namespace),
-            nextActivityId = storage["last-activity"] || "1",
-            nextActivity   = activities[nextActivityId];
+        var storage = this.load(lessonInfo.namespace);
+        var nextActivityId = storage["last-activity"] || "1";
+        var nextActivity   = activities[nextActivityId];
 
         return (
-            <WordLesson {...lessonInfo}
+            <WordLesson className="lesson-14" {...lessonInfo}
                 phonic={lessonInfo.phonic}
                 nextScreen={nextActivity}
                 nextLabel={`Activity ${nextActivityId}`}
@@ -52,8 +52,7 @@ var Lesson14 = React.createClass({
                     "if-you-take": "lessons/lesson-14/if-you-take",
                     "sound-from": "lessons/lesson-14/sound-from",
                     "and-put": "lessons/lesson-14/and-put",
-                    "sound": "lessons/lesson-14/sound",
-                    "the-new-word": "lessons/lesson-14/the-new-word",
+                    "sound-the-new": "lessons/lesson-14/sound-the-new",
                     "touch-the": "common/lessons/touch-the",
                     "ah": "phonics/lesson-phonics/ah",
                     "eh": "phonics/lesson-phonics/eh",
@@ -62,29 +61,42 @@ var Lesson14 = React.createClass({
                 }}
                 instructions={(then) => [
                     then("say", "if-you-take"),
+                    then("wait", 100),
                     then("say", "ah"),
+                    then("wait", 50),
                     then("say", "sound-from"),
+                    then("wait", 25),
                     then("uncenterActor"),
                     then("revealChoice", 0),
                     then("say", ["words", 0]),
+                    then("wait", 100),
                     then("say", "and-put"),
+                    then("wait", 125),
                     then("say", "eh"),
-                    then("say", "sound"),
-                    then("say", "the-new-word"),
+                    then("wait", 125),
+                    then("say", "sound-the-new"),
+                    then("wait", 50),
                     then("revealChoice", 1),
                     then("say", ["words", 1]),
 
                     then("say", "if-you-take"),
+                    then("wait", 65),
                     then("say", "ih"),
+                    then("wait", 100),
                     then("say", "sound-from"),
+                    then("wait", 125),
                     then("revealChoice", 2),
                     then("say", "words.2"),
+                    then("wait", 500),
                     then("say", "and-put"),
+                    then("wait", 50),
                     then("say", "oh"),
-                    then("say", "sound"),
-                    then("say", "the-new-word"),
+                    then("wait", 50),
+                    then("say", "sound-the-new"),
+                    then("wait", 50),
                     then("revealChoice", 3),
                     then("say", "words.3"),
+                    then("wait", 665),
                     then("say", "touch-the"),
                     then("sit")
                 ]}/>

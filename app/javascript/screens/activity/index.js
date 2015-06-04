@@ -1,13 +1,13 @@
-var _           = require("lodash"),
-    React       = require("react"),
-    AdminButton = require("components/admin/admin-button"),
-    Teacher     = require("components/game-screen/teacher"),
-    Owl         = require("components/game-screen/owl"),
-    Info        = require("components/game-screen/info"),
-    GameScreen  = require("screens/game-screen"),
-    get         = require("utility/functional/get"),
-    negate      = require("utility/functional/negate"),
-    render      = require("render");
+var _ = require("lodash");
+var React = require("react");
+var AdminButton = require("components/admin/admin-button");
+var Teacher = require("components/game-screen/teacher");
+var Owl = require("components/game-screen/owl");
+var Info = require("components/game-screen/info");
+var GameScreen = require("screens/game-screen");
+var get = require("utility/functional/get");
+var negate = require("utility/functional/negate");
+var render = require("render");
 
 
 var Activity = React.createClass({
@@ -30,7 +30,7 @@ var Activity = React.createClass({
     },
 
     // Lifecycle methods
-    getInitialState: function() {
+    getInitialState() {
         return {
             teacher: {
                 state: "sitting",
@@ -42,58 +42,58 @@ var Activity = React.createClass({
                 hidden: false
             },
 
-            choices: (this.loadChoices() || _.cloneDeep(this.props.choices)).map((choice) => {
+            choices: (this.loadChoices() || this.props.choices).map((choice) => {
                 choice.hidden = true;
                 return choice;
             })
         };
     },
 
-    componentWillMount: function() {
+    componentWillMount() {
         this.saveLastScreen();
         this.saveLastLesson();
     },
 
-    componentDidUpdate: function() {
+    componentDidUpdate() {
         if(this.shouldShowFeedback()) {
             this.props.renderFeedback.call(null, this);
         }
     },
 
     // Component methods
-    getAutoplayAnimation: function() {
-        return this.props.autoplayAnimation || "instructions";
+    getAutoplayAnimation() {
+        return this.props.playFullInstructions ? "instructions" : (this.props.autoplayAnimation || "instructions");
     },
 
-    getCorrectWords: function() {
+    getCorrectWords() {
         return this.state.choices
             .filter(get("correct"))
             .map(get("word"));
     },
 
-    getIncorrectWords: function() {
+    getIncorrectWords() {
         return this.state.choices
             .filter((choice) => !choice.correct)
             .map(get("word"));
     },
 
-    getNamespace: function() {
+    getNamespace() {
         return [`lesson-${this.props.lessonId}`, "activities", this.props.id];
     },
 
-    getSelected: function() {
+    getSelected() {
         return this.state.choices.filter(get("selected"));
     },
 
-    getUnselected: function() {
+    getUnselected() {
         return this.state.choices.filter((choice) => !choice.selected);
     },
 
-    getSounds: function() {
+    getSounds() {
         return this.props.sounds || {};
     },
 
-    instructions: function(then) {
+    instructions(then) {
         var steps;
         if(this.props.instructions) {
             steps = this.props.instructions.call(this, then);
@@ -110,15 +110,15 @@ var Activity = React.createClass({
         }
     },
 
-    isCorrect: function() {
+    isCorrect() {
         return this.getSelected().every(get("correct"));
     },
 
-    loadChoices: function() {
+    loadChoices() {
         return this.load([...this.getNamespace(), "choices"]);
     },
 
-    saveLastLesson: function() {
+    saveLastLesson() {
         // if this activity is part of a sublesson, 
         // mark that subless as the last lesson
         if(this.props.sublessonId) {
@@ -129,13 +129,13 @@ var Activity = React.createClass({
         }
     },
 
-    saveChoices: function() {
+    saveChoices() {
         // The namespace consists of multiple parts, so it needs
         // to be spread into the path
         this.save([...this.getNamespace(), "choices"], this.state.choices);
     },
 
-    saveLastScreen: function() {
+    saveLastScreen() {
         this.save(["lesson-"+this.props.lessonId, "last-screen"], this.props.id);
         this.save(["lesson-"+this.props.lessonId, "last-activity"], this.props.id);
         if(this.props.sublessonId) {
@@ -144,23 +144,21 @@ var Activity = React.createClass({
         }
     },
 
-    selectChoice: function(choice) {
+    selectChoice(choice) {
         choice.selected = !choice.selected;
         this.setState(this.state);
         if(this.shouldShowFeedback()) {
             this.saveChoices();
-            if(this.props.onSubmit) {
-                this.props.onSubmit(this, this.isCorrect());
-            }
+            this.save(["lesson-"+this.props.lessonId, "activities", this.props.id, "correct"], this.isCorrect());
         }
     },
 
-    shouldShowFeedback: function() {
+    shouldShowFeedback() {
         return this.getSelected().length >= (this.props.requiredSelectionCount || 1);
     },
 
     // Render methods
-    renderLesson: function() {
+    renderLesson() {
         var Lesson;
         if(this.props.renderLesson) {
             this.props.renderLesson();
@@ -171,7 +169,7 @@ var Activity = React.createClass({
         }
     },
 
-    render: function() {
+    render() {
         var {
             onOwlClick,
             onTeacherClick,
@@ -184,7 +182,7 @@ var Activity = React.createClass({
         } = this.props;
 
         return (
-            <GameScreen {...this.props} className={this.classNames("activity")}>
+            <GameScreen {...this.props} className={this.classNames("activity", this.state.animating ? "activity-animating" : null)}>
                 <Owl {...this.state.owl} 
                     onClick={onOwlClick ? onOwlClick.bind(null, this) : this.renderLesson}>
                     {this.props.owlText || "Lesson"}

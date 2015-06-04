@@ -1,22 +1,17 @@
-var Q     = require("q"),
-    _     = require("lodash"),
-    Sound = require("./sound");
+var Q = require("q");
+var _ = require("lodash");
+var Sound = require("./sound");
 
-var sounds = [],
-    soundIndex = {};
+var sounds = [];
+var soundIndex = {};
 
 function get(path) {
     var sound;
-
     path = `assets/audio/${path}`;
-
     if(soundIndex[path]) { return soundIndex[path]; }
-
     sound = new Sound({path: path});
-
     sounds.push(sound);
     soundIndex[path] = sound;
-
     return sound;
 }
 
@@ -27,7 +22,7 @@ function release(sound) {
 var soundManager = {
     get: get,
     release: release,
-    stop: function() {
+    stop() {
         return Q.all(sounds.map(function(sound) {
             return sound.stop();
         }));

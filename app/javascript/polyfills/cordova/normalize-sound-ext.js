@@ -6,8 +6,8 @@ function path(filepath) {
     return filepath;
 }
 
-var audioExtention,
-    normalize;
+var audioExtention;
+var normalize;
 
 switch(window.__platform.name) {
     case "web":     audioExtention = "ogg"; break;

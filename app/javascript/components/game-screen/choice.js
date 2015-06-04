@@ -1,47 +1,73 @@
-var React = require("react"),
-    dnd = require("react-dnd");
+var React = require("react");
+var dnd = require("react-dnd");
+var soundManager = require("sound/sound-manager");
 
 var Choice = React.createClass({
-    mixins: [require("mixins/class-names")],
+    mixins: [require("mixins/class-names"), dnd.DragDropMixin],
 
-    getInitialState: function() {
+    statics: {
+        configureDragDrop(register) {
+            register("letter", {
+                dropTarget: {
+                    acceptDrop(component, item) {
+                        if(component.props.onDrop) {
+                            component.props.onDrop(item);
+                        }
+                    }
+                }
+            });
+        }
+    },
+
+    getInitialState() {
         return {
             playingSound: false
         };
     },
 
     // On mount, watch the passed sound for play/end events
-    componentDidMount: function() {
-        var sound = this.props.sound;
+    componentDidMount() {
+        var sound = this.getSound();
+        var unsubs = [];
 
         if(sound) {
-            sound.on("play", () => {
+            unsubs.push(sound.on("play", () => {
                 if(this.isMounted()) {
                     this.state.playingSound = true;
                     this.setState(this.state);
                 }
-            });
+            }));
 
-            sound.on("end", () => {
+            unsubs.push(sound.on("end", () => {
                 if(this.isMounted()) {
                     this.state.playingSound = false;
                     this.setState(this.state);
                 }
-            });
+            }));
+
+            this.unsubs = unsubs;
         }
     },
 
     // On unmount, stop watch the passed sound events
-    componentWillUnmount: function() {
-        var sound = this.props.sound;
-        if(sound) {
-            sound.off("play");
-            sound.off("end");
+    componentWillUnmount() {
+        var unsubs = this.unsubs;
+        if(unsubs) {
+            unsubs.forEach((unsub) => unsub());
         }
     },
 
-    render: function() {
-        var sound = this.props.sound,
+    getSound() {
+        if(this.props.sound) {
+            return this.props.sound;
+        }
+        else if(this.props.path) {
+            return soundManager.get(this.props.path);
+        }
+    },
+
+    render() {
+        var sound = this.getSound(),
             classNames = this.classNames(
                 "choice", 
                 this.state.playingSound ? "choice--sound-playing" : null, 
@@ -56,7 +82,7 @@ var Choice = React.createClass({
         var onReplayClick = (!sound || this.state.playingSound) ? null : sound.play.bind(sound);
 
         return (
-            <div key={this.props.key} className={classNames}>
+            <div {...this.dropTargetFor("letter")} key={this.props.key} className={classNames}>
                 <div className="choice__content" onClick={this.props.onClick}>
                     {this.props.children}
                 </div>

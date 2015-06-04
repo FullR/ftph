@@ -1,8 +1,6 @@
-
-
-var _     = require("lodash"),
-    Q     = require("q"),
-    slice = [].slice;
+var _ = require("lodash");
+var Q = require("q");
+var slice = [].slice;
 
 /*
     Takes an array of functions and evaluates them in series

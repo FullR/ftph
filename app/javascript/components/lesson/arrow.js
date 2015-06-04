@@ -1,8 +1,8 @@
-var React = require("react"),
-    render = require("render");
+var React = require("react");
+var render = require("render");
 
 var Arrow = React.createClass({
-    render: function() {
+    render() {
         var NextComponent = this.props.next,
             options = this.props.nextProps;
 

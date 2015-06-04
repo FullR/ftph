@@ -1,7 +1,7 @@
-var React        = require("react"),
-    WordActivity = require("screens/activity/word"),
-    render       = require("render"),
-    lessonInfo   = require("./info");
+var React        = require("react");
+var WordActivity = require("screens/activity/word");
+var render       = require("render");
+var lessonInfo   = require("./info");
 
 var Lesson2Activity4to15 = React.createClass({
     mixins: [
@@ -26,12 +26,12 @@ var Lesson2Activity4to15 = React.createClass({
     },
 
     render: function() {
-        var Feedback   = require("screens/activity-feedback/words"),
-            choices    = this.props.choices,
-            nextScreen = this.props.nextScreen,
-            activityId = this.props.id,
-            word1      = this.props.word1,
-            word2      = this.props.word2;
+        var Feedback   = require("screens/activity-feedback/words");
+        var choices    = this.props.choices;
+        var nextScreen = this.props.nextScreen;
+        var activityId = this.props.id;
+        var word1      = this.props.word1;
+        var word2      = this.props.word2;
 
         return (
             <WordActivity {...this.props}
@@ -41,10 +41,6 @@ var Lesson2Activity4to15 = React.createClass({
                 activityCount = {lessonInfo.activityCount}
                 sounds        = {this.getSounds()}
                 lessonScreen  = {this.props.lessonScreen}
-
-                onSubmit={(activity, correct) =>
-                    this.save([lessonInfo.namespace, "activities", activityId, "correct"], correct)
-                }
 
                 instructions={(then) => [
                     then("say", "touch-same-sound"), then("wait", 250),

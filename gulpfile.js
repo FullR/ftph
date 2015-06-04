@@ -1,12 +1,26 @@
 "use strict";
 
-var gulp    = require("gulp"),                // Task runner
-    gutil   = require("gulp-util"),
-    Q       = require("q"),
-    _       = require("lodash"),
-    plumber = require("gulp-plumber"),        // Handles gulp errors without stopping the watch task
-    source  = require("vinyl-source-stream"), // Allows the use of text streams with gulp (needed for browserify)
-    port    = 4210;                           // For test server
+var gulp = require("gulp");                // Task runner
+var gutil = require("gulp-util");
+var Q = require("q");
+var _ = require("lodash");
+var plumber = require("gulp-plumber");        // Handles gulp errors without stopping the watch task
+var source = require("vinyl-source-stream"); // Allows the use of text streams with gulp (needed for browserify)
+var audioConverter = require("audio-converter");
+var autoprefixer = require("gulp-autoprefixer");
+var port = 4210;                           // For test server
+
+var cordovaOptions = {
+    name: "fun-time-phonics",
+    namespace: "com.criticalthinking.funtimephonics",
+    dir: __dirname + "/cordova",
+    src: __dirname + "/dist",
+    merges: __dirname + "/cordova-files",
+    plugins: [
+        "org.apache.cordova.console",
+        "org.apache.cordova.media"
+    ]
+};
 
 var colors = {
     time: gutil.colors.magenta,
@@ -15,8 +29,8 @@ var colors = {
 };
 
 var bundler = _.once(function() {
-    var Browserify = require("browserify"),
-        watchify   = require("watchify");
+    var Browserify = require("browserify");
+    var watchify   = require("watchify");
 
     return watchify(Browserify(_.extend({
         paths: ["./node_modules", "./app/javascript", "./lib"],
@@ -45,8 +59,8 @@ function bundle() {
 // Compile javascript and jsx files
 gulp.task("javascript", ["index-lessons"], bundle);
 gulp.task("javascript-no-watch", ["index-lessons"], function() {
-    var Browserify = require("browserify"),
-        watchify   = require("watchify");
+    var Browserify = require("browserify");
+    var watchify   = require("watchify");
 
     return Browserify({
         paths: ["./node_modules", "./app/javascript", "./lib"],
@@ -65,20 +79,16 @@ gulp.task("javascript-no-watch", ["index-lessons"], function() {
 
 // create a json file listing all images except the 
 // word images so the client can preload them
-gulp.task("map-images", function(callback) {
-    var fs = require("fs"),
-        glob = require("glob");
+gulp.task("map-images", function() {
+    var fs = require("fs");
+    var glob = Q.nfbind(require("glob"));
 
-    glob("assets/images/!(words)/*", {cwd: "statics"}, function(err, files) {
-        if(err) {
-            callback(err);
-        }
-        else {
+    return glob("assets/images/!(words)/*", {cwd: "statics"})
+        .then(function(files) {
             fs.writeFile("app/javascript/images.json", JSON.stringify({images: files}, null, 4), function() {
                 callback();
             });
-        }
-    });
+        });
 });
 
 // Create a javascript file that includes 
@@ -88,15 +98,14 @@ gulp.task("index-lessons", function(callback) {
 });
 
 // Compile scss files
+var sass = require("gulp-ruby-sass");
 gulp.task("styles", function() {
-    var sass = require("gulp-ruby-sass");
-    return gulp.src("app/styles/app.scss")
-        .pipe(plumber())
-        .pipe(sass({style: "compressed", require: ["susy"]}))
-        .pipe(gulp.dest("dist/assets"))
-        .on("log", function(data) {
-            console.log("SASS LOG:",data);
-        });
+    return sass("app/styles/app.scss", {style: "compressed", require: ["susy"]})
+        .on("error", function(error) {
+            console.log(error.toString());
+        })
+        //.pipe(autoprefixer("last 2 versions"))
+        .pipe(gulp.dest("dist/assets"));
 });
 
 // Copy source html file
@@ -107,8 +116,8 @@ gulp.task("html", function() {
 
 // Host compiled web app for testing
 gulp.task("serve", function() {
-    var express = require("express"),
-        app = express();
+    var express = require("express");
+    var app = express();
 
     app.use(express.static(__dirname + "/dist"));
     app.listen(port);
@@ -116,7 +125,7 @@ gulp.task("serve", function() {
 });
 
 // Copy static assets
-gulp.task("statics", ["build-assets"], function() {
+gulp.task("statics", function() {
     return gulp.src("statics/**/*")
         .pipe(gulp.dest("dist"));
 });
@@ -129,17 +138,39 @@ gulp.task("build-images", function() {
         .pipe(gulp.dest("statics/assets/images"));
 });
 
-gulp.task("build-audio",                       require("./scripts/build-audio"));
+gulp.task("cordova:build", function() {
+    return require("./scripts/cordova").build(cordovaOptions);
+});
+
+gulp.task("cordova:run", function() {
+    return require("./scripts/cordova").run(cordovaOptions);
+});
+
+gulp.task("build-audio", function() {
+    return audioConverter(__dirname + "/../Fun-Time-Phonics-Assets/audio", __dirname + "/statics/assets/audio", {
+        progressBar: true
+    });
+});
+
+gulp.task("zip", function() {
+    var exec = Q.nfbind(require("child_process").exec);
+
+    return exec("rm -f dist/fun-time-phonics.zip")
+        .then(exec.bind(null, "zip fun-time-phonics.zip dist/**/*"))
+        .then(exec.bind(null, "cp fun-time-phonics.zip dist"));
+});
+
+//gulp.task("build-audio",                       require("./scripts/build-audio"));
 gulp.task("backup",                            require("./scripts/backup"));
 gulp.task("index-word-images",                 require("./scripts/build-word-index"));
 gulp.task("build-desktop", ["build-no-watch"], require("./scripts/build-node-webkit"));
-gulp.task("upload",        ["build-no-watch"], require("./scripts/upload"));
+gulp.task("upload", require("./scripts/upload"));
 
 gulp.task("build-assets", ["build-audio", "build-images"]);
 gulp.task("setup",        ["build-assets", "index-word-images"])
 gulp.task("distribute",   ["build-desktop", "build-android"]);
 gulp.task("build",        ["javascript", "styles", "html", "statics"]);
-gulp.task("build-no-watch", ["javascript-no-watch", "styles", "html", "statics"])
+gulp.task("build-no-watch", ["javascript-no-watch", "styles", "html", "statics"]);
 
 // Watch source files for changes. Rebuild necessary files when changes are made
 gulp.task("watch", ["build"], function() {

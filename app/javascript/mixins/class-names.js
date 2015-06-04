@@ -1,5 +1,5 @@
-var truthy = require("utility/functional/truthy"),
-    slice = [].slice;
+var truthy = require("utility/functional/truthy");
+var slice = [].slice;
 
 /*
     Mixin for providing classname utility methods
@@ -14,7 +14,7 @@ var classNamesMixin = {
             in the render method will return:
             "foobar fizz buzz flarp"
     */
-    classNames: function(...classNames) {
+    classNames(...classNames) {
         return [
             this.props.className,
             ...classNames

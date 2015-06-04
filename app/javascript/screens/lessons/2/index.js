@@ -1,6 +1,6 @@
-var React      = require("react"),
-    WordLesson = require("screens/lesson/word"),
-    lessonInfo = require("./info");
+var React      = require("react");
+var WordLesson = require("screens/lesson/word");
+var lessonInfo = require("./info");
 
 var Lesson2 = React.createClass({
     mixins: [
@@ -32,15 +32,15 @@ var Lesson2 = React.createClass({
     },
 
     render: function() {
-        var activities     = require("./activities"),
-            storage        = this.load(lessonInfo.namespace),
-            nextActivityId = storage["last-activity"] || "1",
-            nextActivity   = activities[nextActivityId],
-            choices        = [
-                {word: "hot", hidden: true},
-                {word: "bat", hidden: true},
-                {word: "sit", hidden: true}
-            ];
+        var activities     = require("./activities");
+        var storage        = this.load(lessonInfo.namespace);
+        var nextActivityId = storage["last-activity"] || "1";
+        var nextActivity   = activities[nextActivityId];
+        var choices        = [
+            {word: "hot", hidden: true},
+            {word: "bat", hidden: true},
+            {word: "sit", hidden: true}
+        ];
 
         return (
             <WordLesson
@@ -58,7 +58,7 @@ var Lesson2 = React.createClass({
                     "say-the-words":  "lessons/lesson-2/instructions/say-the-words",
                     "slowly":         "common/slowly",
                     "t":              "phonics/lesson-phonics/t",
-                    "touch-arrow":    "common/touch-arrow"
+                    "then-touch":     "common/lessons/then-touch"
                 }}
 
                 instructions={(then) => [
@@ -81,7 +81,7 @@ var Lesson2 = React.createClass({
                     ]),
 
                     then("say", "slowly"),         then("wait", 250),
-                    then("say", "touch-arrow"),
+                    then("say", "then-touch"),
                     then("sit")
                 ]}/>
         );

@@ -1,16 +1,16 @@
-var React = require("react"),
-    ShortSoundActivity = require("screens/activity/short-sound"),
-    Feedback = require("./activity-feedback"),
-    lessonInfo = require("./info"),
-    render = require("render");
+var React = require("react");
+var ShortSoundActivity = require("screens/activity/short-sound");
+var Feedback = require("./activity-feedback");
+var lessonInfo = require("./info");
+var render = require("render");
 
 var Lesson17Activity = React.createClass({
     mixins: [require("mixins/storage")],
 
     render: function() {
-        var activityId = this.props.id,
-            nextScreen = this.props.nextScreen,
-            choices = this.props.choices;
+        var activityId = this.props.id;
+        var nextScreen = this.props.nextScreen;
+        var choices = this.props.choices;
 
         return (
             <ShortSoundActivity {...this.props}

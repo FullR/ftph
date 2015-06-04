@@ -1,100 +1,114 @@
-var Q         = require("q"),
-    _         = require("lodash"),
-    emitter   = require("mixins/emitter"),
-    normalize = require("polyfills/cordova/normalize-sound-ext");
+var Q = require("q");
+var _ = require("lodash");
+var emitter = require("mixins/emitter");
+var normalize = require("polyfills/cordova/normalize-sound-ext");
+var Media = window.Media;
 
-function Sound(options) {
-    _.extend(this, options);
-    _.bindAll(this);
-}
-
-_.extend(Sound.prototype, emitter, {
-    // Get the full sound path with the correct extention for the current platform
-    getNormalizedPath: function() {
-        return normalize.path(this.path) + "." + normalize.audioExtention;
-    },
-
-    load: function() {
-        var media,
-            loadPromise;
+// Class for handling loading/releasing/playing/stopping sounds
+class Sound {
+    constructor(options) {
+        _.bindAll(this);
+        _.extend(this, options, {
+            // full path correcting platform inconsistencies
+            _fullPath: normalize.path(options.path) + "." + normalize.audioExtention,
+            // cache the load promise. Cache is reset in the release function
+            load: _.once(this._load),
+            _isLoaded: false,
+            _isLoading: false,
+            _isPlaying: false
+        });
         
-        if(!this._loadPromise) {
-            this.media = media = new window.Media(this.getNormalizedPath(), 
-                                     this._finishedPlaying.bind(this), 
-                                     this._finishedPlaying.bind(this));
-            this.loading = true;
 
-            if(media.load) {
-                loadPromise = media.load().then(function() {
-                    return this;
-                }.bind(this));
-            }
-            else {
-                loadPromise = Q.resolve(this);
-            }
+        // Set flags
+        this.on("load-start", () => {
+            this._isLoaded = false;
+            this._isLoading = true;
+        });
 
-            this._loadPromise = loadPromise.then(function() {
-                this.loading = false;
-                this.loaded = true;
-                return this;
-            }.bind(this));
-        }
+        this.on("load", () => {
+            this._isLoaded = true;
+            this._isLoading = false;
+        });
 
-        return this._loadPromise;
-    },
+        this.on("release", () => {
+            this.media = null;
+            this._isLoaded = false;
+            this._isLoading = false;
+            this.load = _.once(this._load); // reset load function
+        });
 
-    _finishedPlaying: function(stopped) {
-        var deferred = this.deferred;
-        this.playing = false;
-        
-        if(deferred) {
-            deferred.resolve();
-            this.deferred = null;
-            return deferred.promise;
-        }
+        this.on("play", () => {
+            this._isPlaying = true;
+        });
 
-        return Q.resolve();
-    },
+        this.on("end", () => {
+            this._isPlaying = false;
+        });
+    }
 
-    play: function() {
-        if(!this.loaded) {
-            return Q.resolve();
-        }
-        return this.stop()
-            .then(function() {
-                var deferred = Q.defer();
-                this.deferred = deferred;
-                this.playing = true;
-                this.media.play();
+    // Called when the sound finishes playing or is stopped
+    _onEnd() {
+        this.fire("end");
+    }
 
+    // create/return the load promise
+    _load() {
+        var path = this._fullPath;
+        var onEnd = this._onEnd.bind(this);
+        var media = this.media = new window.Media(path, onEnd, onEnd);
+
+        this.fire("load-start");
+        return media.load().then(() => {
+            this.fire("load");
+        });
+    }
+
+    // play the sound. returns a promise that resolves when the sound ends
+    play() {
+        return this.load() // load
+            .then(() => {this.stop();}) // stop if playing
+            .then(() => {
                 this.fire("play");
-                return deferred.promise;
-            }.bind(this))
-            .then(function() {
-                this.playing = false;
-                this.fire("end");
-            }.bind(this));
-    },
+                this.media.play();
+                return this.eventToPromise("end");
+            });
+    }
 
-    isPlaying: function() {
-        return this.playing;
-    },
-
-    stop: function() {
-        if(this.deferred) {
+    // stop the sound
+    stop() {
+        if(this.isPlaying() && this.media) {
             this.media.stop();
-            return this._finishedPlaying();
-        }
-        return Q.resolve();
-    },
-
-    release: function() {
-        if(this.media) {
-            this.media.release();
-            this._loadPromise = null;
+            this._onEnd();
         }
     }
-});
 
+    // release the sound data
+    release() {
+        if(this.media) {
+            this.stop();
+            this.media.release();
+            this.fire("release");
+        }
+    }
+
+    isPlaying() {
+        return !!this._isPlaying;
+    }
+
+    isLoaded() {
+        return !!this._isLoaded;
+    }
+
+    isLoading() {
+        return !!this._isLoading
+    }
+
+    toString() {
+        return `Sound (${this._fullPath})`;
+    }
+}
+
+// make sounds event emitters
+_.extend(Sound.prototype, emitter);
 
 module.exports = Sound;

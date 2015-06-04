@@ -1,7 +1,7 @@
-var React = require("react"),
-    ShortVowelLesson = require("screens/lesson/short-vowel"),
-    lessonInfo = require("./info"),
-    activities = require("./activities");
+var React = require("react");
+var ShortVowelLesson = require("screens/lesson/short-vowel");
+var lessonInfo = require("./info");
+var activities = require("./activities");
 
 var Lesson8 = React.createClass({
     mixins: [
@@ -38,9 +38,9 @@ var Lesson8 = React.createClass({
     },
 
     render: function() {
-        var storage = this.load(lessonInfo.namespace),
-            nextActivityId = storage["last-activity"] || "1",
-            nextActivity   = activities[nextActivityId];
+        var storage = this.load(lessonInfo.namespace);
+        var nextActivityId = storage["last-activity"] || "1";
+        var nextActivity   = activities[nextActivityId];
 
         return (
             <ShortVowelLesson {...lessonInfo}

@@ -1,10 +1,9 @@
-var React = require("react"),
-    WordLesson = require("screens/lesson/word");
-
+var React = require("react");
+var WordLesson = require("screens/lesson/word");
 
 // Used for lessons 8-12
 var ShortVowelLesson = React.createClass({
-    render: function() {
+    render() {
         var choices = this.props.choices;
         return (
             <WordLesson {...this.props} 
@@ -12,7 +11,8 @@ var ShortVowelLesson = React.createClass({
                     "phonic": `phonics/lesson-phonics/${this.props.phonic}`,
                     "words-like": "lessons/short-vowel/lesson/words-like",
                     "make-the": "lessons/short-vowel/lesson/make-the",
-                    "sound-say": "lessons/short-vowel/lesson/sound-say",
+                    "sound": "lessons/short-vowel/lesson/sound",
+                    "say": "lessons/short-vowel/lesson/say",
                     "then-touch": "common/lessons/then-touch"
                 }}
 
@@ -26,7 +26,9 @@ var ShortVowelLesson = React.createClass({
                     ]),
                     then("say", "make-the"),
                     then("say", "phonic"),
-                    then("say", "sound-say"),
+                    then("say", "sound"),
+                    then("wait", 75),
+                    then("say", "say"),
                     choices.map((choice, i) => [
                         then("say", ["words", i]),
                         then("wait", 250),

@@ -1,9 +1,9 @@
-var _            = require("lodash"),
-    Q            = require("q"),
-    deepGet      = require("utility/deep-get"),
-    deepMap      = require("utility/deep-map"),
-    soundManager = require("sound/sound-manager"),
-    constant     = require("utility/functional/constant");
+var _ = require("lodash");
+var Q = require("q");
+var deepGet = require("utility/deep-get");
+var deepMap = require("utility/deep-map");
+var soundManager = require("sound/sound-manager");
+var constant = require("utility/functional/constant");
 
 function valuesDeep(obj) {
     var values = [];
@@ -17,7 +17,7 @@ function valuesDeep(obj) {
     and released when the component is unmounted.
 */
 var soundContainer = {
-    getInitialState: function() {
+    getInitialState() {
         return {
             playingSound: false
         };
@@ -26,9 +26,9 @@ var soundContainer = {
     /*
         Transforms path strings into sound objects
     */
-    resolveSounds: function() {
-        var sounds = this.props.sounds ? _.cloneDeep(this.props.sounds) : {},
-            soundArray;
+    resolveSounds() {
+        var sounds = this.props.sounds ? _.cloneDeep(this.props.sounds) : {};
+        var soundArray;
 
         if(!this._soundsResolved) {
             this._soundsResolved = true;
@@ -53,7 +53,7 @@ var soundContainer = {
         Returns the sound object with the given id. 
         Throws an error if the sound isn"t found
     */
-    getSound: function(id) {
+    getSound(id) {
         var sound = deepGet(this.resolveSounds() || {}, id);
         if(!sound) {
             throw new Error("Could not find sound with id: " + id);
@@ -65,7 +65,7 @@ var soundContainer = {
         Plays the sound object with the given id. If sound isn"t loaded, it is loaded.
         Returns a promise that is resolved when the sound finishes playing.
     */
-    play: function(id) {
+    play(id) {
         return this.loadSounds()
             .then(() => {
                 var sound = this.getSound(id);
@@ -87,7 +87,7 @@ var soundContainer = {
     /*
         Stops all playing sounds. Retu
     */
-    stopSounds: function() {
+    stopSounds() {
         if(this.sounds) {
             return Q.all(_.invoke(this.soundArray, "stop"));
         }
@@ -99,7 +99,7 @@ var soundContainer = {
     /*
         Resolves and loads all sounds
     */
-    loadSounds: function() {
+    loadSounds() {
         var sounds;
 
         if(!this._loadSoundsPromise) {
@@ -130,20 +130,20 @@ var soundContainer = {
     /*
         Releases all sounds
     */
-    releaseSounds: function() {
+    releaseSounds() {
         if(this.sounds) {
             _.invoke(this.soundArray, "release");
             this._loadSoundsPromise = null;
         }
     },
 
-    componentWillMount: function() {
+    componentWillMount() {
         this.loadSounds().then(() => {
             if(this.autoplaySound) this.play(this.autoplaySound);
         });
     },
 
-    componentWillUnmount: function() {
+    componentWillUnmount() {
         this.stopSounds()
             .then(this.releaseSounds);
     }

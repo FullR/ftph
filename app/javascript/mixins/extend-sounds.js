@@ -1,7 +1,7 @@
 var _ = require("lodash");
 
 var extendSoundsMixin = {
-    getSounds: function() {
+    getSounds() {
         if(this.getAdditionalSounds) {
             if(this.props.sounds) {
                 return _.extend(_.clone(this.props.sounds), this.getAdditionalSounds());

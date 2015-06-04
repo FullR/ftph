@@ -1,7 +1,7 @@
 var React = require("react");
 
 var SectionList = React.createClass({
-    render: function() {
+    render() {
         return (
             <ul className="section-list">
                 {[

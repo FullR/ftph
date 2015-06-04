@@ -4,7 +4,7 @@ var React = require("react"),
 var Lesson13Activity8 = React.createClass({
     render: function() {
         return (
-            <Activity
+            <Activity {...this.props}
                 id="8"
                 correctPhonic="oh"
                 incorrectPhonic="uh"
@@ -13,7 +13,7 @@ var Lesson13Activity8 = React.createClass({
                     {word: "hot", correct: true},
                     {word: "rug"}
                 ]}
-                nextScreen={require("./10")}/>
+                nextScreen={require("./9")}/>
         );
     }
 });

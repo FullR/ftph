@@ -2,7 +2,7 @@ var React = require("react");
 
 var Teacher = React.createClass({
     mixins: [require("mixins/class-names")],
-    render: function() {
+    render() {
         var className = this.classNames(
             "teacher",
             `teacher--${this.props.state}`,

@@ -1,8 +1,8 @@
-var React   = require("react"),
-    WebLink = require("components/utility/web-link");
+var React = require("react");
+var WebLink = require("components/utility/web-link");
 
 var TctcLogo = React.createClass({
-    render: function() {
+    render() {
         return (
             <WebLink className="tctc-logo" href="http://criticalthinking.com/"/>
         );

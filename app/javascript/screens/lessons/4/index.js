@@ -1,6 +1,6 @@
-var React      = require("react"),
-    WordLesson = require("screens/lesson/word"),
-    lessonInfo = require("./info");
+var React      = require("react");
+var WordLesson = require("screens/lesson/word");
+var lessonInfo = require("./info");
 
 var Lesson4 = React.createClass({
     mixins: [
@@ -38,20 +38,20 @@ var Lesson4 = React.createClass({
     },
 
     render: function() {
-        var activities     = require("./activities"),
-            storage        = this.load(lessonInfo),
-            nextActivityId = storage["last-activity"] || "1",
-            nextActivity   = activities[nextActivityId],
-            choiceGroup1   = [                    
-                {word: "red",   hidden: true},
-                {word: "head",  hidden: true},
-                {word: "bed",   hidden: true}
-            ],
-            choiceGroup2   = [
-                {word: "wait",  hidden: true, detached: true},
-                {word: "gate",  hidden: true, detached: true},
-                {word: "eight", hidden: true, detached: true}
-            ];
+        var activities     = require("./activities");
+        var storage        = this.load(lessonInfo);
+        var nextActivityId = storage["last-activity"] || "1";
+        var nextActivity   = activities[nextActivityId];
+        var choiceGroup1   = [                    
+            {word: "red",   hidden: true},
+            {word: "head",  hidden: true},
+            {word: "bed",   hidden: true}
+        ];
+        var choiceGroup2   = [
+            {word: "wait",  hidden: true, detached: true},
+            {word: "gate",  hidden: true, detached: true},
+            {word: "eight", hidden: true, detached: true}
+        ];
 
         return (
             <WordLesson
@@ -66,7 +66,7 @@ var Lesson4 = React.createClass({
                     "rhyme-because":   "lessons/lesson-4/instructions/rhyme-because",
                     "rhyme-because-2": "lessons/lesson-4/instructions/rhyme-because-2",
                     "slowly":          "common/slowly",
-                    "touch-arrow":     "common/touch-arrow"
+                    "then-touch":     "common/lessons/then-touch"
                 }}
 
                 choices={[
@@ -119,7 +119,7 @@ var Lesson4 = React.createClass({
 
                     then("say", "slowly"),
                     then("wait", 250),
-                    then("say", "touch-arrow"),
+                    then("say", "then-touch"),
                     then("sit")
                 ]}/>
         );

@@ -1,6 +1,6 @@
-var React = require("react"),
-    ShortSoundFeedback = require("screens/activity-feedback/short-sound"),
-    info = require("./info");
+var React = require("react");
+var ShortSoundFeedback = require("screens/activity-feedback/short-sound");
+var info = require("./info");
 
 var Lesson15ActivityFeedback = React.createClass({
     render: function() {

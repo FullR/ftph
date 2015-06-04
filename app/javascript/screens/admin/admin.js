@@ -1,26 +1,26 @@
-var React       = require("react"),
-    WebLink     = require("components/utility/web-link"),
-    render      = require("render"),
-    sections    = require("screens/admin/sections");
+var React = require("react");
+var WebLink = require("components/utility/web-link");
+var render = require("render");
+var sections = require("screens/admin/sections");
 
 var Admin = React.createClass({
     mixins: [require("mixins/storage")],
 
     // Lifecycle methods
-    getInitialState: function() {
+    getInitialState() {
         return {
             section: +(this.load("last-section") || 1),
             selectedLesson: this.load("last-lesson") || "1"
         };
     },
 
-    componentDidUpdate: function() {
+    componentDidUpdate() {
         if(this.state.changed) {
             setTimeout(this.toggleChangedFlagOff, 1000);
         }
     },
 
-    getArrowText: function() {
+    getArrowText() {
         var selectedData = this.loadLesson(this.state.selectedLesson);
         if(selectedData["last-screen"]) {
             return "Return to";
@@ -34,15 +34,15 @@ var Admin = React.createClass({
     },
 
     // Component methods
-    getSectionComponent: function() {
+    getSectionComponent() {
         return sections[this.state.section];
     },
 
-    loadLesson: function(id) {
+    loadLesson(id) {
         return this.load(`lesson-${id}`) || {};
     },
 
-    nextSection: function() {
+    nextSection() {
         if(sections[this.state.section + 1]) {
             this.setState({
                 selectedLesson: this.state.selectedLesson,
@@ -54,7 +54,7 @@ var Admin = React.createClass({
         }
     },
 
-    previousSection: function() {
+    previousSection() {
         if(sections[this.state.section - 1]) {
             this.setState({
                 selectedLesson: this.state.selectedLesson,
@@ -63,7 +63,7 @@ var Admin = React.createClass({
         }
     },
 
-    returnToGame: function() {
+    returnToGame() {
         var selectedLesson  = this.state.selectedLesson,
             lastScreen      = this.loadLesson(selectedLesson)["last-screen"],
             Lesson          = require("screens/lessons").get(selectedLesson),
@@ -79,18 +79,18 @@ var Admin = React.createClass({
         }
         else {
             Activity = activities[lastScreen];
-            render(<Activity/>);
+            render(<Activity playFullInstructions={true}/>);
         }
     },
 
-    toggleChangedFlagOff: function() {
+    toggleChangedFlagOff() {
         if(this.isMounted()) {
             this.state.changed = false;
             this.setState(this.state);
         }
     },
 
-    updateSelectedLesson: function(newLessonId) {
+    updateSelectedLesson(newLessonId) {
         if(this.state.selectedLesson !== newLessonId) {
             this.setState({
                 section: this.state.section,
@@ -101,7 +101,7 @@ var Admin = React.createClass({
     },
 
     // Render methods
-    render: function() {
+    render() {
         var Section = this.getSectionComponent(),
             changedClassName = "";
 

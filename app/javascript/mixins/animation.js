@@ -1,15 +1,14 @@
-var Q            = require("q"),
-    PromiseQueue = require("utility/promise-queue"),
-    slice        = [].slice;
+var Q = require("q");
+var PromiseQueue = require("utility/promise-queue");
+var slice = [].slice;
 
 /*
     A mixin for starting/stopping/replaying animation functions
 
     Animation functions return an array of functions that are 
-    to be executed in sequence using promises
-*/
+    to be executed in sequence using promises */
 var animationMixin = {
-    getInitialState: function() {
+    getInitialState() {
         return {
             animating: false
         };
@@ -18,7 +17,7 @@ var animationMixin = {
     // On mount, if an autoplay animation is set, play it
     // If a `getAutoplayAnimation` method is defined, call it,
     // and play the returned animation
-    componentDidMount: function() {
+    componentDidMount() {
         var runAnimation = () => {
                 var animation;
                 if(this.autoplayAnimation) {
@@ -41,14 +40,14 @@ var animationMixin = {
     },
 
     // On unmount, stop any animations that may be playing
-    componentWillUnmount: function() {
+    componentWillUnmount() {
         this.stopAnimation();
     },
 
     /*
         Runs the passed animation function
     */
-    animate: function(animation) {
+    animate(animation) {
         var animationFn;
 
         // Updates component state and runs the promise queue
@@ -97,7 +96,7 @@ var animationMixin = {
 
     // Retrieves an animation with a given id
     // Throws an error if the animation isn't found
-    getAnimation: function(animationId) {
+    getAnimation(animationId) {
         if(this[animationId]) {
             return this[animationId];
         }
@@ -110,11 +109,11 @@ var animationMixin = {
     },
 
     // Returns true if an animation is currently running
-    isAnimating: function() {
+    isAnimating() {
         return !!this.animationQueue;
     },
 
-    stopAnimation: function() {
+    stopAnimation() {
         if(this.animationQueue) {
             this.animationQueue.stop();
         }
@@ -126,7 +125,7 @@ var animationMixin = {
 
         The input function can also be a string referring to method in the current context
     */
-    then: function(fn, ...args) {
+    then(fn, ...args) {
         var fnString,
             boundFn;
 
@@ -151,8 +150,9 @@ var animationMixin = {
     },
 
     // utility wait function
-    wait: function(ms) {
+    wait(ms) {
         var deferred = Q.defer();
+        //console.log("Delay: " + ms);
         setTimeout(deferred.resolve, ms);
         return deferred.promise;
     },

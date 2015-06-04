@@ -3,7 +3,7 @@ var React = require("react");
 var Owl = React.createClass({
     mixins: [require("mixins/class-names")],
 
-    render: function() {
+    render() {
         var classNames = this.classNames(
             "owl",
             `owl--${this.props.state}`,

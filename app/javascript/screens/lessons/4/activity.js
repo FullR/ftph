@@ -1,8 +1,8 @@
-var React        = require("react"),
-    WordActivity = require("screens/activity/word"),
-    WordImage    = require("components/game-screen/word-image"),
-    render       = require("render"),
-    lessonInfo   = require("./info");
+var React        = require("react");
+var WordActivity = require("screens/activity/word");
+var WordImage    = require("components/game-screen/word-image");
+var render       = require("render");
+var lessonInfo   = require("./info");
 
 var Lesson4Activity = React.createClass({
     mixins: [
@@ -18,10 +18,10 @@ var Lesson4Activity = React.createClass({
     },
 
     render: function() {
-        var choices    = this.props.choices,
-            nextScreen = this.props.nextScreen,
-            activityId = this.props.id,
-            rhymeWord  = this.props.word;
+        var choices    = this.props.choices;
+        var nextScreen = this.props.nextScreen;
+        var activityId = this.props.id;
+        var rhymeWord  = this.props.word;
 
         return (
             <WordActivity {...this.props}
@@ -32,10 +32,6 @@ var Lesson4Activity = React.createClass({
                 activityCount = {lessonInfo.activityCount}
                 sounds        = {this.getSounds()}
                 lessonScreen  = {require("screens/lessons/4")}
-
-                onSubmit={(activity, correct) => {
-                    this.save([lessonInfo.namespace, "activities", activityId, "correct"], correct);
-                }}
 
                 instructions={(then) => [
                     then("uncenterActor"),

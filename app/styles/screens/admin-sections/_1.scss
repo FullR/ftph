@@ -1,7 +1,8 @@
 $button-color: #ecf2d3;
 $button-color-hover: #e4ecc0;
 $section-header-color: #e9efcb;
-$lesson-button-title-size: 24px;
+$lesson-button-title-size: 38px;
+$lesson-button-title-offset: 25px;
 $row-count: 5;
 $row-height: (100%/$row-count) - 1%;
 
@@ -44,7 +45,7 @@ $row-height: (100%/$row-count) - 1%;
     margin-bottom: 1%;
 
     > .lesson-button__title {
-        @include pos(20%, 2%);
+        @include pos($lesson-button-title-offset, 2%);
     }
 }
 
@@ -57,7 +58,7 @@ $row-height: (100%/$row-count) - 1%;
     height: $row-height;
 
     > .lesson-button__title {
-        @include pos(20%, 0);
+        @include pos($lesson-button-title-offset, 0);
         width: 100%;
         text-align: center;
     }

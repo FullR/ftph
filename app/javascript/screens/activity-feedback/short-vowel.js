@@ -1,8 +1,8 @@
-var React = require("react"),
-    WordFeedback = require("screens/activity-feedback/words");
+var React = require("react");
+var WordFeedback = require("screens/activity-feedback/words");
 
 var ShortVowelFeedback = React.createClass({
-    render: function() {
+    render() {
         return (
             <WordFeedback {...this.props}
                 sounds={{

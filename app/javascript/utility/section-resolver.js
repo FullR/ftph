@@ -1,5 +1,3 @@
-
-
 module.exports = function(lessonId) {
     lessonId = +lessonId;
     if(lessonId <= 7)   return "1";

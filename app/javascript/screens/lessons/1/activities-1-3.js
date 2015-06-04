@@ -1,7 +1,7 @@
-var React        = require("react"),
-    WordActivity = require("screens/activity/word"),
-    render       = require("render"),
-    info         = require("./info");
+var React        = require("react");
+var WordActivity = require("screens/activity/word");
+var render       = require("render");
+var info         = require("./info");
 
 var Lesson1Activity1to3 = React.createClass({
     mixins: [
@@ -17,24 +17,18 @@ var Lesson1Activity1to3 = React.createClass({
     },
 
     render: function() {
-        var Feedback   = require("screens/activity-feedback/words"),
-            choices    = this.props.choices,
-            nextScreen = this.props.nextScreen,
-            activityId = this.props.id;
+        var Feedback   = require("screens/activity-feedback/words");
+        var {choices, nextScreen, activityId} = this.props;
 
         return (
             <WordActivity {...this.props}
-                lessonId          = {info.id}
-                section           = {info.section}
-                lessonTitle       = {info.title}
-                activityCount     = {info.activityCount}
-                sounds            = {this.getSounds()}
-                lessonScreen      = {require("screens/lessons/1")}
+                lessonId = {info.id}
+                section = {info.section}
+                lessonTitle = {info.title}
+                activityCount = {info.activityCount}
+                sounds = {this.getSounds()}
+                lessonScreen = {require("screens/lessons/1")}
                 autoplayAnimation = {this.props.autoplayAnimation || "instructions"}
-
-                onSubmit={(activity, correct) => 
-                    this.save([info.namespace, "activities", activityId, "correct"], correct)
-                }
 
                 instructions={(then) => [
                     then("say", "touch-the-word"), then("wait", 250),

@@ -3,9 +3,9 @@
 */
 
 module.exports = function() {
-    var Builder = require("node-webkit-builder"),
-        gutil   = require("gulp-util"),
-        config  = require("../config");
+    var Builder = require("node-webkit-builder");
+    var gutil = require("gulp-util");
+    var config = require("../config");
 
     var builder = new Builder({
         files: ["./dist/**/!(*.mp3)"], // Ignore MP3s since the windows version only uses OGGs

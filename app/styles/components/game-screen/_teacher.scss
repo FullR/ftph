@@ -9,12 +9,22 @@ $speaking-image: 'images/teacher/speaking.gif';
 $speaking-width: 200px;
 $speaking-height: 378px;
 
+$open-image: 'images/teacher/speaking-open.png';
 $closed-image: 'images/teacher/speaking-closed.png';
 $closed-width: 200px;
 $closed-height: 378px;
 
-$content-size: 18px;
+$content-size: 2.5rem;
 $centered-size-ratio: 1.5;
+
+@keyframes speak {
+    25% {
+        background-image: url($closed-image);
+    }
+    75% {
+        background-image: url($open-image);
+    }
+}
 
 // Generates the different teacher states and their centered versions
 @mixin teacher-state($name, $image, $width, $height) {
@@ -38,8 +48,28 @@ $centered-size-ratio: 1.5;
 .teacher {
     @include pos($top, $right, top, right);
     @include teacher-state("sitting", $sitting-image, $sitting-width, $sitting-height);
-    @include teacher-state("speaking", $speaking-image, $speaking-width, $speaking-height);
+    //@include teacher-state("speaking", $speaking-image, $speaking-width, $speaking-height);
     @include teacher-state("speaking-closed", $closed-image, $closed-width, $closed-height);
+}
+
+.teacher--speaking .teacher__image {
+    @include size($speaking-width, $speaking-height);
+    background: url($speaking-image) no-repeat;
+    background-size: 100% 100%;
+    //animation-name: speak;
+    //animation-duration: 0.5s;
+    //animation-iteration-count: infinite;
+}
+
+.teacher--speaking.teacher--centered {
+    @include pos(50%, 50%);
+    margin-top:  -(($speaking-height * $centered-size-ratio) / 2);
+    margin-left: -(($speaking-width  * $centered-size-ratio) / 2);
+
+    .teacher__image {
+        @include size($speaking-width * $centered-size-ratio, $speaking-height * $centered-size-ratio);
+        animation: speak 1s infinite;
+    }
 }
 
 .teacher--hidden {

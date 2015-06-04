@@ -4,7 +4,7 @@ var React = require("react"),
 var Lesson13Activity14 = React.createClass({
     render: function() {
         return (
-            <Activity
+            <Activity {...this.props}
                 id="14"
                 correctPhonic="oh"
                 incorrectPhonic="eh"

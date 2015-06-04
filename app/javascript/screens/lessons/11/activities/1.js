@@ -4,7 +4,7 @@ var React = require("react"),
 var Lesson11Activity1 = React.createClass({
     render: function() {
         return (
-            <Activity
+            <Activity {...this.props}
                 id="1"
                 autoplayAnimation="instructions"
                 choices={[

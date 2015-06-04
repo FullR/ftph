@@ -1,7 +1,7 @@
 var React = require("react");
 
 var Title = React.createClass({
-    render: function() {
+    render() {
         return (
             <div className="lesson__title">
                 <h1>{this.props.title}</h1>

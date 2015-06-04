@@ -1,18 +1,18 @@
-var React      = require("react"),
-    wordIndex  = require("word-index");
+var React = require("react");
+var wordIndex = require("word-index");
 
 wordIndex.__NOT_FOUND.error = true;
 
 var WordImage = React.createClass({
     mixins: [require("mixins/class-names")],
 
-    getInitialState: function() {
+    getInitialState() {
         return {
             fitted: false
         };
     },
 
-    getImageData: function() {
+    getImageData() {
         var data = wordIndex[this.props.word];
 
         if(!data) {
@@ -27,7 +27,7 @@ var WordImage = React.createClass({
     // Also centers horizontally and vertically unless
     // the props disableVCenter and/or disableHCenter
     // are true
-    computeFittedDimensions: function() {
+    computeFittedDimensions() {
         var {width, height, path} = this.getImageData(),
             parent = this.getDOMNode().parentNode,
             pWidth  = parent.offsetWidth,
@@ -60,13 +60,13 @@ var WordImage = React.createClass({
         this.setState(state);
     },
 
-    componentDidMount: function() {
+    componentDidMount() {
         if(!this.props.dontFit && !this.state.fitted) {
             this.computeFittedDimensions();
         }
     },
 
-    render: function() {
+    render() {
         var imageData = this.getImageData();
         return (
             <img 
@@ -90,7 +90,6 @@ var WordImage = React.createClass({
                     }}>"{this.props.word}"</div>
                     : null
                 }
-
             </img>
         );
     }

@@ -1,15 +1,15 @@
-var React = require("react"),
-    ShortVowelActivity = require("screens/activity/short-vowel"),
-    ShortVowelFeedback = require("screens/activity-feedback/short-vowel"),
-    lessonInfo = require("./info"),
-    render = require("render");
+var React = require("react");
+var ShortVowelActivity = require("screens/activity/short-vowel");
+var ShortVowelFeedback = require("screens/activity-feedback/short-vowel");
+var lessonInfo = require("./info");
+var render = require("render");
 
 var Lesson8Activity = React.createClass({
     mixins: [require("mixins/storage")],
 
     render: function() {
-        var activityId = this.props.id,
-            nextScreen = this.props.nextScreen;
+        var activityId = this.props.id;
+        var nextScreen = this.props.nextScreen;
 
         return (
             <ShortVowelActivity {...this.props}
@@ -21,9 +21,6 @@ var Lesson8Activity = React.createClass({
                 activityCount={lessonInfo.activityCount}
                 lessonScreen={require("screens/lessons/9")}
                 autoplayAnimation={this.props.autoplayAnimation || "choices-only"}
-                onSubmit={(activity, correct) => 
-                    this.save([lessonInfo.namespace, "activities", activityId, "correct"], correct)
-                }
                 renderFeedback={(activity) => render(
                     <ShortVowelFeedback
                         phonic="eh"

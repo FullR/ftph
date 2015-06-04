@@ -1,10 +1,10 @@
-var React       = require("react"),
-    Teacher     = require("components/game-screen/teacher"),
-    WordImage   = require("components/game-screen/word-image"),
-    Info        = require("components/game-screen/info"),
-    AdminButton = require("components/admin/admin-button"),
-    GameScreen  = require("screens/game-screen"),
-    render      = require("render");
+var React = require("react");
+var Teacher = require("components/game-screen/teacher");
+var WordImage = require("components/game-screen/word-image");
+var Info = require("components/game-screen/info");
+var AdminButton = require("components/admin/admin-button");
+var GameScreen = require("screens/game-screen");
+var render = require("render");
 
 var ActivityFeedback = React.createClass({
     mixins: [
@@ -18,7 +18,7 @@ var ActivityFeedback = React.createClass({
         lessonId: React.PropTypes.string.isRequired
     },
 
-    getInitialState: function() {
+    getInitialState() {
         return {
             teacher: {
                 state:    "speaking-closed",
@@ -29,17 +29,17 @@ var ActivityFeedback = React.createClass({
         };
     },
 
-    hideContinueButton: function() {
+    hideContinueButton() {
         this.state.hidingContinueButton = true;
         this.setState(this.state);
     },
 
-    showContinueButton: function() {
+    showContinueButton() {
         this.state.hidingContinueButton = false;
         this.setState(this.state);
     },
 
-    getSounds: function() {
+    getSounds() {
         if(this.props.correct) {
             return {
                 "applause": "common/applause"
@@ -50,11 +50,11 @@ var ActivityFeedback = React.createClass({
         }
     },
 
-    getAutoplayAnimation: function() {
+    getAutoplayAnimation() {
         return this.props.correct ? "correctAnimation" : "incorrectAnimation";
     },
 
-    correctAnimation: function(then) {
+    correctAnimation(then) {
         var steps;
         if(this.props.correctAnimation) {
             steps = [
@@ -68,7 +68,7 @@ var ActivityFeedback = React.createClass({
         return steps;
     },
 
-    incorrectAnimation: function(then) {
+    incorrectAnimation(then) {
         var steps;
         if(this.props.incorrectAnimation) {
             steps = this.props.incorrectAnimation.call(this, then);
@@ -80,14 +80,14 @@ var ActivityFeedback = React.createClass({
         return steps;
     },
 
-    renderNextScreen: function() {
+    renderNextScreen() {
         var NextScreen = this.props.nextScreen;
         if(NextScreen) {
             render(<NextScreen />);
         }
     },
 
-    render: function() {
+    render() {
         return (
             <GameScreen className="activity-feedback">
                 <Teacher {...this.state.teacher} onClick={this.animationCallback(this.getAutoplayAnimation())}/>

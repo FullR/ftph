@@ -3,13 +3,13 @@
     to the internal test server.
 */
 
-var Q              = require("q"),
-    exec           = Q.nfbind(require("child_process").exec),
-    rimraf         = Q.nfbind(require("rimraf")),
-    mkdirp         = Q.nfbind(require("mkdirp")),
-    config         = require("../config"),
-    cachePath      = config.projectDir + "/.backup-cache",
-    compressedPath = config.projectDir + "/fun-time-phonics.tar.gz";
+var Q = require("q");
+var exec = Q.nfbind(require("child_process").exec);
+var rimraf = Q.nfbind(require("rimraf"));
+var mkdirp = Q.nfbind(require("mkdirp"));
+var config = require("../config");
+var cachePath = config.projectDir + "/.backup-cache";
+var compressedPath = config.projectDir + "/fun-time-phonics.tar.gz";
 
 function logError(prefix) {
     return function(error) {

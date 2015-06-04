@@ -3,13 +3,13 @@ var React = require("react");
 var ActivityMultiWordFeedback = React.createClass({
     mixins: [require("mixins/extend-sounds")],
 
-    getAdditionalSounds: function() {
+    getAdditionalSounds() {
         return {
             "words": this.props.words.map((word) => `words/activity-words/${word}`)
         };
     },
 
-    render: function() {
+    render() {
         var Feedback = require("screens/activity-feedback"),
             FeedbackWordGroup = require("components/activity-feedback/feedback-word-group");
 

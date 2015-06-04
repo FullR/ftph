@@ -3,11 +3,11 @@ var React = require("react"),
     LessonButton = require("components/admin/lesson-button");
 
 var Section3 = React.createClass({
-    isSelected: function(lessonId) {
+    isSelected(lessonId) {
         return lessonId === this.props.value;
     },
 
-    render: function() {
+    render() {
         var onSelect = this.props.onSelect;
 
         return (
@@ -19,19 +19,19 @@ var Section3 = React.createClass({
                 </div>
     
                 <LessonButton lessonId="15" onSelect={onSelect} selected={this.isSelected("15")}>
-                    <div className="lesson-button__title">Short a</div>
+                    <div className="lesson-button__title">The Letter "a"</div>
                 </LessonButton>
                 <LessonButton lessonId="16" onSelect={onSelect} selected={this.isSelected("16")}>
-                    <div className="lesson-button__title">Short e</div>
+                    <div className="lesson-button__title">The Letter "e"</div>
                 </LessonButton>
                 <LessonButton lessonId="17" onSelect={onSelect} selected={this.isSelected("17")}>
-                    <div className="lesson-button__title">Short i</div>
+                    <div className="lesson-button__title">The Letter "i"</div>
                 </LessonButton>
                 <LessonButton lessonId="18" onSelect={onSelect} selected={this.isSelected("18")}>
-                    <div className="lesson-button__title">Short o</div>
+                    <div className="lesson-button__title">The Letter "o"</div>
                 </LessonButton>
                 <LessonButton lessonId="19" onSelect={onSelect} selected={this.isSelected("19")}>
-                    <div className="lesson-button__title">Short u</div>
+                    <div className="lesson-button__title">The Letter "u"</div>
                 </LessonButton>
                 <LessonButton lessonId="20" onSelect={onSelect} selected={this.isSelected("20")}>
                     <div className="lesson-button__title">Short Vowels Review</div>

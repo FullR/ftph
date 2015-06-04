@@ -7,7 +7,7 @@ $back-button-offset: 40px;
     @include pos(8%, 5%);
     bottom: $back-button-offset;
     color: blue;
-    font-size: 16px;
+    font-size: 2.2rem;
     right: $back-button-width + ($back-button-offset * 2);
 }
 
@@ -18,7 +18,7 @@ $back-button-offset: 40px;
     @include size(100%, 50px);
     border: 1px solid #1285e7;
     background-image: linear-gradient(to bottom, #FFFFFF 0%, #87BFFF 100%);
-    font-size: 22px;
+    font-size: 3rem;
     line-height: 50px;
     text-align: center;
 }
@@ -56,7 +56,7 @@ $back-button-offset: 40px;
 
 .admin__header-title {
     @include pos(0, 0);
-    font-size: 28px;
+    font-size: 3.5rem;
     font-weight: bold;
     text-align: center;
     width: 100%;
@@ -70,7 +70,7 @@ $back-button-offset: 40px;
 
 .lesson-button__index {
     @include pos(4px, 4px);
-    font-size: 16px;
+    font-size: 2rem;
 }
 
 .lesson-button {
@@ -88,7 +88,7 @@ $back-button-offset: 40px;
     background-size: 100% 100%;
     color: #000;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 2.5rem;
     line-height:  160px;
     text-align: center;
 
@@ -96,6 +96,13 @@ $back-button-offset: 40px;
         background-image: url('images/arrow_hover.png');
         color: white;
     }
+
+    /*@include breakpoint(max-width $medium) {
+        @include size($back-button-width*0.75, $back-button-height*0.75);
+        @include pos($back-button-offset*0.75, $back-button-offset*0.75, bottom, right);
+        line-height: 160px * 0.75;
+        font-size: 14px;
+    }*/
 }
 
 @-webkit-keyframes alert {
@@ -123,7 +130,6 @@ $back-button-offset: 40px;
     z-index: 2;
     &::after {
         -webkit-animation: alert 1.0s;
-        //border: 3px solid red;
         border-radius: 50%;
         content: "";
         position: absolute;

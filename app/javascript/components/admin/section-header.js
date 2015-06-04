@@ -1,7 +1,7 @@
 var React = require("react");
 
 var SectionHeader = React.createClass({
-    render: function() {
+    render() {
         return (
             <div className="section-header">
                 <div className="section-header__title">{this.props.title}</div>

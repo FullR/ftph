@@ -1,6 +1,6 @@
-var React      = require("react"),
-    WordLesson = require("screens/lesson/word"),
-    lessonInfo       = require("./info");
+var React = require("react");
+var WordLesson = require("screens/lesson/word");
+var lessonInfo = require("./info");
 
 var Lesson1 = React.createClass({
     mixins: [
@@ -57,7 +57,7 @@ var Lesson1 = React.createClass({
                     "say-the-words":   "lessons/lesson-1/instructions/say-the-words",
                     "slowly":          "common/slowly",
                     "t":               "phonics/lesson-phonics/t",
-                    "touch-arrow":     "common/touch-arrow"
+                    "then-touch":     "common/lessons/then-touch"
                 }}
 
                 instructions={(then) => [
@@ -80,7 +80,7 @@ var Lesson1 = React.createClass({
                     ]),
 
                     then("say", "slowly"),          then("wait", 250),
-                    then("say", "touch-arrow"),
+                    then("say", "then-touch"),
                     then("sit")
                 ]}/>
         );

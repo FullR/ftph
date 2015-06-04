@@ -1,6 +1,6 @@
-var React          = require("react"),
-    LessonFeedback = require("screens/lesson-feedback"),
-    lessonInfo     = require("./info");
+var React          = require("react");
+var LessonFeedback = require("screens/lesson-feedback");
+var lessonInfo     = require("./info");
 
 var Lesson1Feedback = React.createClass({
     mixins: [require("mixins/storage")],

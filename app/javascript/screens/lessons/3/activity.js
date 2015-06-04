@@ -1,8 +1,8 @@
-var React        = require("react"),
-    WordActivity = require("screens/activity/word"),
-    get          = require("utility/functional/get"),
-    render       = require("render"),
-    lessonInfo   = require("./info");
+var React        = require("react");
+var WordActivity = require("screens/activity/word");
+var get          = require("utility/functional/get");
+var render       = require("render");
+var lessonInfo   = require("./info");
 
 var Lesson3Activity = React.createClass({
     mixins: [
@@ -27,12 +27,12 @@ var Lesson3Activity = React.createClass({
     },
 
     render: function() {
-        var choices          = this.props.choices,
-            nextScreen       = this.props.nextScreen,
-            activityId       = this.props.id,
-            ending           = this.props.ending,
-            instroduceEnding = this.props.instroduceEnding,
-            title = +this.props.id >= 13 ? 
+        var choices          = this.props.choices;
+        var nextScreen       = this.props.nextScreen;
+        var activityId       = this.props.id;
+        var ending           = this.props.ending;
+        var instroduceEnding = this.props.instroduceEnding;
+        var title = +this.props.id >= 13 ? 
                     <span>Beginning and <span className="lesson-3-title-ending">Ending</span> Sounds</span> : 
                     <span><span className="lesson-3-title-beginning">Beginning</span> and Ending Sounds</span>;
 
@@ -45,10 +45,6 @@ var Lesson3Activity = React.createClass({
                 activityCount          = {lessonInfo.activityCount}
                 sounds                 = {this.getSounds()}
                 lessonScreen           = {require("screens/lessons/3")}
-
-                onSubmit={(activity, correct) => {
-                    this.save([lessonInfo.namespace, "activities", activityId, "correct"], correct);
-                }}
 
                 instructions={(then) => [
                     instroduceEnding ? 

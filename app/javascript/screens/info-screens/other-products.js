@@ -1,9 +1,9 @@
-var React      = require("react"),
-    InfoScreen = require("components/screens/info-screen"),
-    WebLink    = require("components/utility/web-link");
+var React = require("react");
+var InfoScreen = require("components/screens/info-screen");
+var WebLink = require("components/utility/web-link");
 
 var Product = React.createClass({
-    render: function() {
+    render() {
         return (
             <div className="other-product">
                 <div className="other-product-thumbnail"><img src={"assets/images/other-products/"+this.props.src} /></div>
@@ -22,7 +22,7 @@ var Product = React.createClass({
 });
 
 var OtherProducts = React.createClass({
-    render: function() {
+    render() {
         var header = (<h1>Other Products</h1>);
 
         return (

@@ -1,13 +1,13 @@
-var _          = require("lodash"),
-    React      = require("react"),
-    Activity   = require("screens/activity"),
-    WordChoice = require("components/game-screen/word-choice"),
-    render     = require("render");
+var _ = require("lodash");
+var React = require("react");
+var Activity = require("screens/activity");
+var WordChoice = require("components/game-screen/word-choice");
+var render = require("render");
 
 var WordActivity = React.createClass({
     mixins: [require("mixins/extend-sounds")],
 
-    getAdditionalSounds: function() {
+    getAdditionalSounds() {
         return {
             words: this.props.choices.map((choice) => 
                 `words/activity-words/${choice.word}`
@@ -16,7 +16,7 @@ var WordActivity = React.createClass({
     },
 
     // Render methods
-    renderChoice: function(activity, choice, index) {
+    renderChoice(activity, choice, index) {
         return (
             <WordChoice {...choice}
                 screenType="activity"
@@ -26,15 +26,27 @@ var WordActivity = React.createClass({
         );
     },
 
-    renderFeedback: function(activity) {
+    renderFeedback(activity) {
         render(<div>Activity Feedback not found</div>);
     },
 
-    render: function() {
+    animate(...args) {
+        return this.refs.activity.animate(...args);
+    },
+
+    isAnimating() {
+        return this.refs.activity.isAnimating();
+    },
+
+    selectChoice(...args) {
+        return this.refs.activity.selectChoice(...args);
+    },
+
+    render() {
         return (
-            <Activity {...this.props}
+            <Activity ref="activity" {...this.props}
                 sounds={this.getSounds()}
-                renderChoice={this.renderChoice}
+                renderChoice={this.props.renderChoice || this.renderChoice}
                 renderFeedback={this.props.renderFeedback || this.renderFeedback}>
 
             {this.props.children}

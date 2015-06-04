@@ -1,22 +1,22 @@
 $background: #C5AECE;
 
-$instructions-size: 28px;
+$instructions-size: 36px;
 $instructions-top-margin: 8%;
 $instructions-bottom-margin: 5%;
 
 $timer-conteiner-height: 30%;
-$timer-size: 28px;
+$timer-size: 38px;
 $timer-background: #CDE39F;
 $timer-top-offset: 40%; // distance between timer and top of its container (approximately centered)
 
 $input-container-distance: 5%; // distance between input and instruction
 $input-width: 25%;
-$input-height: 40px;
-$input-font-size: 36px;
+$input-height: 50px;
+$input-font-size: 40px;
 
 $submit-button-width: 230px;
 $submit-button-height: 144px;
-$submit-button-font-size: 20px;
+$submit-button-font-size: 2.5rem;
 $submit-button-image: 'images/arrow_hover.png';
 $submit-button-hover-image: 'images/arrow.png';
 

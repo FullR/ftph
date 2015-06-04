@@ -1,28 +1,28 @@
-var React          = require("react"),
-    store          = require("storage"),
-    Timer          = require("components/utility/timer"),
-    resolveSection = require("utility/section-resolver"),
-    Admin          = require("screens/admin/admin"),
-    render         = require("render");
+var React = require("react");
+var store = require("storage");
+var Timer = require("components/utility/timer");
+var resolveSection = require("utility/section-resolver");
+var Admin = require("screens/admin/admin");
+var render = require("render");
 
 var AdminCheck = React.createClass({
     // Lifecycle methods
-    getInitialState: function() {
+    getInitialState() {
         return {
             password: ""
         };
     },
 
-    componentDidMount: function() {
+    componentDidMount() {
         this.refs.passwordInput.getDOMNode().focus();
     },
 
     // Component methods
-    back: function() {
+    back() {
         render.previous();
     },
 
-    submit: function(event) {
+    submit(event) {
         var lastLesson = (store.get("lastScreen") || {}).lesson || "1";
         event.preventDefault();
 
@@ -36,14 +36,14 @@ var AdminCheck = React.createClass({
         }
     },
     
-    updatePassword: function(event) {
+    updatePassword(event) {
         this.setState({
             password: event.target.value
         });
     },
 
     // Render methods
-    render: function() {
+    render() {
         return (
             <div className="admin-check">
                 <p className="admin-check__instructions">

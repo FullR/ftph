@@ -4,14 +4,14 @@ var React = require("react"),
 var Lesson11Activity8 = React.createClass({
     render: function() {
         return (
-            <Activity
+            <Activity {...this.props}
                 id="8"
                 choices={[
                     {word: "pit"},
                     {word: "pet"},
                     {word: "pot", correct: true}
                 ]}
-                nextScreen={require("./10")}/>
+                nextScreen={require("./9")}/>
         );
     }
 });

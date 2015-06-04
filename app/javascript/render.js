@@ -1,8 +1,7 @@
-var React  = require("react"),
-    outlet = document.getElementById("outlet");
-
-var current,
-    renderHistory = [];
+var React = require("react");
+var outlet = document.getElementById("outlet");
+var renderHistory = [];
+var current;
 
 function render(component) {
     if(current) {

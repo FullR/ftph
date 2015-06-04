@@ -1,14 +1,14 @@
 var React = require("react");
 
 var AdminButton = React.createClass({
-    renderCheckScreen: function() {
+    renderCheckScreen() {
         var AdminCheck = require("screens/admin/admin-check"),
             render     = require("render");
 
         render(<AdminCheck/>);
     },
 
-    render: function() {
+    render() {
         return (
             <div className="admin-button" onClick={this.renderCheckScreen}>
                 <img className="admin-button__icon" src="assets/images/lock-icon.png"/>

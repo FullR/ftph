@@ -1,3 +1,13 @@
+$center-word-width: 225px;
+$center-word-height: 225px;
+$center-word-top: 10%;
+
 .activity--animating .choice__play-button {
     display: none;
+}
+
+.activity .center-word {
+    @include size($center-word-width, $center-word-height);
+    @include pos($center-word-top, 50%);
+    margin-left: -($center-word-width / 2); // Center using negative margins
 }

@@ -1,13 +1,13 @@
-var React = require("react"),
-    SectionHeader = require("components/admin/section-header"),
-    LessonButton = require("components/admin/lesson-button");
+var React = require("react");
+var SectionHeader = require("components/admin/section-header");
+var LessonButton = require("components/admin/lesson-button");
 
 var Section1 = React.createClass({
-    isSelected: function(lessonId) {
+    isSelected(lessonId) {
         return lessonId === this.props.value;
     },
 
-    render: function() {
+    render() {
         var onSelect = this.props.onSelect;
 
         return (

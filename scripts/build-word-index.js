@@ -3,15 +3,15 @@
     which contains image/audio paths and image dimensions
 */
 
-var Q         = require("q"),
-    glob      = Q.nfbind(require("glob")),
-    fs        = require("fs"),
-    imageSize = Q.nfbind(require("image-size")),
-    writeFile = Q.nfbind(fs.writeFile),
-    config    = require("../config");
+var Q = require("q");
+var glob = Q.nfbind(require("glob"));
+var fs = require("fs");
+var imageSize = Q.nfbind(require("image-size"));
+var writeFile = Q.nfbind(fs.writeFile);
+var config = require("../config");
 
-var audioBase = config.projectDir + "/statics/assets/audio/",
-    audioExtention = ".ogg";
+var audioBase = config.projectDir + "/statics/assets/audio/";
+var audioExtention = ".ogg";
 
 function logError(prefix) {
     return function(error) {
@@ -45,17 +45,17 @@ function getFiles() {
 }
 
 function buildWordDesc(filepath) {
-    var filename = getFilename(filepath),
-        word = getBasename(filename),
-        lessonAudioPath = "words/lesson-words/" + word,
-        activityAudioPath = "words/activity-words/" + word,
-        wordDesc = {
-            word: word,
-            image: {
-                path: "assets/images/words/" + word + ".png"
-            },
-            audio: {}
-        };
+    var filename = getFilename(filepath);
+    var word = getBasename(filename);
+    var lessonAudioPath = "words/lesson-words/" + word;
+    var activityAudioPath = "words/activity-words/" + word;
+    var wordDesc = {
+        word: word,
+        image: {
+            path: "assets/images/words/" + word + ".png"
+        },
+        audio: {}
+    };
 
     return Q.all([ // check if the sound files exist
         exists(audioBase + lessonAudioPath   + audioExtention),

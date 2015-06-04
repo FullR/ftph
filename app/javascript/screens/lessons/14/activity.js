@@ -1,16 +1,17 @@
-var React = require("react"),
-    WordActivity = require("screens/activity/word"),
-    Feedback = require("./activity-feedback"),
-    lessonInfo = require("./info"),
-    render = require("render");
+var React = require("react");
+var WordActivity = require("screens/activity/word");
+var Feedback = require("./activity-feedback");
+var lessonInfo = require("./info");
+var render = require("render");
+var WordImage = require("components/game-screen/word-image");
 
 var Lesson14Activity = React.createClass({
     mixins: [require("mixins/storage")],
 
     render: function() {
-        var activityId = this.props.id,
-            nextScreen = this.props.nextScreen,
-            choices = this.props.choices;
+        var activityId = this.props.id;
+        var nextScreen = this.props.nextScreen;
+        var choices = this.props.choices;
 
         return (
             <WordActivity {...this.props}
@@ -21,9 +22,6 @@ var Lesson14Activity = React.createClass({
                 activityCount={lessonInfo.activityCount}
                 lessonScreen={require("screens/lessons/14")}
                 autoplayAnimation={this.props.autoplayAnimation || "instructions"}
-                onSubmit={(activity, correct) =>
-                    this.save([lessonInfo.namespace, "activities", activityId, "correct"], correct)
-                }
                 sounds={{
                     "removed-phonic": `phonics/activity-phonics/${this.props.removedPhonic}`,
                     "added-phonic": `phonics/activity-phonics/${this.props.addedPhonic}`,
@@ -35,6 +33,7 @@ var Lesson14Activity = React.createClass({
                     "what-is": "lessons/lesson-14/activity/what-is"
                 }}
                 instructions={(then) => [
+                    then("uncenterActor"),
                     then("say", "take-out"),
                     then("say", "removed-phonic"),
                     then("say", "sound-from"),
@@ -43,7 +42,7 @@ var Lesson14Activity = React.createClass({
                     then("say", "added-phonic"),
                     then("say", "sound"),
                     then("say", "what-is"),
-                    then("uncenterActor"),
+                    then("wait", 250),
                     ...choices.map((choice, index) => [
                         then("revealChoice", index),
                         then("say", ["words", index]),
@@ -61,7 +60,11 @@ var Lesson14Activity = React.createClass({
                         targetWord={this.props.targetWord}
                         words={activity.getSelected().map((choice) => choice.word)}
                         correctWord={this.props.choices.filter((choice) => choice.correct)[0].word}/>
-                )}/>
+                )}>
+                    <div className="center-word">
+                        <WordImage word={this.props.targetWord} disableHCenter={true}/>
+                    </div>
+                </WordActivity>
         );
     }
 });

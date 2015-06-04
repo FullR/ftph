@@ -1,7 +1,7 @@
 var store = require("storage");
 
 module.exports = {
-    getInitialState: function() {
+    getInitialState() {
         var lastLesson = (store.get("lastScreen") || {}).lesson;
 
         if(lastLesson) {
@@ -14,7 +14,7 @@ module.exports = {
         };
     },
 
-    selectLesson: function(lessonId) {
+    selectLesson(lessonId) {
         this.setState({
             selectedLesson: lessonId
         });

@@ -1,6 +1,6 @@
 // converts a bunch of .tifs into .pngs
-var glob = require("glob"),
-    exec = require("child_process").exec;
+var glob = require("glob");
+var exec = require("child_process").exec;
 
 glob("*.tif", {cwd: "./raw-assets/new-images"}, function(err, files) {
     files.forEach(function(file) {

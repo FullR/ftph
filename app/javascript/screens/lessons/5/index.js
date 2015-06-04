@@ -1,7 +1,7 @@
-var React      = require("react"),
-    WordLesson = require("screens/lesson/word"),
-    Feedback   = require("screens/lessons/1/lesson-feedback"),
-    lessonInfo = require("./info");
+var React      = require("react");
+var WordLesson = require("screens/lesson/word");
+var Feedback   = require("screens/lessons/1/lesson-feedback");
+var lessonInfo = require("./info");
 
 var Lesson5 = React.createClass({
     mixins: [
@@ -37,20 +37,20 @@ var Lesson5 = React.createClass({
     },
 
     render: function() {
-        var activities     = require("./activities"),
-            storage        = this.load(lessonInfo),
-            nextActivityId = storage["last-activity"] || "1",
-            nextActivity   = activities[nextActivityId],
-            choiceGroup1   = [                    
-                {word: "red",   hidden: true},
-                {word: "head",  hidden: true},
-                {word: "bed",   hidden: true}
-            ],
-            choiceGroup2   = [
-                {word: "wait",  hidden: true, detached: true},
-                {word: "gate",  hidden: true, detached: true},
-                {word: "eight", hidden: true, detached: true}
-            ];
+        var activities     = require("./activities");
+        var storage        = this.load(lessonInfo);
+        var nextActivityId = storage["last-activity"] || "1";
+        var nextActivity   = activities[nextActivityId];
+        var choiceGroup1   = [                    
+            {word: "red",   hidden: true},
+            {word: "head",  hidden: true},
+            {word: "bed",   hidden: true}
+        ];
+        var choiceGroup2   = [
+            {word: "wait",  hidden: true, detached: true},
+            {word: "gate",  hidden: true, detached: true},
+            {word: "eight", hidden: true, detached: true}
+        ];
 
         return (
             <WordLesson
@@ -65,7 +65,7 @@ var Lesson5 = React.createClass({
                     "rhyme-because":   "lessons/lesson-4/instructions/rhyme-because",
                     "rhyme-because-2": "lessons/lesson-4/instructions/rhyme-because-2",
                     "slowly":          "common/slowly",
-                    "touch-arrow":     "common/touch-arrow"
+                    "touch-arrow":     "common/lessons/then-touch"
                 }}
 
                 choices={[

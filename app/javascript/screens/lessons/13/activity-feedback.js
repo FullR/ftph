@@ -1,6 +1,6 @@
-var React = require("react"),
-    WordFeedback = require("screens/activity-feedback/words"),
-    lessonInfo = require("./info");
+var React = require("react");
+var WordFeedback = require("screens/activity-feedback/words");
+var lessonInfo = require("./info");
 
 var Lesson13ActivityFeedback = React.createClass({
     render: function() {
@@ -29,24 +29,37 @@ var Lesson13ActivityFeedback = React.createClass({
 
             correctAnimation={(then) => [
                 then("say", "correctWord"),
+                then("wait", 125),
                 then("say", "makes-the"),
+                then("wait", 125),
                 then("say", "correctPhonic"),
+                then("wait", 125),
                 then("say", "sound"),
-                then("say", "and"),
+                then("wait", 250),
                 then("say", ["incorrectWords", 0]),
+                then("wait", 125),
                 then("say", "and"),
+                then("wait", 125),
                 then("say", ["incorrectWords", 1]),
+                then("wait", 200),
                 then("say", "make-the"),
+                then("wait", 125),
                 then("say", "incorrectPhonic"),
+                then("wait", 80),
                 then("say", "sound")
             ]}
 
             incorrectAnimation={(then) => [
                 then("say", ["incorrectWords", 0]),
+                then("wait", 125),
                 then("say", "and"),
+                then("wait", 125),
                 then("say", ["incorrectWords", 1]),
+                then("wait", 125),
                 then("say", "make-the-same"),
+                then("wait", 125),
                 then("say", "incorrectPhonic"),
+                then("wait", 125),
                 then("say", "sound")
             ]}/>
     }

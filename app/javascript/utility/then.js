@@ -1,9 +1,4 @@
-
-
-var slice = [].slice;
-
-module.exports = function(key /*, ...args*/) {
-    var args = slice.call(arguments, 1);
+module.exports = function then(key, ...args) {
     return function() {
         if(typeof(key) === "function") {
             return key.apply(null, args);

@@ -1,5 +1,5 @@
-var React      = require("react"),
-    lessonInfo = require("./info");
+var React      = require("react");
+var lessonInfo = require("./info");
 
 module.exports = React.createClass({
     mixins: [

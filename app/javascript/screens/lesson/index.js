@@ -1,11 +1,10 @@
-var _           = require("lodash"),
-    React       = require("react"),
-    Title       = require("components/lesson/title"),
-    Arrow       = require("components/lesson/arrow"),
-    AdminButton = require("components/admin/admin-button"),
-    Owl         = require("components/game-screen/owl"),
-    GameScreen  = require("screens/game-screen");
-
+var _ = require("lodash");
+var React = require("react");
+var Title = require("components/lesson/title");
+var Arrow = require("components/lesson/arrow");
+var AdminButton = require("components/admin/admin-button");
+var Owl = require("components/game-screen/owl");
+var GameScreen = require("screens/game-screen");
 
 var Lesson = React.createClass({
     mixins: [
@@ -22,7 +21,7 @@ var Lesson = React.createClass({
     autoplayAnimation: "instructions",
 
     // Lifecycle methods
-    getInitialState: function() {
+    getInitialState() {
         return {
             owl: {
                 state: "sitting",
@@ -35,14 +34,14 @@ var Lesson = React.createClass({
         };
     },
 
-    componentWillMount: function() {
+    componentWillMount() {
         this.save("last-lesson", this.props.id);
         this.save(["lesson-"+this.props.id, "last-screen"], null);
         this.save(["lesson-"+this.props.id, "completed"], false);
     },
 
     // Component methods
-    instructions: function(then) {
+    instructions(then) {
         var steps;
         if(this.props.instructions) {
             return [
@@ -58,7 +57,7 @@ var Lesson = React.createClass({
     },
 
     // Render methods
-    render: function() {
+    render() {
         return (
             <GameScreen className={this.classNames("lesson")} section={this.props.section}>
                 <Title title={this.props.title} subtitle={this.props.subtitle} />

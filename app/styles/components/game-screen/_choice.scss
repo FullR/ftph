@@ -17,11 +17,14 @@ $play-button-hover-image: 'images/replay-button_active.png';
 .choice {
     @include size($width, $height);
     border: $border-width solid black;
+    line-height: $height;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.choice-group .choice {
     position: relative;
     display: inline-block;
-    line-height: $height;
-    vertical-align: middle;
-    text-align: center;
 }
 
 .choice__content {

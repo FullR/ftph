@@ -3,7 +3,7 @@ var React = require("react");
 var LessonButton = React.createClass({
     mixins: [require("mixins/class-names")],
 
-    onClick: function(event) {
+    onClick(event) {
         event.preventDefault();
         event.stopPropagation();
 
@@ -12,7 +12,7 @@ var LessonButton = React.createClass({
         }
     },
 
-    render: function() {
+    render() {
         var classNames = this.classNames(
             "lesson-button",
             "lesson-button-"+this.props.lessonId,

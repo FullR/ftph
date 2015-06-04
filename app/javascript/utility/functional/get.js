@@ -1,10 +1,7 @@
-
-
 /*
     Curried dot operator
 
     Example:
-
     get("foo")({foo: "bar"}) === "bar"
 */
 function get(key) {

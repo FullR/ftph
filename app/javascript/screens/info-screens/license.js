@@ -1,11 +1,11 @@
-var React      = require("react"),
-    InfoScreen = require("components/screens/info-screen"),
-    WebLink    = require("components/utility/web-link"),
-    project    = require("../../project"),
-    dictionary = require("dictionary/dictionary");
+var React = require("react");
+var InfoScreen = require("components/screens/info-screen");
+var WebLink = require("components/utility/web-link");
+var project = require("../../project");
+var dictionary = require("dictionary/dictionary");
 
 var License = React.createClass({
-    render: function() {
+    render() {
         var title = (<span className="product-title">{project.title}</span>);
 
         return (

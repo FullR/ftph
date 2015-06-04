@@ -4,13 +4,13 @@ var React = require("react"),
 var Lesson16ActivityActivity1 = React.createClass({
     render: function() {
         return (
-            <Activity
+            <Activity {...this.props}
                 id="1"
                 autoplayAnimation="instructions"
                 choices={[
                     {word: "red", correct: true},
-                    {word: "pink"},
-                    {word: "bath"}
+                    {word: "ring"},
+                    {word: "rat"}
                 ]}
                 nextScreen={require("./2")}/>
         );

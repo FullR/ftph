@@ -1,47 +1,47 @@
-var React        = require("react"),
-    _            = require("lodash"),
-    words        = _.values(require("word-index")),
-    SoundManager = require("sound/sound-manager");
+var React = require("react");
+var _ = require("lodash");
+var words = _.values(require("word-index"));
+var SoundManager = require("sound/sound-manager");
 
 var WordListItem = React.createClass({
-    getInitialState: function() {
+    getInitialState() {
         return {
             showingImage: false
         };
     },
 
-    playLessonSound: function() {
+    playLessonSound() {
         var sound = SoundManager.get(this.props.audio.lesson);
         return sound.load().then(() => sound.play());
     },
 
-    playActivitySound: function() {
+    playActivitySound() {
         var sound = SoundManager.get(this.props.audio.activity);
         return sound.load().then(() => sound.play());
     },
 
-    showImage: function() {
+    showImage() {
         this.setState({showingImage: true});
     },
 
-    hideImage: function() {
+    hideImage() {
         this.setState({showingImage: false});
     },
 
-    render: function() {
+    render() {
         var style = {
             backgroundColor: this.props.highlighted ? "#DDF" : "#FFF"
         };
 
         return (
             <tr {...this.props} style={style}>
-                <td>
+                <td style={{width: "30%"}}>
                     <button onClick={this.playLessonSound} disabled={!this.props.audio.lesson} style={{display: "inline-block"}}>Lesson Audio</button>
                 </td>
-                <td>
+                <td style={{width: "30%"}}>
                     <button onClick={this.playActivitySound}  disabled={!this.props.audio.activity} style={{display: "inline-block"}}>Activity Audio</button>
                 </td>
-                <td>
+                <td style={{width: "20%"}}>
                     {this.state.showingImage ? 
                         <div style={{border: "1px solid black", background: "#FFF"}}>
                             <img style={{width: 100}} src={this.props.image.path}/>
@@ -58,27 +58,27 @@ var WordListItem = React.createClass({
 });
 
 var WordList = React.createClass({
-    getInitialState: function() {
+    getInitialState() {
         return {
             filter: "",
             page: 0
         };
     },
 
-    updateFilter: function(event) {
+    updateFilter(event) {
         this.setState({
             filter: event.target.value,
             page: 0
         });
     },
 
-    back: function() {
+    back() {
         var Splash = require("screens/splash"),
             render = require("render");
         render(<Splash/>);
     },
 
-    getPages: function(pageLength) {
+    getPages(pageLength) {
         var words = this.getWordList();
 
         return _.range(0, Math.ceil(words.length / pageLength)).map((pageIndex) => {
@@ -93,7 +93,7 @@ var WordList = React.createClass({
         });
     },
 
-    getWordList: function() {
+    getWordList() {
         try {
             return this.state.filter.length ? words.filter((word) => 
                 word.word.match(this.state.filter)
@@ -104,28 +104,28 @@ var WordList = React.createClass({
         }
     },
 
-    nextPage: function() {
+    nextPage() {
         this.setState({
             filter: this.state.filter,
             page: this.state.page + 1
         });
     },
 
-    previousPage: function() {
+    previousPage() {
         this.setState({
             filter: this.state.filter,
             page: this.state.page - 1
         });
     },
 
-    setPage: function(pageNumber) {
+    setPage(pageNumber) {
         this.setState({
             filter: this.state.filter,
             page: pageNumber
         });
     },
 
-    render: function() {
+    render() {
         var style = {
             overflow: "auto",
             height: "100%",
@@ -147,7 +147,7 @@ var WordList = React.createClass({
                 <button onClick={this.back}>Back to Splash Screen</button>
                 <div style={contentStyle}>
                     <input placeholder="search" onChange={this.updateFilter} style={{width: "100%"}}/>
-                    <table style={{width: "100%"}}>
+                    <table style={{width: "100%", borderBottom: "1px solid #AAA"}}>
                         <thead></thead>
                         <tbody>
                             {wordList.map((word, i) =>

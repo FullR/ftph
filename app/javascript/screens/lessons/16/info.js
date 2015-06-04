@@ -1,6 +1,6 @@
 module.exports = {
     id:            "16",
-    title:         "The Letter 'e'",
+    title:         "The Letter \"e\"",
     subtitle:      "Lesson 16",
     activityCount: "19",
     section:       "3",

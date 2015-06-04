@@ -1,7 +1,7 @@
-var _          = require("lodash"),
-    React      = require("react"),
-    SubLesson  = require("screens/lesson/sub"),
-    lessonInfo = require("./info");
+var _          = require("lodash");
+var React      = require("react");
+var SubLesson  = require("screens/lesson/sub");
+var lessonInfo = require("./info");
 
 /*
     Props:
@@ -18,12 +18,12 @@ var Lesson2Sublesson = React.createClass({
     },
 
     render: function() {
-        var namespace      = "lesson-2-"+this.props.phonic, // sublesson namespace
-            word1          = this.props.choices[0].word,
-            word2          = this.props.choices[1].word,
-            activities     = this.props.activities,
-            lastActivityId = this.load([namespace, "last-screen"]) || (_.keys(activities)[0]),
-            nextScreen     = activities[lastActivityId];
+        var namespace      = "lesson-2-"+this.props.phonic; // sublesson namespace
+        var word1          = this.props.choices[0].word;
+        var word2          = this.props.choices[1].word;
+        var activities     = this.props.activities;
+        var lastActivityId = this.load([namespace, "last-screen"]) || (_.keys(activities)[0]);
+        var nextScreen     = activities[lastActivityId];
 
         return (
             <SubLesson {...this.props}

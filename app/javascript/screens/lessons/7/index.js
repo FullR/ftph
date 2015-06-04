@@ -1,5 +1,5 @@
-var React      = require("react"),
-    lessonInfo = require("./info");
+var React      = require("react");
+var lessonInfo = require("./info");
 
 module.exports = React.createClass({
     mixins: [
@@ -32,9 +32,9 @@ module.exports = React.createClass({
 
     render: function() {
         // Redirect to either the last played activity or activity 1
-        var storage    = this.load(lessonInfo.namespace),
-            activityId = storage["last-activity"] || "1",
-            Activity   = require("./activities")[activityId];
+        var storage    = this.load(lessonInfo.namespace);
+        var activityId = storage["last-activity"] || "1";
+        var Activity   = require("./activities")[activityId];
 
         return (<Activity />);
     }

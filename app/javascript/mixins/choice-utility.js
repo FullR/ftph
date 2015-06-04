@@ -7,24 +7,24 @@ var get = require("utility/functional/get");
 function choiceUtilityMixin(requiredChoiceCount) {
     return {
         // Returns true if the user has selected enough choices to progress
-        isShowingFeedback: function() {
+        isShowingFeedback() {
             return this.getSelectedChoices().length >= requiredChoiceCount;
         },
 
         // Toggles the selection of a choice
-        selectChoice: function(choice) {
+        selectChoice(choice) {
             choice.selected = !choice.selected;
 
             this.setState(this.state);
         },
 
         // Returns an array of selected choices
-        getSelectedChoices: function() {
+        getSelectedChoices() {
             return this.state.choices.filter(get("selected"));
         },
 
         // Returns the indexes of all selected choices
-        getSelectedIndexes: function() {
+        getSelectedIndexes() {
             return this.state.choices
                 .map(function(choice, index) {
                     return {

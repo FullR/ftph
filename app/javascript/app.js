@@ -1,9 +1,9 @@
-var React   = require("react"),
-    ready   = require("polyfills/cordova/device-ready"),
-    project = require("../project"),
-    render  = require("render"),
-    Splash  = require("screens/splash"),
-    muted   = false;
+var React = require("react");
+var ready = require("polyfills/cordova/device-ready");
+var project = require("../project");
+var render = require("render");
+var Splash = require("screens/splash");
+var muted = false;
 
 // Preload commonly used images
 function preloadImages() {
@@ -22,7 +22,7 @@ ready.then(function() {
 
         if(window.__platform.name === "web") {
             /*  hover seems to be broken on android,
-                so I"m using a sass mixin for hover
+                so I'm using a sass mixin for hover
                 effects that only applies hover styles
                 when the hover-enabled class is present on
                 a parent element
@@ -46,10 +46,11 @@ ready.then(function() {
                 window.Media.mute();
             }
             // Toggle mute when "m" key is pressed
-            document.addEventListener("keydown", function(e) {
-                if(e.which === 77) {
+            document.addEventListener("keydown", (event) => {
+                if(event.which === 77) {
                     window.Media[muted ? "unmute" : "mute"]();
                     muted = !muted;
+                    console.log(muted ? "muted" : "unmuted");
                 }
             });
         }
