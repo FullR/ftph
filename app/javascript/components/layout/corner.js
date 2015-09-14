@@ -1,8 +1,4 @@
-const React = require("react");
-const _ = require("lodash");
-const style = {
-    position: "absolute"
-};
+import React from "react";
 
 /* 
     A corner positioned element
@@ -13,32 +9,39 @@ const style = {
         hDistance: distance from the left or right
         distance: shorthand for both vDistance and hDistance
 */
-const Corner = React.createClass({
-    render() {
-        const corner = this.props.corner;
-        const distance = this.props.distance || 0;
-        const vDistance = this.props.vDistance || distance;
-        const hDistance = this.props.hDistance || distance;
-        
-        if(corner === "top left") {
-            style.top = vDistance;
-            style.left = hDistance;
-        } else if(corner === "top right") {
-            style.top = vDistance;
-            style.right = hDistance;
-        } else if(corner === "bottom right") {
-            style.bottom = vDistance;
-            style.right = hDistance;
-        } else if(corner === "bottom left") {
-            style.bottom = vDistance;
-            style.left = hDistance;
-        }
-        _.extend(style, this.props.style);
+class Corner extends React.Component {
+  render() {
+    const {corner, distance} = this.props;
+    let {vDistance, hDistance} = this.props;
+    const style = {
+      position: "absolute"
+    };
+    vDistance = vDistance || distance;
+    hDistance = hDistance || distance;
 
-        return (
-            <div {...this.props} style={style}>{this.props.children}</div>
-        );
+    if(corner === "top left") {
+      style.top = vDistance;
+      style.left = hDistance;
+    } else if(corner === "top right") {
+      style.top = vDistance;
+      style.right = hDistance;
+    } else if(corner === "bottom right") {
+      style.bottom = vDistance;
+      style.right = hDistance;
+    } else if(corner === "bottom left") {
+      style.bottom = vDistance;
+      style.left = hDistance;
     }
-});
 
-module.exports = Corner;
+    return (
+      <div {...this.props} style={style}>{this.props.children}</div>
+    );
+  }
+}
+
+Corner.defaultProps = {
+  corner: "top left",
+  distance: 0
+}
+
+export default Corner;

@@ -1,5 +1,10 @@
-const React = require("react");
-const _ = require("lodash");
+import React from "react";
+
+const style = {
+  width: "100%",
+  textAlign: "center",
+  verticalAlign: "middle"
+};
 
 /*
     Horizontally fills container and horizontally
@@ -7,20 +12,14 @@ const _ = require("lodash");
 
     Note: children must be styled with "position: inline-block"
 */
-const HCenter = React.createClass({
-    render() {
-        const style = _.extend({
-            width: "100%",
-            textAlign: "center",
-            verticalAlign: "middle"
-        }, this.props.style);
+class HCenter extends React.Component {
+  render() {
+    return (
+      <div {...this.props} style={style}>
+        {this.props.children}
+      </div>
+    );
+  }
+}
 
-        return (
-            <div {...this.props} style={style}>
-                {this.props.children}
-            </div>
-        );
-    }
-});
-
-module.exports = HCenter;
+export default HCenter;

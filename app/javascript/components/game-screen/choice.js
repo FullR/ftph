@@ -80,7 +80,7 @@ var Choice = React.createClass({
         // Do nothing if there is no sound or if sound is currently playing
         // Otherwise, play the sound
         var onReplayClick = (!sound || this.state.playingSound) ? null : sound.play.bind(sound);
-
+        if(this.props.detached) return (<div style={{display: "none", position: "absolute"}}/>);
         return (
             <div {...this.dropTargetFor("letter")} key={this.props.key} className={classNames}>
                 <div className="choice__content" onClick={this.props.onClick}>

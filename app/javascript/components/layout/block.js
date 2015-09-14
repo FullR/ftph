@@ -1,5 +1,10 @@
-const React = require("react");
-const _ = require("lodash");
+import React from "react";
+
+const style = {
+  position: "relative",
+  display: "inline-block",
+  verticalAlign: "middle"
+};
 
 /*
     Simple default container element
@@ -7,20 +12,14 @@ const _ = require("lodash");
     I find myself using position relative and display inline-block
     far more than position default and display block
 */
-const Block = React.createClass({
-    render() {
-        const style = _.extend({
-            position: "relative",
-            display: "inline-block",
-            verticalAlign: "middle"
-        }, this.props.style);
-        
-        return (
-            <div {...this.props} style={style}>
-                {this.props.children}
-            </div>
-        );
-    }
-});
+class Block extends React.Component {
+  render() {
+    return (
+      <div {...this.props} style={style}>
+        {this.props.children}
+      </div>
+    );
+  }
+}
 
-module.exports = Block;
+export default Block;

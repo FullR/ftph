@@ -1,31 +1,30 @@
-const React = require("react");
-const _ = require("lodash");
+import React from "react";
+
+const style = {
+  height: "100%"
+};
+
+const wrapperStyle = {
+  position: "relative",
+  top: "50%",
+  transform: "translateY(-50%)",
+  "-webkitTransform": "translateY(-50%)"
+};
 
 /*
     Vertically fills its container and vertically
     centers its children
 */
-const VCenter = React.createClass({
-    render() {
-        const style = _.extend({
-            height: "100%"
-        }, this.props.style);
+class VCenter extends React.Component {
+  render() {
+    return (
+      <div {...this.props} style={style}>
+        <div style={wrapperStyle}>
+          {this.props.children}
+        </div>
+      </div>
+    );
+  }
+}
 
-        const wrapperStyle = {
-            position: "relative",
-            top: "50%",
-            transform: "translateY(-50%)",
-            "-webkitTransform": "translateY(-50%)"
-        };
-
-        return (
-            <div {...this.props} style={style}>
-                <div style={wrapperStyle}>
-                    {this.props.children}
-                </div>
-            </div>
-        );
-    }
-});
-
-module.exports = VCenter;
+export default VCenter;

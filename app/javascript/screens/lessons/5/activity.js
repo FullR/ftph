@@ -32,22 +32,20 @@ var Lesson5Activity = React.createClass({
                 sounds                 = {this.getSounds()}
                 lessonScreen           = {require("screens/lessons/5")}
 
-                instructions={function(then) {
-                    return [
-                        then("say", "touch-the"),
-                        then("wait", 250),
-                        then("uncenterActor"),
+                instructions={(then) => [
+                    then("say", "touch-the"),
+                    then("wait", 250),
+                    then("uncenterActor"),
 
-                        // Reveal and say words
-                        ...choices.map((choice, index) => [
-                            then("revealChoice", index),
-                            then("say", ["words", index]),
-                            then("wait", 250)
-                        ]),
+                    // Reveal and say words
+                    ...choices.map((choice, index) => [
+                        then("revealChoice", index),
+                        then("say", ["words", index]),
+                        then("wait", 250)
+                    ]),
 
-                        then("sit")
-                    ];
-                }}
+                    then("sit")
+                ]}
 
                 renderFeedback={(activity) => {
                     var Feedback = require("screens/activity-feedback/words"),

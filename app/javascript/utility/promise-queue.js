@@ -1,6 +1,6 @@
 var _ = require("lodash");
 var Q = require("q");
-var slice = [].slice;
+var slice = Array.prototype.slice;
 
 /*
     Takes an array of functions and evaluates them in series

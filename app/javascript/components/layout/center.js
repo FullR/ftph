@@ -1,17 +1,17 @@
-const React = require("react");
-const HCenter = require("./h-center");
-const VCenter = require("./v-center");
+import React from "react";
+import HCenter from "./h-center";
+import VCenter from "./v-center";
 
-const Center = React.createClass({
-    render() {
-        return (
-            <VCenter {...this.props}>
-                <HCenter>
-                    {this.props.children}
-                </HCenter>
-            </VCenter>
-        );
-    }
-});
+class Center extends React.Component {
+  render() {
+    return (
+      <VCenter {...this.props}>
+        <HCenter>
+          {this.props.children}
+        </HCenter>
+      </VCenter>
+    );
+  }
+}
 
-module.exports = Center;
+export default Center;
